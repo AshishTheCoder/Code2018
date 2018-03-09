@@ -1,0 +1,50 @@
+<template name="viewschedule">
+
+<div class="container">
+  <h1><center>Schedule Submitition</center></h1>
+<form class="form-horizontal">
+<p>A Dummy Schedule</p>
+{{#each userschedules}}
+<label class="control-label col-sm-2" for="username">UserName:{{username}}</label>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date:</th>
+      <th>Schedule</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{createdAt}}</td>
+      <td>
+      <!-- <input type="text" name="s1" id="s1"> -->
+      {{s1}}
+      </td>
+    </tr>
+    <tr>
+      <td>{{createdAt}}</td>
+      <td>
+      <!-- <input type="text" name="s2" id="s2"> -->
+      {{s2}}
+      </td>
+    </tr>
+    <tr>
+      <td>{{createdAt}}</td>
+      <td>
+      <!-- <input type="text" name="s3" id="s3"> -->
+      {{s3}}
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+{{else}}
+<label class="control-label col-sm-2" for="schedule">Schedule not submitted.</label>
+{{/each}}
+<div class="col-sm-offset-2 col-sm-10">
+  <a href="/dashboard">Back</a>
+</div>
+</form>
+</div>
+
+</template>
