@@ -1,0 +1,173 @@
+<template name="viewtickets">
+   <div class="container">
+      <h1>
+         <center>Ticketing System</center>
+      </h1>
+      <form class="form-horizontal">
+         <div class="form-group">
+            <div class="row">
+               <label class="col-sm-2" for="usersname" >Select SPD :-</label>
+               <div class="col-sm-10">
+                  <select id="spdstate">
+                     <option value="Select SPD " selected="true">Select SPD </option>
+                     {{#each getspd}}
+                     <option value="{{username}}">{{username}}</option>
+                     {{/each}}
+                  </select>
+               </div>
+            </div>
+            <div class="row">
+               <label class="col-sm-2" for="status" >Status:-</label>
+               <div class="col-sm-10">
+                  <input type="text" name="status" id="status" value="Pending" readonly>
+               </div>
+            </div>
+            <!--Filter   -->
+            <div class="row">
+               <label class="col-sm-2" for="status" >Filter:-</label>
+               <div class="col-sm-3">
+                  <input type="number" name="counttickets" id="counttt" value="" placeholder="x no. of tickets">
+               </div>
+               <div class="col-sm-3">
+                  <input type="text" name="ticketnumber" id="ticket" value="" placeholder="ticket">
+               </div>
+               <div class="col-sm-2">
+                  <select id="yrs">
+                     <option value="Select year" selected="true">Select Year </option>
+                     <option value="2016">2016 </option>
+                     <option value="2017">2017</option>
+                     <option value="2018">2018</option>
+                     <!-- {{#each getYear}}
+                        <option value="{{year[0]}}">{{}}</option>
+                        {{/each}} -->
+                  </select>
+               </div>
+               <div class="col-sm-2">
+                  <select id="month">
+                     <option value="Select Month " selected="true">Select Month </option>
+                     <!-- {{#each getMonth}}
+                        <option value="{{getMonth.month}}">{{getMonth.month}}</option>
+                        {{/each}} -->
+                     <option value="January">January </option>
+                     <option value="February">February</option>
+                     <option value="March">March</option>
+                     <option value="April">April </option>
+                     <option value="May">May</option>
+                     <option value="June">June</option>
+                     <option value="July">July </option>
+                     <option value="August">August</option>
+                     <option value="September">September</option>
+                     <option value="October">October </option>
+                     <option value="November">November</option>
+                     <option value="December">December</option>
+                  </select>
+               </div>
+            </div>
+         </div>
+      </form>
+      <table class="table table-bordered" border="1">
+         <thead>
+            <tr>
+               <th>Ticket Number</th>
+               <th>Raised Date</th>
+               <th>Issue</th>
+            </tr>
+         </thead>
+         <tbody>
+            {{#if getttdata}}
+            {{#each getttdata}}
+            <tr>
+               <td>
+                  {{ticketjson.ticketnumber}}
+               </td>
+               <td>
+                  {{ticketjson.raisedDate}}
+               </td>
+               <td>
+                  {{ticketjson.issue}}
+               </td>
+            </tr>
+            {{/each}}
+            {{else}}
+            {{#if getttcount}}
+            {{#each getttcount}}
+            <tr>
+               <td>
+                  {{ticketjson.ticketnumber}}
+               </td>
+               <td>
+                  {{ticketjson.raisedDate}}
+               </td>
+               <td>
+                  {{ticketjson.issue}}
+               </td>
+            </tr>
+            {{/each}}
+            {{else}}
+            {{#if getYear}}
+            {{#each getYear}}
+            <tr>
+               <td>
+                  {{ticketjson.ticketnumber}}
+               </td>
+               <td>
+                  {{ticketjson.raisedDate}}
+               </td>
+               <td>
+                  {{ticketjson.issue}}
+               </td>
+            </tr>
+            {{/each}}
+            {{else}}
+            {{#if getMonth}}
+            {{#each getMonth}}
+            <tr>
+               <td>
+                  {{ticketjson.ticketnumber}}
+               </td>
+               <td>
+                  {{ticketjson.raisedDate}}
+               </td>
+               <td>
+                  {{ticketjson.issue}}
+               </td>
+            </tr>
+            {{/each}}
+            {{else}}
+            {{#if getttspd}}
+            {{#each getttspd}}
+            <tr>
+               <td>
+                  {{ticketjson.ticketnumber}}
+               </td>
+               <td>
+                  {{ticketjson.raisedDate}}
+               </td>
+               <td>
+                  {{ticketjson.issue}}
+               </td>
+            </tr>
+            {{/each}}
+            {{else}}
+            {{#each gettickets}}
+            <tr>
+               <td>
+                  {{ticketjson.ticketnumber}}
+               </td>
+               <td>
+                  {{ticketjson.raisedDate}}
+               </td>
+               <td>
+                  {{ticketjson.issue}}
+               </td>
+            </tr>
+            {{/each}}
+            {{/if}}
+            {{/if}}
+            {{/if}}
+            {{/if}}
+            {{/if}}
+         </tbody>
+      </table>
+   </div>
+</template>
