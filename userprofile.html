@@ -1,0 +1,178 @@
+<template name="userprofile">
+    <div class="container">
+  <input type="radio" name="user" value="SPD" id="userspd" >SPD
+  <input type="radio" name="user" value="DISCOM" id="userdiscom">DISCOM
+  </div>
+  {{#if getspd }}
+  {{> ViewSpd}}
+  {{/if}}
+  {{#if getdiscom }}
+  {{> ViewDiscom}}
+  {{/if}}
+
+</template>
+
+<template name="ViewSpd">
+  <div class="container">
+    <form class="form-horizontal">
+        <div class="form-group">
+
+  <table border="2">
+    <thead>
+      <tr><th>Name</th><th colspan="2">Action</th></tr>
+    </thead>
+<tbody>
+{{#each getdetails}}
+<tr>
+<td>{{username}}</td>
+<td>
+  <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" name="View" id="view">View</button>
+</td>
+<td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editspd" name="Edit" id="edit">Edit</button></td>
+</tr>
+{{/each}}
+</tbody>
+  </table>
+</div>
+</form>
+</div>
+<!--ViewSPDProfile  -->
+    <div class="modal fade"  id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">User Profile</h4>
+                </div>
+
+  <div class="modal-body">
+      <div class="container">
+         <form class="form-horizontal">
+                      <div class="form-group">
+                          {{#each getspddetails}}
+                          <div class="row">
+                            <label class="col-sm-2" for="usersname">Name of SPD:-</label>
+                      <div class="col-sm-10">
+                            <input type="text" name="usersname" id="usersname" value="{{username}}" readonly>
+                          </div>
+
+                          </div>
+                          <div class="row">
+                          <label class="col-sm-2" for="projectid">Project ID:-</label>
+                      <div class="col-sm-10">  <input type="text" name="projectid" id="projectid" value="{{projectid}}" readonly></div></div>
+
+                    <div class="row">  <label  class="col-sm-2" for="projectcapacity">Project Capacity (MW):-</label>
+                      <div class="col-sm-10">  <input type="text" name="projectcapacity" id="projectcapacity" value="{{projectcapacity}}" readonly></div></div>
+                      <div class="row"><label class="col-sm-2" for="projectlocation">Project Location:-</label>
+                    <div class="col-sm-10">    <input type="text" name="projectlocation" id="projectlocation" value="{{projectlocation}}" readonly></div></div>
+                      <div class="row"><label class="col-sm-2" for="contactdetails">Contact Details(Mobile No. & Email ID):-</label>
+                    <div class="col-sm-10">    <input type="text" name="contactdetails" id="contactdetails" value="{{contactdetails}}" readonly></div></div>
+                      <div class="row"><label class="col-sm-2" for="pannumber">PAN Number::-</label>
+                      <div class="col-sm-10">  <input type="text" name="pannumber" id="pannumber" value="{{pannumber}}" readonly></div></div>
+                      <div class="row"><label class="col-sm-2" for="bankdetails">Bank Details::-</label>
+                    <div class="col-sm-10">    <input type="text" name="bankdetails" id="bankdetails" value="{{bankdetails}}" readonly></div></div>
+                      <div class="row"><label class="col-sm-2" for="transactiontype">Transaction Type::-</label>
+                      <div class="col-sm-10">  <select id="transactiontype" disabled>
+                      <option value="{{transactiontype}}">{{transactiontype}}</option>
+                    </select></div></div>
+                    <div class="row">  <label class="col-sm-2" for="spdstate:">SPD State::-</label>
+                      <div class="col-sm-10">  <select id="spdstate" disabled>
+                    <option value="{{spdstate}}"  >{{spdstate}}</option>
+                    </select></div></div>
+                      <div class="row"><label class="col-sm-2" for="dcr-nondcr:">DCR/NON-DCR::-</label>
+                    <div class="col-sm-10">    <select id="ndcr" disabled>
+                      <option value="{{ndcr}}">DCR</option>
+                    </select></div></div>
+                      <div class="row"><label class="col-sm-2" for="address">Address:-</label>
+                      <div class="col-sm-10">  <textarea id="address" rows="4" cols="50" disabled>
+                        {{address}}
+                        </textarea></div></div>
+                        {{/each}}
+                  </div>
+                  </form>
+                </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--  -->
+    <!--EditSPDProfile  -->
+    <div class="modal fade"  id="editspd" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">User Profile</h4>
+                </div>
+
+  <div class="modal-body">
+      <div class="container">
+         <form class="form-horizontal">
+                      <div class="form-group">
+                          {{#each editspddetails}}
+                          <div class="row">
+                            <label class="col-sm-2" for="usersname">Name of SPD:-</label>
+                      <div class="col-sm-10">
+                            <input type="text" name="usersname" id="usersname" value="{{username}}" >
+                          </div>
+
+                          </div>
+                          <div class="row">
+                          <label class="col-sm-2" for="projectid">Project ID:-</label>
+          <div class="col-sm-10">
+           <input type="text" name="projectid" id="projectid" value="{{projectid}}" ></div></div>
+
+                    <div class="row">  <label  class="col-sm-2" for="projectcapacity">Project Capacity (MW):-</label>
+<div class="col-sm-10">
+   <input type="text" name="projectcapacity" id="projectcapacity" value="{{projectcapacity}}" ></div></div>
+                      <div class="row">
+                        <label class="col-sm-2" for="projectlocation">Project Location:-</label>
+                    <div class="col-sm-10">
+          <input type="text" name="projectlocation" id="projectlocation" value="{{projectlocation}}" ></div></div>
+                      <div class="row"><label class="col-sm-2" for="contactdetails">Contact Details(Mobile No. & Email ID):-</label>
+                    <div class="col-sm-10">
+   <input type="text" name="contactdetails" id="contactdetails" value="{{contactdetails}}" ></div></div>
+                      <div class="row"><label class="col-sm-2" for="pannumber">PAN Number::-</label>
+      <div class="col-sm-10">
+        <input type="text" name="pannumber" id="pannumber" value="{{pannumber}}" ></div></div>
+                      <div class="row"><label class="col-sm-2" for="bankdetails">Bank Details::-</label>
+                    <div class="col-sm-10">
+                       <input type="text" name="bankdetails" id="bankdetails" value="{{bankdetails}}" ></div></div>
+                      <div class="row"><label class="col-sm-2" for="transactiontype">Transaction Type::-</label>
+                      <div class="col-sm-10">  <select id="transactiontype" disabled>
+                      <option value="{{transactiontype}}">{{transactiontype}}</option>
+                    </select></div></div>
+                    <div class="row">  <label class="col-sm-2" for="spdstate:">SPD State::-</label>
+                      <div class="col-sm-10">  <select id="spdstate" disabled>
+                    <option value="{{spdstate}}"  >{{spdstate}}</option>
+                    </select></div></div>
+                      <div class="row"><label class="col-sm-2" for="dcr-nondcr:">DCR/NON-DCR::-</label>
+                    <div class="col-sm-10">    <select id="ndcr" disabled >
+                      <option value="{{ndcr}}">DCR</option>
+                    </select></div></div>
+                      <div class="row"><label class="col-sm-2" for="address">Address:-</label>
+                      <div class="col-sm-10">  <textarea id="address" rows="4" cols="50">
+                        {{address}}
+                        </textarea></div></div>
+                        {{/each}}
+                  </div>
+                  </form>
+                </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" id="spdupdate">Update</button>
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--Editprofile  -->
+</template>
