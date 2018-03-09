@@ -1,0 +1,39 @@
+<template name="registers">
+<div class="register1" style="font-family:Times New Roman">
+<h1><center>Registration</center></h1>
+  <form class="form-signup" >
+<label for="name">Name:</label>
+<input type="text" name="name" id="name" placeholder="name"><br><br>
+<label for="email">Email:</label>
+<input type="email" name="email" id="email" placeholder="email"><br><br>
+<label for="dob">D.O.B.:</label>
+<input type="date" name="date" value="date" id="date"><br><br>
+<label for="gender">Gender</label>
+<input type="radio" name="gender" id="male" value="male">Male
+<input type="radio" name="gender" value="female" id="female">Female<br><br>
+<label for="state">State</label>
+<select id="state">
+  <option value="select state" selected="true" id="state">Select State</option>
+  <option value="up" name="state" id="state">UP</option>
+  <option value="bihar" id="state">Bihar</option>
+  <option value="gujrat" id="state">Gujrat</option>
+  <option value="delhi" id="state">Delhi</option>
+</select><br><br>
+<label for="country">Country</label>
+<select id="country">
+  <option value="select city"  id="country" selected="true">Select City</option>
+
+  <option value="kanpur" id="country">Kanpur</option>
+  <option value="mumbai" id="country">Mumbai</option>
+  <option value="goa" id="country">Goa</option>
+  <option value="delhi" id="country">Delhi</option>
+</select><br><br>
+<label for="password">Password</label>
+<input type="password"  name="password" id="password" placeholder="password"><br><br>
+<label for="password2">ConfirmPassword</label>
+<input type="password" name="password2" id="password2" placeholder="confirmpassword"><br><br>
+<button type="submit" id="submit">SignUp</button>
+  </form>
+</div>
+
+</template>

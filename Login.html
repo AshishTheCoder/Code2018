@@ -1,0 +1,24 @@
+<template name="logins">
+  <div class="container" style="font-family:Times New Roman">
+  <h1><center>LogIn</center></h1>
+<form class="form-horizontal" >
+  {{#if currentUser}}
+  <h3 class="black">You are logged in.return<a href="/dashboard">Schedule Submitition</a></h3>
+    {{else}}
+  <label class="control-label col-sm-2" for="email">Email:</label>
+  <div class="col-sm-10">
+    <input class="form-control" type="email" name="email" id="txtEmail" placeholder="email">
+  </div>
+    <label class="control-label col-sm-2" for="password">Password:</label>
+    <div class="col-sm-10">
+    <input class="form-control" type="password" name="password" id="txtPassword" placeholder="password">
+    </div>
+    <div class="col-sm-offset-2 col-sm-10">
+    <button type="submit" class="btn btn-default" name="submit" id="btnLogin">Login</button>
+</div>
+    <a href="/user1">SignUp</a>                    <a href="/">ForgetPassword</a>
+    {{/if}}
+</form>
+</div>
+
+</template>
