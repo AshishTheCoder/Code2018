@@ -1,0 +1,50 @@
+<template name="wordfile">
+<div class="wordfile1" style="font-family:Times New Roman">
+<h1><center>Registration</center></h1>
+  <form class="form-signup" >
+<label for="name">Name:</label>
+<input type="text" name="name" id="name" placeholder="name"><br><br>
+<label for="email">Email:</label>
+<input type="email" name="email" id="email" placeholder="email"><br><br>
+<label for="dob">D.O.B.:</label>
+<input type="date" name="date" value="date" id="date"><br><br>
+<label for="gender">Gender</label>
+<input type="radio" name="gender" id="male" value="male">Male
+<input type="radio" name="gender" value="female" id="female">Female<br><br>
+<label for="state">State</label>
+<select id="state1">
+  <option value="select state" selected="true" >Select State</option>
+  <option value="Uttar Pradesh" name="state">Uttar Pradesh</option>
+  <option value="Bihar" >Bihar</option>
+  <option value="Gujarat" >Gujarat</option>
+  <option value="Goa" >Goa</option>
+</select><br><br>
+<label for="City">City</label>
+<select id="City">
+  <option value="select city"  id="City" selected="true">Select City</option>
+{{#each returnData1}}
+  <option value="{{city}}" id="country">{{city}}</option>
+  {{/each}}
+</select><br><br>
+<label for="password">Password</label>
+<input type="password"  name="password" id="password" placeholder="password"><br><br>
+<label for="password2">ConfirmPassword</label>
+  <input type="password" name="password2" id="password2" placeholder="confirmpassword"><br><br>
+<button type="submit" id="submit">SignUp</button>
+  </form>
+<!-- <button type="exporttoexcel" class="btn btn-successs" id="exporttoexcel">RxporttoExcel</button> -->
+<div class="container">
+<!--    -->
+{{#each returnData11}}
+<a href="{{jsonData.filepath}}"  id="docsdata" target="_blank">exporttodocs</a>
+<!-- <form class="" action="file:///C:/test.xlsx" method="post">
+  <button type="submit" class="btn btn-success" id="exceldata" name="button">exporttoexcel</button>
+
+</form> -->
+
+{{/each}}
+</div>
+
+</div>
+
+</template>
