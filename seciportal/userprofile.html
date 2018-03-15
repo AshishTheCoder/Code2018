@@ -1,0 +1,13 @@
+<template name="userprofile">
+    <div class="container">
+  <input type="radio" name="user" value="SPD" id="userspd" >SPD
+  <input type="radio" name="user" value="DISCOM" id="userdiscom">DISCOM
+  </div>
+  {{#if getspd }}
+  {{> ViewSpd}}
+  {{/if}}
+  {{#if getdiscom }}
+  {{> ViewDiscom}}
+  {{/if}}
+
+</template>

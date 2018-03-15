@@ -1,0 +1,12 @@
+<template name="entrymodule">
+    <div class="container">
+  <input type="radio" name="user" value="SPD" id="userspd" >SPD
+  <input type="radio" name="user" value="DISCOM" id="userdiscom">DISCOM
+  </div>
+  {{#if getspd}}
+{{>spdentry}}
+  {{/if}}
+  {{#if getdiscom}}
+{{>discomentry}}  
+  {{/if}}
+</template>

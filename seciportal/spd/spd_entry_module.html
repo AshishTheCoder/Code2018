@@ -1,0 +1,56 @@
+<template name="spdentry">
+  <div class="container">
+    <form class="form-horizontal">
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2" for="usersname">{{getname}} Name:-</label>
+      <div class="col-sm-10">
+            <input type="text" name="usersname" id="usersname" value="">
+          </div>
+
+          </div>
+          <div class="row">
+          <label class="col-sm-2" for="projectid">Project ID:-</label>
+      <div class="col-sm-10">  <input type="text" name="projectid" id="projectid"></div></div>
+
+    <div class="row">  <label  class="col-sm-2" for="projectcapacity">Project Capacity (MW):-</label>
+      <div class="col-sm-10">  <input type="text" name="projectcapacity" id="projectcapacity" value=""></div></div>
+      <div class="row"><label class="col-sm-2" for="projectlocation">Project Location:-</label>
+    <div class="col-sm-10">    <input type="text" name="projectlocation" id="projectlocation" value=""></div></div>
+      <div class="row"><label class="col-sm-2" for="contactdetails">Contact Details(Mobile No. & Email ID):-</label>
+    <div class="col-sm-10">    <input type="text" name="contactdetails" id="contactdetails" value=""></div></div>
+      <div class="row"><label class="col-sm-2" for="pannumber">PAN Number::-</label>
+      <div class="col-sm-10">  <input type="text" name="pannumber" id="pannumber" value=""></div></div>
+      <div class="row"><label class="col-sm-2" for="bankdetails">Bank Details::-</label>
+    <div class="col-sm-10">    <input type="text" name="bankdetails" id="bankdetails" value=""></div></div>
+      <div class="row"><label class="col-sm-2" for="transactiontype">Transaction Type::-</label>
+      <div class="col-sm-10">  <select id="transactiontype">
+      <option value="Select type" selected="true">Select type</option>
+      <option value="Intra" >Intra</option>
+      <option value="Inter" >Inter</option>
+    </select></div></div>
+    <div class="row">  <label class="col-sm-2" for="spdstate:">SPD State::-</label>
+      <div class="col-sm-10">  <select id="spdstate">
+      <option value="Select State" selected="true">Select State</option>
+      <option value="MP" >MP</option>
+      <option value="Gujrat" >Gujrat</option>
+      <option value="Rajasthan" >Rajasthan</option>
+      <option value="UP" >UP</option>
+      <option value="Punjab" >Punjab</option>
+      <option value="Haryana" >Haryana</option>
+    </select></div></div>
+      <div class="row"><label class="col-sm-2" for="dcr-nondcr:">DCR/NON-DCR::-</label>
+    <div class="col-sm-10">    <select id="ndcr">
+      <option value="Select type" selected="true">Select type</option>
+      <option value="DCR" >DCR</option>
+      <option value="NON-DCR">NON-DCR</option>
+    </select></div></div>
+      <div class="row"><label class="col-sm-2" for="address">Address:-</label>
+      <div class="col-sm-10">  <textarea id="address" rows="4" cols="50">
+        </textarea></div></div>
+        <button type="submit" name="addspd">ADD-SPD</button>
+  </div>
+  </form>
+</div>
+  
+</template>

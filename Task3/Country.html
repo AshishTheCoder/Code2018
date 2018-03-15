@@ -1,0 +1,37 @@
+<template name="country">
+
+  <center><h1>Add Country:-</h1></center>
+ <form class="country" >
+<label for="continents">Continents:-</label>
+  <select id="continent">
+    <option value="Select Continent" selected="true">Select Continent</option>
+    {{#each continents}}
+    <option  id="continent">{{continent}}</option>
+{{/each}}
+  </select>
+  <!-- <select id="country">
+    <option value="Select Country" selected="true">Select Continent</option>
+    <option value="SouthAfrica ">SouthAfrica </option>
+    <option value="Zimbabwe ">Zimbabwe</option>
+    <option value="Algeria ">Algeria</option>
+    <option value="Namibia">Namibia</option>
+    <option value="India">India </option>
+    <option value="Pakistan">Pakistan</option>
+    <option value="Bangladesh ">Bangladesh</option>
+    <option value="Srilanka">Srilanka</option>
+    <option value="Russia">Russia </option>
+    <option value="Poland ">Poland</option>
+    <option value="UK ">UK</option>
+    <option value="Spain">Spain</option>
+    <option value="	Canada ">	Canada </option>
+    <option value="Greenland ">Greenland</option>
+    <option value="	Mexico ">	Mexico </option>
+    <option value="	Saba">Saba</option>
+  </select> -->
+  <label for="continents">Country:-</label>
+   <input type="text" name="country">
+  <button type="submit" name="button">Add</button>
+  <a href="/state">AddState</a>
+
+  </form>
+</template>

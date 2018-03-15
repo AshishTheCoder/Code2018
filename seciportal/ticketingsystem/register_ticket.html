@@ -1,0 +1,40 @@
+<template name="tickets">
+  <div class="container">
+    <h1><center>Ticketing System</center></h1>
+    <form class="form-horizontal">
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2" for="usersname" >Select SPD :-</label>
+            <div class="col-sm-10">  <select id="spdstate">
+            <option value="Select SPD " selected="true">Select SPD </option>
+{{#each getspd}}
+  <option value="{{username}}">{{username}}</option>
+{{/each}}
+            </select></div></div>
+            <div class="row">
+              <label class="col-sm-2" for="ticketnumber" >Ticket Number:-</label>
+              <div class="col-sm-10">
+                <input type="text" name="ticketnumber" id="ticketnumber" value="" placeholder="ticketnumber">
+              </div></div>
+              <div class="row">
+                <label class="col-sm-2" for="issue" >Issue:-</label>
+                <div class="col-sm-10">
+                  <input type="text" name="issue" id="issue" value="" placeholder="issue">
+                </div></div>
+
+              <div class="row">
+                <label class="col-sm-2" for="raisedDate" >RaisedDate:-</label>
+                <div class="col-sm-10">
+                  <input type="text" name="raisedDate" id="raisedDate" value="{{getcurrentdate}}" readonly>
+                </div></div>
+
+          <div class="row">
+            <label class="col-sm-2" for="status" >Status:-</label>
+            <div class="col-sm-10">
+              <input type="text" name="status" id="status" value="Pending" readonly>
+            </div></div>
+            <button type="submit" class="btn btn-primary" name="button" value="">Create Ticket</button>
+      </div>
+          </form>
+        </div>
+</template>

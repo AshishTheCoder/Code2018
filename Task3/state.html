@@ -1,0 +1,26 @@
+<template name="state">
+<center><h1>Add State:-</h1></center>
+    <form class="state">
+      <label for="continent">Continent:-</label>
+
+      <select id="continent">
+        <option value="Select Continent" selected="true">Select Continent</option>
+{{#each continents}}
+        <option >{{continent}}</option>
+{{/each}}
+      </select>
+
+<label for="country">Country:-</label>
+<select id="country">
+  <option value="Select Country" selected="true">Select Country</option>
+{{#each countrys}}
+  <option >{{country}}</option>
+{{/each}}
+</select>
+<label for="state">State:-</label>
+  <input type="text" name="state">
+  <button type="submit" name="button">Add</button>
+  <a href="/city">AddCity</a>
+
+  </form>
+</template>
