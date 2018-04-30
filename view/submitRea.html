@@ -1,0 +1,121 @@
+<template name="submitRea">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Monthly REA Submission</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <form id="saveReaMonthly" action="#">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Select Month :</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control form-control-sm input-sm saveRea" name="month">
+                                                    <option value="">Select Month</option>
+                                                    <option value="01">January</option>
+                                                    <option value="02">February</option>
+                                                    <option value="03">March</option>
+                                                    <option value="04">April</option>
+                                                    <option value="05">May</option>
+                                                    <option value="06">June</option>
+                                                    <option value="07">July</option>
+                                                    <option value="08">August</option>
+                                                    <option value="09">September</option>
+                                                    <option value="10">October</option>
+                                                    <option value="11">November</option>
+                                                    <option value="12">December</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Select Year :</label>
+                                            <div class="col-sm-8">
+                                                <select id='selectYear' class="form-control form-control-sm input-sm saveRea" name="year">
+                                                    <option value="">Select Year</option>
+                                                  {{#each yearHelper}}
+                                                    <option value="{{this}}">{{this}}</option>
+                                                  {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Discom State :</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control input-sm saveRea" name="discom_state" id="getStateAttr">
+                                                    <option value="">Select Discom State</option>
+                                                    <option value="Haryana" shortForm ="HPPC">Haryana (HPPC)</option>
+                                                    <option value="Himachal Pradesh" shortForm ="HPSEBL">Himachal Pradesh (HPSEBL)</option>
+                                                    <option value="Delhi(BRPL)" shortForm ="BRPL">Delhi(BRPL)</option>
+                                                    <option value="Delhi(BYPL)" shortForm ="BYPL">Delhi(BYPL)</option>
+                                                    <option value="Delhi(TPDDL)" shortForm ="TPDDL">Delhi(TPDDL)</option>
+                                                    <option value="Assam" shortForm ="APDCL">Assam (APDCL)</option>
+                                                    <option value="Odisha" shortForm ="GRIDCO">Odisha (GRIDCO)</option>
+                                                    <option value="Punjab" shortForm ="PSPCL">Punjab (PSPCL)</option>
+                                                    <option value="Maharashtra" shortForm ="MSEDCL">Maharashtra (MSEDCL)</option>
+                                                    <option value="Jharkhand" shortForm ="JUVNL">Jharkhand (JUVNL)</option>
+                                                    <option value="Chhattisgarh" shortForm ="CSPDCL">Chhattisgarh (CSPDCL)</option>
+                                                    <option value="Bihar" shortForm ="">Bihar (SBPDCL) + (NBPDCL)</option>
+                                                    <option value="Goa" shortForm ="">Goa</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">SPD State:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control input-sm saveRea" name="spd_state">
+                                                    <option value="">Select SPD</option>
+                                                    <option value="MP">MP</option>
+                                                    <option value="Gujarat">Gujarat</option>
+                                                    <option value="Rajasthan">Rajasthan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">REA Value :</label>
+                                            <div class="col-sm-8">
+                                              <input type="text" class="form-control input-sm saveRea" value="{{oldValue}}" placeholder="Please enter REA Value" name="rea">                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="col-xs-offset-2 col-xs-6">
+                                                <input type="submit" class="btn btn-success center-block" value="Submit">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="col-xs-offset-2 col-xs-6">
+                                                <button id="previousData" class="btn btn-info center-block">Check Old Value</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

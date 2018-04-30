@@ -1,0 +1,16 @@
+<template name="login">
+    <div class="form">
+      <div><img class="sign-login" src="/img/seci-logo.png"/></div>
+        <input type="email" readonly onfocus="this.removeAttribute('readonly');" class="form-control input-lg" id="useremail" placeholder="Enter Email">
+        <input type="password" readonly onfocus="this.removeAttribute('readonly');" class="form-control input-lg  newLink" id="userPassword" placeholder="Enter Password"/>
+        <button class="btn btn-success" id="signInBtnData">Sign in</button>
+        <p class="message"><a href="/signup" style="color:white;font-weight:bold;">Sign up for SECI</a><br><br>
+       <a href="/forgot"  style="color:white;font-weight:bold;">Forgotten password?</a>
+       </p>
+    </div>
+    <div style="display: none;" class="form-group">
+        {{#if token}}
+        {{tokenLogin token}}
+        {{/if}}
+    </div>
+</template>

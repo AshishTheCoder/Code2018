@@ -1,0 +1,455 @@
+<template name="viewEnergySurcharge">
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 main">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h1 style="font-weight:bold;font-size:28px;text-align:center;">View Generated Surcharge</h1>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <section class="panel panel-default">
+                                  <div class="panel-body">
+                                      <div class="row">
+                                          <div class="col-md-12 col-sm-12">
+                                              <fieldset class="scheduler-border">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group row">
+                                                            <div class="col-sm-6 col-md-6">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-4 form-control-label">Surcharge :</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id='ddlTypeOfSurchargeSelected' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_month">
+                                                                            <option value="">Select Surcharge Type</option>
+                                                                            <option value="Energy_Surcharge">Energy</option>
+                                                                            <option value="Incentive_Surcharge">Incentive</option>
+                                                                            <option value="Transmission_Surcharge">Transmission</option>
+                                                                            <option value="SLDC_Surcharge">SLDC</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                              </fieldset>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </section>
+                          </div>
+                      </div>
+                      <!-- Energy Surcharge  -->
+                      {{#if isEnergySurchargeSelectedToView}}
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <section class="panel panel-default">
+                                  <div class="panel-body">
+                                      <div class="row">
+                                          <div class="col-md-12 col-sm-12">
+                                              <fieldset class="scheduler-border">
+                                                  <legend class="scheduler-border">Energy Surcharge Details</legend>
+                                                  <div class="row">
+                                                      <div class="col-sm-12">
+                                                          <div class="row">
+                                                              <div class="col-sm-5">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-4 form-control-label">Month:</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id="ddlMonth" class="form-control input-sm required" name="selectMonth">
+                                                                            <option value="">Select Month</option>
+                                                                            {{#each monthShow}}
+                                                                              <option value="{{this.value}}">{{this.key}}</option>
+                                                                            {{/each}}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                              <div class="col-sm-5">
+                                                                  <div class="form-group row">
+                                                                    <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id='ddlYear' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                            <option value="">Select financial Year</option>
+                                                                            {{#each financialYearHelper}}
+                                                                              <option value="{{this}}">{{this}}</option>
+                                                                            {{/each}}
+                                                                        </select>
+                                                                    </div>
+                                                                  </div>
+                                                              </div>
+                                                              {{#if isMonthAndYearSelected}}
+                                                              <div class="col-sm-2">
+                                                                  <div class="form-group row">
+                                                                      <center><button id='viewBtn' class="btn btn-primary">View</button></center>
+                                                                  </div>
+                                                              </div>
+                                                              {{/if}}
+                                                          </div>
+                                                          {{#if isEnergyDataAvailable}}
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <section class="panel panel-default">
+                                                                          <div class="panel-body" style="overflow-x:scroll">
+                                                                              <fieldset>
+                                                                                  <div class="row">
+                                                                                      <div class="col-md-12 col-sm-12">
+                                                                                          <table class="table table-bordered">
+                                                                                              <thead>
+                                                                                                  <tr>
+                                                                                                      <th class="text-center">S.No.</th>
+                                                                                                      <th class="text-center">Discom State</th>
+                                                                                                      <th class="text-center">Due Date</th>
+                                                                                                      <th class="text-center">Generation Date</th>
+                                                                                                      <th class="text-center">Payment Date</th>
+                                                                                                      {{#if isUserComercial}}
+                                                                                                      <th class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Action&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                                                                      {{else}}
+                                                                                                      <th class="text-center">Action</th>
+                                                                                                      {{/if}}
+                                                                                                  </tr>
+                                                                                              </thead>
+                                                                                              <tbody>
+                                                                                                  {{#each EnergyDataHelper}}
+                                                                                                      <tr>
+                                                                                                          <td class="text-center">{{serial @index}}</td>
+                                                                                                          <td class="text-center">{{discomState}}</td>
+                                                                                                          <td class="text-center">{{DueDate}}</td>
+                                                                                                          <td class="text-center">{{InvoiceDate}}</td>
+                                                                                                          <td class="text-center">{{paymentReceDate}}</td>
+                                                                                                          {{#if isUserComercial}}
+                                                                                                          <td class="text-center">
+                                                                                                              <button id='viewSurchargeDocx' filePath="{{file_path}}" class="btn btn-info btn-xs">Docx</button>
+                                                                                                              <button id='viewSurchargePdf' filePath="{{file_path}}" class="btn btn-warning btn-xs">PDF</button>
+                                                                                                              <button id='deleteGeneratedSurcharge' type="Energy" filePath="{{file_path}}" attrId={{_id}} class="btn btn-danger btn-xs">Delete</button>
+                                                                                                          </td>
+                                                                                                          {{else}}
+                                                                                                            <td class="text-center">
+                                                                                                                <button id='viewSurchargePdf' filePath="{{file_path}}" class="btn btn-warning btn-xs">PDF</button>
+                                                                                                            </td>
+                                                                                                          {{/if}}
+                                                                                                      </tr>
+                                                                                                  {{/each}}
+                                                                                              </tbody>
+                                                                                          </table>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </fieldset>
+                                                                          </div>
+                                                                      </section>
+                                                                  </div>
+                                                              </div>
+                                                          {{/if}}
+                                                      </div>
+                                                  </div>
+                                              </fieldset>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </section>
+                          </div>
+                        </div>
+                      {{/if}}
+                      <!-- Transmission Surcharge  -->
+                      {{#if isTransmissionSurchargeSelectedToView}}
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <section class="panel panel-default">
+                                  <div class="panel-body">
+                                      <div class="row">
+                                          <div class="col-md-12 col-sm-12">
+                                              <fieldset class="scheduler-border">
+                                                  <legend class="scheduler-border">Transmission Surcharge Details</legend>
+                                                  <div class="row">
+                                                      <div class="col-sm-12">
+                                                          <div class="row">
+                                                              <div class="col-sm-5">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-4 form-control-label">Month:</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id="ddlMonth" class="form-control input-sm required" name="selectMonth">
+                                                                            <option value="">Select Month</option>
+                                                                            {{#each monthShow}}
+                                                                              <option value="{{this.value}}">{{this.key}}</option>
+                                                                            {{/each}}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                              <div class="col-sm-5">
+                                                                  <div class="form-group row">
+                                                                    <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id='ddlYear' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                            <option value="">Select Financial Year</option>
+                                                                            {{#each financialYearHelper}}
+                                                                              <option value="{{this}}">{{this}}</option>
+                                                                            {{/each}}
+                                                                        </select>
+                                                                    </div>
+                                                                  </div>
+                                                              </div>
+                                                              {{#if isMonthAndYearSelected}}
+                                                              <div class="col-sm-2">
+                                                                  <div class="form-group row">
+                                                                      <center><button id='viewBtnTransmission' class="btn btn-primary">View</button></center>
+                                                                  </div>
+                                                              </div>
+                                                              {{/if}}
+                                                          </div>
+                                                          {{#if iftransmissionAvailable}}
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <section class="panel panel-default">
+                                                                          <div class="panel-body">
+                                                                              <fieldset>
+                                                                                  <div class="row">
+                                                                                      <div class="col-md-12 col-sm-12" style="width:1000px; height:700px; overflow:auto;">
+                                                                                          <table class="table table-bordered">
+                                                                                              <thead>
+                                                                                                <tr>
+                                                                                                    <th class="text-center">S.No.</th>
+                                                                                                    <th class="text-center">Discom State</th>
+                                                                                                    <th class="text-center">Due Date</th>
+                                                                                                    <th class="text-center">Generation Date</th>
+                                                                                                    <th class="text-center">Payment Date</th>
+                                                                                                    {{#if isUserComercial}}
+                                                                                                    <th class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Action&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                                                                    {{else}}
+                                                                                                    <th class="text-center">Action</th>
+                                                                                                    {{/if}}
+                                                                                                </tr>
+                                                                                              </thead>
+                                                                                              <tbody>
+                                                                                                  {{#each transmissionDataHelper}}
+                                                                                                      <tr>
+                                                                                                          <td class="text-center">{{serial @index}}</td>
+                                                                                                          <td class="text-center">{{discomState}}</td>
+                                                                                                          <td class="text-center">{{DueDate}}</td>
+                                                                                                          <td class="text-center">{{InvoiceDate}}</td>
+                                                                                                          <td class="text-center">{{paymentReceDate}}</td>
+                                                                                                          {{#if isUserComercial}}
+                                                                                                          <td class="text-center">
+                                                                                                              <button id='viewSurchargeDocx' filePath="{{file_path}}" class="btn btn-info btn-xs">Docx</button>
+                                                                                                              <button id='viewSurchargePdf' filePath="{{file_path}}" class="btn btn-warning btn-xs">PDF</button>
+                                                                                                              <button id='deleteGeneratedSurcharge' type="Energy" filePath="{{file_path}}" attrId={{_id}} class="btn btn-danger btn-xs">Delete</button>
+                                                                                                          </td>
+                                                                                                          {{else}}
+                                                                                                            <td class="text-center">
+                                                                                                                <button id='viewSurchargePdf' filePath="{{file_path}}" class="btn btn-warning btn-xs">PDF</button>
+                                                                                                            </td>
+                                                                                                          {{/if}}
+                                                                                                      </tr>
+                                                                                                  {{/each}}
+                                                                                              </tbody>
+                                                                                          </table>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </fieldset>
+                                                                          </div>
+                                                                      </section>
+                                                                  </div>
+                                                              </div>
+                                                         {{/if}}
+                                                      </div>
+                                                  </div>
+                                              </fieldset>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </section>
+                          </div>
+                        </div>
+                      {{/if}}
+                        <!-- SLDC Surcharge  -->
+                      {{#if isSLDCSurchargeSelectedToView}}
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <section class="panel panel-default">
+                                  <div class="panel-body">
+                                      <div class="row">
+                                          <div class="col-md-12 col-sm-12">
+                                              <fieldset class="scheduler-border">
+                                                  <legend class="scheduler-border">SLDC Surcharge Details</legend>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="row">
+                                                                <div class="col-sm-5">
+                                                                  <div class="form-group row">
+                                                                    <label class="col-sm-4 form-control-label">Financial Year:</label>
+                                                                    <div class="col-sm-8">
+                                                                      <select id='financialyearSLDC' class="form-control form-control-sm input-sm">
+                                                                          <option value="">Financial Year</option>
+                                                                          {{#each financialYearHelper}}
+                                                                            <option value="{{this}}">{{this}}</option>
+                                                                          {{/each}}
+                                                                      </select>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                            {{#if ifSLDCAvailable}}
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <section class="panel panel-default">
+                                                                            <div class="panel-body">
+                                                                                <fieldset>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12 col-sm-12">
+                                                                                            <table class="table table-bordered">
+                                                                                                <thead>
+                                                                                                    <tr>
+                                                                                                        <th class="text-center">S.No.</th>
+                                                                                                        <th class="text-center">Discom State</th>
+                                                                                                        <th class="text-center">Due Date</th>
+                                                                                                        <th class="text-center">Generation Date</th>
+                                                                                                        <th class="text-center">Payment Date</th>
+                                                                                                        {{#if isUserComercial}}
+                                                                                                        <th class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Action&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                                                                        {{else}}
+                                                                                                        <th class="text-center">Action</th>
+                                                                                                        {{/if}}
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                    {{#each SLDCDataHelper}}
+                                                                                                          <tr>
+                                                                                                              <td class="text-center">{{serial @index}}</td>
+                                                                                                              <td class="text-center">{{discomState}}</td>
+                                                                                                              <td class="text-center">{{DueDate}}</td>
+                                                                                                              <td class="text-center">{{InvoiceDate}}</td>
+                                                                                                              <td class="text-center">{{paymentReceDate}}</td>
+                                                                                                              {{#if isUserComercial}}
+                                                                                                              <td class="text-center">
+                                                                                                                  <button id='viewSurchargeDocx' filePath="{{file_path}}" class="btn btn-info btn-xs">Docx</button>
+                                                                                                                  <button id='viewSurchargePdf' filePath="{{file_path}}" class="btn btn-warning btn-xs">PDF</button>
+                                                                                                                  <button id='deleteGeneratedSurcharge' type="Energy" filePath="{{file_path}}" attrId={{_id}} class="btn btn-danger btn-xs">Delete</button>
+                                                                                                              </td>
+                                                                                                              {{else}}
+                                                                                                                <td class="text-center">
+                                                                                                                    <button id='viewSurchargePdf' filePath="{{file_path}}" class="btn btn-warning btn-xs">PDF</button>
+                                                                                                                </td>
+                                                                                                              {{/if}}
+                                                                                                        </tr>
+                                                                                                    {{/each}}
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </fieldset>
+                                                                            </div>
+                                                                        </section>
+                                                                    </div>
+                                                                </div>
+                                                           {{/if}}
+                                                        </div>
+                                                    </div>
+                                              </fieldset>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </section>
+                          </div>
+                        </div>
+                      {{/if}}
+                      <!-- Incentive Surcharge  -->
+                      {{#if isIncentiveSurchargeSelectedToView}}
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <section class="panel panel-default">
+                                  <div class="panel-body">
+                                      <div class="row">
+                                          <div class="col-md-12 col-sm-12">
+                                              <fieldset class="scheduler-border">
+                                                  <legend class="scheduler-border">Incentive Surcharge Details</legend>
+                                                  <div class="row">
+                                                      <div class="col-sm-12">
+                                                          <div class="row">
+                                                            <div class="col-sm-6 col-md-6">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                                    <div class="col-sm-8">
+                                                                      <select id='ddlFinancialYearIC' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                        <option value="">Select Financial Year</option>
+                                                                        {{#each financialYearHelper}}
+                                                                          <option value="{{this}}">{{this}}</option>
+                                                                        {{/each}}
+                                                                      </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                          </div>
+                                                          {{#if incentiveDataHelper}}
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <section class="panel panel-default">
+                                                                          <div class="panel-body">
+                                                                              <fieldset>
+                                                                                  <div class="row">
+                                                                                      <div class="col-md-12 col-sm-12">
+                                                                                          <table class="table table-bordered">
+                                                                                              <thead>
+                                                                                                  <tr>
+                                                                                                      <th class="text-center">S.No.</th>
+                                                                                                      <th class="text-center">Discom State</th>
+                                                                                                      <th class="text-center">Due Date</th>
+                                                                                                      <th class="text-center">Generation Date</th>
+                                                                                                      <th class="text-center">Payment Date</th>
+                                                                                                      {{#if isUserComercial}}
+                                                                                                      <th class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Action&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                                                                      {{else}}
+                                                                                                      <th class="text-center">Action</th>
+                                                                                                      {{/if}}
+                                                                                                  </tr>
+                                                                                              </thead>
+                                                                                              <tbody>
+                                                                                                  {{#each incentiveDataHelper}}
+                                                                                                      <tr>
+                                                                                                          <td class="text-center">{{serial @index}}</td>
+                                                                                                          <td class="text-center">{{discomState}}</td>
+                                                                                                          <td class="text-center">{{DueDate}}</td>
+                                                                                                          <td class="text-center">{{InvoiceDate}}</td>
+                                                                                                          <td class="text-center">{{paymentReceDate}}</td>
+                                                                                                          {{#if isUserComercial}}
+                                                                                                          <td class="text-center">
+                                                                                                              <button id='viewSurchargeDocx' filePath="{{file_path}}" class="btn btn-info btn-xs">Docx</button>
+                                                                                                              <button id='viewSurchargePdf' filePath="{{file_path}}" class="btn btn-warning btn-xs">PDF</button>
+                                                                                                              <button id='deleteGeneratedSurcharge' type="Energy" filePath="{{file_path}}" attrId={{_id}} class="btn btn-danger btn-xs">Delete</button>
+                                                                                                          </td>
+                                                                                                          {{else}}
+                                                                                                            <td class="text-center">
+                                                                                                                <button id='viewSurchargePdf' filePath="{{file_path}}" class="btn btn-warning btn-xs">PDF</button>
+                                                                                                            </td>
+                                                                                                          {{/if}}
+                                                                                                      </tr>
+                                                                                                  {{/each}}
+                                                                                              </tbody>
+                                                                                          </table>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </fieldset>
+                                                                          </div>
+                                                                      </section>
+                                                                  </div>
+                                                              </div>
+                                                          {{/if}}
+                                                      </div>
+                                                  </div>
+                                              </fieldset>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </section>
+                          </div>
+                        </div>
+                      {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</template>

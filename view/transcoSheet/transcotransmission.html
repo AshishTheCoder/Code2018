@@ -1,0 +1,833 @@
+<template name="transcotransmission">
+  <style>
+  .btn-success:hover{
+    background-color: #398439 !important;
+  }
+  </style>
+  <form id="transcotransmission">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h1 style="font-weight:bold;font-size:28px;text-align:center;">Transco Sheet</h1>
+                  </div>
+                  <div class="panel-body">
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-4 form-control-label"> Month :</label>
+                                          <div class="col-sm-8">
+                                              <select id='month' name="month" class="form-control form-control-sm input-sm">
+                                                  <option value="">Select Month</option>
+                                                  {{#each monthShow}}
+                                                    <option value="{{this.value}}" monthInWord="{{this.key}}">{{this.key}}</option>
+                                                  {{/each}}
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                                    {{#if ifMonthTypeSelected}}
+                                  <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                          <div class="col-sm-8">
+                                              <select id='financial_year' name="financial_year" class="form-control form-control-sm input-sm">
+                                                  <option value="">Select Financial Year</option>
+                                                  {{#each yearHelper}}
+                                                    <option value="{{this}}">{{this}}</option>
+                                                  {{/each}}
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  {{/if}}
+                                </div>
+                                <div class="row">
+                                  {{#if ifYearTypeSelected}}
+                                  <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-4 form-control-label">Scheme :</label>
+                                          <div class="col-sm-8">
+                                              <select id='scheme' name="scheme" class="form-control form-control-sm input-sm">
+                                                  <option value="">Select Scheme</option>
+                                                  {{#each discomSchemeArr}}
+                                                    <option value="{{discomScheme}}" attr="{{discomSchemeId}}">{{discomScheme}}</option>
+                                                  {{/each}}
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  {{/if}}
+                                  {{#if ifStuCtuInfo}}
+                                  <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-4 form-control-label">STU/CTU Type :</label>
+                                          <div class="col-sm-8">
+                                              <select id='stu_ctu' name="stu_ctu" class="form-control form-control-sm input-sm">
+                                                    <option value="">Select STU/CTU</option>
+                                                    <option attrType="CTU" value="NRLDC">NRLDC</option>
+                                                    <option attrType="CTU" value="ERLDC">ERLDC</option>
+                                                    <option attrType="CTU" value="SRLDC">SRLDC</option>
+                                                    <option attrType="CTU" value="WRLDC">WRLDC</option>
+                                                    <option attrType="STU" value="GETCO">GETCO</option>
+                                                    <option attrType="STU" value="MPPTCL">MPPTCL</option>
+                                                    <option attrType="Rajasthan" value="RVPN">RVPN</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  {{/if}}
+                                  <!-- {{#if ifDiscomSchemeSelected}}
+                                  <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-4 form-control-label">Discom :</label>
+                                          <div class="col-sm-8">
+                                              <select id='discom_state' name="discom_state" class="form-control form-control-sm input-sm">
+                                                  <option value="">Select Discom</option>
+                                                  {{#each discomListArr}}
+                                                    <option value="{{state}}" attr="{{discomId}}">{{state}}</option>
+                                                  {{/each}}
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  {{/if}} -->
+                              </div>
+                              <div class="row">
+                                {{#if ifsocMoc}}
+                                <div class="col-sm-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 form-control-label">Transaction Type :</label>
+                                        <div class="col-sm-8">
+                                            <select id='stu_transaction_type' name="stu_transaction_type" class="form-control form-control-sm input-sm">
+                                                <option value="">Select Transaction Type</option>
+                                                {{#if stuRajasthan}}
+                                                <option value="Incentive">Incentive</option>
+                                                <option value="SLDC">SLDC</option>
+                                                <option value="Transmission">Transmission</option>
+                                                {{/if}}
+                                                {{#if stuType}}
+                                                <option value="Transmission">Transmission</option>
+                                                {{/if}}
+                                                {{#if ctuType}}
+                                                <option value="SOC">SOC</option>
+                                                <option value="MOC">MOC</option>
+                                                {{/if}}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}}
+                                {{#if SLDCAndRajasthan}}
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 form-control-label">Raised Date :</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control input-sm datepicker {{validateClass}} invoiceRaisedDateSLDC datepicker" placeholder="Invoice Raised Date">
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}}
+                                {{#if TransmissionAndRajasthan}}
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 form-control-label">Raised Date :</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control input-sm datepicker {{validateClass}} invoiceRaisedDateTC datepicker" placeholder="Invoice Raised Date">
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}}
+                                {{#if TransmissionAndMP}}
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 form-control-label">Raised Date :</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control input-sm datepicker {{validateClass}} invoiceRaisedDateTC datepicker" placeholder="Invoice Raised Date">
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}}
+                                {{#if TransmissionAndGujarat}}
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 form-control-label">Raised Date :</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control input-sm datepicker {{validateClass}} raisedDate datepicker" placeholder="Raised Date">
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}}
+                                {{#if ifvalueSocMoc}}
+                                <div class="col-sm-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 form-control-label">State :</label>
+                                        <div class="col-sm-8">
+                                          <select id='soc_moc_state' name="soc_moc_state" class="form-control form-control-sm input-sm">
+                                              <option value="">Select State</option>
+                                              <option value="MP">MP</option>
+                                              <option value="Gujarat">Gujarat</option>
+                                          </select>
+                                          </div>
+                                    </div>
+                                </div>
+                                {{/if}}
+                            </div>
+                            {{#if ifvalueSocMoc}}
+                            <div class="row">
+                              <div class="col-sm-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 form-control-label">Invoice No. :</label>
+                                      <div class="col-sm-8">
+                                          <input class="form-control" type="text" name="stu_invoiceNum" id="stu_invoiceNum" placeholder="Enter Invoice Number">
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-sm-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 form-control-label">Invoice Date :</label>
+                                      <div class="col-sm-8">
+                                          <input class="form-control" type="text" name="stu_invoiceDate" id="stu_invoiceDate" placeholder="Select Invoice Date">
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 form-control-label">Due Date :</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" type="text" name="stu_dueDate" id="stu_dueDate" placeholder="Select Due Date">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 form-control-label">Amount Raised :</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" type="text" name="stu_amountRaised" id="stu_amountRaised" placeholder="Enter Amount Raised">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                              <div class="form-group row">
+                                  <label class="col-sm-4 form-control-label">Remarks :</label>
+                                  <div class="col-sm-8">
+                                      <input class="form-control" type="text" name="stu_remarks" id="stu_remarks" placeholder="Enter Remarks">
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        {{/if}}
+                        {{#if TransmissionAndGujarat}}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Recieved Date :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm datepicker {{validateClass}} recievedDate datepicker" placeholder="Invoice Recieved Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <center><label class="form-control-label"><u>Details of Invoice 1 </u></label></center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Invoice No. :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} invoiceNumber" placeholder="Invoice Number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Invoice Amount :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} invoiceAmount" placeholder="Invoice Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Date of Invoice :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm datepicker {{validateClass}} invoiceDate datepicker" placeholder="Invoice Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Due Date :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm datepicker {{validateClass}} dueDate datepicker" placeholder="Due Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <center><label class="form-control-label"><u>Details of Invoice 2 </u></label></center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Invoice No. :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} invoiceNumber" placeholder="Invoice Number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Invoice Amount :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} invoiceAmount" placeholder="Invoice Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Date of Invoice :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm datepicker {{validateClass}} invoiceDate datepicker" placeholder="Invoice Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Due Date :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm datepicker {{validateClass}} dueDate datepicker" placeholder="Due Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <center><label class="form-control-label"><u>Details of Invoice 3 </u></label></center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Invoice No. :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} invoiceNumber" placeholder="Invoice Number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Invoice Amount :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} invoiceAmount" placeholder="Invoice Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Date of Invoice :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm datepicker {{validateClass}} invoiceDate datepicker" placeholder="Invoice Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Due Date :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm datepicker {{validateClass}} dueDate datepicker" placeholder="Due Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <center><label class="form-control-label"><u>Details of Invoice 4 </u></label></center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Invoice No. :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} invoiceNumber" placeholder="Invoice Number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Invoice Amount :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} invoiceAmount" placeholder="Invoice Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Date of Invoice :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm datepicker {{validateClass}} invoiceDate datepicker" placeholder="Invoice Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Due Date :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm datepicker {{validateClass}} dueDate datepicker" placeholder="Due Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                        {{#if TransmissionAndMP}}
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="form-group row">
+                                <div class="col-sm-6 col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 form-control-label">Recieved Date :</label>
+                                      <div class="col-sm-8">
+                                          <input type="text" id="txtEncloserDateMP" class="form-control input-sm datepicker" placeholder="Invoice Recieved Date">
+                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <center><label class="form-control-label"><u>Details of Invoice </u></label></center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Bill No. :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} txtbillNumber" placeholder="Bill Number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Bill Date :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} datepicker txtbillDate" placeholder="Bill Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Period From :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} txtperiodFrom datepicker" placeholder="Period From">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Period To :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} txtperiodTo datepicker" placeholder="Period To">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Capacity :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} txtCapacity" placeholder="Contracted Capacity ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Due Date :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} txtDueDate datepicker" placeholder="Due Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Total Amount :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} txtTotalAmount" placeholder="Total Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                        {{#if TransmissionAndRajasthan}}
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="form-group row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 form-control-label">Recieved Date :</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control input-sm {{validateClass}} recievedDate datepicker" placeholder="Invoice Recieved Date">
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                          </div>
+                        </div>
+                      {{#each loopAry}}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <center><label class="form-control-label"><u>Details of Invoice {{this}} </u></label></center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Bill No. :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} txtbillNumber" placeholder="Bill Number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Bill Date :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} datepicker txtbillDate" placeholder="Bill Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Period From :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} txtperiodFrom datepicker" placeholder="Period From">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Period To :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} txtperiodTo datepicker" placeholder="Period To">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Capacity :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} txtCapacity" placeholder="Contracted Capacity ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Due Date :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} txtDueDate datepicker" placeholder="Due Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Total Amount :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} txtTotalAmount" placeholder="Total Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      {{/each}}
+                        {{/if}}
+                        {{#if IncentiveAndRajasthan}}
+                        {{#each loopArrIncentive}}
+                          <div class="row">
+                              <div class="col-sm-12">
+                                  <div class="form-group row">
+                                      <center><label class="form-control-label"><u>Details of Invoice {{this}} </u></label></center>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-sm-12">
+                                  <div class="form-group row">
+                                      <div class="col-sm-6 col-md-6">
+                                          <div class="form-group row">
+                                              <label class="col-sm-4 form-control-label">Capacity (MW) :</label>
+                                              <div class="col-sm-8">
+                                                  <input type="text" class="form-control input-sm {{validateClass}} txtCapacity" placeholder="Capacity">
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-6 col-md-6">
+                                          <div class="form-group row">
+                                              <label class="col-sm-4 form-control-label">Amount(Rs) Raised by RVPN :</label>
+                                              <div class="col-sm-8">
+                                                  <input type="text" class="form-control input-sm {{validateClass}} txtRaisedByRVPN" placeholder="Amount(Rs) Raised by RVPN">
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-sm-12">
+                                  <div class="form-group row">
+                                      <div class="col-sm-6 col-md-6">
+                                          <div class="form-group row">
+                                              <label class="col-sm-4 form-control-label">Amount(Rs) to be raised by SECI :</label>
+                                              <div class="col-sm-8">
+                                                  <input type="text" class="form-control input-sm {{validateClass}} txtRaisedBySeci" placeholder="Amount(Rs) to be raised by SECI">
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-6 col-md-6">
+                                          <div class="form-group row">
+                                              <label class="col-sm-4 form-control-label">Remarks :</label>
+                                              <div class="col-sm-8">
+                                                  <input type="text" class="form-control input-sm {{validateClass}} txtRemarks" placeholder="Remarks">
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        {{/each}}
+                        {{/if}}
+                        {{#if SLDCAndRajasthan}}
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="form-group row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 form-control-label">Recieved Date :</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control input-sm {{validateClass}} invoiceRecievedDateSLDC datepicker" placeholder="Invoice Recieved Date">
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                          </div>
+                        </div>
+                      {{#each loopArrSLDC}}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <center><label class="form-control-label"><u>Details of Invoice {{this}} </u></label></center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Bill No. :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} txtbillNumber" placeholder="Bill Number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Bill Date :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} datepicker txtbillDate" placeholder="Bill Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Period From :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} txtperiodFrom datepicker" placeholder="Period From">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Period To :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} txtperiodTo datepicker" placeholder="Period To">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Capacity :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} txtCapacity" placeholder="Contracted Capacity ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Due Date :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm {{validateClass}} txtDueDate datepicker" placeholder="Due Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      {{/each}}
+                        {{/if}}
+
+                          <!-- <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 form-control-label">Remarks :</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" type="text" name="stu_remarks" id="stu_remarks" placeholder="Enter Remarks">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6"> -->
+                                <!-- <div class="form-group row">
+                                    <label class="col-sm-4 form-control-label">Amount Raised :</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" type="text" name="stu_amountRaised" id="stu_amountRaised" placeholder="Enter Amount Raised">
+                                    </div>
+                                </div> -->
+                            <!-- </div>
+                        </div> -->
+                            <div class="row">
+                              <div class="col-sm-12 text-center">
+                                <button id="saveTranscoSheet" style="width:110px;" class="btn btn-sm btn-success">Save</button>
+                            </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </form>
+</template>

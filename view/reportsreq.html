@@ -1,0 +1,127 @@
+<template name="reportsRequirement">
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <!--<div class="container-fluid">-->
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <h1 class="page-header">Reports</h1>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <form form id="reportrs" action="#">
+                                                    <fieldset>
+                                                        <legend>Reports as per Requirement</legend>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="col-sm-6 col-md-6">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-3 form-control-label">From :</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" name="from" class="form-control input-sm" placeholder="Enter the Date">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6 col-md-6">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-3 form-control-label">To :</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" name="to" class="form-control input-sm" placeholder="Enter the Date">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-4 col-md-4">
+                                                                        <label class="radio-inline ">
+                                                                            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="SPD"> SPDs
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-sm-4 col-md-4">
+                                                                        <label class="radio-inline ">
+                                                                            <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="DISCOM"> DISCOMs
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-sm-4 col-md-4">
+                                                                        <label class="radio-inline ">
+                                                                            <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="Generating"> Generating States
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-12">
+                                                                        <label class="radio-inline ">
+                                                                            <input type="radio" name="inlineRadioOptions" id="inlineRadio4" > Summary Sheet of Units Purchased V/S Units Sold
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-4">
+                                                                        <select class="form-control form-control-sm input-sm" name="Spd">
+                                                                            <option value="">SPDs</option>
+                                                                            <option value="father">abc</option>
+                                                                            <option value="mother">def</option>
+                                                                            <option value="husband">hij</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-sm-4">
+                                                                        <select class="form-control form-control-sm input-sm" name="Discom">
+                                                                            <option value="">DISCOMs</option>
+                                                                            <option value="father">abc</option>
+                                                                            <option value="mother">def</option>
+                                                                            <option value="husband">hij</option>
+                                                                        </select>
+                                                                    </div>
+                                                                   <div class="col-sm-4">
+                                                                        <select class="form-control form-control-sm input-sm" name="State">
+                                                                            <option value="">States</option>
+                                                                            <option value="father">abc</option>
+                                                                            <option value="mother">def</option>
+                                                                            <option value="husband">hij</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="col-sm-6">
+                                                                    <button  id="btnSubmitForm" type="submit" class="btn btn-default btn-sm btn-success pull-right">
+                                                                        <span class="glyphicon glyphicon-submit">Preview</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <button  id="btnSubmitForm" type="submit" class="btn btn-default btn-sm btn-success">
+                                                                        <span class="glyphicon glyphicon-submit">Download</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

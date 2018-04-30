@@ -1,0 +1,119 @@
+<template name="reports">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Reports</h1>
+                    </div>
+                    <div class="panel-body">
+                      {{#if isUserTypeAdminForReports}}
+                        <div class="row col-sm-12">
+                            <div class="col-sm-6 col-md-6">
+                                <a href="/daily-report" class="thumbnail mycards three">
+                                    <div class="caption">
+                                        <h4>Daily Reports</h4>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <a href="/sldc-report" class="thumbnail mycards two">
+                                    <div class="caption">
+                                        <h4>SLDC Daily Report</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row col-sm-12">
+                          <div class="col-sm-6 col-md-6">
+                              <a href="/upload-rrf" class="thumbnail mycards one">
+                                  <div class="caption">
+                                      <h4>Upload RRF</h4>
+                                  </div>
+                              </a>
+                          </div>
+                          <div class="col-sm-6 col-md-6">
+                              <a href="/check-rrf" class="thumbnail mycards one">
+                                  <div class="caption">
+                                      <h4>Check RRF Data</h4>
+                                  </div>
+                              </a>
+                          </div>
+                        </div>
+                        <div class="row col-sm-12">
+                            <div class="col-sm-6 col-md-6">
+                              <a href="/view-rrf" class="thumbnail mycards one">
+                                  <div class="caption">
+                                      <h4>View RRF</h4>
+                                  </div>
+                              </a>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <a href="/rldc-comparision" class="thumbnail mycards two">
+                                    <div class="caption">
+                                        <h4>RLDC Comparision Report</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row col-sm-12">
+                          <div class="col-sm-6 col-md-6">
+                              <a href="/MP-monthly-revision" class="thumbnail mycards one">
+                                  <div class="caption">
+                                      <h4>MP Monthly Revision Report</h4>
+                                  </div>
+                              </a>
+                          </div>
+                          <div class="col-sm-6 col-md-6">
+                              <a href="/monthly-report" class="thumbnail mycards one">
+                                  <div class="caption">
+                                      <h4>Monthly Report</h4>
+                                  </div>
+                              </a>
+                          </div>
+                        </div>
+                      {{#if isUserTypeAdminToViewBIllingReport}}
+                        <div class="row col-sm-12">
+                          <div class="col-sm-6 col-md-6">
+                              <a href="/billing-report" class="thumbnail mycards four">
+                                  <div class="caption">
+                                      <h4>Billing Reports</h4>
+                                  </div>
+                              </a>
+                          </div>
+                        </div>
+                       {{/if}}
+                      {{/if}}
+                      {{#if isUserTypeCommercialForReports}}
+                      <div class="row col-sm-12">
+                        <div class="col-sm-6 col-md-6">
+                            <a href="/billing-report" class="thumbnail mycards four">
+                                <div class="caption">
+                                    <h4>Billing Reports</h4>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <a href="/purchase-sale" class="thumbnail mycards two">
+                                <div class="caption">
+                                    <h4>Purchase And Sale Report</h4>
+                                </div>
+                            </a>
+                        </div>
+                      </div>
+                      <div class="row col-sm-12">
+                        <div class="col-sm-6 col-md-6">
+                            <a href="/monthly-report" class="thumbnail mycards one">
+                                <div class="caption">
+                                    <h4>Monthly Report</h4>
+                                </div>
+                            </a>
+                        </div>
+                      </div>
+                      {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

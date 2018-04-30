@@ -1,0 +1,642 @@
+<template name="ApplicationData">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <div class="row">
+          <div class="col-sm-12 col-md-12 main">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+              <h1 style="font-size:28px;font-weight:bold;"><center>INITIATED APPLICATION</center></h1>
+            </div>
+            <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label class="form-control-label">Enter Application Name:</label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" id="appName" class="form-control input-sm required {{validateClass}}" placeholder="Enter name of aplication" name="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label class="form-control-label">Select Financial Year :</label>
+                                </div>
+                                <div class="col-sm-6">
+                                  <select id='financialYear' class="form-control form-control-sm input-sm">
+                                    <option value="">Select Financial Year</option>
+                                    <option value="2016-2017">2016-2017</option>
+                                    <option value="2017-2018">2017-2018</option>
+                                    <option value="2018-2019">2018-2019</option>
+                                    <option value="2019-2020">2019-2020</option>
+                                    <option value="2020-2021">2020-2021</option>
+                                    <option value="2021-2022">2021-2022</option>
+                                  </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label class="form-control-label">Enter Application Type:</label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <select id="appType" class="form-control form-control-sm input-sm {{validateClass}}" name="">
+                                        <option value="">-Type of Application-</option>
+                                        <option value="RLDC_gujarat" state="">RLDC Charges Gujarat</option>
+                                        <option value="RLDC_MP" state="">RLDC Charges MP</option>
+                                        <option value="incentive_charge" state="">Incentive Charges for RVPN</option>
+                                        <option value="SLDC_charge" state="Rajasthan">SLDC Charges</option>
+                                        <option value="trans_charge_Rajasthan" state="Rajasthan">Transmission Charges of Rajasthan</option>
+                                        <option value="trans_charge_GETCO" state="Gujarat">Transmission Charges of GETCO</option>
+                                        <option value="trans_charge_MP" state="MP">Transmission Charges of MP</option>
+                                        <option value="UI_charges">UI Charges</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{#if showMonth}}
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group row">
+                                <label class="col-sm-3 form-control-label">Select Month:</label>
+                                <div class="col-sm-6">
+                                    <select id='selectMonth' class="form-control form-control-sm input-sm {{validateClass}}">
+                                        <option value="">Select Month</option>
+                                        {{#each monthShow}}
+                                        <option value="{{this.value}}">{{this.key}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                      {{/if}}
+                      {{#if showYear}}
+                      <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group row">
+                                <label class="col-sm-3 form-control-label">Select Year :</label>
+                                <div class="col-sm-6">
+                                    <select id='selectYear' class="form-control form-control-sm input-sm {{validateClass}}">
+                                        <option value="">Select Year</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2021">2021</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/if}}
+
+                    {{#if tableDescription}}
+                    <div class="row">
+                      <div class="col-sm-3">
+                      </div>
+                        <div class="col-sm-6">
+                            <section class="panel panel-default">
+                                <div class="panel-body">
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th rowspan="2">SI. No.</th>
+                                                            <th rowspan="2">Description</th>
+                                                            <th colspan='1'>Month</th>
+                                                        </tr>
+                                                        <tr>
+                                                          <th>
+                                                            {{showSetMonthAndYear.monthWords}}'{{showSetMonthAndYear.getYear}}
+                                                          </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>1.</td>
+                                                            <td>System Operation Charge (SOC)</td>
+                                                            <td><input type='text' placeholder="Enter Amount" id="SOC" class="form-control input-sm {{validateClass}} total"/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2.</td>
+                                                            <td>Market Operation Charge (MOC)</td>
+                                                            <td><input type='text' placeholder="Enter Amount" id="MOC" class="form-control input-sm {{validateClass}} total"/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th colspan="2"><center>
+                                                              Total (Rs)
+                                                            </center></th>
+                                                            <td>{{returnTotalAmount.amountNumber}} <button class="btn btn-info pull-right" id="calAmount">+ Sum</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td colspan="3">
+                                                            Amount in (words):{{returnTotalAmount.amountWords}}
+                                                          </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="col-sm-3">
+
+                        </div>
+                    </div>
+                    {{/if}}
+                    {{#if incentiveCharges}}
+                    <div class="row">
+                      <div class="col-sm-2">
+                      </div>
+                        <div class="col-sm-8">
+                            <section class="panel panel-default">
+                                <div class="panel-body">
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>SI. No.</th>
+                                                            <th>Capacity (MW)</th>
+                                                            <th>Amount(Rs) Raised by RVPN</th>
+                                                            <th>Amount(Rs) to be raised by SECI</th>
+                                                            <th>Difference in Amount(Rs)</th>
+                                                            <th>Remarks</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                      {{#each manualIndexing}}
+                                                        <tr>
+                                                            <td>{{serial @index}}</td>
+                                                            <td><input type='text' placeholder="Enter Capacity" class="form-control input-sm {{validateClass}} capacity"/></td>
+                                                            <td><input type='text' placeholder="Amount Raised by RVPN" class="form-control input-sm {{validateClass}} byRVPN"/></td>
+                                                            <td><input type='text' placeholder="Amount Raised by SECI" class="form-control input-sm {{validateClass}} bySECI"/></td>
+                                                            <td class="index">{{individualHelper returnIncentive.difference @index}}</td>
+                                                            <td><input type='text' placeholder="Remarks" class="form-control input-sm {{validateClass}} remarks"/></td>
+                                                        </tr>
+                                                        {{/each}}
+                                                        <tr>
+                                                            <th>Total</th>
+                                                            <th>{{individualHelper returnIncentive.capacity returnLastIndex}}</th>
+                                                            <th>{{individualHelper returnIncentive.byRVPN returnLastIndex}}</th>
+                                                            <th>{{individualHelper returnIncentive.bySECI returnLastIndex}}</th>
+                                                            <th>{{individualHelper returnIncentive.difference returnLastIndex}}</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                    <span><button type="button" class='btn btn-success' id='addRow'>Add Row to the table</button></span>
+                                                    <br /> <br />
+                                                    <span><button type="button" class='btn btn-danger' id='removeRow'>Remove Row from the table</button></span>
+                                                <button class="btn btn-info pull-right" id="calIncentive">Calculate</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="col-sm-2">
+
+                        </div>
+                    </div>
+                    {{/if}}
+
+                  {{#if monthRange}}
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 form-control-label">Starting Month:</label>
+                                <div class="col-sm-6">
+                                    <select id='selectStartMonth' class="form-control form-control-sm input-sm {{validateClass}}">
+                                        <option value="">Starting Month</option>
+                                        {{#each monthShow}}
+                                        <option value="{{this.value}}">{{this.key}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 form-control-label">Ending Month :</label>
+                                <div class="col-sm-6">
+                                    <select id='selectEndMonth' class="form-control form-control-sm input-sm {{validateClass}}">
+                                        <option value="">Ending Month</option>
+                                        {{#each monthShow}}
+                                        <option value="{{this.value}}">{{this.key}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    {{/if}}
+                  {{#if sldcCharges}}
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <section class="panel panel-default">
+                                <div class="panel-body">
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th rowspan="2">SI. No.</th>
+                                                            <th rowspan="2">Name of the STU</th>
+                                                            <th colspan='1'>Bill Type</th>
+                                                            <th rowspan="2" style="width:15%">Bill No./Date</th>
+                                                            <th rowspan="2" style="width:28%">Period</th>
+                                                            <th rowspan="2" style="width:14%">Sanction Contracted capacity in kW</th>
+                                                            <th rowspan="2" style="width:12%">Due date</th>
+                                                            <th rowspan="2" style="width:15%">Total Amount(Rs)</th>
+                                                        </tr>
+                                                        <tr>
+                                                          <th>
+                                                            SLDC Charges/Transmission charges
+                                                          </th>
+                                                        </tr>
+
+                                                    </thead>
+                                                    <tbody>
+                                                      {{#each manualIndexing}}
+                                                        <tr>
+                                                            <td>{{serial @index}}</td>
+                                                            <td>RVPN</td>
+                                                            <td>SLDC Charges</td>
+                                                            <td><input type='text' placeholder="Bill No. and date" class="form-control input-sm {{validateClass}} sldcBillNo"/></td>
+                                                            <td>
+                                                              <div class="row">
+                                                              <div class="col-sm-5">
+                                                                <input placeholder="Period Start" class="form-control input-sm {{validateClass}} sldcPeriodStart datepickerDot" type="text" style="width:100px;">
+                                                              </div>
+                                                              <div class="col-sm-1">-</div>
+                                                              <div class="col-sm-5">
+                                                                <input placeholder="Period End" class="form-control input-sm {{validateClass}} sldcPeriodEnd datepickerDot" style="width:100px;" type="text">
+                                                              </div>
+                                                            </div>
+                                                          </td>
+                                                            <td>
+                                                              <select id="selectCapacity" class="form-control form-control-sm input-sm {{validateClass}} sldcCapacity">
+                                                                  <option value="">-Select Capacity-</option>
+                                                                  <option value="140000">140,000</option>
+                                                                  <option value="60000">60,000</option>
+                                                                  <option value="20000">20,000</option>
+                                                                  <option value="10000">10,000</option>
+                                                              </select>
+                                                            </td>
+                                                            <td><input type='text' placeholder="Due Date" class="form-control input-sm {{validateClass}} dueDate datepicker"/></td>
+                                                            <td>{{individualHelper returnCharges.amount @index}}</td>
+                                                        </tr>
+                                                        {{/each}}
+                                                        <tr>
+                                                          <td colspan="7">
+                                                            Amount in (words):{{returnTotalAmount.amountWords}}
+                                                          </td>
+                                                          <td>
+                                                            {{returnTotalAmount.amountNumber}}
+                                                          </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="col-md-12 col-sm-12">
+                                                  <div class="col-md-4 col-sm-4">
+                                                    <button type="button" class='btn btn-success' id='addRow'>Add Row to the table</button><br /> <br />
+                                                    <button type="button" class='btn btn-danger' id='removeRow'>Remove Row from the table</button>
+                                                  </div>
+                                                  <div class="col-md-4 col-sm-4">
+                                                  <strong>Sldc Charges: </strong>{{chargesGet}}
+                                                  </div>
+                                                  <div class="col-md-4 col-sm-4">
+                                                    <button class="btn btn-info pull-right" id="calSldc">Calculate</button>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="col-sm-1">
+
+                        </div>
+                    </div>
+                    {{/if}}
+
+                    {{#if transmissionCharges}}
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <section class="panel panel-default">
+                                <div class="panel-body">
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th rowspan="2">SI. No.</th>
+                                                            <th rowspan="2">Name of the STU</th>
+                                                            <th colspan='1' style="width:15%">Bill Type</th>
+                                                            <th rowspan="2" style="width:15%">Bill No./Date</th>
+                                                            <th rowspan="2" style="width:33%">Period</th>
+                                                            <th rowspan="2" style="width:14%">Sanction Contracted capacity in kW</th>
+                                                            <th rowspan="2" style="width:15%">Due date</th>
+                                                            <th rowspan="2">Total Amount(Rs)</th>
+                                                            <th rowspan="2" style="width:11%">Excess Payment</th>
+                                                            <th rowspan="2">Amount Payable</th>
+                                                        </tr>
+                                                        <tr>
+                                                          <th>
+                                                            SLDC Charges/<br>Transmission charges
+                                                          </th>
+                                                        </tr>
+
+                                                    </thead>
+                                                    <tbody>
+                                                      {{#each manualIndexing}}
+                                                        <tr>
+                                                            <td>{{serial @index}}</td>
+                                                            <td>{{stuNameAndClick.stuName}}</td>
+                                                            <td>Transmission Charges</td>
+                                                            <td><input type='text' placeholder="Bill No. and date" class="form-control input-sm {{validateClass}} transBillNo"/></td>
+                                                            <td>
+                                                              <div class="row">
+                                                              <div class="col-sm-5">
+                                                                <input placeholder="Period Start" class="form-control input-sm {{validateClass}} transPeriodStart datepickerDot" type="text" style="width:100px;">
+                                                              </div>
+                                                              <div class="col-sm-1">-</div>
+                                                              <div class="col-sm-5">
+                                                                <input placeholder="Period End" class="form-control input-sm {{validateClass}} transPeriodEnd datepickerDot" style="width:100px;" type="text">
+                                                              </div>
+                                                            </div>
+                                                          </td>
+                                                            <td>
+                                                              <select id="selectCapacity" class="form-control form-control-sm input-sm {{validateClass}} transCapacity">
+                                                                  <option value="">-Select Capacity-</option>
+                                                                  <option value="140000">140,000</option>
+                                                                  <option value="60000">60,000</option>
+                                                                  <option value="20000">20,000</option>
+                                                                  <option value="10000">10,000</option>
+                                                              </select>
+                                                            </td>
+                                                            <td><input type='text' placeholder="Due Date" class="form-control input-sm {{validateClass}} dueDate datepicker"/></td>
+                                                            <td>
+                                                              {{#if forTrans_charge_MP}}
+                                                              <input type='text' placeholder="Total Amount" class="form-control input-sm {{validateClass}} totalAmount"/>
+                                                              {{else}}
+                                                              {{individualHelper returnCharges.totalAmount @index}}
+                                                              {{/if}}
+                                                            </td>
+                                                            <td><input type='text' placeholder="Excess Payment" class="form-control input-sm {{validateClass}} transExcess"/></td>
+                                                            <td>{{individualHelper returnCharges.paymentAmount @index}}</td>
+                                                        </tr>
+                                                        {{/each}}
+                                                        <tr>
+                                                          <th colspan="9" style="text-align:right;">
+                                                            Total Amount(Rs):
+                                                          </th>
+                                                          <th>
+                                                            {{returnTotalAmount.amountNumber}}
+                                                          </th>
+                                                        </tr>
+                                                        <tr>
+                                                          <td colspan="10">
+                                                            <strong>
+                                                              Amount in (words):{{returnTotalAmount.amountWords}}
+                                                            </strong>
+                                                          </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div style="visibility: hidden">
+                                                  {{showSetMonthAndYear}}
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                  <div class="col-md-4 col-sm-4">
+                                                    <button type="button" class='btn btn-success' id='addRow'>Add Row to the table</button><br /> <br />
+                                                    <button type="button" class='btn btn-danger' id='removeRow'>Remove Row from the table</button>
+                                                  </div>
+                                                  <div class="col-md-4 col-sm-4">
+                                                  <strong>Transmission Charges: </strong>{{chargesGet}}
+                                                  </div>
+                                                  <div class="col-md-4 col-sm-4">
+                                                    <button class="btn btn-info pull-right" id="{{stuNameAndClick.clickButton}}">Calculate</button>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    {{/if}}
+
+                    {{#if transmissionChargesGETCO}}
+                    <div class="row">
+                      <div class="col-sm-12">
+                          <div class="form-group row">
+                              <label class="col-sm-3 form-control-label">Raised Date :</label>
+                              <div class="col-sm-6">
+                                  <input type="text" class="form-control input-sm {{validateClass}} raisedDate datepicker" placeholder="Raised Date">
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                          <div class="form-group row">
+                              <label class="col-sm-3 form-control-label">Recieved Date :</label>
+                              <div class="col-sm-6">
+                                  <input type="text" class="form-control input-sm {{validateClass}} recievedDate datepicker" placeholder="Recieved Date">
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <section class="panel panel-default">
+                                <div class="panel-body">
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>SI. No.</th>
+                                                            <th>Name of the Entity</th>
+                                                            <th>Capacity (MW)</th>
+                                                            <th>State</th>
+                                                            <th style="width:9%;">Invoice No.</th>
+                                                            <th>Invoice Amount</th>
+                                                            <th style="width:9%;">Date of receipt of Invoice</th>
+                                                            <th style="width:9%;">Due date of payment</th>
+                                                            <th>TC as per GERC in rs/MW/Day</th>
+                                                            <th>No. of Days</th>
+                                                            <th>Deduction if any</th>
+                                                            <th>Payment to be realeased</th>
+                                                            <th>Remarks</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td rowspan="4">M/S Gujarat Energy Transmission Coporation Ltd.</td>
+                                                            <td rowspan="4">40</td>
+                                                            <td rowspan="4">Gujarat</td>
+                                                            <td><input type="text" class="form-control input-sm {{validateClass}} invoiceNumber" placeholder="Invoice Number"></td>
+                                                            <td>{{returnCharges.invoiceAmount}}</td>
+                                                            <td><input type="text" class="form-control input-sm {{validateClass}} invoiceDate datepicker" placeholder="Invoice Date"></td>
+                                                            <td><input type="text" class="form-control input-sm {{validateClass}} dueDate datepicker" placeholder="Due Date"></td>
+                                                            <td>{{monthDaysAndGERC.GERC}}</td>
+                                                            <td>{{monthDaysAndGERC.days}}</td>
+                                                            <td><input type="text" class="form-control input-sm {{validateClass}} deduct" placeholder="Deduct"></td>
+                                                            <td>{{individualHelper returnCharges.paymentAmount 0}}</td>
+                                                            <td rowspan="4">1. Invoice has been raised to GRIDCO amounting Rs {{returnCharges.totalInvoiceAmount}} on {{GETCOdates.raised}}
+                                                              2. As per signed agreement between SECI & GETCO dated : 28.05.2015, definition of due date is 7 working date from the receipt of the bill i.e. on {{GETCOdates.recieved}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td><input type="text" class="form-control input-sm {{validateClass}} invoiceNumber" placeholder="Invoice Number"></td>
+                                                            <td>{{returnCharges.invoiceAmount}}</td>
+                                                            <td><input type="text" class="form-control input-sm {{validateClass}} invoiceDate datepicker" placeholder="Invoice Date"></td>
+                                                            <td><input type="text" class="form-control input-sm {{validateClass}} dueDate datepicker" placeholder="Due Date"></td>
+                                                            <td>{{monthDaysAndGERC.GERC}}</td>
+                                                            <td>{{monthDaysAndGERC.days}}</td>
+                                                            <td><input type="text" class="form-control input-sm {{validateClass}} deduct" placeholder="Deduct"></td>
+                                                            <td>{{individualHelper returnCharges.paymentAmount 1}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>3</td>
+                                                            <td><input type="text" class="form-control input-sm {{validateClass}} invoiceNumber" placeholder="Invoice Number"></td>
+                                                            <td>{{returnCharges.invoiceAmount}}</td>
+                                                            <td><input type="text" class="form-control input-sm {{validateClass}} invoiceDate datepicker" placeholder="Invoice Date"></td>
+                                                            <td><input type="text" class="form-control input-sm {{validateClass}} dueDate datepicker" placeholder="Due Date"></td>
+                                                            <td>{{monthDaysAndGERC.GERC}}</td>
+                                                            <td>{{monthDaysAndGERC.days}}</td>
+                                                            <td><input type="text" class="form-control input-sm {{validateClass}} deduct" placeholder="Deduct"></td>
+                                                            <td>{{individualHelper returnCharges.paymentAmount 2}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>4</td>
+                                                            <td><input type="text" class="form-control input-sm {{validateClass}} invoiceNumber" placeholder="Invoice Number"></td>
+                                                            <td>{{returnCharges.invoiceAmount}}</td>
+                                                            <td><input type="text" class="form-control input-sm {{validateClass}} invoiceDate datepicker" placeholder="Invoice Date"> </td>
+                                                            <td><input type="text" class="form-control input-sm {{validateClass}} dueDate datepicker" placeholder="Due Date"></td>
+                                                            <td>{{monthDaysAndGERC.GERC}}</td>
+                                                            <td>{{monthDaysAndGERC.days}}</td>
+                                                            <td><input type="text" class="form-control input-sm {{validateClass}} deduct" placeholder="Deduct"></td>
+                                                            <td>{{individualHelper returnCharges.paymentAmount 3}}</td>
+                                                        </tr>
+                                                        <tr style="border-bottom:0px !important;border-left:0px !important;border-right:0px !important;border:0px !important;border-top:1px !important">
+                                                          <td colspan='4' style="border-left:0px !important;border-right:0px !important;border:0px !important;">
+
+                                                          </td>
+                                                          <th style="border-left:0px!important;border-right:0px !important;border-bottom:0px !important;border:0px !important;">
+                                                            Total
+                                                          </th>
+                                                          <th style="border-left:0px!important;border-right:0px !important;border-bottom:0px !important;border:0px !important;">
+                                                            {{returnCharges.totalInvoiceAmount}}
+                                                          </th>
+                                                          <th colspan='5' style="border-left:0px!important;border-right:0px !important;border-bottom:0px !important;border:0px !important;">
+
+                                                          </th>
+                                                          <th style="border-left:0px!important;border-right:0px !important;border-bottom:0px !important;border:0px !important;">
+                                                          {{returnTotalAmount.amountNumber}}
+                                                          </th>
+                                                          <td style="border-left:0px!important;border-right:0px !important;border-bottom:0px !important;border:0px !important;">
+
+                                                          </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div style="visibility: hidden">
+                                                  {{showSetMonthAndYear}}
+                                                </div>
+                                                <span>Total Amount in Words: Rupees {{returnTotalAmount.amountWords}}</span>
+                                                <button class="btn btn-info pull-right" id="calTransGETCO">Calculate</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    {{/if}}
+
+                    {{#if UIcharges}}
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group row">
+                                <div class="col-sm-12 col-md-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-2">Type of charge to be Generated :</label>
+                                        <div class="col-sm-1">
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <input type="checkbox" class="UI_type {{validateClass}}" name="regular_UI" value="regular_UI">Regular UI Charges
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <input type="checkbox" class="UI_type {{validateClass}}" name="revisions_UI" value="revisions_UI" >Revisions
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <input type="checkbox" class="UI_type {{validateClass}}" name="revisions_only" value="revisions_only">Revisions Only
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/if}}
+                    {{#if startEndWeek}}
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 form-control-label">Starting Week:</label>
+                                <div class="col-sm-6">
+                                  <input type='text' placeholder="Starting Week" class="form-control input-sm {{validateClass}} datepicker start_week"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 form-control-label">Ending Week :</label>
+                                <div class="col-sm-6">
+                                  <input type='text' placeholder="Ending Week" class="form-control input-sm {{validateClass}} datepicker end_week"/>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    {{/if}}
+                    <div class="row">
+                        <div class="col-sm-5">
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group row">
+                                <button id='submitApplication' class="btn btn-success">Generate Application</button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>
+</template>

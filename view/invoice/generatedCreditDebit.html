@@ -1,0 +1,355 @@
+<template name="generateCreditDebit">
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 main">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h1 style="font-weight:bold;font-size:28px;text-align:center;">Generated Credit/Debit Note</h1>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <section class="panel panel-default">
+                                  <div class="panel-body">
+                                      <div class="row">
+                                          <div class="col-md-12 col-sm-12">
+                                              <fieldset class="scheduler-border">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group row">
+                                                            <div class="col-sm-6 col-md-6">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-4 form-control-label">Credit/Debit Note:</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id='ddlTypeOfCreditDebitSelected' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_month">
+                                                                            <option value="">Select Credit/Debit Type</option>
+                                                                            <option value="Energy">Energy </option>
+                                                                            <option value="Transmission">Transmission</option>
+                                                                            <option value="SLDC">SLDC</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6 col-md-6">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                              </fieldset>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </section>
+                          </div>
+                      </div>
+                      <!-- Energy Invoice  -->
+                      {{#if isEnergyCreditDebitSelectedToView}}
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <section class="panel panel-default">
+                                  <div class="panel-body">
+                                      <div class="row">
+                                          <div class="col-md-12 col-sm-12">
+                                              <fieldset class="scheduler-border">
+                                                  <legend class="scheduler-border">Energy Credit/Debit Details</legend>
+                                                  <div class="row">
+                                                      <div class="col-sm-12">
+                                                          <div class="row">
+                                                              <div class="col-sm-5">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-4 form-control-label">Month:</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id="ddlMonth" class="form-control input-sm required" name="selectMonth">
+                                                                            <option value="">Select Month</option>
+                                                                            {{#each monthShow}}
+                                                                              <option value="{{this.value}}">{{this.key}}</option>
+                                                                            {{/each}}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                              <div class="col-sm-5">
+                                                                  <div class="form-group row">
+                                                                    <label class="col-sm-4 form-control-label">Year :</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id='ddlYear' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                            <option value="">Select Year</option>
+                                                                            {{#each yearHelper}}
+                                                                              <option value="{{this}}">{{this}}</option>
+                                                                            {{/each}}
+                                                                        </select>
+                                                                    </div>
+                                                                  </div>
+                                                              </div>
+                                                              {{#if isMonthAndYearSelected}}
+                                                              <div class="col-sm-2">
+                                                                  <div class="form-group row">
+                                                                      <center><button id='viewBtn' class="btn btn-primary">View</button></center>
+                                                                  </div>
+                                                              </div>
+                                                              {{/if}}
+                                                          </div>
+                                                          {{#if isEnergyDataAvailable}}
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <section class="panel panel-default">
+                                                                          <div class="panel-body" style="overflow-x:scroll">
+                                                                              <fieldset>
+                                                                                  <div class="row">
+                                                                                      <div class="col-md-12 col-sm-12">
+                                                                                          <table class="table table-bordered">
+                                                                                              <thead>
+                                                                                                  <tr>
+                                                                                                      <th class="text-center">S.No.</th>
+                                                                                                      <th class="text-center">Discom State</th>
+                                                                                                      <th class="text-center">Credit/Debit Type</th>
+                                                                                                      <th class="text-center">Generation Date</th>
+                                                                                                      <th class="text-center">Total Amount</th>
+                                                                                                      <th class="text-center">Action </th>
+                                                                                                  </tr>
+                                                                                              </thead>
+                                                                                              <tbody>
+                                                                                                  {{#each EnergyDataHelper}}
+                                                                                                      <tr>
+                                                                                                          <td class="text-center">{{serial @index}}</td>
+                                                                                                          <td class="text-center">{{discom_state}}</td>
+                                                                                                          <td class="text-center">{{type}}</td>
+                                                                                                          <td class="text-center">{{genDate}}</td>
+                                                                                                          <td class="text-center">{{total_amount}}</td>
+                                                                                                          {{#if isUserComercial}}
+                                                                                                          <td class="text-center">
+                                                                                                              <button id='viewCreditDebitDocx' filePath="{{file_path_docx}}" class="btn btn-info btn-xs">Docx</button>
+                                                                                                              <button id='viewCreditDebitPdf' filePath="{{file_path}}" class="btn btn-warning btn-xs">PDF</button>
+                                                                                                              <button id='deleteGeneratedCreditDebit' type="Energy" filePath="{{file_path}}" attrId={{_id}} class="btn btn-danger btn-xs">Delete</button>
+                                                                                                          </td>
+                                                                                                        {{else}}
+                                                                                                          <td class="text-center">
+                                                                                                              <button id='viewCreditDebitPdf' filePath="{{file_path}}" class="btn btn-warning btn-xs">PDF</button>
+                                                                                                          </td>
+                                                                                                        {{/if}}
+                                                                                                      </tr>
+                                                                                                  {{/each}}
+                                                                                              </tbody>
+                                                                                          </table>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </fieldset>
+                                                                          </div>
+                                                                      </section>
+                                                                  </div>
+                                                              </div>
+                                                          {{/if}}
+                                                      </div>
+                                                  </div>
+                                              </fieldset>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </section>
+                          </div>
+                        </div>
+                      {{/if}}
+                      <!-- Transmission Invoice  -->
+                      {{#if isTransmissionCreditDebitSelectedToView}}
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <section class="panel panel-default">
+                                  <div class="panel-body">
+                                      <div class="row">
+                                          <div class="col-md-12 col-sm-12">
+                                              <fieldset class="scheduler-border">
+                                                  <legend class="scheduler-border">Transmission Credit/Debit Details</legend>
+                                                  <div class="row">
+                                                      <div class="col-sm-12">
+                                                          <div class="row">
+                                                              <div class="col-sm-5">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-4 form-control-label">Month:</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id="ddlMonth" class="form-control input-sm required" name="selectMonth">
+                                                                            <option value="">Select Month</option>
+                                                                            {{#each monthShow}}
+                                                                              <option value="{{this.value}}">{{this.key}}</option>
+                                                                            {{/each}}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                              <div class="col-sm-5">
+                                                                  <div class="form-group row">
+                                                                    <label class="col-sm-4 form-control-label">Year :</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id='ddlYear' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                            <option value="">Select Year</option>
+                                                                            {{#each yearHelper}}
+                                                                              <option value="{{this}}">{{this}}</option>
+                                                                            {{/each}}
+                                                                        </select>
+                                                                    </div>
+                                                                  </div>
+                                                              </div>
+                                                              {{#if isMonthAndYearSelected}}
+                                                              <div class="col-sm-2">
+                                                                  <div class="form-group row">
+                                                                      <center><button id='viewBtnTransmission' class="btn btn-primary">View</button></center>
+                                                                  </div>
+                                                              </div>
+                                                              {{/if}}
+                                                          </div>
+                                                          {{#if iftransmissionAvailable}}
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <section class="panel panel-default">
+                                                                          <div class="panel-body">
+                                                                              <fieldset>
+                                                                                  <div class="row">
+                                                                                      <div class="col-md-12 col-sm-12">
+                                                                                          <table class="table table-bordered">
+                                                                                              <thead>
+                                                                                                  <tr>
+                                                                                                      <th class="text-center">S.No.</th>
+                                                                                                      <th class="text-center">Discom State</th>
+                                                                                                      <th class="text-center">Credit/Debit Type</th>
+                                                                                                      <th class="text-center">Generation Date</th>
+                                                                                                      <!-- <th class="text-center">Project Capicity</th> -->
+                                                                                                      <th class="text-center">Total Transmission</th>
+                                                                                                        <th class="text-center">Action </th>
+                                                                                                  </tr>
+                                                                                              </thead>
+                                                                                              <tbody>
+                                                                                                  {{#each transmissionDataHelper}}
+                                                                                                      <tr>
+                                                                                                          <td class="text-center">{{serial @index}}</td>
+                                                                                                          <td class="text-center">{{discom_state}}</td>
+                                                                                                          <td class="text-center">{{type}}</td>
+                                                                                                          <td class="text-center">{{genDate}}</td>
+                                                                                                          <td class="text-center">{{total_amount}}</td>
+                                                                                                        {{#if isUserComercial}}
+                                                                                                          <td class="text-center">
+                                                                                                            <button id='viewCreditDebitDocx' filePath="{{file_path_docx}}" class="btn btn-info btn-xs">Docx</button>
+                                                                                                            <button id='viewCreditDebitPdf' filePath="{{file_path}}" class="btn btn-warning btn-xs">PDF</button>
+                                                                                                            <button id='deleteGeneratedCreditDebit' type="Transmission" filePath="{{file_path}}" attrId={{_id}} class="btn btn-danger btn-xs">Delete</button>
+                                                                                                          </td>
+                                                                                                        {{else}}
+                                                                                                          <td class="text-center">
+                                                                                                            <button id='viewCreditDebitPdf' filePath="{{file_path}}" class="btn btn-warning btn-xs">PDF</button>
+                                                                                                          </td>
+                                                                                                        {{/if}}
+                                                                                                      </tr>
+                                                                                                  {{/each}}
+                                                                                              </tbody>
+                                                                                          </table>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </fieldset>
+                                                                          </div>
+                                                                      </section>
+                                                                  </div>
+                                                              </div>
+                                                         {{/if}}
+                                                      </div>
+                                                  </div>
+                                              </fieldset>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </section>
+                          </div>
+                        </div>
+                      {{/if}}
+                        <!-- SLDC Invoice  -->
+                      {{#if isSLDCCreditDebitSelectedToView}}
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <section class="panel panel-default">
+                                  <div class="panel-body">
+                                      <div class="row">
+                                          <div class="col-md-12 col-sm-12">
+                                              <fieldset class="scheduler-border">
+                                                  <legend class="scheduler-border">SLDC Credit/Debit Details</legend>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="row">
+                                                                <div class="col-sm-5">
+                                                                  <div class="form-group row">
+                                                                    <label class="col-sm-4 form-control-label">Financial Year:</label>
+                                                                    <div class="col-sm-8">
+                                                                      <select id='selectFinancialyearSLDC' class="form-control form-control-sm input-sm">
+                                                                          <option value="">Financial Year</option>
+                                                                          {{#each financialYearHelper}}
+                                                                            <option value="{{this}}">{{this}}</option>
+                                                                          {{/each}}
+                                                                      </select>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                            {{#if ifSLDCAvailable}}
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <section class="panel panel-default">
+                                                                            <div class="panel-body">
+                                                                                <fieldset>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12 col-sm-12">
+                                                                                            <table class="table table-bordered">
+                                                                                                <thead>
+                                                                                                    <tr>
+                                                                                                        <th class="text-center">S.No.</th>
+                                                                                                        <th class="text-center">Discom State</th>
+                                                                                                        <th class="text-center">Credit/Debit Type</th>
+                                                                                                        <th class="text-center">Generation Date</th>
+                                                                                                        <th class="text-center">Total Amount</th>
+                                                                                                        <th class="text-center">Action </th>
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                    {{#each SLDCDataHelper}}
+                                                                                                        <tr>
+                                                                                                            <td class="text-center">{{serial @index}}</td>
+                                                                                                            <td class="text-center">{{discom_state}}</td>
+                                                                                                            <td class="text-center">{{type}}</td>
+                                                                                                            <td class="text-center">{{genDate}}</td>
+                                                                                                            <td class="text-center">{{total_amount}}</td>
+                                                                                                            {{#if isUserComercial}}
+                                                                                                              <td class="text-center">
+                                                                                                                <button id='viewCreditDebitDocx' filePath="{{file_path_docx}}" class="btn btn-info btn-xs">Docx</button>
+                                                                                                                <button id='viewCreditDebitPdf' filePath="{{file_path}}" class="btn btn-warning btn-xs">PDF</button>
+                                                                                                                <button id='deleteGeneratedCreditDebit' type="SLDC" filePath="{{file_path}}" attrId={{_id}} class="btn btn-danger btn-xs">Delete</button>
+                                                                                                              </td>
+                                                                                                            {{else}}
+                                                                                                              <td class="text-center">
+                                                                                                                <button id='viewCreditDebitPdf' filePath="{{file_path}}" class="btn btn-warning btn-xs">PDF</button>
+                                                                                                              </td>
+                                                                                                            {{/if}}
+                                                                                                        </tr>
+                                                                                                    {{/each}}
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </fieldset>
+                                                                            </div>
+                                                                        </section>
+                                                                    </div>
+                                                                </div>
+                                                           {{/if}}
+                                                        </div>
+                                                    </div>
+                                              </fieldset>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </section>
+                          </div>
+                        </div>
+                      {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</template>

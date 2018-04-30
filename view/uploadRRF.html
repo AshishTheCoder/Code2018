@@ -1,0 +1,75 @@
+<template name="uploadRRF">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Upload RRF</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Select Date :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control input-sm selectDate" placeholder="Select Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Upload here :</label>
+                                            <div class="col-sm-8" >
+                                                {{> upload_bootstrap callbacks=myCallbacks fileTypes='.xls,.xlsx' autoStart=true multiple=false formData=specificFormData}}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Revised State :</label>
+                                            <div class="col-sm-8">
+                                                <select id="revisedState" class="form-control input-sm">
+                                                    <option value="">Select State</option>
+                                                    <option value="all" style="font-weight:bold">All (In case of R0)</option>
+                                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                                    <option value="Goa">Goa & Maharashtra</option>
+                                                    <!-- <option value="Maharashtra">Maharashtra</option> -->
+                                                    <option value="Bihar">Bihar</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <button id="uploadRRFfile" class="btn btn-sm btn-success pull-right">Read uploaded File</button>
+                                    <!-- <button id="emptyRRFfile" class="pull-left">empty uploaded File</button> -->
+                                </div>
+                                <div class="col-sm-6">
+                                    <a href="{{generateHref}}" target='_blank' class='btn btn-sm btn-info pull-right' style="color:black">Show Latest Uploaded File</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

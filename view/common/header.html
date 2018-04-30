@@ -1,0 +1,375 @@
+<template name="header">
+  <div class="loading" id="loadercls" style="{{isLoading}};">Loading&#8230;</div>
+    {{#if isUserLogedIn}}
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div><img class="home-page-logo" src="/img/seci-logo.png"/></div>
+            <!-- <a href="#" class="navbar-brand" style="color:white">SECI</a> -->
+        </div>
+        <a href="/logout" id="btnLogout" class="pull-right" style="margin-right:20px; margin-top:20px;color:white">Logout</a>
+        {{#if isLatestRevisionDataAvailable}}
+          <button class="pull-right revDataHeader" attrId="{{showLatestRevisionOnHeader.schedule_id}}" data-toggle="tooltip" data-placement="top" title="Click me to hide." style="margin-right:20px; margin-top:20px;color:red">{{showLatestRevisionOnHeader.spd_name}}</button>
+          <button class="pull-right revDataHeader" attrId="{{showLatestRevisionOnHeader.schedule_id}}" data-toggle="tooltip" data-placement="top" title="Click me to hide." style="margin-right:20px; margin-top:20px;color:red">{{showLatestRevisionOnHeader.rev_type}}</button>
+          <button class="pull-right revDataHeader" attrId="{{showLatestRevisionOnHeader.schedule_id}}" data-toggle="tooltip" data-placement="top" title="Click me to hide." style="margin-right:20px; margin-top:20px;color:red">{{showLatestRevisionOnHeader.current_revision}}</button>
+        {{/if}}
+          <!-- <level class="pull-right" data-toggle="tooltip" data-placement="top" style="margin-right:20px; margin-top:20px;color:white">Time : {{showUserId}}</level> -->
+        {{#if showUserId}}
+          <level class="pull-right" data-toggle="tooltip" data-placement="top" style="margin-right:20px; margin-top:20px;color:white">User Id : {{showUserId}}</level>
+        {{/if}}
+    </nav>
+        {{#if isUserTypeSPDApproved}}
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="/schedule-submission">Home</a></li>
+                <li><a href="/search">Search</a></li>
+                <li><a href="/about-us">About SECI</a></li>
+                <li><a href="/myprofile">My Profile</a></li>
+                {{#if showInterMenu}}
+                <li><a href="/spd-schedule-status">Schedule Status</a></li>
+                <li><a href="/daily-generation">Daily Actual Generation</a></li>
+                <li><a href="/generation-report">View Actual Generation</a></li>
+                <li><a href="/schedule-submission">Schedule Submission</a></li>
+                <li><a href="/revisions">Revision</a></li>
+                {{/if}}
+                {{#if showInterMenuForRajsthanInter}}
+                <li><a href="/spd-schedule-status">Schedule Status</a></li>
+                <li><a href="/daily-generation">Daily Actual Generation</a></li>
+                <li><a href="/generation-report">View Actual Generation</a></li>
+                <li><a href="/schedule-submission">Schedule Submission</a></li>
+                <li><a href="/revisions">Revision</a></li>
+                {{/if}}
+                <li><a href="/jmr">JMR</a></li>
+                <li><a href="/jmr-data">View JMR</a></li>
+                <li><a href="/view-payment-advice">Payment Advice</a></li>
+                <li><a href="/add-holidays">SECI Holidays</a></li>
+                <li><a href="/ticket-system">SECI Support</a></li>
+            </ul>
+        </div>
+        {{/if}}
+        {{#if isUserTypeSPDPending}}
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="/registration-form">Registration Form</a></li>
+                <li><a href="/about-us">About SECI</a></li>
+                <li><a href="#">My Profile</a></li>
+                <li><a href="#">Schedule Submission</a></li>
+                <li><a href="#">Profile Change Request</a></li>
+                <li><a href="#">Schedule Status</a></li>
+                <li><a href="#">Revision</a></li>
+                <li><a href="#">Daily Actual Generation</a></li>
+                <li><a href="#">JMR</a></li>
+            </ul>
+        </div>
+        {{/if}}
+
+        {{#if isUserTypeAdmin}}
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="/admin-home">Dashboard</a></li>
+                <li><a href="/search">Search</a></li>
+                <li><a href="/user-log-details">User Log</a></li>
+                <li><a href="/users-profile">User Profile</a></li>
+                <li><a href="/discom-profile">Add Discom Profile</a></li>
+                <li><a href="/reports-menu">Reports</a></li>
+                <li><a href="/admin-schedule-status">Schedules & Revisions</a></li>
+                <li><a href="/STU-charges">STU Losses</a></li>
+                <li><a href="/daily-actual-generation">Daily Actual Generation</a></li>
+                <li><a href="/update-data">RLDC Data</a></li>
+                <li><a href="/mail-timing">Mail Timing</a></li>
+                <li><a href="/export-excel">Download Excel</a></li>
+                <li><a href="/add-holidays">SECI Holidays</a></li>
+                <li><a href="/ticket-system">Tickets</a></li>
+              {{#if isUserAtLevel2}}
+                <li><a href="/payment-note-approval">Six Level</a></li>
+              {{/if}}
+            </ul>
+        </div>
+        {{isSTUlossUpdatedForNextMonth}}
+        {{/if}}
+        {{#if isUserTypeCommercial}}
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="/admin-home">Dashboard</a></li>
+                <li><a href="/search">Search</a></li>
+                <li><a href="/users-profile">User Profile</a></li>
+                <li><a href="/spd-audit-trail">SPD Audit Trail</a></li>
+                <li><a href="/discom-profile">Add Discom Profile</a></li>
+                <li><a href="/reports-menu">Reports</a></li>
+                <li><a href="/invoice-charges">Invoice Charges</a></li>
+                <li><a href="/generate-invoice">Invoice</a></li>
+                <li><a href="/energy-invoice-report">Generated Invoice</a></li>
+                <li><a href="/logbook">LogBook</a></li>
+                <li><a href="/payment-note">Payment Note</a></li>
+                <li><a href="/view-payment-note">View & Initiate</a></li>
+                <li><a href="/payment-note-approval">Six Level</a></li>
+                <li><a href="/approved-payment-note">Approved File</a></li>
+                <li><a href="/spd-payment-advice">Payment Advice</a></li>
+                <li><a href="/submit-rea">REA Submission</a></li>
+                <li><a href="/jmr-data">View JMR</a></li>
+                <li><a href="/open-access">Open Access</a></li>
+                <li><a href="/add-holidays">SECI Holidays</a></li>
+                <li><a href="/ticket-system">Tickets</a></li>
+                <li><a href="/gst/generate-invoice">GST Invoice</a></li>
+                <li><a href="/surcharge">Surcharge</a></li>
+                <li><a href="/energy-surcharge-report">Generated Surcharge</a></li>
+                <li><a href="/credit-debit-note">Manual Credit/Debit Note</a></li>
+                <li><a href="/generateCreditDebit">Generated Credit/Debit Note</a></li>
+                <li><a href="/invoice/transco-sheet-entry">Transco Sheet</a></li>
+                <li><a href="/invoice/transco-sheet-report">Transco Sheet Report</a></li>
+                <li><a href="/payment-reconciliation">Quaterly Payment Reconcilation</a></li>
+                <li><a href="/master-sheet">Master Sheet</a></li>
+            </ul>
+        </div>
+        {{/if}}
+        {{#if isUserTypeMaster}}
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="/admin-home">Dashboard</a></li>
+                <li><a href="/search">Search</a></li>
+                <li><a href="/user-log-details">User Log</a></li>
+                <li><a href="/users-profile">User Profile</a></li>
+                <li><a href="/spd-audit-trail">SPD Audit Trail</a></li>
+                <li><a href="/discom-profile">Add Discom Profile</a></li>
+                <li><a href="/mail-timing">Mail Timing</a></li>
+                <li><a href="/reports-menu">Reports</a></li>
+                <li><a href="/export-excel">Download Excel</a></li>
+                <li><a href="/admin-schedule-status">Schedules & Revisions</a></li>
+                <li><a href="/daily-actual-generation">Daily Actual Generation</a></li>
+                <li><a href="/STU-charges">STU Losses</a></li>
+                <li><a href="/update-data">RLDC Data</a></li>
+                <li><a href="/invoice-charges">Invoice Charges</a></li>
+                <li><a href="/generate-invoice">Invoice</a></li>
+                <li><a href="/energy-invoice-report">Generated Invoice</a></li>
+                <li><a href="/logbook">LogBook</a></li>
+                <li><a href="/payment-note">Payment Note</a></li>
+                <li><a href="/view-payment-note">View & Initiate</a></li>
+                <li><a href="/payment-note-approval">Six Level</a></li>
+                <li><a href="/approved-payment-note">Approved File</a></li>
+                <li><a href="/spd-payment-advice">Payment Advice</a></li>
+                <li><a href="/submit-rea">REA Submission</a></li>
+                <li><a href="/open-access">Open Access</a></li>
+                <li><a href="/jmr-data">View JMR</a></li>
+                <li><a href="/add-holidays">SECI Holidays</a></li>
+                <li><a href="/ticket-system">Tickets</a></li>
+                <li><a href="/gst/generate-invoice">GST Invoice</a></li>
+                <li><a href="/surcharge">Surcharge</a></li>
+                <li><a href="/energy-surcharge-report">Generated Surcharge</a></li>
+                <li><a href="/credit-debit-note">Manual Credit/Debit Note</a></li>
+                <li><a href="/generateCreditDebit">Generated Credit/Debit Note</a></li>
+                <li><a href="/invoice/transco-sheet-entry">Transco Sheet</a></li>
+                <li><a href="/invoice/transco-sheet-report">Transco Sheet Report</a></li>
+                <li><a href="/payment-reconciliation">Quaterly Payment Reconcilation</a></li>
+                <li><a href="/master-sheet">Master Sheet</a></li>
+            </ul>
+        </div>
+        {{/if}}
+        {{#if isUserTypeFinance}}
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="/admin-home">Dashboard</a></li>
+                <li><a href="/payment-note-approval">Six Level Files</a></li>
+                <li><a href="/logbook">LogBook</a></li>
+                <li><a href="/reports-menu">Reports</a></li>
+                <li><a href="/energy-invoice-report">View Invoice</a></li>
+                <li><a href="/view-payment-note">View Payment Note</a></li>
+            </ul>
+        </div>
+        {{/if}}
+        {{#if ifRoleIsApplicant}}
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                {{#if isUserAtLevelOne}}
+                <li><a href="/ApplicationData">Generate Payment Note</a></li>
+                {{/if}}
+                <li><a href="/PaymentAdviceFront">Payment Advice</a></li>
+            </ul>
+        </div>
+        {{/if}}
+     {{/if}}
+</template>
+
+
+
+<!-- <template name="header">
+  <div class="loading" id="loadercls" style="{{isLoading}};">Loading&#8230;</div>
+    {{#if isUserLogedIn}}
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div><img class="home-page-logo" src="/img/seci-logo.png"/></div>
+        </div>
+        <a href="/logout" id="btnLogout" class="pull-right" style="margin-right:20px; margin-top:20px;color:white">Logout</a>
+        {{#if isLatestRevisionDataAvailable}}
+          <button class="pull-right revDataHeader" attrId="{{showLatestRevisionOnHeader.schedule_id}}" data-toggle="tooltip" data-placement="top" title="Click me to hide." style="margin-right:20px; margin-top:20px;color:red">{{showLatestRevisionOnHeader.spd_name}}</button>
+          <button class="pull-right revDataHeader" attrId="{{showLatestRevisionOnHeader.schedule_id}}" data-toggle="tooltip" data-placement="top" title="Click me to hide." style="margin-right:20px; margin-top:20px;color:red">{{showLatestRevisionOnHeader.rev_type}}</button>
+          <button class="pull-right revDataHeader" attrId="{{showLatestRevisionOnHeader.schedule_id}}" data-toggle="tooltip" data-placement="top" title="Click me to hide." style="margin-right:20px; margin-top:20px;color:red">{{showLatestRevisionOnHeader.current_revision}}</button>
+        {{/if}}
+        {{#if showUserId}}
+          <level class="pull-right" data-toggle="tooltip" data-placement="top" style="margin-right:20px; margin-top:20px;color:white">User Id : {{showUserId}}</level>
+        {{/if}}
+    </nav>
+        {{#if isUserTypeSPDApproved}}
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="/schedule-submission">Home</a></li>
+                <li><a href="/search">Search</a></li>
+                <li><a href="/about-us">About SECI</a></li>
+                <li><a href="/myprofile">My Profile</a></li>
+                {{#if showInterMenu}}
+                <li><a href="/spd-schedule-status">Schedule Status</a></li>
+                <li><a href="/daily-generation">Daily Actual Generation</a></li>
+                <li><a href="/generation-report">View Actual Generation</a></li>
+                <li><a href="/schedule-submission">Schedule Submission</a></li>
+                <li><a href="/revisions">Revision</a></li>
+                {{/if}}
+                {{#if showInterMenuForRajsthanInter}}
+                <li><a href="/spd-schedule-status">Schedule Status</a></li>
+                <li><a href="/daily-generation">Daily Actual Generation</a></li>
+                <li><a href="/generation-report">View Actual Generation</a></li>
+                <li><a href="/schedule-submission">Schedule Submission</a></li>
+                {{/if}}
+                <li><a href="/jmr">JMR</a></li>
+                <li><a href="/jmr-data">View JMR</a></li>
+                <li><a href="/view-payment-advice">Payment Advice</a></li>
+                <li><a href="/add-holidays">SECI Holidays</a></li>
+                <li><a href="/ticket-system">SECI Support</a></li>
+            </ul>
+        </div>
+        {{/if}}
+        {{#if isUserTypeSPDPending}}
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="/registration-form">Registration Form</a></li>
+                <li><a href="/about-us">About SECI</a></li>
+                <li><a href="#">My Profile</a></li>
+                <li><a href="#">Schedule Submission</a></li>
+                <li><a href="#">Profile Change Request</a></li>
+                <li><a href="#">Schedule Status</a></li>
+                <li><a href="#">Revision</a></li>
+                <li><a href="#">Daily Actual Generation</a></li>
+                <li><a href="#">JMR</a></li>
+            </ul>
+        </div>
+        {{/if}}
+
+        {{#if isUserTypeAdmin}}
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="/admin-home">Dashboard</a></li>
+                <li><a href="/search">Search</a></li>
+                <li><a href="/user-log-details">User Log</a></li>
+                <li><a href="/users-profile">User Profile</a></li>
+                <li><a href="/discom-profile">Add Discom Profile</a></li>
+                <li><a href="/reports-menu">Reports</a></li>
+                <li><a href="/admin-schedule-status">Schedules & Revisions</a></li>
+                <li><a href="/STU-charges">STU Losses</a></li>
+                <li><a href="/daily-actual-generation">Daily Actual Generation</a></li>
+                <li><a href="/update-data">RLDC Data</a></li>
+                <li><a href="/mail-timing">Mail Timing</a></li>
+                <li><a href="/export-excel">Download Excel</a></li>
+                <li><a href="/ticket-system">Tickets</a></li>
+              {{#if isUserAtLevel2}}
+                <li><a href="/payment-note-approval">Six Level</a></li>
+              {{/if}}
+            </ul>
+        </div>
+        {{isSTUlossUpdatedForNextMonth}}
+        {{/if}}
+        {{#if isUserTypeCommercial}}
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="/admin-home">Dashboard</a></li>
+              <li><a href="/search">Search</a></li>
+                <li><a href="/users-profile">User Profile</a></li>
+                <li><a href="/spd-audit-trail">SPD Audit Trail</a></li>
+                <li><a href="/discom-profile">Add Discom Profile</a></li>
+                <li><a href="/reports-menu">Reports</a></li>
+                <li><a href="/invoice-charges">Invoice Charges</a></li>
+                <li><a href="/generate-invoice">Invoice</a></li>
+                <li><a href="/energy-invoice-report">Generated Invoice</a></li>
+                <li><a href="/logbook">LogBook</a></li>
+                <li><a href="/payment-note">Payment Note</a></li>
+                <li><a href="/view-payment-note">View & Initiate</a></li>
+                <li><a href="/payment-note-approval">Six Level</a></li>
+                <li><a href="/approved-payment-note">Approved File</a></li>
+                <li><a href="/spd-payment-advice">Payment Advice</a></li>
+                <li><a href="/submit-rea">REA Submission</a></li>
+                <li><a href="/jmr-data">View JMR</a></li>
+                <li><a href="/open-access">Open Access</a></li>
+                <li><a href="/add-holidays">SECI Holidays</a></li>
+                <li><a href="/ticket-system">Tickets</a></li>
+            </ul>
+        </div>
+        {{/if}}
+        {{#if isUserTypeMaster}}
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="/admin-home">Dashboard</a></li>
+                <li><a href="/search">Search</a></li>
+                <li><a href="/user-log-details">User Log</a></li>
+                <li><a href="/users-profile">User Profile</a></li>
+                <li><a href="/spd-audit-trail">SPD Audit Trail</a></li>
+                <li><a href="/discom-profile">Add Discom Profile</a></li>
+                <li><a href="/mail-timing">Mail Timing</a></li>
+                <li><a href="/reports-menu">Reports</a></li>
+                <li><a href="/export-excel">Download Excel</a></li>
+                <li><a href="/admin-schedule-status">Schedules & Revisions</a></li>
+                <li><a href="/daily-actual-generation">Daily Actual Generation</a></li>
+                <li><a href="/STU-charges">STU Losses</a></li>
+                <li><a href="/update-data">RLDC Data</a></li>
+                <li><a href="/invoice-charges">Invoice Charges</a></li>
+                <li><a href="/generate-invoice">Invoice</a></li>
+                <li><a href="/energy-invoice-report">Generated Invoice</a></li>
+                <li><a href="/logbook">LogBook Discom</a></li>
+                <li><a href="/logbook/spd">LogBook SPD</a></li>
+                <li><a href="/logbook/stu-ctu">LogBook STU/CTU</a></li>
+                <li><a href="/payment-note">Payment Note</a></li>
+                <li><a href="/view-payment-note">View & Initiate</a></li>
+                <li><a href="/payment-note-approval">Six Level</a></li>
+                <li><a href="/approved-payment-note">Approved File</a></li>
+                <li><a href="/spd-payment-advice">Payment Advice</a></li>
+                <li><a href="/submit-rea">REA Submission</a></li>
+                <li><a href="/open-access">Open Access</a></li>
+                <li><a href="/jmr-data">View JMR</a></li>
+                <li><a href="/add-holidays">SECI Holidays</a></li>
+                <li><a href="/ticket-system">Tickets</a></li>
+            </ul>
+        </div>
+        {{/if}}
+        {{#if isUserTypeFinance}}
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="/admin-home">Dashboard</a></li>
+                <li><a href="/payment-note-approval">Six Level Files</a></li>
+                <li><a href="/logbook">LogBook</a></li>
+                <li><a href="/reports-menu">Reports</a></li>
+                <li><a href="/energy-invoice-report">View Invoice</a></li>
+                <li><a href="/view-payment-note">View Payment Note</a></li>
+            </ul>
+        </div>
+        {{/if}}
+        {{#if ifRoleIsApplicant}}
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                {{#if isUserAtLevelOne}}
+                <li><a href="/ApplicationData">Generate Payment Note</a></li>
+                {{/if}}
+                <li><a href="/PaymentAdviceFront">Payment Advice</a></li>
+            </ul>
+        </div>
+        {{/if}}
+     {{/if}}
+</template> -->

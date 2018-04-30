@@ -1,0 +1,297 @@
+<template name="viewJMRData">
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 main">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h1 style="font-weight:bold;font-size:28px;text-align:center;">View JMR Data</h1>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                      {{#if isComericalUserForViewJMRData}}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <fieldset class="scheduler-border">
+                                                  <div class="row">
+                                                      <div class="col-sm-12">
+                                                          <div class="form-group row">
+                                                              <div class="col-sm-6">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-3 form-control-label">Month :</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id='ddlMonthForAdmin' class="form-control form-control-sm input-sm">
+                                                                          <option value="">Select Month</option>
+                                                                          {{#each monthShow}}
+                                                                            <option value="{{this.value}}">{{this.key}}</option>
+                                                                          {{/each}}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                              <div class="col-sm-6">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-3 form-control-label">Financial Year :</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id='ddlFinancialYearForAdmin' class="form-control form-control-sm input-sm">
+                                                                            <option value="">Select Financial Year</option>
+                                                                            <option value="2017-2018">2017-2018</option>
+                                                                            <option value="2018-2019">2018-2019</option>
+                                                                            <option value="2019-2020">2019-2020</option>
+                                                                            <option value="2020-2021">2020-2021</option>
+                                                                            <option value="2021-2022">2021-2022</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="row">
+                                                      <div class="col-sm-12">
+                                                          <div class="form-group row">
+                                                              <div class="col-sm-6">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-3 form-control-label">State:</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id='ddlSPDStateList' class="form-control form-control-sm input-sm">
+                                                                            <option value="">Select SPD State</option>
+                                                                            <option value="All">All</option>
+                                                                            {{#each spdStateList}}
+                                                                            <option value="{{this}}">{{this}}</option>
+                                                                            {{/each}}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                              <div class="col-sm-6">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-3 form-control-label">SPD:</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id='ddlSPDList' class="form-control form-control-sm input-sm">
+                                                                            <option value="">Select SPD</option>
+                                                                            <option value="All">All</option>
+                                                                            {{#each allSPDListArr}}
+                                                                            <option value="{{spdName}}" attrId="{{spdId}}">{{spdName}}</option>
+                                                                            {{/each}}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  {{#if restAllFieldsAreSelected}}
+                                                  <div class="row">
+                                                      <div class="col-sm-12">
+                                                          <div class="form-group row">
+                                                              <div class="col-sm-6">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-3 form-control-label">Type:</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id='ddlTypeForAdmin' class="form-control form-control-sm input-sm">
+                                                                            <option value="">Select Type</option>
+                                                                            <option value="JMR">JMR</option>
+                                                                            <option value="SEA">SEA</option>
+                                                                            <option value="REA">REA</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                              <div class="col-sm-6">
+
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  {{/if}}
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                      {{else}}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <fieldset class="scheduler-border">
+                                                  <div class="row">
+                                                      <div class="col-sm-12">
+                                                          <div class="form-group row">
+                                                              <div class="col-sm-6">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-3 form-control-label">Month :</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id='ddlMonth' class="form-control form-control-sm input-sm">
+                                                                          <option value="">Select Month</option>
+                                                                          {{#each monthShow}}
+                                                                            <option value="{{this.value}}">{{this.key}}</option>
+                                                                          {{/each}}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                              <div class="col-sm-6">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-3 form-control-label">Financial Year :</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id='ddlFinancialYear' class="form-control form-control-sm input-sm">
+                                                                            <option value="">Select Financial Year</option>
+                                                                            <option value="2017-2018">2017-2018</option>
+                                                                            <option value="2018-2019">2018-2019</option>
+                                                                            <option value="2019-2020">2019-2020</option>
+                                                                            <option value="2020-2021">2020-2021</option>
+                                                                            <option value="2021-2022">2021-2022</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="row">
+                                                      <div class="col-sm-12">
+                                                          <div class="form-group row">
+                                                              <div class="col-sm-6">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-3 form-control-label">Type:</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id='ddlType' class="form-control form-control-sm input-sm">
+                                                                            <option value="">Select Type</option>
+                                                                            <option value="JMR">JMR</option>
+                                                                            <option value="SEA">SEA</option>
+                                                                            <option value="REA">REA</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                              <div class="col-sm-6">
+
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                      {{/if}}
+                      {{#if returnDataHelper}}
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <section class="panel panel-default">
+                                  <div class="panel-body">
+                                      <div class="row">
+                                          <div class="col-md-12 col-sm-12">
+                                              <fieldset class="scheduler-border">
+                                                  <legend class="scheduler-border">{{invType}} Details  {{#if isComericalUserForViewJMRData}}<button id="exportJMRData" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export</button>{{/if}}</legend>
+                                                  <div class="row">
+                                                      <div class="col-sm-12">
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <section class="panel panel-default">
+                                                                      <div class="panel-body">
+                                                                          <fieldset>
+                                                                              <div class="row">
+                                                                                  <div class="col-md-12 col-sm-12">
+                                                                                    {{#if invoiceTypeForTableJMR}}
+                                                                                        <table class="table table-responsive table-bordered" id="exportJMRDataFromTable">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th class="text-center">S.No.</th>
+                                                                                                    {{#if isComericalUserForViewJMRData}}
+                                                                                                    <th>SPD Name</th>
+                                                                                                    {{/if}}
+                                                                                                    <th>Invoice No</th>
+                                                                                                    <th class="text-center">Import</th>
+                                                                                                    <th class="text-center">Export</th>
+                                                                                                    <th class="text-center">MF</th>
+                                                                                                    <th class="text-center">Billed Units</th>
+                                                                                                    <th class="text-center">Rate</th>
+                                                                                                    <th class="text-center">Amount</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                                {{#each returnData}}
+                                                                                                    <tr>
+                                                                                                        <td class="text-center">{{serial @index}}</td>
+                                                                                                        {{#if isComericalUserForViewJMRData}}
+                                                                                                        <th>{{spdName}}</th>
+                                                                                                        {{/if}}
+                                                                                                        <td>{{invoiceNumber}}</td>
+                                                                                                        <td class="text-center">{{import}}</td>
+                                                                                                        <td class="text-center">{{export}}</td>
+                                                                                                        <td class="text-center">{{MF}}</td>
+                                                                                                        <td class="text-center">{{billedUnits}}</td>
+                                                                                                        <td class="text-center">{{rate}}</td>
+                                                                                                        <td class="text-center">{{amount}}</td>
+                                                                                                    </tr>
+                                                                                                {{/each}}
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                      {{/if}}
+                                                                                    {{#if invoiceTypeForTableSEAandREA}}
+                                                                                        <table class="table table-responsive table-bordered" id="exportJMRDataFromTable">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th class="text-center">S.No.</th>
+                                                                                                    {{#if isComericalUserForViewJMRData}}
+                                                                                                    <th>SPD Name</th>
+                                                                                                    {{/if}}
+                                                                                                    <th>Invoice No</th>
+                                                                                                    <th class="text-center">Billed Units</th>
+                                                                                                    <th class="text-center">Rate</th>
+                                                                                                    <th class="text-center">Amount</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                                {{#each returnData}}
+                                                                                                    <tr>
+                                                                                                        <td class="text-center">{{serial @index}}</td>
+                                                                                                        {{#if isComericalUserForViewJMRData}}
+                                                                                                        <th>{{spdName}}</th>
+                                                                                                        {{/if}}
+                                                                                                        <td>{{invoiceNumber}}</td>
+                                                                                                        <td class="text-center">{{billedUnits}}</td>
+                                                                                                        <td class="text-center">{{rate}}</td>
+                                                                                                        <td class="text-center">{{amount}}</td>
+                                                                                                    </tr>
+                                                                                                {{/each}}
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                      {{/if}}
+                                                                                  </div>
+                                                                              </div>
+                                                                          </fieldset>
+                                                                      </div>
+                                                                  </section>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </fieldset>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </section>
+                          </div>
+                        </div>
+                      {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</template>

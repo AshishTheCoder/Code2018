@@ -1,0 +1,307 @@
+<template name="seciBillingModule">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Generate Bill</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label class="radio-inline ">
+                                                            <input type="radio" name="inlineRadioOptions" id="inlineRadioForBill" value="provision_invoice">Provisional Invoice
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label class="radio-inline ">
+                                                            <input type="radio" name="inlineRadioOptions" id="inlineRadioForBill" value="credit_debit_note">Credit/Debit Note
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br> {{#if isProvisionSeletedByRadio}}
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 ">
+                                                <fieldset class="scheduler-border">
+                                                    <legend class="scheduler-border">Provisional Invoice</legend>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-6 col-md-6">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">Discom State :</label>
+                                                                        <div class="col-sm-8">
+                                                                            <select id="energyInvoiceDisom" class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_discoms">
+                                                                                <option value="">Select Discom State</option>
+                                                                                {{#each dataForDiscomNameHelper}}
+                                                                                <option value="{{discom_state}}" discomname={{nameof_buyingutility}}> {{discom_state}}</option>
+                                                                                {{/each}}
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6 col-md-6">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">Select Month :</label>
+                                                                        <div class="col-sm-8">
+                                                                            <select id='ddlMonthEnergyInvoice' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="month">
+                                                                                <option value="">Select Month</option>
+                                                                                <option value="1">January</option>
+                                                                                <option value="2">Fabruary</option>
+                                                                                <option value="3">March</option>
+                                                                                <option value="4">April</option>
+                                                                                <option value="5">May</option>
+                                                                                <option value="6">June</option>
+                                                                                <option value="7">July</option>
+                                                                                <option value="8">August</option>
+                                                                                <option value="9">September</option>
+                                                                                <option value="10">October</option>
+                                                                                <option value="11">November</option>
+                                                                                <option value="12">December</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-6 col-md-6">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">Select Year :</label>
+                                                                        <div class="col-sm-8">
+                                                                            <select id='ddlYearEnergyInvoice' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                                <option value="">Select Year</option>
+                                                                                <option value="2016">2016</option>
+                                                                                <option value="2017">2017</option>
+                                                                                <option value="2018">2018</option>
+                                                                                <option value="2019">2019</option>
+                                                                                <option value="2020">2020</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6 col-md-6">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        {{/if}} {{#if isCreditDebitNoteSeletedByRadio}}
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 ">
+                                                <fieldset class="scheduler-border">
+                                                    <legend class="scheduler-border">Credit/Debit Note</legend>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-6 col-md-6">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">Discom State :</label>
+                                                                        <div class="col-sm-8">
+                                                                            <select id="ddlDisomStateCreditDebit" class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_discoms">
+                                                                                <option value="">Select Discom State</option>
+                                                                                {{#each dataForDiscomNameHelper}}
+                                                                                <option value="{{discom_state}}" discomname={{nameof_buyingutility}}> {{discom_state}}</option>
+                                                                                {{/each}}
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6 col-md-6">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">Transaction Type :</label>
+                                                                        <div class="col-sm-8">
+                                                                            <select id='ddlTransactionTypeCreditDebit' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="transaction_type">
+                                                                                <option value="">Select Transaction Type</option>
+                                                                                <option value="Credit">Credit</option>
+                                                                                <option value="Debit">Debit</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6 col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 form-control-label">Select Month :</label>
+                                                            <div class="col-sm-8">
+                                                                <select id='ddlMonthCreditDebit' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="month">
+                                                                    <option value="">Select Month</option>
+                                                                    <option value="1">January</option>
+                                                                    <option value="2">Fabruary</option>
+                                                                    <option value="3">March</option>
+                                                                    <option value="4">April</option>
+                                                                    <option value="5">May</option>
+                                                                    <option value="6">June</option>
+                                                                    <option value="7">July</option>
+                                                                    <option value="8">August</option>
+                                                                    <option value="9">September</option>
+                                                                    <option value="10">October</option>
+                                                                    <option value="11">November</option>
+                                                                    <option value="12">December</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 form-control-label">Select Year :</label>
+                                                            <div class="col-sm-8">
+                                                                <select id='ddlYearCreditDebit' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                    <option value="">Select Year</option>
+                                                                    <option value="2016">2016</option>
+                                                                    <option value="2017">2017</option>
+                                                                    <option value="2018">2018</option>
+                                                                    <option value="2019">2019</option>
+                                                                    <option value="2020">2020</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/if}}
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- <div class='container'>
+        <div class='panel panel-default'>
+            <div class='panel-body'>
+                <div class='row'>
+                    <div class='col-sm-4'>
+                    </div>
+                    <div class='col-sm-5'>
+                        <h3>सोलर एनर्जी कारपोरेशन ऑफ़ इंडिया लिमिटिड </h3>
+                    </div>
+                    <div class='col-sm-3'>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-sm-4'>
+                    </div>
+                    <div class='col-sm-7'>
+                        <h4>फरवरी , २०१५  माह के लिए पावर डेवलपर (७५० मेगावाट ) का ऊर्ज़ा भुगतान </h4>
+                    </div>
+                    <div class='col-sm-1'>
+                    </div>
+                </div>
+                <div class='panel-body'>
+                </div>
+                <div class='row'>
+                    <div class='col-sm-12'>
+                        <span class='pull-left'>सन्दर्भ सं।  सेकी /पिएस/पीटी  750 मे.वा./एसपीडी/२०१६/१९९ </span><span class='pull-right'>दिनांक :23.12.2015</span>
+                    </div>
+                    <div class='col-sm-5'>
+
+                    </div>
+                    <div class='col-sm-4'>
+                    </div>
+                </div>
+                <div class='panel-body'>    </div>
+                <section class='panel panel-default'>
+                    <div class='panel-body'>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class='text-center'>क्र.सं. </th>
+                                        <th class='text-center'>सोलर पावर डेवलपर का नाम </th>
+                                        <th class='text-center'>क्षमता (में.वा.)</th>
+                                        <th class='text-center'>राज्य </th>
+                                        <th class='text-center'>इनवॉइस सं.</th>
+                                        <th class='text-center'> इनवॉइस राशि </th>
+                                        <th class='text-center'>इनवॉइस प्राप्ति की तारीख</th>
+                                        <th class='text-center'>भुगतान की देय तारीख </th>
+                                        <th class='text-center'>जेमआर के आधार पर निवल उर्ज़ा यूनिट (कि.वा.घं.)</th>
+                                        <th class='text-center'>कटौती अगर कोई हो </th>
+                                        <th class='text-center'>रिलीज़ किये जाने वाला भुगतान </th>
+                                        <th class='text-center'>टिप्पणी</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><br><br><br><br><br><br>1 </td>
+                                        <td> <br><br><br><br>M/S M/s Welspun Solar UP Pvt. Ltd.</td>
+                                        <td><br><br><br><br><br>5</td>
+                                        <td> <br><br><br><br><br>Rajasthan</td>
+                                        <td> <br><br><br><br><br>WSUPPL/SECI/SMW/011</td>
+                                        <td> <br><br><br><br><br>3/988/419.00</td>
+                                        <td> <br><br><br><br><br>7-Mar-2016</td>
+                                        <td> <br><br><br><br><br>6-May-2016</td>
+                                        <td> <br><br><br><br><br>731,820</td>
+                                        <td> <br><br><br><br><br>Nil</td>
+                                        <td> <br><br><br><br><br>3,988,419.00</td>
+                                        <td>Payment not receievd from the buying utility(RDPPC).It is proposed to release the payment of SPD from the available funds.</td>
+                                    </tr>
+                                    <tr>
+                                        <td> </td>
+                                        <td></td>
+                                        <td> </td>
+                                        <td></td>
+                                        <td><strong></strong></td>
+                                        <td><strong> </strong></td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td><strong></strong></td>
+                                        <td></td>
+                                        <td><strong>3,988,419</strong> </td>
+                                        <td> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class='row'>
+                            <div class='col-sm-12'>
+                                <strong>कुल राशि शब्दों में :Rupees Thirty Nine Lakhs Eighty thousand four Hundred Ninteen only</strong><br>
+
+                                <p><br>
+                                    पीपीए की शर्तों और निबन्धों के अनुसार दिन प्रतिदिन के आधार पर गणना की गई  बकाया राशि पर 1. 5 % प्रतिमाह की दर से भुगतान करने का अधिभार लागु होगा ।
+                                </p>
+                                <p>संलगन्क यथा  उपयुक्त  </p>
+                                <p>सक्षम प्राधिकारी भुगतान रिलीज़ करने के लिए अनुमोद प्रदान करने का कष्ट करें । </p>
+                                <p class='pull-right'>(अवनीश पाराशर)<br>
+                                    प्रबंधक </p>
+                                <p> अ.म.प्र.(वि.प्र.)</p><br><br>
+                                <p>निदेशक (वित्त/वाणिज्यिक ब्यापार)</p><br><br>
+                                <p>प्रबन्ध निदेशक </p>                                <p>अ.म.प्र.(वित्त)</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>   -->
+</template>

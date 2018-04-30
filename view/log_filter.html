@@ -1,0 +1,696 @@
+<template name="logFilter">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Log Filter</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row" id="filterForm">
+                            <div class="col-sm-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-6">
+                                                                    <center>
+                                                                        <label class="radio-inline">
+                                                                            <input type="radio" name="inlineRadioOptions" id="inlineRadio" value="raisedBySeci">Invoice Raised By SECI
+                                                                        </label>
+                                                                    </center>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <center>
+                                                                        <label class="radio-inline">
+                                                                            <input type="radio" name="inlineRadioOptions" id="inlineRadio" value="raisedToSeci">Invoice Raised to SECI
+                                                                        </label>
+                                                                    </center>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        {{#if invoiceRaisedBy}}
+                        <section class="panel panel-default">
+                            <div class="panel"><center><h4>Invoice Raised by SECI</h4></center></div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Type of Filter :</label>
+                                                <div class="col-sm-7">
+                                                    <select id="selectFilter" class="form-control form-control-sm input-sm">
+                                                        <option value="">Select Filter</option>
+                                                        <option value="year">Financial Year</option>
+                                                        <option value="month">Month</option>
+                                                        <option value="dueDate">Payment Recieved</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{#if yearFilterSelected}}
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Financial Year:</label>
+                                                <div class="col-sm-8">
+                                                    <select id='raisedByFinancialYear' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                      {{#each financialYearHelper}}
+                                                        <option value="{{this}}">{{this}}</option>
+                                                      {{/each}}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/if}}
+                                         {{#if monthFilterSelected}}
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Month :</label>
+                                                <div class="col-sm-8">
+                                                    <select id='raisedByMonth' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                        {{#each monthReturn}}
+                                                        <option value="{{this.value}}">{{this.key}}</option>
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/if}}
+                                    </div>
+                                    {{#if isMonthFilterSelected}}
+                                    <div class="col-sm-12">
+                                      <div class="col-sm-6">
+                                          <div class="form-group row">
+                                              <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                              <div class="col-sm-8">
+                                                  <select id='raisedByFinancialYearinMonth' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                    {{#each financialYearHelper}}
+                                                      <option value="{{this}}">{{this}}</option>
+                                                    {{/each}}
+                                                  </select>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-6">
+                                          <div class="form-group row">
+                                              <label class="col-sm-4 form-control-label">Scheme :</label>
+                                              <div class="col-sm-7">
+                                                  <select id="ddlSchemeForDiscom" class="form-control form-control-sm input-sm">
+                                                      <option value="">Select Scheme</option>
+                                                      {{#each returnSchemes}}
+                                                      <option value="{{scheme}}">{{scheme}}</option>
+                                                      {{/each}}
+                                                  </select>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      </div>
+                                      {{/if}}
+                                      {{#if showListofDiscoms}}
+                                        <div class="col-sm-12">
+                                          {{#if ifFYselectedForDiscom}}
+                                          <div class="col-sm-6">
+                                              <div class="form-group row">
+                                                  <label class="col-sm-4 form-control-label">Scheme :</label>
+                                                  <div class="col-sm-7">
+                                                      <select id="ddlSchemeForDiscom" class="form-control form-control-sm input-sm">
+                                                          <option value="">Select Scheme</option>
+                                                          {{#each returnSchemes}}
+                                                          <option value="{{scheme}}">{{scheme}}</option>
+                                                          {{/each}}
+                                                      </select>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          {{/if}}
+                                          {{#if isSchemeWasSelected}}
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Discom :</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control input-sm" multiple="multiple" id="selectDiscom">
+                                                        {{#each discoms}}
+                                                        <option value="{{discomId}}">{{names}}</option>
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/if}}
+                                    </div>
+                                    {{/if}}
+
+
+
+                                    {{#if dueDateFilterSelected}}
+                                      <div class="col-sm-12">
+                                          <div class="col-sm-6">
+                                              <div class="form-group row">
+                                                  <label class="col-sm-4 form-control-label">From Date:</label>
+                                                  <div class="col-sm-7">
+                                                      <input type="text" class="form-control input-sm selectPaymentDate" id="RaisedFromDate" placeholder="Select From Date">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-sm-6">
+                                              <div class="form-group row">
+                                                  <label class="col-sm-4 form-control-label">To Date :</label>
+                                                  <div class="col-sm-7">
+                                                      <input type="text" class="form-control input-sm selectPaymentDate" id="RaisedToDate" placeholder="Select To Date">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                    {{/if}}
+
+
+
+
+                                </div>
+                            </div>
+                            {{#if showDiscomTable}}
+                            <div class="panel-body" style="overflow-x:scroll">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <table class="table table-bordered" id="exportToExcelDiscom">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-center">S.No</th>
+                                                                <th class="text-center">Name&nbsp;of&nbsp;Party</th>
+                                                                <th class="text-center">Rate/Unit</th>
+                                                                <th class="text-center">Inv No.</th>
+                                                                <th class="text-center">Month</th>
+                                                                <th>Invoice&nbsp;Date</th>
+                                                                <th class="text-center">&nbsp;&nbsp;Due&nbsp;Date&nbsp;&nbsp;</th>
+                                                                <th class="text-center">Amount of Invoice(Rs)</th>
+                                                                <th class="text-center">Payment Amount(Rs)</th>
+                                                                <th class="text-center">Short Payment</th>
+                                                                <th class="text-center">Date&nbsp;of&nbsp;Payment</th>
+                                                                <th class="text-center">Surcharge</th>
+                                                                <th class="text-center">Type</th>
+                                                                <th class="text-center">Energy</th>
+                                                                {{#if yearFilterSelected}}
+                                                                  <th class="text-center">Cumulative Energy Till Date</th>
+                                                                {{/if}}
+                                                                <!-- {{#if falseForPayment}} -->
+                                                                <th class="text-center">Minimum<br>Energy</th>
+                                                                <th class="text-center">Maximum<br>Energy</th>
+                                                                <!-- {{/if}} -->
+                                                                <!-- <th class="text-center">Period</th> -->
+                                                                <th class="text-center">Remarks</th>
+                                                                <!-- {{#if yearFilterSelected}}
+                                                                  <th class="text-center">Difference</th>
+                                                                {{/if}} -->
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                          {{#each returnDiscomTable}}
+                                                            <tr>
+                                                                <td class="text-center">{{serial @index}}</td>
+                                                                <td class="text-center">{{discom_name}}</td>
+                                                                <td class="text-center">{{rate_per_unit}}</td>
+                                                                <td class="text-center">{{breakData1 invoice_number}}<br>{{breakData2 invoice_number}}<br>{{breakData3 invoice_number}}<br>{{breakData4 invoice_number}}</td>
+                                                                <td class="text-center">{{getMonthValue month}}</td>
+                                                                <td class="text-center">{{energy_invoice_generation_date}}</td>
+                                                                <td class="text-center">{{energy_invoice_due_date}}</td>
+                                                                <td class="text-center">{{amount_of_invoice}}</td>
+                                                                <td class="text-center">{{payment_amount}}</td>
+                                                                <td class="text-center">{{short_payment}}</td>
+                                                                <td class="text-center">{{date_of_payment}}</td>
+
+                                                                <td class="text-center">{{sur_charge_amount}}</td>
+                                                                <td class="text-center">{{invoiceTypeFilter invoice_type}}</td>
+                                                                <td class="text-center">{{total_energy}}</td>
+                                                                {{#if yearFilterSelected}}
+                                                                <th class="text-center">{{cumulative @index}}</th>
+                                                                {{/if}}
+                                                                <!-- {{#if falseForPayment}} -->
+                                                                <td class="text-center">{{min_energy}}</td>
+                                                                <td class="text-center">{{max_energy}}</td>
+                                                                <!-- {{/if}} -->
+                                                                <!-- <td class="text-center">{{period}}</td> -->
+                                                                <td class="text-center">{{remarks}}</td>
+                                                                <!-- {{#if yearFilterSelected}}
+                                                                <td class="text-center">{{difference}}
+                                                                <td class="text-center">{{getDifferencePer returnEnergyData.max_energy @index}}
+                                                                    <br>
+                                                                    {{#if showOverLoadOptions alert}}
+                                                                      <span style="color:red;font-weight:bold;">Please create an alert</span>
+                                                                    {{/if}}
+                                                                </td>
+                                                                {{/if}} -->
+                                                            </tr>
+                                                            {{/each}}
+                                                            <tr>
+                                                                <th class="text-center" colspan="7">Total</th>
+                                                                <th class="text-center">{{returnTotalForAll.amountOfInvoice}}</th>
+                                                                <th class="text-center">{{returnTotalForAll.paymentAmount}}</th>
+                                                                <th class="text-center">{{returnTotalForAll.shortPayment}}</th>
+                                                                <th class="text-center"></th>
+                                                                <th class="text-center">{{returnTotalForAll.surChargeAmount}}</th>
+                                                                <th class="text-center"></th>
+                                                                <th class="text-center">{{returnTotalForAll.totalEnergy}}</th>
+                                                                {{#if yearFilterSelected}}
+                                                                <th class="text-center"></th>
+                                                                {{/if}}
+                                                                <!-- {{#if falseForPayment}} -->
+                                                                <th class="text-center">{{returnTotalForAll.minEnergy}}</th>
+                                                                <th class="text-center">{{returnTotalForAll.maxEnergy}}</th>
+                                                                <!-- {{/if}} -->
+                                                                <th class="text-center"></th>
+                                                                <!-- {{#if yearFilterSelected}}
+                                                                <th class="text-center"></th>
+                                                                {{/if}} -->
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                          <div class="col-sm-4">
+                                            {{#if showOverLoadOptions}}
+                                              <button id="createAlertForDiscom" class="btn btn-sm btn-danger center-block pull-left">Create Alert for Admin Home</button>
+                                              {{/if}}
+                                          </div>
+                                            <div class="col-sm-4">
+                                              {{#if showOverLoadOptions}}
+                                                <button class="btn btn-sm btn-success center-block" data-toggle="modal" data-target="#emailModel" id="sendMail" data-title="">Send Email</button>
+                                                {{/if}}
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <button id="exportDataForDiscom" class="btn btn-sm btn-info glyphicon glyphicon-print center-block pull-right">Export to Excel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/if}}
+                        </section>
+                        {{/if}}
+                        {{#if invoiceRaisedTo}}
+                        <section class="panel panel-default">
+                            <div class="panel"><center><h4>Invoice Raised to SECI</h4></center></div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Type of Filter :</label>
+                                                <div class="col-sm-7">
+                                                    <select id="selectFilter" class="form-control form-control-sm input-sm">
+                                                        <option value="">Select Filter</option>
+                                                        <option value="spd">SPD</option>
+                                                        <option value="month">Month</option>
+                                                        <option value="year">Financial Year</option>
+                                                        <option value="state">State</option>
+                                                        <option value="dueDate">Due Date</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       {{#if monthFilterSelected}}
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Month:</label>
+                                                <div class="col-sm-8">
+                                                    <select id='raisedToMonth' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                        <!-- <option value="">Select Month</option> -->
+                                                        {{#each monthReturn}}
+                                                        <option value="{{this.value}}">{{this.key}}</option>
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Financial Year:</label>
+                                                <div class="col-sm-8">
+                                                    <select id='selectMonthFinancial' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                        <!-- <option value="">Financial Year</option> -->
+                                                        {{#each financialYearHelper}}
+                                                          <option value="{{this}}">{{this}}</option>
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/if}}
+                                        {{#if yearFilterSelected}}
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Financial Year:</label>
+                                                <div class="col-sm-8">
+                                                    <select id='selectYear' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                        <!-- <option value="">Financial Year</option> -->
+                                                        {{#each financialYearHelper}}
+                                                          <option value="{{this}}">{{this}}</option>
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/if}}
+                                        {{#if dueDateFilterSelected}}
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Date :</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm selectDueDate" placeholder="Select Date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/if}} {{#if showDcrSelectionList}}
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Scheme :</label>
+                                                <div class="col-sm-7">
+                                                    <select id="ddlScheme" class="form-control form-control-sm input-sm">
+                                                        <option value="">Select Scheme</option>
+                                                        {{#each returnSchemes}}
+                                                        <option value="{{scheme}}">{{scheme}}</option>
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">DCR/NON-DCR :</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control input-sm" multiple="multiple" id="selectDCR">
+                                                        <!-- <option value="">-Select DCR/NON-DCR-</option> -->
+                                                        <!-- <option value="All">All</option> -->
+                                                        <option value="DCR">DCR</option>
+                                                        <option value="NON_DCR">NON-DCR</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/if}}
+                                    <!-- </div> -->
+
+                                    <!-- <div class="col-sm-12"> -->
+                                        {{#if showSpdDropdown}}
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">SPD :</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control input-sm" multiple="multiple" id="selectSpd">
+                                                      <!-- <option value="">-Select SPD-</option> -->
+                                                        <!-- <option value="all">All</option> -->
+                                                        {{#each showSpdList}}
+                                                        <option value="{{id}}">{{names}}</option>
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/if}}
+                                         {{#if stateFilterSelected}}
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">State :</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control input-sm" multiple="multiple" id="selectState">
+                                                        <!-- <option value="">-Select State-</option> -->
+                                                        {{#each listOfSpdsStateArr}}
+                                                        <option value="{{this}}">{{this}}</option>
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/if}}
+                                        {{#if yearFilterSelectedAsSpdSelected}}
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                <div class="col-sm-8">
+                                                    <select id='selectYearAsSpd' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                        <!-- <option value="">-Financial Year-</option> -->
+                                                        {{#each financialYearHelper}}
+                                                          <option value="{{this}}">{{this}}</option>
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                            {{#if showRaisedtoTable}}
+                            <div class="panel-body" style="overflow-x:scroll">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <table class="table table-bordered" id="exportToExcel">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-center">S.No</th>
+                                                                <th class="text-center">Name&nbsp;of&nbsp;Entity</th>
+                                                                <th class="text-center">State</th>
+                                                                <th class="text-center">Invoice Number</th>
+                                                                <th class="text-center">Invoice Type</th>
+                                                                <th class="text-center">Date&nbsp;of&nbsp;receipt of Invoice by SECI</th>
+                                                                <th class="text-center">&nbsp;&nbsp;Due&nbsp;Date&nbsp;&nbsp;</th>
+                                                                <th class="text-center">Month</th>
+                                                                <th class="text-center">Financial&nbsp;Year</th>
+                                                                <th class="text-center">Billed Units (kWh)</th>
+                                                                <th class="text-center">Rate&nbsp;per unit (Rs)</th>
+                                                                <th class="text-center">Invoice Amount(Rs)</th>
+                                                                <th class="text-center">Amount Paid to Developer</th>
+                                                                <th class="text-center">Date&nbsp;of&nbsp;Payment</th>
+                                                                <th class="text-center">Short Paymet done </th>
+                                                                {{#if spdFilterSelected}}
+                                                                <th class="text-center">Exceed Energy</th>
+                                                                <th class="text-center">Exceed Amount(Rs)</th>
+                                                                <th class="text-center">Minimum Units(kWh) as per PPA</th>
+                                                                <th class="text-center">Maximum Units(kWh) as per PPA</th>
+                                                                <th class="text-center">Energy Purchased by SECI</th>
+                                                                <!-- <th class="text-center">Cumulative Energy Till Date</th> -->
+                                                                <th class="text-center">Difference</th>
+                                                                {{/if}}
+                                                                {{#if stateFilterSelected}}
+                                                                <th class="text-center">Energy Purchased by SECI</th>
+                                                                <!-- <th class="text-center">Cumulative Energy Till Date</th> -->
+                                                                {{/if}}
+                                                                <th class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Remarks&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {{#each tabularRaisedToData}}
+                                                            <tr>
+                                                                <td class="text-center">{{serial @index}}</td>
+                                                                <td class="text-center">{{nameOfEntity}}</td>
+                                                                <td class="text-center">{{clientState}}</td>
+                                                                <td class="text-center">{{breakData1 invoiceNumber}}<br>{{breakData2 invoiceNumber}}<br>{{breakData3 invoiceNumber}}<br>{{breakData4 invoiceNumber}}</td>
+                                                                <td class="text-center">{{invoice_type}}</td>
+                                                                <td class="text-center">{{dateOfReceipt}}</td>
+                                                                <td class="text-center">{{dueDate}}</td>
+                                                                <td class="text-center">{{getMonthValue month}}</td>
+                                                                <td class="text-center">{{financial_year}}</td>
+                                                                <td class="text-center">{{billedUnits}}</td>
+                                                                <td class="text-center">{{rate}}</td>
+                                                                <td class="text-center">{{invoiceAmount}}</td>
+                                                                <td class="text-center">{{paymentMode}}</td>
+                                                                <td class="text-center">{{dateOfPayment}}</td>
+                                                                <td class="text-center">{{shortPaymentDone}}</td>
+                                                                  {{#if spdFilterSelected}}
+                                                                  <td class="text-center">{{exceedEnergy}}</td>
+                                                                  <td class="text-center">{{exceedAmount}}</td>
+                                                                  <td class="text-center">{{minkWh}}</td>
+                                                                  <td class="text-center">{{maxkWh}}</td>
+                                                                  <td class="text-center">{{cumulative @index}}</td>
+                                                                  <td class="text-center">{{getDifferencePer retAsPerId.maxkWhValue @index}}
+                                                                  <br>
+                                                                  {{#if showOverLoadOptions}}
+                                                                    <span style="color:red;font-weight:bold;">Please create an alert</span>
+                                                                  {{/if}}
+                                                                  </td>
+                                                                  {{/if}}
+                                                                  {{#if stateFilterSelected}}
+                                                                  <th>{{cumulative @index}}</th>
+                                                                  {{/if}}
+                                                                <td>{{remark}}</td>
+                                                            </tr>
+                                                            {{/each}}
+                                                            <tr>
+                                                                <th class="text-center" colspan="9">Total</th>
+                                                                <th class="text-center">{{returnTotalForAll.totalBuildUnit}}</th>
+                                                                <th class="text-center"></th>
+                                                                <th class="text-center">{{returnTotalForAll.totalInvoiceAmount}}</th>
+                                                                <th class="text-center">{{returnTotalForAll.paymentAmountTotal}}</th>
+                                                                <th class="text-center"></th>
+                                                                <th class="text-center">{{returnTotalForAll.shortPaymentTotal}}</th>
+                                                                {{#if spdFilterSelected}}
+                                                                <th class="text-center">{{returnTotalForAll.exceedEnergyTotal}}</th>
+                                                                <th class="text-center">{{returnTotalForAll.exceedAmountTotal}}</th>
+                                                                <th class="text-center">{{returnTotalForAll.minUnitTotal}}</th>
+                                                                <th class="text-center">{{returnTotalForAll.maxUnitTotal}}</th>
+                                                                <th class="text-center"></th>
+                                                                <th class="text-center"></th>
+                                                                {{/if}}
+                                                                {{#if stateFilterSelected}}
+                                                                <th class="text-center"></th>
+                                                                {{/if}}
+                                                                <th class="text-center"></th>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                          <div class="col-sm-4">
+                                            {{#if showOverLoadOptions}}
+                                              <button id="createAlert" class="btn btn-sm btn-danger center-block pull-left">Create Alert for Admin Home</button>
+                                              {{/if}}
+                                          </div>
+                                            <div class="col-sm-4">
+                                              {{#if showOverLoadOptions}}
+                                                <button class="btn btn-sm btn-success center-block" data-toggle="modal" data-target="#emailModel" id="sendMail" data-title="">Send Email</button>
+                                                {{/if}}
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <button id="exportData" class="btn btn-sm btn-info glyphicon glyphicon-print center-block pull-right">Export to Excel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/if}}
+                        </section>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="emailModel" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Send Email</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <section class="panel panel-default">
+                                <div class="panel-body">
+                                    <fieldset>
+                                        <div class="form-group pull-in clearfix">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="txtChannelName">To:</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="txtTO" value="{{showEmail}}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                        </div>
+                                        <div class="form-group pull-in clearfix">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="txtChannelName">Date:</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="txtDate" readonly value="{{viewTodayDate}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                        </div>
+                                        <div class="form-group pull-in clearfix">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="txtChannelName">Subject:</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="txtSubject" placeholder="Enter Subject">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                        </div>
+                                        <div class="form-group pull-in clearfix">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="txtChannelName">Message:</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <textarea class="form-control" row="2" id="txtMessage" placeholder="Enter Message"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group pull-in clearfix">
+                  <div class="col-sm-1"></div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-danger pull-left closeSpd" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group pull-right">
+                            <button type="button" class="btn btn-primary" id="btnSend">Send</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

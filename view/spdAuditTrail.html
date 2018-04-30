@@ -1,0 +1,125 @@
+<template name="spdAuditTrail">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">SPD Audit Trail</h1>
+                    </div>
+                    <div class="panel-body">
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <section class="panel panel-default">
+                                  <div class="panel-body">
+                                      <div class="row">
+                                          <div class="col-md-12 col-sm-12">
+                                              <fieldset class="scheduler-border">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group row">
+                                                            <div class="col-sm-6 col-md-6">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-4 form-control-label">List of SPD :</label>
+                                                                    <div class="col-sm-8">
+                                                                      <select id="selectUserSpd" class="form-control input-sm">
+                                                                          <option value="">Select SPD</option>
+                                                                          {{#each spdListHelper}}
+                                                                          <option value="{{_id}}" attrName="{{profile.registration_form.name_of_spd}}">{{profile.registration_form.name_of_spd}}</option>
+                                                                          {{/each}}
+                                                                      </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6 col-md-6">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                              </fieldset>
+                                          </div>
+                                      </div>
+                                    {{#if dataShow}}
+                                      <!-- <div class="row">
+                                          <div class="col-sm-12">
+                                              <div class="panel-body">
+                                                  <fieldset>
+                                                      <div class="row">
+                                                          <div class="col-md-12 col-sm-12">
+                                                              <button id="exportAuditTrail" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                                                          </div>
+                                                      </div>
+                                                  </fieldset>
+                                              </div>
+                                          </div>
+                                      </div> -->
+                                      <div class="row">
+                                          <div class="col-sm-12">
+                                              <div class="row">
+                                                  <div class="col-sm-12">
+                                                      <section class="panel panel-default">
+                                                          <div class="panel-body">
+                                                              <fieldset>
+                                                                  <div class="row">
+                                                                      <div class="col-md-12 col-sm-12">
+                                                                          <table class="table table-bordered" id="spdAuditTrailTbl">
+                                                                              <thead>
+                                                                                  <tr>
+                                                                                      <th class="text-center">Sr. No.</th>
+                                                                                      <th class="text-center">Request Date</th>
+                                                                                      <th class="text-center">Status</th>
+                                                                                      <th class="text-center">Action Date</th>
+                                                                                      <th class="text-center">Details</th>
+                                                                                  </tr>
+                                                                              </thead>
+                                                                              <tbody>
+                                                                                  {{#each dataShow}}
+                                                                                  <tr>
+                                                                                      <td class="text-center">{{serial @index}}</td>
+                                                                                      <td class="text-center">{{request_date}}</td>
+                                                                                      <td class="text-center">{{status}}</td>
+                                                                                      <td class="text-center">{{approval_date}}</td>
+                                                                                      <td>
+                                                                                        <table class="table table-bordered">
+                                                                                            <thead>
+                                                                                              <tr>
+                                                                                                <th>Field Name</th>
+                                                                                                <th>Old</th>
+                                                                                                <th>New</th>
+                                                                                              </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                                {{#each values}}
+                                                                                                <tr>
+                                                                                                    <td style="width:350px;">{{data}}</td>
+                                                                                                    <td>{{old_data}}</td>
+                                                                                                    <td>{{new_data}}</td>
+                                                                                                </tr>
+                                                                                                {{/each}}
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                      </td>
+                                                                                  </tr>
+                                                                                  {{/each}}
+                                                                              </tbody>
+                                                                          </table>
+                                                                      </div>
+                                                                  </div>
+                                                              </fieldset>
+                                                          </div>
+                                                      </section>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  {{/if}}
+                                  </div>
+                              </section>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

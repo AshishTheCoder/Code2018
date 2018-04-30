@@ -1,0 +1,335 @@
+<template name="purchase_sale">
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <div class="row">
+          <div class="col-sm-12 col-md-12 main">
+              <div class="panel panel-info">
+                  <div class="panel-heading">
+                      <h1 style="font-weight:bold;font-size:28px;text-align:center;">Purchase and Sale Report</h1>
+                  </div>
+                  <div class="panel-body">
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 form-control-label">Select Month:</label>
+                                        <div class="col-sm-8">
+                                            <select id="ddlMonth" class="form-control input-sm required" name="selectMonth">
+                                                <option value="">Select Month</option>
+                                                {{#each monthShow}}
+                                                  <option value="{{this.value}}">{{this.key}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-4 form-control-label">Select Year :</label>
+                                        <div class="col-sm-8">
+                                            <select id='ddlYear' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                <option value="">Select Year</option>
+                                                {{#each yearHelper}}
+                                                  <option value="{{this}}">{{this}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              {{#if isMonthAndYearSelected}}
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                    <div class="form-group row">
+                                      <center>
+                                          <button id='viewBtn' class="btn btn-info">View</button>
+                                      </center>
+                                    </div>
+                                  </div>
+                              </div>
+                              {{/if}}
+                          </div>
+                      </div>
+                      {{#if isAllDataAvailable}}
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <div class="panel-body">
+                                  <fieldset>
+                                      <div class="row">
+                                          <div class="col-md-12 col-sm-12">
+                                              <button id="exportPurchaseAndSaleSheet" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                                          </div>
+                                      </div>
+                                  </fieldset>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <section class="panel panel-default">
+                                  <div class="panel-body">
+                                      <fieldset>
+                                          <div class="row">
+                                              <div class="col-md-12 col-sm-12">
+                                                  <table class="table table-responsive table-bordered" id="purchaseAndSaleTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="6" class="text-center">Summary Sheet of Units Purchased Versus Units Sold for {{returnJson.monthWord}}'{{returnJson.year}}</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th colspan="2" class="text-center">Units Purchased JMR/SEA/REA</th>
+                                                            <th colspan="2" class="text-center">Units Sold</th>
+                                                            <th class="text-center"></th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th class="text-center">Name of SPD</th>
+                                                            <th class="text-center">Total Units (kWh)</th>
+                                                            <th class="text-center">Buying Utility</th>
+                                                            <th class="text-center">No. of Units (kWh)</th>
+                                                            <th class="text-center">Difference</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                      {{#each stateHead returnJson.stateUsers 'Rajasthan'}}
+                                                        <tr>
+                                                            <td>{{spdName}}</td>
+                                                            <td class="text-center">{{billedUnits}}</td>
+                                                            <td class="text-center">{{indexHelper @index returnJson.stateUsers 'Rajasthan'}}</td>
+                                                            <td class="text-center">{{returnSold @index returnJson.stateUsers 'Rajasthan'}}</td>
+                                                            <td class="text-center">{{returnDifference @index returnJson.stateUsers 'Rajasthan'}}</td>
+                                                        </tr>
+                                                      {{/each}}
+
+                                                      {{#each stateHead returnJson.stateUsers 'Haryana'}}
+                                                        <tr>
+                                                            <td>{{spdName}}</td>
+                                                            <td class="text-center">{{billedUnits}}</td>
+                                                            <td class="text-center">{{indexHelper @index returnJson.stateUsers 'Haryana'}}</td>
+                                                            <td class="text-center">{{returnSold @index returnJson.stateUsers 'Haryana'}}</td>
+                                                            <td class="text-center"> </td>
+                                                        </tr>
+                                                      {{/each}}
+
+                                                      {{#each stateHead returnJson.stateUsers 'Himachal Pradesh'}}
+                                                        <tr>
+                                                            <td>{{spdName}}</td>
+                                                            <td class="text-center">{{billedUnits}}</td>
+                                                            <td class="text-center">{{indexHelper @index returnJson.stateUsers 'Himachal Pradesh'}}</td>
+                                                            <td class="text-center">{{returnSold @index returnJson.stateUsers 'Himachal Pradesh'}}</td>
+                                                            <td class="text-center"> </td>
+                                                        </tr>
+                                                      {{/each}}
+
+                                                      {{#each stateHead returnJson.stateUsers 'Delhi(BRPL)'}}
+                                                        <tr>
+                                                            <td>{{spdName}}</td>
+                                                            <td class="text-center">{{billedUnits}}</td>
+                                                            <td class="text-center">{{indexHelper @index returnJson.stateUsers 'Delhi(BRPL)'}}</td>
+                                                            <td class="text-center">{{returnSold @index returnJson.stateUsers 'Delhi(BRPL)'}}</td>
+                                                            <td class="text-center"> </td>
+                                                        </tr>
+                                                      {{/each}}
+
+                                                      {{#each stateHead returnJson.stateUsers 'Delhi(BYPL)'}}
+                                                        <tr>
+                                                            <td>{{spdName}}</td>
+                                                            <td class="text-center">{{billedUnits}}</td>
+                                                            <td class="text-center">{{indexHelper @index returnJson.stateUsers 'Delhi(BYPL)'}}</td>
+                                                            <td class="text-center">{{returnSold @index returnJson.stateUsers 'Delhi(BYPL)'}}</td>
+                                                            <td class="text-center"> </td>
+                                                        </tr>
+                                                      {{/each}}
+
+                                                      {{#each stateHead returnJson.stateUsers 'Delhi(TPDDL)'}}
+                                                        <tr>
+                                                            <td>{{spdName}}</td>
+                                                            <td class="text-center">{{billedUnits}}</td>
+                                                            <td class="text-center">{{indexHelper @index returnJson.stateUsers 'Delhi(TPDDL)'}}</td>
+                                                            <td class="text-center">{{returnSold @index returnJson.stateUsers 'Delhi(TPDDL)'}}</td>
+                                                            <td class="text-center"> </td>
+                                                        </tr>
+                                                      {{/each}}
+
+                                                      {{#each stateHead returnJson.stateUsers 'Assam'}}
+                                                        <tr>
+                                                            <td>{{spdName}}</td>
+                                                            <td class="text-center">{{billedUnits}}</td>
+                                                            <td class="text-center">{{indexHelper @index returnJson.stateUsers 'Assam'}}</td>
+                                                            <td class="text-center">{{returnSold @index returnJson.stateUsers 'Assam'}}</td>
+                                                            <td class="text-center"> </td>
+                                                        </tr>
+                                                      {{/each}}
+
+                                                      {{#each stateHead returnJson.stateUsers 'Odisha'}}
+                                                        <tr>
+                                                            <td>{{spdName}}</td>
+                                                            <td class="text-center">{{billedUnits}}</td>
+                                                            <td class="text-center">{{indexHelper @index returnJson.stateUsers 'Odisha'}}</td>
+                                                            <td class="text-center">{{returnSoldOdisha @index returnJson.stateUsers 'Odisha'}}</td>
+                                                            <td class="text-center">{{returnDifferenceOdisha @index returnJson.stateUsers 'Odisha'}}</td>
+                                                        </tr>
+                                                      {{/each}}
+
+                                                      {{#each stateHead returnJson.stateUsers 'Punjab'}}
+                                                        <tr>
+                                                            <td>{{spdName}}</td>
+                                                            <td class="text-center">{{billedUnits}}</td>
+                                                            <td class="text-center">{{indexHelper @index returnJson.stateUsers 'Punjab'}}</td>
+                                                            <td class="text-center">{{returnSold @index returnJson.stateUsers 'Punjab'}}</td>
+                                                            <td class="text-center"> </td>
+                                                        </tr>
+                                                      {{/each}}
+
+                                                      {{#each stateHead returnJson.stateUsers 'Maharashtra'}}
+                                                        <tr>
+                                                            <td>{{spdName}}</td>
+                                                            <td class="text-center">{{billedUnits}}</td>
+                                                            <td class="text-center">{{indexHelper @index returnJson.stateUsers 'Maharashtra'}}</td>
+                                                            <td class="text-center">{{returnSoldForMP @index returnJson.stateUsers 'Maharashtra'}}</td>
+                                                            <td class="text-center">{{returnDifferenceMaha @index returnJson.stateUsers 'Maharashtra'}}</td>
+                                                        </tr>
+                                                      {{/each}}
+
+                                                      {{#each stateHead returnJson.stateUsers 'Goa'}}
+                                                        <tr>
+                                                            <td>{{spdName}}</td>
+                                                            <td class="text-center">{{billedUnits}}</td>
+                                                            <td class="text-center">{{indexHelperGoa @index returnJson.stateUsers 'Goa'}}</td>
+                                                            <td class="text-center">{{returnSold @index returnJson.stateUsers 'Goa'}}</td>
+                                                            <td class="text-center">{{returnDifference @index returnJson.stateUsers 'Goa'}}</td>
+                                                        </tr>
+                                                      {{/each}}
+
+                                                      {{#each stateHead returnJson.stateUsers 'Jharkhand'}}
+                                                        <tr>
+                                                            <td>{{spdName}}</td>
+                                                            <td class="text-center">{{billedUnits}}</td>
+                                                            <td class="text-center">{{indexHelper @index returnJson.stateUsers 'Jharkhand'}}</td>
+                                                            <td class="text-center">{{returnSold @index returnJson.stateUsers 'Jharkhand'}}</td>
+                                                            <td class="text-center"> </td>
+                                                        </tr>
+                                                      {{/each}}
+
+                                                      {{#each stateHead returnJson.stateUsers 'MP'}}
+                                                        <tr>
+                                                            <td>{{spdName}}</td>
+                                                            <td class="text-center">{{billedUnits}}</td>
+                                                            <td class="text-center">{{indexHelper @index returnJson.stateUsers 'MP'}}</td>
+                                                            <td class="text-center">{{returnSoldForMP @index returnJson.stateUsers 'MP'}}</td>
+                                                            <td class="text-center">{{returnDifferenceMP @index returnJson.stateUsers 'MP'}}</td>
+                                                        </tr>
+                                                      {{/each}}
+
+                                                      {{#each stateHead returnJson.stateUsers 'Chhattisgarh'}}
+                                                        <tr>
+                                                            <td>{{spdName}}</td>
+                                                            <td class="text-center">{{billedUnits}}</td>
+                                                            <td class="text-center">{{indexHelper @index returnJson.stateUsers 'Chhattisgarh'}}</td>
+                                                            <td class="text-center">{{returnSold @index returnJson.stateUsers 'Chhattisgarh'}}</td>
+                                                            <td class="text-center">{{returnDifference @index returnJson.stateUsers 'Chhattisgarh'}}</td>
+                                                        </tr>
+                                                      {{/each}}
+
+                                                      <!-- {{#each stateHead returnJson.stateUsers 'Bihar'}}
+                                                       <tr>
+                                                           <td>{{spdName}}</td>
+                                                           <td class="text-center">{{billedUnits}}</td>
+                                                           <td class="text-center">{{indexHelper @index returnJson.stateUsers 'Bihar'}}</td>
+                                                           <td class="text-center">
+                                                             <table>
+                                                               <tr style="text-align:center; border:0px solid #000 !important;border-left:0px solid #000 !important;border-right:0px solid #000 !important;">
+                                                                   <td style="text-align:center; border:0px solid #000 !important;border-left:0px solid #000 !important;border-right:0px solid #000 !important;">
+                                                                       {{returnSoldBihar @index returnJson.stateUsers 'Bihar' 'North'}}
+                                                                   </td>
+                                                               </tr>
+                                                               <tr style="text-align:center; border:0px solid #000 !important;border-left:0px solid #000 !important;border-right:0px solid #000 !important;">
+                                                                   <td style="text-align:center; border:0px solid #000 !important;border-left:0px solid #000 !important;border-right:0px solid #000 !important;">
+                                                                       {{returnSoldBihar @index returnJson.stateUsers 'Bihar' 'South'}}
+                                                                   </td>
+                                                               </tr>
+                                                             </table>
+                                                         </td>
+                                                         <td class="text-center">{{returnDifference @index returnJson.stateUsers 'Bihar'}}</td>
+                                                       </tr>
+                                                     {{/each}} -->
+
+                                                      {{#each stateHead returnJson.stateUsers 'Bihar'}}
+                                                        <tr>
+                                                            <td rowspan="2">{{spdName}}</td>
+                                                            <td rowspan="2" class="text-center">{{billedUnits}}</td>
+                                                            <td rowspan="2" class="text-center">{{indexHelper @index returnJson.stateUsers 'Bihar'}}</td>
+                                                            <td class="text-center">{{returnSoldBihar @index returnJson.stateUsers 'Bihar' 'North'}}</td>
+                                                          <td rowspan="2" class="text-center">{{returnDifference @index returnJson.stateUsers 'Bihar'}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td class="text-center">{{returnSoldBihar @index returnJson.stateUsers 'Bihar' 'South'}}</td>
+                                                        </tr>
+                                                      {{/each}}
+
+                                                      {{#each stateHead returnJson.stateUsers 'Tamil Nadu'}}
+                                                        <tr>
+                                                            <td>{{spdName}}</td>
+                                                            <td class="text-center">{{billedUnits}}</td>
+                                                            <td class="text-center">{{indexHelper @index returnJson.stateUsers 'Tamil Nadu'}}</td>
+                                                            <td class="text-center">{{returnSold @index returnJson.stateUsers 'Tamil Nadu'}}</td>
+                                                            <td class="text-center">{{returnDifference @index returnJson.stateUsers 'Tamil Nadu'}}</td>
+                                                        </tr>
+                                                      {{/each}}
+
+                                                      {{#each stateHead returnJson.stateUsers 'Karnataka'}}
+                                                        <tr>
+                                                            <td>{{spdName}}</td>
+                                                            <td class="text-center">{{billedUnits}}</td>
+                                                            <td class="text-center">{{indexHelper @index returnJson.stateUsers 'Karnataka'}}</td>
+                                                            <td class="text-center">{{returnSold @index returnJson.stateUsers 'Karnataka'}}</td>
+                                                            <td class="text-center">{{returnDifference @index returnJson.stateUsers 'Karnataka'}}</td>
+                                                        </tr>
+                                                      {{/each}}
+
+                                                      <tr>
+                                                           <td class="text-center"><b>Total</b></td>
+                                                           <td class="text-center">{{returnJson.totalBilledUnits}}</td>
+                                                           <td></td>
+                                                           <td class="text-center">{{returnJson.totalSoldUnits}}</td>
+                                                           <td class="text-center"><b>{{returnJson.differenceTotalCol}}</b></td>
+                                                       </tr>
+                                                       <tr>
+                                                           <td colspan="5"></td>
+                                                       </tr>
+                                                       <tr>
+                                                           <td></td>
+                                                           <td>Purchase(kWh)</td>
+                                                           <td class="text-center">{{returnJson.totalBilledUnits}}</td>
+                                                           <td></td>
+                                                           <td></td>
+                                                       </tr>
+                                                       <tr>
+                                                           <td></td>
+                                                           <td>Sell(kWh)</td>
+                                                           <td class="text-center">{{returnJson.totalSoldUnits}}</td>
+                                                           <td></td>
+                                                           <td></td>
+                                                       </tr>
+                                                       <tr>
+                                                           <td></td>
+                                                           <td></td>
+                                                           <td class="text-center"><b>{{returnJson.totalDifference}}</b></td>
+                                                           <td></td>
+                                                           <td></td>
+                                                       </tr>
+                                                    </tbody>
+                                                  </table>
+                                              </div>
+                                          </div>
+                                      </fieldset>
+                                  </div>
+                              </section>
+                          </div>
+                      </div>
+                      {{/if}}
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</template>

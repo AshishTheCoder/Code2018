@@ -1,0 +1,174 @@
+<template name="payment_reconciliation">
+   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <div class="row">
+         <div class="col-sm-12 col-md-12 main">
+            <div class="panel panel-info">
+               <div class="panel-heading">
+                  <h1 style="font-weight:bold;font-size:28px;text-align:center;">Payment Reconciliation</h1>
+               </div>
+               <div class="panel-body">
+                  <div class="row">
+                     <div class="col-sm-12">
+                        <section class="panel panel-default">
+                           <div class="panel-body">
+                              <div class="row">
+                                 <div class="col-sm-12 col-md-12 ">
+                                    <fieldset class="scheduler-border">
+                                       <div class="row">
+                                          <div class="col-sm-12">
+                                             <div class="form-group row">
+                                                <div class="col-sm-6 col-md-6">
+                                                   <label class="radio-inline ">
+                                                   <input type="radio" name="inlineRadioOptions" id="inlineRadio" value="spd"> SPD
+                                                   </label>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6">
+                                                   <label class="radio-inline ">
+                                                   <input type="radio" name="inlineRadioOptions" id="inlineRadio" value="discom"> DISCOM
+                                                   </label>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                     {{#if isSDPorDiscomSelected}}
+                                       <div class="row">
+                                          <div class="col-sm-12">
+                                             <div class="form-group row">
+                                                <div class="col-sm-6 col-md-6">
+                                                  <div class="form-group row">
+                                                     <label class="col-sm-4 form-control-label">Quarter :</label>
+                                                     <div class="col-sm-8">
+                                                        <select id='ddlSelectQuarter' class="form-control input-sm" name="quarter">
+                                                           <option value="">Select Quarter</option>
+                                                           <option value="1">Jan-Mar</option>
+                                                           <option value="2">Apr-June</option>
+                                                           <option value="3">July-Sept</option>
+                                                           <option value="4">Oct-Dec</option>
+                                                        </select>
+                                                     </div>
+                                                  </div>
+                                                </div>
+                                                {{#if isMonthlyorQuaterlySelected}}
+                                                <div class="col-sm-6 col-md-6">
+                                                  <div class="form-group row">
+                                                     <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                     <div class="col-sm-8">
+                                                        <select class="form-control input-sm" name="finan_year" id="financial_year">
+                                                           <option value="">Select Financial Year</option>
+                                                             {{#each dynamicFinancialYear}}
+                                                               <option value="{{this}}">{{this}}</option>
+                                                             {{/each}}
+                                                        </select>
+                                                     </div>
+                                                  </div>
+                                                </div>
+                                                {{/if}}
+                                             </div>
+                                          </div>
+                                       </div>
+                                      {{#if isFinancialyearIsSelected}}
+                                        {{#if showDiscom}}
+                                         <div class="row">
+                                            <div class="col-sm-12">
+                                               <div class="form-group row">
+                                                  <div class="col-sm-6 col-md-6">
+                                                    <div class="form-group row">
+                                                       <label class="col-sm-4 form-control-label">DISCOM :</label>
+                                                       <div class="col-sm-8">
+                                                         <select id='ddldiscomList' class="form-control form-control-sm input-sm">
+                                                             <option value="">Select DISCOM</option>
+                                                             <!-- <option value="All">All</option> -->
+                                                            {{#each returnJson}}
+                                                               <option attrId="{{_id}}" value="{{discom_name}}">{{nameof_buyingutility}}</option>
+                                                             {{/each}}
+                                                         </select>
+                                                       </div>
+                                                     </div>
+                                                  </div>
+                                               </div>
+                                            </div>
+                                         </div>
+                                         {{#if isDiscomORspdSelected}}
+                                         <div class="row">
+                                            <div class="col-sm-12">
+                                               <div class="form-group row">
+                                                  <div class="col-sm-12 col-md-12">
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-5"></div>
+                                                        <div class="col-sm-2">
+                                                            <center>
+                                                                <a id="btnGeneratePDfforDiscom" class="btn btn-default btn-sm btn-warning pull-right">
+                                                                    <span class="glyphicon glyphicon-submit">Generate</span>
+                                                                </a>
+                                                            </center>
+                                                        </div>
+                                                        <div class="col-sm-5">
+                                                        </div>
+                                                    </div>
+                                                  </div>
+                                               </div>
+                                            </div>
+                                         </div>
+                                         {{/if}}
+                                         {{/if}}
+                                        {{#if showSpd}}
+                                         <div class="row">
+                                            <div class="col-sm-12">
+                                               <div class="form-group row">
+                                                  <div class="col-sm-6 col-md-6">
+                                                    <div class="form-group row">
+                                                       <label class="col-sm-4 form-control-label">SPD :</label>
+                                                       <div class="col-sm-8">
+                                                         <select id='ddlSPDList' class="form-control form-control-sm input-sm">
+                                                            <option value="">Select SPD</option>
+                                                            <!-- <option value="All">All</option> -->
+                                                              {{#each returnJson}}
+                                                             <option attrId="{{_id}}" value="{{profile.registration_form.name_of_spd}}">{{profile.registration_form.name_of_spd}}</option>
+                                                            {{/each}}
+                                                          </select>
+                                                       </div>
+                                                     </div>
+                                                  </div>
+                                                  <div class="col-sm-6 col-md-6">
+                                                  </div>
+                                               </div>
+                                            </div>
+                                         </div>
+                                        {{#if isDiscomORspdSelected}}
+                                         <div class="row">
+                                            <div class="col-sm-12">
+                                               <div class="form-group row">
+                                                  <div class="col-sm-12 col-md-12">
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-5"></div>
+                                                        <div class="col-sm-2">
+                                                            <center>
+                                                                <a id="btnGeneratePDfforSPD" class="btn btn-default btn-sm btn-warning pull-right">
+                                                                    <span class="glyphicon glyphicon-submit">Generate</span>
+                                                                </a>
+                                                            </center>
+                                                        </div>
+                                                        <div class="col-sm-5">
+                                                        </div>
+                                                    </div>
+                                                  </div>
+                                               </div>
+                                            </div>
+                                         </div>
+                                         {{/if}}
+                                         {{/if}}
+                                       {{/if}}
+                                      {{/if}}
+                                 </fieldset>
+                              </div>
+                           </div>
+                     </div>
+                     </section>
+                  </div>
+               </div>
+               </div>
+               </div>
+               </div>
+               </div>
+               </div>
+             </template>

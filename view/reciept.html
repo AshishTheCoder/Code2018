@@ -1,0 +1,285 @@
+<template name='reciept'>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">PAYMENT ADVICE</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">Year :</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control input-sm" id="selectYear">
+                                                    <option value="">Select Year</option>
+                                                    {{#each yearReturn}}
+                                                    <option value="{{this}}">{{this}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">Month :</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control input-sm" id="selectMonth">
+                                                    <option value="">Select Month</option>
+                                                    {{#each monthReturn}}
+                                                    <option value="{{this.value}}">{{this.key}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">Select State :</label>
+                                            <div class="col-sm-8">
+                                              <select class="form-control input-sm" id="selectState">
+                                                  <option value="">Select State</option>
+                                                  <option value="Gujarat">Gujarat</option>
+                                                  <option value="Karnataka">Karnataka</option>
+                                                  <option value="Maharashtra">Maharashtra</option>
+                                                  <option value="MP">MP</option>
+                                                  <option value="Odisha">Odisha</option>
+                                                  <option value="Rajasthan">Rajasthan</option>
+                                                  <option value="Tamil Nadu">Tamil Nadu</option>
+                                              </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">SPD :</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control input-sm" id="selectSpd">
+                                                    <option value="">Select SPD</option>
+                                                    {{#each spdList}}
+                                                    <option value="{{id}}">{{names}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button class="btn btn-primary btn-sm" {{disabledButton}} id="genrate" data-toggle="modal" data-target="#generateModal" data-title="">Generate</button>
+                                    </div>
+                                    <div class="col-sm-5">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        {{#if showTable}}
+                        <div class="row" id="content">
+                            <div class="col-sm-12">
+                                <div class="col-sm-10">
+                                    <center>
+                                        <h4>Energy Payment of SPDs (750MW) for the Month of {{showMonth}} {{showYear}}</h4></center>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="row pull-right">
+                                        <div class="col-sm-12">
+                                            <button class="btn btn-sm btn-info" id="print">Print</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <br>
+                                <div class='row'>
+                                    <div class='col-sm-12'>
+                                        <span class='pull-left'>Ref No:{{showDetails.refNo}}</span><span class='pull-right'>Date:{{showDetails.today}}</span>
+                                    </div>
+                                    <div class='col-sm-5'>
+                                    </div>
+                                    <div class='col-sm-4'>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>SI.NO.</th>
+                                                <th>Name of SPD</th>
+                                                <th>Capacity(MW)</th>
+                                                <th>State</th>
+                                                <th>Invoice No.*</th>
+                                                <th>Invoice Amount</th>
+                                                <th>Date of receipt of Invoice</th>
+                                                <th>Due date of payment</th>
+                                                <th>Net Energy Unit(kWh)on the basis of JMR/REA</th>
+                                                <th>Deduction if any</th>
+                                                <th>Payment to be released</th>
+                                                <th>Remarks</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>{{showDetails.name}}</td>
+                                                <td>{{showDetails.capacity}}</td>
+                                                <td>{{showDetails.state}}</td>
+                                                <td>{{showDetails.invoiceNumber}}</td>
+                                                <td>{{showDetails.amount}}</td>
+                                                <td>{{showDetails.today}}</td>
+                                                <td>{{showDetails.paymentDate}}</td>
+                                                <td>{{showDetails.billedUnit}}</td>
+                                                <td>{{showDetails.reduction}}</td>
+                                                <td>{{showDetails.releasedPayment}}</td>
+                                                <td>{{showDetails.remark}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><strong>Total </strong></td>
+                                                <td><strong>{{showDetails.amount}}</strong></td>
+                                                <td> </td>
+                                                <td> </td>
+                                                <td><strong>{{showDetails.billedUnit}}</strong></td>
+                                                <td></td>
+                                                <td><strong>{{showDetails.releasedPayment}}</strong> </td>
+                                                <td> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <br>
+                                <br>
+                                <div class='row'>
+                                    <div class='col-sm-12'>
+                                        <strong>Total Amount in Words:Rupees {{amountInWords showDetails.releasedPayment}}</strong>
+                                        <p>Recieved payment of Rs 5,69,47,328.00 from RDPPC (Rs 2,82,47,471 on 01.12.2015, Rs 86,99,979 on 07.12.2015,Rs.99,99,939 on 17.12.2015, Rs.99,99,939 on 21.12.2015)</p>
+                                        <p>Payment of Rs 2,69,94,625 released of SPDs of Rajasthan on 04.12.2015</p>
+                                        <p>Late Payment Surcharge 1.25% per month on the outstanding amount calculated on a day basis shall be applicable as per terms and conditions of PPA.</p>
+                                        <p>* Enclosed as above</p>
+                                        <p>Competent authority may approve for the release of payment</p>
+                                        <br>
+                                        <br>
+                                        <p>AGM (PS)</p>
+                                        <br>
+                                        <br>
+                                        <p>DIRECTOR(F/Comm-Trading)</p>
+                                        <br>
+                                        <br>
+                                        <p>AGM (FINANCE)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="editor"></div>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--modal content -->
+    <div id="generateModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Make Reduction</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <section class="panel panel-default">
+                                <div class="panel-body">
+                                    <fieldset>
+                                        <div class="form-group pull-in clearfix">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="txtChannelName">Amount:</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="amount" readonly value="{{showDetails.amount}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                        </div>
+                                        <div class="form-group pull-in clearfix">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="txtChannelName">Reduction if any:</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="reduction" placeholder="amount to reduce">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                        </div>
+                                        <div class="form-group pull-in clearfix">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="txtChannelName">Remark:</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <textarea class="form-control" row="2" id="txtRemark" placeholder="Enter Remark"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group pull-in clearfix">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-danger pull-left closeSpd" data-dismiss="modal" id="close">Close</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group pull-right">
+                            <button type="button" class="btn btn-primary" id="btnSend">Submit</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

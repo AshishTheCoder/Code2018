@@ -1,0 +1,128 @@
+<template name="exportExcelSLDCANDDiscom">
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 main">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h1 style="font-weight:bold;font-size:28px;text-align:center;">SLDC & Discom Report Excel</h1>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <section class="panel panel-default">
+                                  <div class="panel-body">
+                                      <div class="row">
+                                          <div class="col-md-12 col-sm-12">
+                                              <fieldset class="scheduler-border">
+                                                  <legend class="scheduler-border">Reports </legend>
+                                                  <div class="row">
+                                                      <div class="col-sm-12">
+                                                          <div class="row">
+                                                            <div class="col-sm-6">
+                                                              <div class="form-group row">
+                                                                  <label class="col-sm-4 form-control-label">Date :</label>
+                                                                  <div class="col-sm-8">
+                                                                      <input type="text" id="txtDate" class="form-control input-sm" placeholder="Select Date">
+                                                                  </div>
+                                                              </div>
+                                                            </div>
+                                                              <div class="col-sm-6">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-4 form-control-label">Report Type:</label>
+                                                                    <div class="col-sm-8">
+                                                                        <select id="ddlReportType" class="form-control input-sm required" name="selectMonth">
+                                                                            <option value="">Select Report Type</option>
+                                                                              <option value="Discom">Discom</option>
+                                                                              <option value="SLDC">SLDC</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                          </div>
+                                                        {{#if stateList}}
+                                                          <div class="row">
+                                                            <div class="col-sm-6">
+                                                              <div class="form-group row">
+                                                                  <label class="col-sm-4 form-control-label">State:</label>
+                                                                  <div class="col-sm-8">
+                                                                      <select id="ddlStateList" class="form-control input-sm required">
+                                                                          <option value="">Select State</option>
+                                                                          {{#each stateList}}
+                                                                            <option value="{{this}}">{{this}}</option>
+                                                                          {{/each}}
+                                                                      </select>
+                                                                  </div>
+                                                              </div>
+                                                            </div>
+                                                          {{#if revisionNumberList}}
+                                                            <div class="col-sm-6">
+                                                              <div class="form-group row">
+                                                                  <label class="col-sm-4 form-control-label">Revision No.:</label>
+                                                                  <div class="col-sm-8">
+                                                                      <select id="ddlRevisionNo" class="form-control input-sm required" name="selectMonth">
+                                                                          <option value="">Select Revision No.</option>
+                                                                          {{#each revisionNumberList}}
+                                                                            <option value="{{this}}">{{this}}</option>
+                                                                          {{/each}}
+                                                                      </select>
+                                                                  </div>
+                                                              </div>
+                                                            </div>
+                                                          {{/if}}
+                                                          </div>
+                                                        {{/if}}
+                                                          {{#if generatedExcelData}}
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <section class="panel panel-default">
+                                                                          <div class="panel-body">
+                                                                              <fieldset>
+                                                                                  <div class="row">
+                                                                                      <div class="col-md-12 col-sm-12">
+                                                                                          <table class="table table-bordered">
+                                                                                              <thead>
+                                                                                                  <tr>
+                                                                                                      <th class="text-center">S.No.</th>
+                                                                                                      <th class="text-center">State</th>
+                                                                                                      <th class="text-center">File Name</th>
+                                                                                                      <th class="text-center">Download Excel</th>
+                                                                                                  </tr>
+                                                                                              </thead>
+                                                                                              <tbody>
+                                                                                                  {{#each generatedExcelData}}
+                                                                                                      <tr>
+                                                                                                          <td class="text-center">{{serial @index}}</td>
+                                                                                                          <td class="text-center">{{state}}</td>
+                                                                                                          <td class="text-center">{{fileName}}</td>
+                                                                                                          <td class="text-center">
+                                                                                                            <a class="btn btn-sm btn-success" href="{{showHref}}" target="_blank">Download</a>
+                                                                                                          </td>
+                                                                                                      </tr>
+                                                                                                  {{/each}}
+                                                                                              </tbody>
+                                                                                          </table>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </fieldset>
+                                                                          </div>
+                                                                      </section>
+                                                                  </div>
+                                                              </div>
+                                                          {{/if}}
+                                                      </div>
+                                                  </div>
+                                              </fieldset>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </section>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</template>

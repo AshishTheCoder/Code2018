@@ -1,0 +1,222 @@
+<template name="credit_debit">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h1 style="font-weight:bold;font-size:28px;text-align:center;">Credit/Debit & Payment Advice</h1>
+                  </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 ">
+                                                <fieldset class="scheduler-border">
+                                                    <form id="creditdebit" action="#">
+                                                        <legend class="scheduler-border">Credit/Debit & Payment Advice</legend>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <label class="radio-inline ">
+                                                                            <input type="radio" checked name="inlineRadioOptions" id="inlineRadio" value="PaymentAdvice"> Payment Advice
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <label class="radio-inline ">
+                                                                            <input type="radio" name="inlineRadioOptions" id="inlineRadio" value="CreditDebit"> Credit/Debit Note
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{#if rediobuttonofpaymentclicked}}
+                                                        <div class="panel-body">
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <section class="panel panel-default">
+                                                                        <div class="panel-body">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12 col-sm-12">
+                                                                                    <form class="">
+                                                                                        <fieldset class="scheduler-border">
+                                                                                            <legend class="scheduler-border">Generate Credit/Debit Note</legend>
+                                                                                            <div class="row">
+                                                                                                <div class="col-sm-12">
+                                                                                                    <div class="form-group row">
+                                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                                            <div class="form-group row">
+                                                                                                                <label class="col-sm-3 form-control-label">From :</label>
+                                                                                                                <div class="col-sm-6">
+                                                                                                                    <input type="text" id="fromdate2" class="form-control input-sm" placeholder="Please enter from date">
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                                            <div class="form-group row">
+                                                                                                                <label class="col-sm-3 form-control-label">To :</label>
+                                                                                                                <div class="col-sm-6">
+                                                                                                                    <input type="text" id="fromto2" class="form-control input-sm" placeholder="Please enter to date">
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <div class="col-sm-12">
+                                                                                                    <div class="form-group row">
+                                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                                            <div class="form-group row">
+                                                                                                                <label class="col-sm-3">Remarks: </label>
+                                                                                                                <div class="col-sm-8">
+                                                                                                                    <textarea id="remarks" class="form-control" rows="5"></textarea>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                                            <div class="form-group row">
+                                                                                                                <label for="selectFile" class="col-sm-5 form-control-label">Upload Supporting Document :</label>
+                                                                                                                <div class="col-sm-6">
+                                                                                                                    <label class="file">
+                                                                                                                        <input type="file" id="upload">
+                                                                                                                        <span class="file-custom"></span>
+                                                                                                                    </label>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <div class="col-sm-12">
+                                                                                                    <div class="form-group">
+                                                                                                        <div class="col-xs-offset-2 col-xs-6">
+                                                                                                            <input type="submit" id="submitForm2" class="btn btn-success payment center-block" value="Submit">
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </fieldset>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </section>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{else}}
+                                                        <div class="panel-body">
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <section class="panel panel-default">
+                                                                        <div class="panel-body">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12 col-sm-12">
+                                                                                    <form class="">
+                                                                                        <fieldset class="scheduler-border">
+                                                                                            <legend class="scheduler-border">Payment Advice</legend>
+                                                                                            <div class="row">
+                                                                                                <div class="col-sm-12">
+                                                                                                    <div class="form-group row">
+                                                                                                        <div class="col-sm-5 col-md-5">
+                                                                                                            <div class="form-group row">
+                                                                                                                <label class="col-sm-3 form-control-label">From :</label>
+                                                                                                                <div class="col-sm-8">
+                                                                                                                    <input type="text" id="fromdate" class="form-control input-sm" placeholder="Please enter from date">
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="col-sm-5 col-md-5">
+                                                                                                            <div class="form-group row">
+                                                                                                                <label class="col-sm-3 form-control-label">To :</label>
+                                                                                                                <div class="col-sm-8">
+                                                                                                                    <input type="text" id="todate" class="form-control input-sm" placeholder="Please enter to date">
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="col-sm-2 col-md-2">
+                                                                                                            <div class="form-group row">
+                                                                                                                <div class="col-xs-offset-2 col-xs-6">
+                                                                                                                    <input type="submit" id="submit" class="btn btn-success payment center-block" value="Submit">
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <table class="table table-responsive table-bordered">
+                                                                                                <thead>
+                                                                                                    <tr>
+                                                                                                        <th>S.No</th>
+                                                                                                        <th>Payment Note</th>
+                                                                                                        <th>Date</th>
+                                                                                                        <th>Action</th>
+
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                    <tr>
+                                                                                                        <td>1</td>
+                                                                                                        <td>John</td>
+
+
+                                                                                                        <td>1-1-2015</td>
+
+
+                                                                                                        <td>
+                                                                                                            <button id="editSchedule" class="btn btn-sm btn-info">View</button>
+                                                                                                            <button type="button" class="btn btn-sm btn-primary">Download</button>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>1</td>
+                                                                                                        <td>John</td>
+                                                                                                        <td>1-1-2015</td>
+
+                                                                                                        <td>
+                                                                                                            <button id="editSchedule" class="btn btn-sm btn-info">View</button>
+                                                                                                            <button type="button" class="btn btn-sm btn-primary">Download</button>
+                                                                                                        </td>
+                                                                                                    </tr>
+
+                                                                                                    <tr>
+                                                                                                        <td>1</td>
+                                                                                                        <td>John</td>
+                                                                                                        <td>1-1-2015</td>
+
+                                                                                                        <td>
+                                                                                                            <button id="editSchedule" class="btn btn-sm btn-info">View</button>
+                                                                                                            <button type="button" class="btn btn-sm btn-primary">Download</button>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </fieldset>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </section>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{/if}}
+                                                    </form>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,472 @@
+<template name="users_profile">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h1 style="font-weight:bold;font-size:28px;text-align:center;">Users Profile</h1>
+                  </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 ">
+                                                <fieldset class="scheduler-border">
+                                                    <legend class="scheduler-border">Users Profile</legend>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-6 col-md-6">
+                                                                    <label class="radio-inline ">
+                                                                        <input type="radio" name="inlineRadioOptions" id="inlineRadio" value="spd"> SPD
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-sm-6 col-md-6">
+                                                                    <label class="radio-inline ">
+                                                                        <input type="radio" name="inlineRadioOptions" id="inlineRadio" value="discom"> DISCOM
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{#if showDiscom}}
+                                                      <table class="table table-responsive table-bordered">
+                                                          <thead>
+                                                              <tr>
+                                                                  <th>S.No</th>
+                                                                  <th>Name</th>
+                                                                  <th>Action</th>
+                                                              </tr>
+                                                          </thead>
+                                                          <tbody>
+                                                              {{#each returnJson}}
+                                                              <tr>
+                                                                  <td>{{serialNO @index}}</td>
+                                                                  <td>{{nameof_buyingutility}}</td>
+                                                                  <td>
+                                                                      <button type="button" id="viewDiscom" data-title="{{_id}}" class="btn btn-info clsBtnViewDiscom btn-xs" data-toggle="modal" data-target="#myModalDiscom">View</button>
+                                                                      <button type="button" id="editDiscom" data-title="{{_id}}" class="btn btn-primary clsBtnEditDiscom btn-xs" data-toggle="modal" data-target="#myModalDiscom">Update</button>
+                                                                      <!-- <button type="button" id="removeDiscom" data-title="{{_id}}" class="btn btn-danger">Remove</button> -->
+                                                                  </td>
+                                                              </tr>
+                                                              {{/each}}
+                                                          </tbody>
+                                                      </table>
+                                                    {{/if}}
+                                                    {{#if showSpd}}
+                                                      <table class="table table-responsive table-bordered">
+                                                          <thead>
+                                                              <tr>
+                                                                  <th>S.No</th>
+                                                                  <th>Name</th>
+                                                                  <th>Action</th>
+                                                              </tr>
+                                                          </thead>
+                                                          <tbody>
+                                                              {{#each returnJson}}
+                                                              <tr>
+                                                                  <td>{{serialNO @index}}</td>
+                                                                  <td>{{profile.registration_form.name_of_spd}}</td>
+                                                                  <td>
+                                                                      <button type="button" id="viewSpd" data-title="{{_id}}" class="btn btn-info clsBtnViewSpd btn-xs" data-toggle="modal" data-target="#myModalSpd">View</button>
+                                                                      <button type="button" id="editSpd" data-title="{{_id}}" class="btn btn-primary clsBtnEditSpd btn-xs" data-toggle="modal" data-target="#myModalSpd">Update</button>
+                                                                      <!-- <button type="button" id="removeSpd" data-title="{{_id}}" class="btn btn-danger">Remove</button> -->
+                                                                  </td>
+                                                              </tr>
+                                                              {{/each}}
+                                                          </tbody>
+                                                      </table>
+                                                    {{/if}}
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal for SPD-->
+    <div id="myModalSpd" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">User Profile</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="modalCompanyPastDetail" role="form">
+                        <div class="form-group">
+                            <label for="pwd">Name of SPD: </label>
+                            <input type="text" value={{viewFormSpd.name_of_spd}} class="form-control input-sm updateSpd" name="name_of_spd" placeholder="Name of SPD" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Project ID: </label>
+                            <input type="text" value={{viewFormSpd.project_id}} class="form-control input-sm updateSpd" name="project_id" placeholder="Project Id" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Project Capacity (MW) : </label>
+                            <input type="text" value={{viewFormSpd.project_capicity}} class="form-control input-sm updateSpd" name="project_capicity" placeholder="Project Capicity" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Project Location: </label>
+                            <input type="text" value={{viewFormSpd.project_location}} class="form-control input-sm updateSpd" name="project_location" placeholder="Project Location" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Connected Substation Details: </label>
+                            <input type="text" value={{viewFormSpd.connected_substation_details}} class="form-control input-sm updateSpd" name="connected_substation_details" placeholder="Connected Substation Details" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Injection Voltage:</label>
+                            <input type="text" value={{viewFormSpd.injection_voltage}} class="form-control input-sm updateSpd" name="injection_voltage" placeholder="Injection Voltage" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Point of Supply: </label>
+                            <input type="text" value={{viewFormSpd.point_of_supply}} class="form-control input-sm updateSpd" name="point_of_supply" placeholder="Point of Supply" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Name of Coordinator for Energy Schedules: </label>
+                            <input type="text" value={{viewFormSpd.name_of_coordinator_for_energy_schedules}} class="form-control input-sm updateSpd" name="name_of_coordinator_for_energy_schedules" placeholder="Name of coordinator for energy schedules" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Contact Details(Mobile No. & Email ID): </label>
+                            <input type="text" value={{viewFormSpd.contact_details}} class="form-control input-sm updateSpd" name="contact_details" placeholder="Contact details" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">PAN Number:</label>
+                            <input type="text" value={{viewFormSpd.pan_number}} class="form-control input-sm updateSpd" name="pan_number" placeholder="Pan number" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label class="pwd">TAN Number: </label>
+                            <input type="text" value={{viewFormSpd.tan_number}} class="form-control input-sm updateSpd" name="tan_number" placeholder="Tan number" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Bank Details:</label>
+                            <input type="text" value={{viewFormSpd.bank_details}} class="form-control input-sm updateSpd" name="bank_details" placeholder="Bank details" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Main Meter Number: </label>
+                            <input type="text" value={{viewFormSpd.main_meter_number}} class="form-control input-sm updateSpd" name="main_meter_number" placeholder="Main meter number" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Check Meter Number:</label>
+                            <input type="text" value={{viewFormSpd.check_meter_number}} class="form-control input-sm updateSpd" name="check_meter_number" placeholder="Check meter number" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Max CUF as per PPA(Capacity Utilization Factor):</label>
+                            <input type="text" value={{viewFormSpd.max_cuf_as_per_ppa}} class="form-control input-sm updateSpd" name="max_cuf_as_per_ppa" placeholder="M<ax cuf as per ppa" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">SPD's Min Energy as per PPA(kWh):</label>
+                            <input type="text" value={{viewFormSpd.spd_min_energy_as_per_ppa}} class="form-control input-sm updateSpd" name="spd_min_energy_as_per_ppa" placeholder="Spd min energy as per ppa" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">SPD's Max Energy as per PPA(kWh):</label>
+                            <input type="text" value={{viewFormSpd.spd_max_energy_as_per_ppa}} class="form-control input-sm updateSpd" name="spd_max_energy_as_per_ppa" placeholder="Spd max energy as per ppa" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Rate per Unit:</label>
+                            <input type="text" value={{viewFormSpd.rate_per_unit}} class="form-control input-sm updateSpd" name="rate_per_unit" placeholder="Rate per Unit" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Transaction Type:</label>
+
+                            <select class="form-control input-sm updateSpd" name="transaction_type" disabled {{disabledReturn}}>
+                            <!-- <select class="form-control input-sm updateSpd" name="transaction_type"> -->
+                              <option value="">Select Transaction Type</option>
+                              <option value="Inter" {{isSelected viewFormSpd.transaction_type "Inter"}}>Inter</option>
+                              <option value="Intra" {{isSelected viewFormSpd.transaction_type "Intra"}}>Intra</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">SPD State:</label>
+                            <select class="form-control input-sm updateSpd" name="spd_state" disabled {{disabledReturn}}>
+                            <!-- <select class="form-control input-sm updateSpd" name="spd_state" > -->
+                                <option value="">Select SPD State</option>
+                                <option value="Gujarat" {{isSelected viewFormSpd.spd_state "Gujarat"}}>Gujarat</option>
+                                <option value="Karnataka" {{isSelected viewFormSpd.spd_state "Karnataka"}}>Karnataka</option>
+                                <option value="Maharashtra" {{isSelected viewFormSpd.spd_state "Maharashtra"}}>Maharashtra</option>
+                                <option value="MP" {{isSelected viewFormSpd.spd_state "MP"}}>MP</option>
+                                <option value="Delhi" {{isSelected viewFormSpd.spd_state "Delhi"}}>Delhi</option>
+                                <option value="Odisha" {{isSelected viewFormSpd.spd_state "Odisha"}}>Odisha</option>
+                                <option value="Rajasthan" {{isSelected viewFormSpd.spd_state "Rajasthan"}}>Rajasthan</option>
+                                <option value="Tamil Nadu" {{isSelected viewFormSpd.spd_state "Tamil Nadu"}}>Tamil Nadu</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">DCR/NON-DCR:</label>
+                            <select class="form-control input-sm updateSpd" name="dcr_nonDcr" disabled {{disabledReturn}}>
+                            <!-- <select class="form-control input-sm updateSpd" name="dcr_nonDcr"> -->
+                                <option value="">Select DCR/NON-DCR</option>
+                                <option value="DCR" {{isSelected viewFormSpd.dcr_nonDcr "DCR"}}>DCR</option>
+                                <option value="NON_DCR" {{isSelected viewFormSpd.dcr_nonDcr "NON_DCR"}}>NON-DCR</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="pwd">PPA Signed Date : </label>
+                          <input type="text" value="{{viewFormSpd.ppa_date}}" class="form-control input-sm updateSpd txtPPADate" name="ppa_date" placeholder="Enter PPA Signed Date" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                          <label for="pwd">GST Number : </label>
+                          <input type="text" value="{{viewFormSpd.gst}}" class="form-control input-sm updateSpd txtPPADate" name="gst" placeholder="Enter GST Number" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                          <label for="pwd">Scheme : </label>
+                          <select class="form-control input-sm updateSpd" name="scheme" {{disabledReturn}}>
+                              <option value="">Select Scheme</option>
+                              {{#each returnSchemes}}
+                              <!-- <option value="{{scheme}}">{{scheme}}</option> -->
+                              <option value="{{scheme}}" {{isSelected viewFormSpd.scheme scheme}}>{{scheme}}</option>
+                              {{/each}}
+                          </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Payment Advice Send To : </label>
+                            <input type="text" value="{{viewFormSpd.payment_advice_send_to}}" class="form-control input-sm updateSpd " name="payment_advice_send_to" placeholder="Enter Payment Invoice Send To" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Address Line I : </label>
+                            <input type="text" value="{{viewFormSpd.address_line1}}" class="form-control input-sm updateSpd" name="address_line1" placeholder="Enter Address Line I" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Address Line II : </label>
+                            <input type="text" value="{{viewFormSpd.address_line2}}" class="form-control input-sm updateSpd" name="address_line2" placeholder="Enter Address Line II" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Address Line III : </label>
+                            <input type="text" value="{{viewFormSpd.address_line3}}" class="form-control input-sm updateSpd" name="address_line3" placeholder="Enter Address Line III" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group pull-in clearfix">
+                          {{#if updateButton}}
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-danger pull-left closeSpd" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <button type="" class="btn btn-success pull-right" attr="{{_id}}" id="updateSpd">Update</button>
+                                </div>
+                            </div>
+                            {{/if}}
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4">
+                              {{#if updateButtonHideCloseBtn}}
+                                <div class="form-group center-block">
+                                    <button type="button" class="btn btn-danger center-block" data-dismiss="modal">Close</button>
+                                </div>
+                                {{/if}}
+                            </div>
+                            <div class="col-sm-4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Discom-->
+    <div id="myModalDiscom" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">User Profile</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="modalCompanyPastDetail" role="form">
+                        <div class="form-group">
+                            <label for="pwd">Name of Buying Utility: </label>
+                            <input type="text" value="{{viewFormDiscom.nameof_buyingutility}}" class="form-control input-sm updateDiscom" name="nameof_buyingutility" placeholder="Name of Buyingutility" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Short Name of Buying Utility  : </label>
+                            <input type="text" value="{{viewFormDiscom.discom_short_name}}" class="form-control input-sm updateDiscom" name="discom_short_name" placeholder="Discom Short Name" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">LTOA Number: </label>
+                            <input type="text" value="{{viewFormDiscom.LTOA_number}}" class="form-control input-sm updateDiscom" name="LTOA_number" placeholder="LTOA Number" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Validity of NOC From: </label>
+                            <input type="text" value="{{viewFormDiscom.fromdate}}" class="form-control input-sm updateDiscom fromdateDiscom" name="fromdate" placeholder="Fromdate" {{readonlyReturn}} {{disabledReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Validity of NOC To: </label>
+                            <input type="text" value="{{viewFormDiscom.todate}}" class="form-control input-sm updateDiscom todateDiscom" name="todate" placeholder="Todate" {{readonlyReturn}} {{disabledReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">PSA Date : </label>
+                            <input type="text" value="{{viewFormDiscom.date_of_amendment_one}}" class="form-control input-sm updateDiscom" name="date_of_amendment_one" placeholder="Enter the date of amendment" {{readonlyReturn}} {{disabledReturn}}>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pwd">Date of Amendment </label>
+                            <input type="text" value="{{viewFormDiscom.date_of_amendment_two}}" class="form-control input-sm updateDiscom" name="date_of_amendment_two" placeholder="Only For MP & Rajasthan" {{readonlyReturn}} {{disabledReturn}}>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pwd">BG/DD submitted to: </label>
+                            <input type="text" value="{{viewFormDiscom.bg_DDsubmitedto}}" class="form-control input-sm updateDiscom" name="bg_DDsubmitedto" placeholder="Enter a name to whom DD submited" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">STU BG/DD amount: </label>
+                            <input type="text" value="{{viewFormDiscom.stuBG_DDamount}}" class="form-control input-sm updateDiscom" name="stuBG_DDamount" placeholder="STU BG/DD amount" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">BG/DD No. :</label>
+                            <input type="text" value="{{viewFormDiscom.bg_DDnumber}}" class="form-control input-sm updateDiscom" name="bg_DDnumber" placeholder="BG/DD No." {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Validity: </label>
+                            <input type="text" value="{{viewFormDiscom.validity}}" class="form-control input-sm updateDiscom validityDiscom" name="validity" placeholder="Validity" {{readonlyReturn}} {{disabledReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Issuing bank : </label>
+                            <input type="text" value="{{viewFormDiscom.bankname}}" class="form-control input-sm updateDiscom" name="bankname" placeholder="Bank name" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">SLDC Operating Charges Submitted to : </label>
+                            <input type="text" value="{{viewFormDiscom.SLDC_OperatingChargesSubmitted}}" class="form-control input-sm updateDiscom" name="SLDC_OperatingChargesSubmitted" placeholder="Enter a name to whom charges submited" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">SLDC BG/DD amount:</label>
+                            <input type="text" value="{{viewFormDiscom.SLDC_bgDDamount}}" class="form-control input-sm updateDiscom" name="SLDC_bgDDamount" placeholder="SLDC BG/DD amount" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label class="pwd">SLDC BG/DD No: </label>
+                            <input type="text" value="{{viewFormDiscom.SLDC_bgDDno}}" class="form-control input-sm updateDiscom" name="SLDC_bgDDno" placeholder="BG/DD No" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">SLDC Validity:</label>
+                            <input type="text" value="{{viewFormDiscom.SLDC_validity}}" class="form-control input-sm updateDiscom sldcValidityDiscom" name="SLDC_validity" placeholder="SLDC validity" {{readonlyReturn}} {{disabledReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">SLDC Issuing Bank: </label>
+                            <input type="text" value="{{viewFormDiscom.SLDC_issuingbank}}" class="form-control input-sm updateDiscom" name="SLDC_issuingbank" placeholder="SLDC Issuingbank" {{readonlyReturn}}>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pwd">Minimum Energy: </label>
+                            <input type="text" value="{{viewFormDiscom.min_energy}}" class="form-control input-sm updateDiscom" name="min_energy" placeholder="Minimum Energy" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Maximum Energy: </label>
+                            <input type="text" value="{{viewFormDiscom.max_energy}}" class="form-control input-sm updateDiscom" name="max_energy" placeholder="Maximum Energy" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Address Line I: </label>
+                            <input type="text" value="{{viewFormDiscom.discom_address}}" class="form-control input-sm updateDiscom" name="discom_address" placeholder="Address Line I" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Address Line II: </label>
+                            <input type="text" value="{{viewFormDiscom.discom_address_line_two}}" class="form-control input-sm updateDiscom" name="discom_address_line_two" placeholder="Address Line II" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">City: </label>
+                            <input type="text" value="{{viewFormDiscom.discom_city}}" class="form-control input-sm updateDiscom" name="discom_city" placeholder="City" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Discom State: </label>
+                            <!-- <select class="form-control input-sm updateDiscom" name="discom_state" {{readonlyReturn}} {{disabledReturn}}> -->
+                            <select class="form-control input-sm" name="discom_state" readonly disabled>
+                              <option value="">Discom State</option>
+                              <option value="Assam" {{isSelected viewFormDiscom.discom_state "Assam"}}>Assam</option>
+                              <option value="Bihar" {{isSelected viewFormDiscom.discom_state "Bihar"}}>Bihar</option>
+                              <option value="Chhattisgarh" {{isSelected viewFormDiscom.discom_state "Chhattisgarh"}}>Chhattisgarh</option>
+                              <option value="Delhi(BRPL)" {{isSelected viewFormDiscom.discom_state "Delhi(BRPL)"}}>Delhi(BRPL)</option>
+                              <option value="Delhi(BYPL)" {{isSelected viewFormDiscom.discom_state "Delhi(BYPL)"}}>Delhi(BYPL)</option>
+                              <option value="Delhi(TPDDL)" {{isSelected viewFormDiscom.discom_state "Delhi(TPDDL)"}}>Delhi(TPDDL)</option>
+                              <option value="Goa" {{isSelected viewFormDiscom.discom_state "Goa"}}>Goa</option>
+                              <option value="Gujarat" {{isSelected viewFormDiscom.discom_state "Gujarat"}}>Gujarat</option>
+                              <option value="Haryana" {{isSelected viewFormDiscom.discom_state "Haryana"}}>Haryana</option>
+                              <option value="Himachal Pradesh" {{isSelected viewFormDiscom.discom_state "Himachal Pradesh"}}>Himachal Pradesh</option>
+                              <option value="Jharkhand" {{isSelected viewFormDiscom.discom_state "Jharkhand"}}>Jharkhand</option>
+                              <option value="Karnataka" {{isSelected viewFormDiscom.discom_state "Karnataka"}}>Karnataka</option>
+                              <option value="Maharashtra" {{isSelected viewFormDiscom.discom_state "Maharashtra"}}>Maharashtra</option>
+                              <option value="MP" {{isSelected viewFormDiscom.discom_state "MP"}}>MP</option>
+                              <option value="Odisha" {{isSelected viewFormDiscom.discom_state "Odisha"}}>Odisha</option>
+                              <option value="Punjab" {{isSelected viewFormDiscom.discom_state "Punjab"}}>Punjab</option>
+                              <option value="Rajasthan" {{isSelected viewFormDiscom.discom_state "Rajasthan"}}>Rajasthan</option>
+                              <option value="Rajasthan(APMPL)" {{isSelected viewFormDiscom.discom_state "Rajasthan(APMPL)"}}>Rajasthan(APMPL)</option>
+                              <option value="Tamil Nadu" {{isSelected viewFormDiscom.discom_state "Tamil Nadu"}}>Tamil Nadu</option>
+                              <option value="New Delhi" {{isSelected viewFormDiscom.discom_state "New Delhi"}}>New Delhi</option>
+                              <option value="New Delhi(NTPC)" {{isSelected viewFormDiscom.discom_state "New Delhi(NTPC)"}}>New Delhi(NTPC)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Pin: </label>
+                            <input type="text" value="{{viewFormDiscom.discom_pin}}" class="form-control input-sm updateDiscom" name="discom_pin" placeholder="Pin" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Fax No: </label>
+                            <input type="text" value="{{viewFormDiscom.discom_fax}}" class="form-control input-sm updateDiscom" name="discom_fax" placeholder="Fax No" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">GST No: </label>
+                            <input type="text" value="{{viewFormDiscom.gst_number}}" class="form-control input-sm updateDiscom" name="gst_number" placeholder="GST No" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Scheme: </label>
+                            <select class="form-control input-sm updateDiscomSceheme" name="scheme" {{readonlyReturn}}>
+                              <option value="">Select Scheme</option>
+                              {{#each returnSchemes}}
+                              <option value="{{scheme}}" {{isSelected viewFormDiscom.scheme scheme}}>{{scheme}}</option>
+                              {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Invoice Raised To : </label>
+                            <input type="text" value="{{viewFormDiscom.invoice_raised_to}}" class="form-control input-sm updateDiscom" name="invoice_raised_to" placeholder="Enter Invoice Raised To" {{readonlyReturn}}>
+                        </div>
+                        <div class="form-group pull-in clearfix">
+                          {{#if updateButton}}
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-danger pull-left closeDiscom" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <button class="btn btn-success pull-right" attr="{{viewFormDiscom._id}}" id="updateDiscom">Update</button>
+                                </div>
+                            </div>
+                            {{/if}}
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4">
+                              {{#if updateButtonHideCloseBtn}}
+                                <div class="form-group center-block">
+                                    <button type="button" class="btn btn-danger center-block" data-dismiss="modal">Close</button>
+                                </div>
+                                {{/if}}
+                            </div>
+                            <div class="col-sm-4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

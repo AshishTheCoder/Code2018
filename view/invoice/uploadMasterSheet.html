@@ -1,0 +1,56 @@
+<template name="uploadMasterSheet">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Upload Master Sheet</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Month :</label>
+                                            <div class="col-sm-8">
+                                              <select name="month" class="form-control input-sm" id="ddlMonth">
+                                                  <option value="">Select Month</option>
+                                                  {{#each monthReturn}}
+                                                  <option value="{{this.value}}">{{this.key}}</option>
+                                                  {{/each}}
+                                              </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Upload :</label>
+                                            <div class="col-sm-8" >
+                                                {{> upload_bootstrap callbacks=myCallbacks fileTypes='.xls,.xlsx' autoStart=true multiple=false formData=specificFormData}}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <button id="btnUploadMasterSheet" class="btn btn-sm btn-success pull-right">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

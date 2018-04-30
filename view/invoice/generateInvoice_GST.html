@@ -1,0 +1,1395 @@
+<template name="generateInvoiceGSTFormat">
+<div class="loading" id="loadercls" style="display:none;">Loading&#8230;</div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Generate Invoice</h1>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                          <div class="row">
+                              <div class="col-sm-12">
+                                  <section class="panel panel-default">
+                                      <div class="panel-body">
+                                          <div class="row">
+                                              <div class="col-md-12 col-sm-12">
+                                                  <fieldset class="scheduler-border">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-6 col-md-6">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">Select Invoice :</label>
+                                                                        <div class="col-sm-8">
+                                                                            <select id='typeOfInvoiceRadioBtn' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_month">
+                                                                                <option value="">Select Invoice Type</option>
+                                                                                <option value="Energy_Invoice">Energy Invoice</option>
+                                                                                <option value="Incentive_Charges">Incentive Charges</option>
+                                                                                <option value="Transmission_Charges">Transmission Charges</option>
+                                                                                <option value="SLDC_Charges">SLDC Charges</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6 col-md-6">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                  </fieldset>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </section>
+                              </div>
+                          </div>
+                          <!-- Energy Invoice  -->
+                            {{#if isEnergyInvoiceSelected}}
+                              <div class="row">
+                                <div class="col-sm-12">
+                                    <section class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <fieldset class="scheduler-border">
+                                                        <legend class="scheduler-border">Energy Invoice</legend>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6">
+                                                                        <label class="radio-inline ">
+                                                                            <input type="radio" name="inlineRadioOptions" id="inlineRadioForBill" value="provisional_invoice">Provisional Invoice
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-sm-6">
+                                                                        <label class="radio-inline ">
+                                                                            <input type="radio" name="inlineRadioOptions" id="inlineRadioForBill" value="credit_debit_note">Credit/Debit Note
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <!--Provisional UI starts from here...  -->
+                                                      {{#if isProvisionSeletedByRadio}}
+                                                            <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Month :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <select id='ddlMonthEnergyInvoice' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_month">
+                                                                                      <option value="">Select Month</option>
+                                                                                      {{#each monthShow}}
+                                                                                        <option value="{{this.value}}">{{this.key}}</option>
+                                                                                      {{/each}}
+                                                                                  </select>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Year :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <select id='ddlYearEnergyInvoice' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                                      <option value="">Select Year</option>
+                                                                                      {{#each yearShow}}
+                                                                                        <option value="{{this}}">{{this}}</option>
+                                                                                      {{/each}}
+                                                                                  </select>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="row">
+                                                              <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Discom State :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <select id="energyInvoiceDisom" class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_discoms">
+                                                                                    <option value="">Select Discom</option>
+                                                                                    {{#each dataForDiscomName}}
+                                                                                    <option value="{{discom_state}}" discomname={{nameof_buyingutility}}> {{discom_state}}</option>
+                                                                                    {{/each}}
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    {{#if isOdishaDiscomSelectedForEnergyInvoice}}
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">SPD State :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <select id="energyInvoiceSPDstate" class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_discoms">
+                                                                                      <option value="">Select SPD State</option>
+                                                                                      <option value="Gujarat">Gujarat</option>
+                                                                                      <option value="Odisha">Odisha</option>
+                                                                                      <option value="Rajasthan">Rajasthan</option>
+                                                                                  </select>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                    {{/if}}
+                                                                    {{#if isBiharStateSelectedForEnergyInvoice}}
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">North/South :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <select id="energyInvoiceSPDstate" class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_discoms">
+                                                                                      <option value="">Select North/South</option>
+                                                                                      <option value="North">North Bihar</option>
+                                                                                      <option value="South">South Bihar</option>
+                                                                                  </select>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                    {{/if}}
+                                                                    {{#if isBiharOrOdishaSelected}}
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                                              <div class="col-sm-8">
+                                                                                <select id='ddlFinancialYearInvoice' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                                  <option value="">Select Financial Year</option>
+                                                                                  {{#each financialYearHelper}}
+                                                                                    <option value="{{this}}">{{this}}</option>
+                                                                                  {{/each}}
+                                                                                </select>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                    {{/if}}
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        {{#if isOdishaDiscomSelectedForEnergyInvoice}}
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                    <select id='ddlFinancialYearInvoice' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                                      <option value="">Select Financial Year</option>
+                                                                                      {{#each financialYearHelper}}
+                                                                                        <option value="{{this}}">{{this}}</option>
+                                                                                      {{/each}}
+                                                                                    </select>
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                        {{/if}}
+                                                                        {{#if isBiharStateSelectedForEnergyInvoice}}
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                    <select id='ddlFinancialYearInvoice' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                                      <option value="">Select Financial Year</option>
+                                                                                      {{#each financialYearHelper}}
+                                                                                        <option value="{{this}}">{{this}}</option>
+                                                                                      {{/each}}
+                                                                                    </select>
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                        {{/if}}
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Signature :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <select id="ddlEnergyInvoiceAthorisedPerson" class="form-control form-control-sm input-sm">
+                                                                                      <option value="">Select Signature</option>
+                                                                                      {{#each authorisedSignatureArr}}
+                                                                                      <option value="{{name}}" attrDesignation="{{designation}}" attrDesignationFull="{{full_form}}" attrPhone="{{phone}}">{{name}}</option>
+                                                                                      {{/each}}
+                                                                                  </select>
+                                                                              </div>
+                                                                          </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <center><label class="form-control-label"><u>Provisional Energy in kWh</u></label></center>
+                                                                  </div>
+                                                              </div>
+                                                            </div>
+                                                          {{#if isMPStateSelectedForProvisional}}
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Fortum FinSurya :</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" id="provisonalEnergyForFortum" class="form-control input-sm " placeholder="Enter energy in kWh">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Clean Solar :</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" id="provisonalEnergyForCleanSolar" class="form-control input-sm" placeholder="Enter energy in kWh">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Focal Photovoltaic :</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" id="provisonalEnergyForFocalPhotovoltaic" class="form-control input-sm" placeholder="Enter energy in kWh">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <center><label class="form-control-label"><u>JMR Value in kWh</u></label></center>
+                                                                  </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">SEI Sitara :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" id="JMRseiSitara" class="form-control input-sm " placeholder="Enter JMR value in kWh">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">SEI L'Volta :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" id="JMRseiVolta" class="form-control input-sm " placeholder="Enter JMR value in kWh">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <center><label class="form-control-label"><u>SEA Accounting in kWh</u></label></center>
+                                                                  </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">SEA Accounting :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" id="SEAaccounting" class="form-control input-sm " placeholder="Enter SEA accounting in kWh">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                          {{else}}
+                                                            {{#if isGujaratSelected}}
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-sm-6 col-md-6">
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-4 form-control-label">Energy 1 :</label>
+                                                                                    <div class="col-sm-8">
+                                                                                        <input type="text" id="provisonalEnergy1" class="form-control input-sm " placeholder="Enter energy in kWh">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-6 col-md-6">
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-4 form-control-label">Energy 2 :</label>
+                                                                                    <div class="col-sm-8">
+                                                                                        <input type="text" id="provisonalEnergy2" class="form-control input-sm" placeholder="Enter energy in kWh">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-sm-6 col-md-6">
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-4 form-control-label">Energy 3 :</label>
+                                                                                    <div class="col-sm-8">
+                                                                                        <input type="text" id="provisonalEnergy3" class="form-control input-sm " placeholder="Enter energy in kWh">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-6 col-md-6">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            {{else}}
+                                                              <div class="row">
+                                                                 <div class="col-sm-12">
+                                                                     <div class="form-group row">
+                                                                         <div class="col-sm-6 col-md-6">
+                                                                             <div class="form-group row">
+                                                                                 <label class="col-sm-4 form-control-label">Provisional Energy :</label>
+                                                                                 <div class="col-sm-8">
+                                                                                     <input type="text" id="provisonalEnergy" class="form-control input-sm" placeholder="Enter energy in kWh" value="{{temporarySavedData.provisional_energy}}">
+                                                                                 </div>
+                                                                             </div>
+                                                                         </div>
+                                                                         <div class="col-sm-6 col-md-6">
+
+                                                                         </div>
+                                                                     </div>
+                                                                 </div>
+                                                               </div>
+                                                            {{/if}}
+                                                          {{/if}}
+                                                            <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <div class="form-group row">
+                                                                          <div class="col-sm-5"></div>
+                                                                          <div class="col-sm-2">
+                                                                              <center>
+                                                                                  <a id="energyBtnView" class="btn btn-default btn-sm btn-warning pull-right">
+                                                                                      <span class="glyphicon glyphicon-submit">Generate</span>
+                                                                                  </a>
+                                                                                  <div id="modalOpenEnergyInvoice" data-toggle='modal' data-target='#generateInvoiceModalid'></div>
+                                                                              </center>
+                                                                          </div>
+                                                                          <div class="col-sm-5">
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                            </div>
+                                                        {{/if}}
+                                                        <!--Credit Debit Note UI Starts From Here...  -->
+                                                        {{#if isCreditDebitNoteSeletedByRadio}}
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Month :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <select id='ddlMonthEnergyInvoice' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_month">
+                                                                                      <option value="">Select Month</option>
+                                                                                      {{#each monthShow}}
+                                                                                        <option value="{{this.value}}">{{this.key}}</option>
+                                                                                      {{/each}}
+                                                                                  </select>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Year :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <select id='ddlYearEnergyInvoice' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                                      <option value="">Select Year</option>
+                                                                                      {{#each yearShow}}
+                                                                                        <option value="{{this}}">{{this}}</option>
+                                                                                      {{/each}}
+                                                                                  </select>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Discom State :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <select id="ddlenergyInvoiceDisomCreditDebit" class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_discoms">
+                                                                                      <option value="">Select Discom</option>
+                                                                                      <option value="Maharashtra">Maharashtra</option>
+                                                                                      <option value="Rajasthan">Rajasthan</option>
+                                                                                  </select>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <select id='ddlFinancialYearEnergyInvoice' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                                      <option value="">Select Financial Year</option>
+                                                                                      {{#each financialYearHelper}}
+                                                                                        <option value="{{this}}">{{this}}</option>
+                                                                                      {{/each}}
+                                                                                  </select>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                        {{#if isRajasthanSelectedCreditDebit}}
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">STU Loss :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm" id="energy_invoice_loss" placeholder="Enter losses" value="{{temporarySavedData.stu_loss}}">
+                                                                            </div>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Signature :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <select id="ddlEnergyInvoiceAthorisedPerson" class="form-control form-control-sm input-sm">
+                                                                                    <option value="">Select Signature</option>
+                                                                                    {{#each authorisedSignatureArr}}
+                                                                                    <option value="{{name}}" attrDesignation="{{designation}}" attrDesignationFull="{{full_form}}" attrPhone="{{phone}}">{{name}}</option>
+                                                                                    {{/each}}
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                        {{/if}}
+                                                        {{#if isRajasthanSelectedCreditDebit}}
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <center><label class="form-control-label"><u>PREVIOUS SELL OF ENERGY</u></label></center>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Jaipur Discom (Previous) :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm" id="PreviousSellEnergyJaipur" placeholder="Enter sell of energy by SECI to JAIPUR discom" value="{{temporarySavedData.jaipurPreviousEnergy}}">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Ajmer Discom (Previous) :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm" id="PreviousSellEnergAjmer" placeholder="Enter sell of energy by SECI to AJMER discom" value="{{temporarySavedData.ajmerPreviousEnergy}}">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Jodhpur Discom (Previous) :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text"  class="form-control input-sm" id="PreviousSellEnergyJodhpur" placeholder="Enter sell of energy by SECI to JODHPUR discom" value="{{temporarySavedData.jodhpurPreviousEnergy}}">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                        {{/if}}
+                                                        {{#if isMaharashtraSelectedCreditDebit}}
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Invoice Date :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text"  class="form-control input-sm txtDate" id="txtInvoiceDate" placeholder="Invoice Date" value="{{defaultSelectedDate}}">
+                                                                            </div>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Signature :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <select id="ddlEnergyInvoiceAthorisedPerson" class="form-control form-control-sm input-sm">
+                                                                                    <option value="">Select Signature</option>
+                                                                                    {{#each authorisedSignatureArr}}
+                                                                                    <option value="{{name}}" attrDesignation="{{designation}}" attrDesignationFull="{{full_form}}" attrPhone="{{phone}}">{{name}}</option>
+                                                                                    {{/each}}
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <center><label class="form-control-label"><u>SELL OF ENERGY PREVIOUS MONTH</u></label></center>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Provisional Energy :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text"  class="form-control input-sm" id="PreviousProvisionalEnergy" placeholder="Enter previous provisional energy" value="{{temporarySavedData.provisional_total_energy}}">
+                                                                            </div>
+                                                                        </div>
+                                                                      </div>
+                                                                  </div>
+                                                                  <div class="col-sm-6 col-md-6">
+
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <center><label class="form-control-label"><u>Total Energy in kWh as per JMR/REA</u></label></center>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                        {{/if}}
+                                                        {{#if isRajasthanSelectedCreditDebit}}
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <center><label class="form-control-label"><u>Total Energy in kWh as per JMR</u></label></center>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">LINE I :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm annexureOneData" name="LINE I(Medha, Rajni, ACME R, ACME G, ACME M)" placeholder="Enter JMR in kWh" value="{{temporarySavedData.data.[0].energy}}">
+                                                                            </div>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">LINE II :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm annexureOneData" name="LINE II(Medha, Rajni, ACME R, ACME G, ACME M)" placeholder="Enter JMR in kWh" value="{{temporarySavedData.data.[1].energy}}">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Northern Solaire :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm annexureOneData" name="Northern Solaire Prakash Pvt. Ltd." placeholder="Enter JMR in kWh" value="{{temporarySavedData.data.[2].energy}}">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Azure Green & Sunshine :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm annexureOneData" name="Azure Green Tech Pvt. Ltd. & Azure Sunshine Pvt. Ltd." placeholder="Enter JMR in kWh" value="{{temporarySavedData.data.[3].energy}}">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label"> Suryauday Solaire:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm annexureOneData" name="Suryauday Solaire Prakash Pvt. Ltd." placeholder="Enter JMR in kWh" value="{{temporarySavedData.data.[4].energy}}">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">SEI Suryalabh :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm annexureOneData" name="SEI Suryalabh Pvt. Ltd." placeholder="Enter JMR in kWh" value="{{temporarySavedData.data.[5].energy}}">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">RDA Energy :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm annexureOneData" name="RDA Energy Pvt. Ltd." placeholder="Enter JMR in kWh" value="{{temporarySavedData.data.[6].energy}}">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Rishabh Renergy :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm annexureOneData" name="Rishabh Renergy Pvt. Ltd." placeholder="Enter JMR in kWh" value="{{temporarySavedData.data.[7].energy}}">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Palimarwar Solar :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm annexureOneData" name="Palimarwar Solar Project Pvt. Ltd." placeholder="Enter JMR in kWh" value="{{temporarySavedData.data.[8].energy}}">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Welspun Solar :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm annexureOneData" name="Welspun Solar UP Pvt. Ltd." placeholder="Enter JMR in kWh" value="{{temporarySavedData.data.[9].energy}}">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Today Green :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm annexureOneData" name="Today Green Energy Pvt. Ltd." placeholder="Enter JMR in kWh" value="{{temporarySavedData.data.[10].energy}}">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Azure Clean :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm annexureOneData" name="Azure Clean Energy Pvt. Ltd." placeholder="Enter JMR in kWh" value="{{temporarySavedData.data.[11].energy}}">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Lakshmi Diamond :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm annexureOneData" name="Lakshmi Diamond" placeholder="Enter JMR in kWh" value="{{temporarySavedData.data.[12].energy}}">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                        {{/if}}
+                                                        {{#if isMaharashtraSelectedCreditDebit}}
+                                                          <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Annexure Month :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id='ddlMonthForMaharashtra' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_month" >
+                                                                                  <option value="">Select Month</option>
+                                                                                  {{#each monthShow}}
+                                                                                    <option value="{{this.value}}" {{returnMonthToUI temporarySavedData.annexure_month this.value}}>{{this.key}}</option>
+                                                                                  {{/each}}
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Annexure Year :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id='ddlAnnexureYearEnergyInvoice' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                                  <option value="">Select Annexure Year</option>
+                                                                                  {{#each yearShow}}
+                                                                                    <option value="{{this}}" {{returnYearToUI temporarySavedData.annexure_year this}}>{{this}}</option>
+                                                                                  {{/each}}
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                          </div>
+                                                          <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">IL & FS :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <input type="text" class="form-control input-sm annexureOneData" name="IL & FS" placeholder="Enter JMR/REA in kWh" value="{{temporarySavedData.data.[0].energy}}">
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Today Green 5RJ :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <input type="text" class="form-control input-sm annexureOneData" name="Today Green 5RJ" placeholder="Enter JMR/REA in kWh" value="{{temporarySavedData.data.[1].energy}}">
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                          </div>
+                                                          <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Sharda Construction :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <input type="text" class="form-control input-sm annexureOneData" name="Sharda Construction" placeholder="Enter JMR/REA in kWh" value="{{temporarySavedData.data.[2].energy}}">
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Vishvaj Energy :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <input type="text" class="form-control input-sm annexureOneData" name="Vishvaj Energy" placeholder="Enter JMR/REA in kWh" value="{{temporarySavedData.data.[3].energy}}">
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                          </div>
+                                                          <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Sunil Hitech :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <input type="text" class="form-control input-sm annexureOneData" name="Sunil Hitech" placeholder="Enter JMR/REA in kWh" value="{{temporarySavedData.data.[4].energy}}">
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                          </div>
+                                                        {{/if}}
+                                                          <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-5"></div>
+                                                                    <div class="col-sm-2">
+                                                                        <center>
+                                                                            <a id="energyBtnView" class="btn btn-default btn-sm btn-warning pull-right">
+                                                                                <span class="glyphicon glyphicon-submit">Generate</span>
+                                                                            </a>
+                                                                            <div id="modalOpenEnergyInvoice" data-toggle='modal' data-target='#generateInvoiceModalid'></div>
+                                                                        </center>
+                                                                    </div>
+                                                                    <div class="col-sm-5">
+                                                                        <!-- <button id="energyBtnDownload" class="btn btn-default btn-sm btn-primary">
+                                                                              <span class="glyphicon glyphicon-submit">Download</span>
+                                                                          </button> -->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{/if}}
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                              </div>
+                            {{/if}}
+                            <!-- Transmission Invoice  -->
+                            {{#if isTransmisioChargeseSelected}}
+                              <div class="row">
+                                <div class="col-sm-12">
+                                    <section class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <fieldset class="scheduler-border">
+                                                        <legend class="scheduler-border">Transmission Charges</legend>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Month :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <select id='ddlMonthTranmissionCharges' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_month">
+                                                                                    <option value="">Select Month</option>
+                                                                                    {{#each monthShow}}
+                                                                                      <option value="{{this.value}}">{{this.key}}</option>
+                                                                                    {{/each}}
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Year :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <select id='ddlYearTranmissionCharges' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                                    <option value="">Select Year</option>
+                                                                                    {{#each yearShow}}
+                                                                                      <option value="{{this}}">{{this}}</option>
+                                                                                    {{/each}}
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">State :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <select id="TranmissionChargesDisom" class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_discoms">
+                                                                                    <option value="">Select State</option>
+                                                                                    <option value="Gujarat"> Gujarat</option>
+                                                                                    <option value="MP">MP</option>
+                                                                                    <option value="Rajasthan"> Rajasthan</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                                            <div class="col-sm-8">
+                                                                              <select id='ddlFinancialYearTransmision' class="form-control form-control-sm input-sm ">
+                                                                                <option value="">Select Financial Year</option>
+                                                                                {{#each financialYearHelper}}
+                                                                                  <option value="{{this}}">{{this}}</option>
+                                                                                {{/each}}
+                                                                              </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{#if isRajasthanSelectedTransmissionCharges}}
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Discom State :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id="TranmissionChargesSPDList" class="form-control form-control-sm input-sm">
+                                                                                  <option value="">Select Discom State</option>
+                                                                                  {{#each RajasthanInterSPDlistHelper}}
+                                                                                  <option value="{{this}}">{{this}}</option>
+                                                                                  {{/each}}
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Signature :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id="ddlTranmissionAthorisedPerson" class="form-control form-control-sm input-sm">
+                                                                                  <option value="">Select Signature</option>
+                                                                                  {{#each authorisedSignatureArr}}
+                                                                                  <option value="{{name}}" attrDesignation="{{designation}}" attrDesignationFull="{{full_form}}" attrPhone="{{phone}}">{{name}}</option>
+                                                                                  {{/each}}
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{/if}}
+                                                        {{#if isMPSelectedTransmissionCharges}}
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">From Date:</label>
+                                                                          <div class="col-sm-8">
+                                                                              <input type="text" class="form-control input-sm txtDate" id="transmission_from_date" placeholder="Enter From Date">
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">To Date:</label>
+                                                                          <div class="col-sm-8">
+                                                                              <input type="text" class="form-control input-sm txtDate" id="transmission_to_date" placeholder="Enter To Date">
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Discom State :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id="TranmissionChargesDiscomState" class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_discoms">
+                                                                                  <option value="">Select Discom State</option>
+                                                                                  <option value="Chhattisgarh">Chhattisgarh</option>
+                                                                                  <option value="Goa">Goa</option>
+                                                                                  <option value="Maharashtra">Maharashtra</option>
+                                                                                  <option value="North">North Bihar</option>
+                                                                                  <option value="South">South Bihar</option>
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Total Energy :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" id="transmisionTotalEnergy" class="form-control input-sm" placeholder="Enter total enegy">
+                                                                            </div>
+                                                                      </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Signature :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id="ddlTranmissionAthorisedPerson" class="form-control form-control-sm input-sm">
+                                                                                  <option value="">Select Signature</option>
+                                                                                  {{#each authorisedSignatureArr}}
+                                                                                  <option value="{{name}}" attrDesignation="{{designation}}" attrDesignationFull="{{full_form}}" attrPhone="{{phone}}">{{name}}</option>
+                                                                                  {{/each}}
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{/if}}
+                                                        {{#if isGujaratSelectedTransmissionCharges}}
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Invoice Date :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" id="txtInvoiceDateTC" class="form-control input-sm" placeholder="Enter Invoice Date">
+                                                                              </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Signature :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id="ddlTranmissionAthorisedPerson" class="form-control form-control-sm input-sm">
+                                                                                  <option value="">Select Signature</option>
+                                                                                  {{#each authorisedSignatureArr}}
+                                                                                  <option value="{{name}}" attrDesignation="{{designation}}" attrDesignationFull="{{full_form}}" attrPhone="{{phone}}">{{name}}</option>
+                                                                                  {{/each}}
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Invoice No.1 :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" id="transmisionInvoiceNumOne" class="form-control input-sm" value="{{priviousInvoiceTC.[0].invoice_number}}" placeholder="Enter Invoice Number 1">
+                                                                              </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Invoice No.2 :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <input type="text" id="transmisionInvoiceNumTwo" class="form-control input-sm" value="{{priviousInvoiceTC.[1].invoice_number}}" placeholder="Enter Invoice Number 2">
+                                                                          </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Invoice No.3 :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <input type="text" id="transmisionInvoiceNumThree" class="form-control input-sm" value="{{priviousInvoiceTC.[2].invoice_number}}" placeholder="Enter Invoice Number 3">
+                                                                          </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Invoice No.4 :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <input type="text" id="transmisionInvoiceNumFour" class="form-control input-sm" value="{{priviousInvoiceTC.[3].invoice_number}}" placeholder="Enter Invoice Number 4">
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{/if}}
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-5"></div>
+                                                                    <div class="col-sm-2">
+                                                                        <center>
+                                                                            <button id="transmissionChargesBtnView" type="submit" class="btn btn-default btn-sm btn-warning pull-right">
+                                                                                <span class="glyphicon glyphicon-submit">Generate</span>
+                                                                            </button>
+                                                                            <div id="modalOpenTransmissionCharges" data-title="" data-toggle="modal" data-target="#transmissionChargesModalId"></div>
+                                                                        </center>
+                                                                    </div>
+                                                                    <div class="col-sm-5">
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                              </div>
+                            {{/if}}
+                              <!-- SLDC Invoice  -->
+                            {{#if isSLDCInvoiceSelected}}
+                              <div class="row">
+                                <div class="col-sm-12">
+                                    <section class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <fieldset class="scheduler-border">
+                                                        <legend class="scheduler-border">SLDC Charges</legend>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">From Date:</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm  invoiceOtherSLDC txtDate" id="sldc_from_date" placeholder="Enter From Date">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">To Date:</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm  invoiceOtherSLDC txtDate" id="sldc_to_date" placeholder="Enter To Date">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                                          <div class="col-sm-8">
+                                                                            <select id='ddlFinancialYearSLDC' class="form-control form-control-sm input-sm ">
+                                                                              <option value="">Select Financial Year</option>
+                                                                              {{#each financialYearHelper}}
+                                                                                <option value="{{this}}">{{this}}</option>
+                                                                              {{/each}}
+                                                                            </select>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">State :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <select id="StateForSLDCCharges" class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_discoms">
+                                                                                    <option value="">Select State</option>
+                                                                                    <option value="Gujarat"> Gujarat</option>
+                                                                                    <option value="Rajasthan"> Rajasthan</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                  {{#if isRajasthanSelectedForSLDC}}
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">DISCOM State:</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id="SLDCchargesDisomDDL" class="form-control form-control-sm input-sm invoiceOtherSLDC" name="sldc_discoms">
+                                                                                  <option value="">Select Discom State</option>
+                                                                                  {{#each DiscomStateListForSLDC}}
+                                                                                  <option value="{{this}}">{{this}}</option>
+                                                                                  {{/each}}
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                  {{/if}}
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">Signature :</label>
+                                                                        <div class="col-sm-8">
+                                                                            <select id="ddlSLDCInvoiceAthorisedPerson" class="form-control form-control-sm input-sm">
+                                                                                <option value="">Select Signature</option>
+                                                                                {{#each authorisedSignatureArr}}
+                                                                                <option value="{{name}}" attrDesignation="{{designation}}" attrDesignationFull="{{full_form}}" attrPhone="{{phone}}">{{name}}</option>
+                                                                                {{/each}}
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-5"></div>
+                                                                    <div class="col-sm-2">
+                                                                        <center>
+                                                                            <button id="SLDCChargesBtnView" type="submit" class="btn btn-default btn-sm btn-warning pull-right">
+                                                                                <span class="glyphicon glyphicon-submit">Generate</span>
+                                                                            </button>
+                                                                            <div id="modalOpenSLDCCharges" data-title="" data-toggle="modal" data-target="#SLDCChargesModalId"></div>
+                                                                        </center>
+                                                                    </div>
+                                                                    <div class="col-sm-5">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                              </div>
+                            {{/if}}
+                            <!--Incentive Charges  -->
+                            {{#if isIncentiveChargesSelected}}
+                              <div class="row">
+                                <div class="col-sm-12">
+                                    <section class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <fieldset class="scheduler-border">
+                                                        <legend class="scheduler-border">Incentive Charges</legend>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Discom State :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <select id="energyIncentiveCharges" class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_discoms">
+                                                                                    <option value="">Select Discom</option>
+                                                                                    {{#each dataForIncentiveCharges}}
+                                                                                    <option value="{{this}}"> {{this}}</option>
+                                                                                    {{/each}}
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                                            <div class="col-sm-8">
+                                                                              <select id='ddlFinancialYearIncentiveCharges' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                                <option value="">Select Financial Year</option>
+                                                                                {{#each financialYearHelper}}
+                                                                                  <option value="{{this}}">{{this}}</option>
+                                                                                {{/each}}
+                                                                              </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Ref :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" id="incentiveRef" class="form-control input-sm" placeholder="Enter reference number">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Rate :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" id="incentiveRate" class="form-control input-sm" placeholder="Enter rate">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">Signature :</label>
+                                                                        <div class="col-sm-8">
+                                                                            <select id="ddlSLDCInvoiceAthorisedPerson" class="form-control form-control-sm input-sm">
+                                                                                <option value="">Select Signature</option>
+                                                                                {{#each authorisedSignatureArr}}
+                                                                                <option value="{{name}}" attrDesignation="{{designation}}" attrDesignationFull="{{full_form}}" attrPhone="{{phone}}">{{name}}</option>
+                                                                                {{/each}}
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-5"></div>
+                                                                    <div class="col-sm-2">
+                                                                        <center>
+                                                                            <a id="IncentiveBtnSubmit" class="btn btn-default btn-sm btn-warning pull-right">
+                                                                                <span class="glyphicon glyphicon-submit">Generate</span>
+                                                                            </a>
+                                                                            <div id="modalOpenIncentiveCharges" data-toggle='modal' data-target='#IncentiveModalId'></div>
+                                                                        </center>
+                                                                    </div>
+                                                                    <div class="col-sm-5">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                              </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

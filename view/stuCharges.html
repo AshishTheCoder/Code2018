@@ -1,0 +1,141 @@
+<template name="stuChargesDetails">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+          <form id="STUChargesForm" role="form">
+            <div class="col-sm-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">STU Transmission Losses</h1>
+                    </div>
+                    <div class="panel-body">
+                      <!-- <div class="row">
+                          <div class="col-sm-12">
+                              <div class="col-sm-2"></div>
+                              <div class="col-sm-8">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 form-control-label">From:</label>
+                                      <div class="col-sm-6">
+                                          <input type="text" class="form-control input-sm required txtDate" id="txtDateFrom" placeholder="Enter From Date" name="from_date">
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <div class="col-sm-2"></div>
+                              <div class="col-sm-8">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 form-control-label">To:</label>
+                                      <div class="col-sm-6">
+                                          <input type="text" class="form-control input-sm required txtDate" id="txtDateTo" placeholder="Enter To Date" name="to_date">
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div> -->
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <div class="col-sm-2"></div>
+                              <div class="col-sm-8">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 form-control-label">Select Month:</label>
+                                      <div class="col-sm-6">
+                                          <select id="selectMonth" class="form-control input-sm required" name="selectMonth">
+                                              <option value="">Select Month</option>
+                                              {{#each monthShow}}
+                                                <option value="{{this.value}}">{{this.key}}</option>
+                                              {{/each}}
+                                          </select>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <div class="col-sm-2"></div>
+                              <div class="col-sm-8">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 form-control-label">Select Year:</label>
+                                      <div class="col-sm-6">
+                                          <select id="selectYear" class="form-control input-sm required" name="selectYear">
+                                              <option value="">Select Year</option>
+                                              <option value="2016">2016</option>
+                                              <option value="2017">2017</option>
+                                              <option value="2018">2018</option>
+                                              <option value="2019">2019</option>
+                                              <option value="2020">2020</option>
+                                              <option value="2021">2021</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-8">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 form-control-label">State:</label>
+                                        <div class="col-sm-6">
+                                            <select id="selectState" class="form-control input-sm required" name="spd_state">
+                                                <option value="">Select SPD State</option>
+                                                <option value="Gujarat">Gujarat</option>
+                                                <option value="MP">MP</option>
+                                                <option value="Rajasthan">Rajasthan</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-8">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 form-control-label">Old STU Losses:</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control input-sm oldCharges" placeholder="Old STU Losses" value="{{showOldValue}}" name="old_STU_Charges" readonly>
+                                        </div>
+                                        <div class="col-sm-2 pull-left">%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-8">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 form-control-label">New STU Losses:</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control input-sm newCharges" placeholder="New STU Losses" name="new_STU_Charges">
+                                        </div>
+                                        <div class="col-sm-2 pull-left">%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-5">
+                                </div>
+                                <div class="col-sm-3">
+                                    <center>
+                                        <button type="submit" class="btn btn-sm btn-success">Update</button>
+                                    </center>
+                                </div>
+                                <div class="col-sm-4">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </form>
+        </div>
+    </div>
+</template>

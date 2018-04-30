@@ -1,0 +1,359 @@
+<template name="ticketSystem">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                  {{#if isUserTypeSPDApproved}}
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Ticket System</h1>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <section class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <fieldset class="scheduler-border">
+                                              <div class="row">
+                                                  <div class="col-sm-12">
+                                                      <div class="form-group row">
+                                                          <div class="col-sm-6 col-md-6">
+                                                                <input type="radio" name="inlineRadioOptions" id="inlineRadioBtn" value="RaiseTicket">Raise Ticket
+                                                          </div>
+                                                          <div class="col-sm-6 col-md-6">
+                                                                <input type="radio" name="inlineRadioOptions" id="inlineRadioBtn" value="ViewStatus">View Status
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <!--  Raise Ticket To SECI  -->
+                    {{#if raisedTicket}}
+                    <div class="panel-body">
+                        <section class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Date :</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" value="{{currentDate}}" class="form-control input-sm" id="txtDate" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 form-control-label">Query/Request :</label>
+                                                <div class="col-sm-6">
+                                                    <textarea type="text" row="2" class="form-control input-sm" id="txtRequest"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-12">
+                                            <center><button class="btn btn-success btn-sm" id="btnRaiseTicket">Raise Ticket</button></center>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    {{/if}}
+                    <!--  View Raised Ticket Status  -->
+                    {{#if viewRaisedTicket}}
+                    <div class="panel-body">
+                        <section class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                      <div class="col-sm-4">
+                                            <input type="text" id="txtSearchTicketNo" class="form-control input-sm" placeholder="Find Ticket Number">
+                                      </div>
+                                        <div class="col-sm-4">
+                                            <select id='ddlFilterYear' class="form-control form-control-sm input-sm">
+                                              <option value="">Select Year</option>
+                                              {{#each yearShow}}
+                                                <option value="{{this}}">{{this}}</option>
+                                              {{/each}}
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <select id='ddlMonth' class="form-control form-control-sm input-sm">
+                                              <option value="">Select Month</option>
+                                              {{#each monthShow}}
+                                                <option value="{{this.value}}">{{this.key}}</option>
+                                              {{/each}}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                      {{#if isDataAvailable}}
+                      <div class="panel-body" style="overflow-x:scroll">
+                          <div class="row">
+                              <div class="col-sm-12">
+                                  <fieldset>
+                                      <div class="row">
+                                          <div class="col-sm-12">
+                                              <table class="table table-bordered" id="exportToExcelDiscom">
+                                                  <thead>
+                                                      <tr>
+                                                          <th class="text-center">S.No</th>
+                                                          <th class="text-center">Ticket Number</th>
+                                                          <th class="text-center">Raised Date</th>
+                                                          <th class="text-center">Issue</th>
+                                                          <th class="text-center">Action Taken</th>
+                                                          <th class="text-center">Commented by SECI</th>
+                                                          <th class="text-center">Status</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    {{#each returnData}}
+                                                      <tr>
+                                                          <td class="text-center">{{serial @index}}</td>
+                                                          <td class="text-center">{{ticket_no}}</td>
+                                                          <td class="text-center">{{date}}</td>
+                                                          <td>{{query}}</td>
+                                                          <td class="text-center">{{action_date}}</td>
+                                                          <td>{{commentedBySeci}}</td>
+                                                          <td class="text-center">{{status}}</td>
+                                                      </tr>
+                                                      {{/each}}
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </fieldset>
+                              </div>
+                          </div>
+                      </div>
+                     {{/if}}
+                    {{/if}}
+                  {{else}}
+                  <div class="panel-heading">
+                      <h1 style="font-weight:bold;font-size:28px;text-align:center;">Tickets</h1>
+                  </div>
+                  <div class="panel-body">
+                      <section class="panel panel-default">
+                          <div class="panel-body">
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div class="col-sm-8">
+                                          <div class="form-group row">
+                                              <label class="col-sm-3 form-control-label">Select SPD :</label>
+                                              <div class="col-sm-8">
+                                                <select id='ddlSPDList' class="form-control form-control-sm input-sm">
+                                                  <option value="">Select SPD</option>
+                                                  {{#each spdListArr}}
+                                                    <option value="{{Ids}}">{{spdName}}</option>
+                                                  {{/each}}
+                                                </select>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-4">
+                                          <div class="form-group row">
+                                              <label class="col-sm-3 form-control-label">Status :</label>
+                                              <div class="col-sm-8">
+                                                <select id='ddlTicketStatusSearch' class="form-control form-control-sm input-sm">
+                                                  <option value="All">All</option>
+                                                  <option value="Open">Open</option>
+                                                  <option value="Closed">Close</option>
+                                                  <option value="Pending">Pending</option>
+                                                </select>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <label class="col-sm-2 form-control-label">Filter :</label>
+                                      <div class="col-sm-3">
+                                            <input type="text" id="txtLatestTicketAdmin" class="form-control input-sm" placeholder="Find Latest X Number of Tickets">
+                                      </div>
+                                      <div class="col-sm-3">
+                                            <input type="text" id="txtSearchTicketNo" class="form-control input-sm" placeholder="Find Ticket Number">
+                                      </div>
+                                      <div class="col-sm-2">
+                                          <select id='ddlFilterYear' class="form-control form-control-sm input-sm">
+                                            <option value="">Select Year</option>
+                                            {{#each yearShow}}
+                                              <option value="{{this}}">{{this}}</option>
+                                            {{/each}}
+                                          </select>
+                                      </div>
+                                      <div class="col-sm-2">
+                                          <select id='ddlMonth' class="form-control form-control-sm input-sm">
+                                            <option value="">Select Month</option>
+                                            {{#each monthShow}}
+                                              <option value="{{this.value}}">{{this.key}}</option>
+                                            {{/each}}
+                                          </select>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </section>
+                  </div>
+                  {{#if isDataAvailable}}
+                  <div class="panel-body" style="overflow-x:scroll">
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <fieldset>
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                        <table class="table table-bordered" id="exportToExcelDiscom">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">S.No</th>
+                                                    <th class="text-center">Ticket Number</th>
+                                                    <th class="text-center">SPD Name</th>
+                                                    <th class="text-center">Raised Date</th>
+                                                    <th class="text-center">Issue</th>
+                                                    <th class="text-center">Action Taken</th>
+                                                    <th class="text-center">Commented by SECI</th>
+                                                    <th class="text-center">Status</th>
+                                                    <th class="text-center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                              {{#each returnData}}
+                                                <tr>
+                                                    <td class="text-center">{{serial @index}}</td>
+                                                    <td class="text-center">{{ticket_no}}</td>
+                                                    <td class="text-center">{{spdName}}</td>
+                                                    <td class="text-center">{{date}}</td>
+                                                    <td>{{query}}</td>
+                                                    <td class="text-center">{{action_date}}</td>
+                                                    <td>{{commentedBySeci}}</td>
+                                                    <td class="text-center">{{status}}</td>
+                                                    <td class="text-center"><button id='btnAction' attrTicket="{{ticket_no}}" attrName="{{spdName}}" attrIds="{{_id}}" data-toggle="modal" data-target="#updateTicketStatus" class="btn btn-info btn-xs clsBtnAction">Action</button></td>
+                                                </tr>
+                                                {{/each}}
+                                            </tbody>
+                                        </table>
+                                      </div>
+                                  </div>
+                              </fieldset>
+                          </div>
+                      </div>
+                  </div>
+                 {{/if}}
+                  {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="updateTicketStatus" class="modal fade" role="dialog">
+           <div class="modal-dialog">
+               <div class="modal-content">
+                   <div class="modal-header">
+                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                       <h4 class="modal-title">Update Status</h4>
+                   </div>
+                   <div class="modal-body">
+                       <div class="row">
+                           <div class="col-sm-12">
+                               <section class="panel panel-default">
+                                   <div class="panel-body">
+                                       <fieldset>
+                                           <div class="form-group pull-in clearfix">
+                                               <div class="col-sm-3">
+                                                   <div class="form-group">
+                                                       <label for="txtChannelName">Ticket No:</label>
+                                                   </div>
+                                               </div>
+                                               <div class="col-sm-8">
+                                                   <div class="form-group">
+                                                       <input type="text" class="form-control" id="txtTicketNoStatus" value="{{showEmail}}" readonly>
+                                                   </div>
+                                               </div>
+                                           </div>
+
+                                           <div class="form-group pull-in clearfix">
+                                               <div class="col-sm-3">
+                                                   <div class="form-group">
+                                                       <label for="txtChannelName">SPD Name:</label>
+                                                   </div>
+                                               </div>
+                                               <div class="col-sm-8">
+                                                   <div class="form-group">
+                                                       <input type="text" class="form-control" id="txtSPDName" readonly value="{{viewTodayDate}}">
+                                                   </div>
+                                               </div>
+                                           </div>
+
+                                           <div class="form-group pull-in clearfix">
+                                               <div class="col-sm-3">
+                                                   <div class="form-group">
+                                                       <label for="txtChannelName">Status:</label>
+                                                   </div>
+                                               </div>
+                                               <div class="col-sm-8">
+                                                   <div class="form-group">
+                                                     <select id='ddlStatus' class="form-control form-control-sm input-sm">
+                                                       <option value="">Select Status</option>
+                                                       <option value="Open">Open</option>
+                                                       <option value="Closed">Close</option>
+                                                       <option value="Pending">Pending</option>
+                                                     </select>
+                                                   </div>
+                                               </div>
+                                           </div>
+
+                                           <div class="form-group pull-in clearfix">
+                                               <div class="col-sm-3">
+                                                   <div class="form-group">
+                                                       <label for="txtChannelName">Comment:</label>
+                                                   </div>
+                                               </div>
+                                               <div class="col-sm-8">
+                                                   <div class="form-group">
+                                                       <textarea class="form-control" row="2" id="txtComment" placeholder="Enter Comment"></textarea>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </fieldset>
+                                   </div>
+                               </section>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="form-group pull-in clearfix">
+                     <div class="col-sm-1"></div>
+                       <div class="col-sm-5">
+                           <div class="form-group">
+                               <button type="button" class="btn btn-danger pull-left closeSpd" data-dismiss="modal">Close</button>
+                           </div>
+                       </div>
+                       <div class="col-sm-5">
+                           <div class="form-group pull-right">
+                               <button type="button" class="btn btn-primary" id="btnAddTicketStatus" data-dismiss="modal">Update</button>
+                           </div>
+                       </div>
+                       <div class="col-sm-1"></div>
+                   </div>
+                   <div class="modal-footer">
+                   </div>
+               </div>
+           </div>
+       </div>
+</template>

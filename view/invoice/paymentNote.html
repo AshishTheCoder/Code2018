@@ -1,0 +1,1536 @@
+<template name="paymentNoteForSPDInvoice">
+<div class="loading" id="loadercls" style="display:none;">Loading&#8230;</div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Payment Note</h1>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                          <div class="row">
+                              <div class="col-sm-12">
+                                  <section class="panel panel-default">
+                                      <div class="panel-body">
+                                          <div class="row">
+                                              <div class="col-md-12 col-sm-12">
+                                                  <fieldset class="scheduler-border">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-6 col-md-6">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">Payment Note :</label>
+                                                                        <div class="col-sm-8">
+                                                                            <select id='ddlTypeOfPaymentNote' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_month">
+                                                                                <option value="">Select Payment Note</option>
+                                                                                <option value="Energy">Energy</option>
+                                                                                <option value="Incentive">Incentive</option>
+                                                                                <option value="SLDC">SLDC</option>
+                                                                                <option value="Transmission">Transmission</option>
+                                                                                <option value="RLDC">RLDC</option>
+                                                                                <!-- <option value="UI">UI</option> -->
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6 col-md-6">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                  </fieldset>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </section>
+                              </div>
+                          </div>
+                              <!-- Energy Payment Note  -->
+                            {{#if isEnergyPaymentNoteSelected}}
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                      <section class="panel panel-default">
+                                          <div class="panel-body">
+                                              <div class="row">
+                                                  <div class="col-md-12 col-sm-12">
+                                                      <fieldset class="scheduler-border">
+                                                          <legend class="scheduler-border">Energy Payment Note </legend>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Month :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <select id='ddlMonthEnergyPaymentNote' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_month">
+                                                                                    <option value="">Select Month</option>
+                                                                                    {{#each monthShow}}
+                                                                                      <option value="{{this.value}}">{{this.key}}</option>
+                                                                                    {{/each}}
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                                            <div class="col-sm-8">
+                                                                              <select id='ddlFinancialYearEnergy' class="form-control form-control-sm input-sm ">
+                                                                                <option value="">Select Financial Year</option>
+                                                                                {{#each financialYearHelper}}
+                                                                                  <option value="{{this}}">{{this}}</option>
+                                                                                {{/each}}
+                                                                              </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                        {{#if spdStateForEnergy}}
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">State :</label>
+                                                                            <div class="col-sm-8">
+
+                                                                                <select id="StateForEnergyPaymentNote" multiple="multiple" class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_discoms">
+
+                                                                                <!-- <select id="StateForEnergyPaymentNote" class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_discoms">
+                                                                                    <option value="">Select State</option> -->
+
+                                                                                  {{#each spdStateForEnergy}}
+                                                                                    <option value="{{this}}">{{this}}</option>
+                                                                                  {{/each}}
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                  {{#if spdListForEnergy}}
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">SPD List :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <select id='ddlSPDListEnergy' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                                                  {{#each spdListForEnergy}}
+                                                                                    <option value="{{_id}}" attrId="{{spdId}}">{{spdName}}</option>
+                                                                                  {{/each}}
+                                                                                </select>
+                                                                            </div>
+
+                                                                            <!-- <div class="col-sm-8">
+                                                                              <select id='ddlSPDListEnergy' class="form-control form-control-sm input-sm ">
+                                                                                <option value="">Select SPD Name</option>
+                                                                              {{#each spdListForEnergy}}
+                                                                                <option value="{{_id}}" attrId="{{spdId}}">{{spdName}}</option>
+                                                                              {{/each}}
+                                                                              </select>
+                                                                            </div> -->
+                                                                        </div>
+                                                                    </div>
+                                                                  {{/if}}
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                        {{#if spdDataReturnForEnergy}}
+                                                        {{#each spdListArrForPaymentNote}}
+                                                          <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-12">
+                                                                        <legend class="scheduler-border"><strong> SPD Name : {{returnJson.nameOfEntity}}</strong></legend>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Invoice No. :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm clsInvoiceNumber{{@index}}" id="txtInvoiceNumber" value="{{returnJson.invoiceNumber}}"  readonly>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Invoice Date :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm clsInvoiceDate{{@index}}" id="txtInvoiceDate" value="{{returnJson.dateOfReceipt}}" readonly>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Due Date :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm clsDueDate{{@index}}" id="txtDueDate" value="{{returnJson.dueDate}}" readonly>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Capacity :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm clsCapacity{{@index}}" id="txtCapacity" value="{{returnJson.capacity}}" readonly>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Total Energy :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm clsTotalEnergy{{@index}}" id="txtTotalEnergy" value="{{returnJson.billedUnits}}" readonly>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Invoice Amount :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm clsInvoiceAmount{{@index}}" id="txtInvoiceAmount" value="{{usingFixToDecimal returnJson.invoiceAmount}}" readonly>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Deducation if any :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm clsDeducation{{@index}}" attrInd="{{@index}}" id="txtDeducation" value="0" placeholder="Enter Deducation if any">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Payment to be released :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm clsPaymentToReleased{{@index}}" attrInd="{{@index}}" id="txtPaymentToReleased" placeholder="Enter Payment to be released">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Remaning Amount :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm clsRemaningAmount{{@index}}" attrInd="{{@index}}" id="txtRemaningAmount" value="{{remaningAmountHelper}}" readonly>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Energy Purchased by Seci :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm clsEnergyPurchased{{@index}}" attrInd="{{@index}}" id="txtEnergyPurchased" placeholder="Enter Energy Purchased">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Remarks :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <textarea type="text" row="2" class="form-control input-sm clsRemarks{{@index}}" attrInd="{{@index}}" id="txtRemarks" placeholder="Enter Remarks"></textarea>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                        {{/each}}
+                                                        {{/if}}
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-5"></div>
+                                                                      <div class="col-sm-2">
+                                                                          <center>
+                                                                              <a id="btnEnergyPayment" class="btn btn-default btn-sm btn-warning pull-right">
+                                                                                  <span class="glyphicon glyphicon-submit">Generate</span>
+                                                                              </a>
+                                                                          </center>
+                                                                      </div>
+                                                                      <div class="col-sm-5">
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                        {{/if}}
+                                                      </fieldset>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </section>
+                                  </div>
+                                </div>
+                            {{/if}}
+                              <!-- UI Charges Payment Note  -->
+                            {{#if isUIChargesInvoiceSelected}}
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                      <section class="panel panel-default">
+                                          <div class="panel-body">
+                                              <div class="row">
+                                                  <div class="col-md-12 col-sm-12">
+                                                      <fieldset class="scheduler-border">
+                                                          <legend class="scheduler-border">UI</legend>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">From Date:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm uichargesform required txtDate" name="fromdate" id="datetimepicker1" value="" placeholder="Please Enter From Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">To Date:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm uichargesform required txtDate" name="todate" id="datetimepicker2" value="" placeholder="Please Enter To Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-md-12 col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <center>
+                                                                          <button type="button" class="btn btn-sm btn-info" id="btngoid">GO</button>
+                                                                      </center>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <form id="collapsedataform" action="#">
+                                                              {{#each CollapseDiv}}
+                                                              <div class="row">
+                                                                  <div class="col-md-12 col-sm-12">
+                                                                      <div class="form-group row">
+                                                                        <div class="col-sm-1 col-md-1">
+                                                                            <label>Week {{collpaseNo @index}}</label>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                              <label>{{start_week}} To {{end_week}}</label>
+                                                                            </div>
+                                                                        </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="row">
+                                                                  <div id="{{collpaseNo @index}}">
+                                                                      <div class="col-sm-12">
+                                                                          <div class="panel">
+                                                                              <div class="panel-body">
+                                                                                  <div class="row">
+                                                                                      <div class="form-group row">
+                                                                                          <div class="col-sm-6">
+                                                                                              <div class="col-sm-4">
+                                                                                                  <label class="form-control-label">Amount 1</label>
+                                                                                              </div>
+                                                                                              <div class="col-sm-8">
+                                                                                                  <input type="text" name="amount1" id="Amount1{{collpaseNo @index}}" key="amount" class="form-control input-sm uichargesform required" placeholder="Please Enter Amount 1">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div class="col-sm-6">
+                                                                                              <div class="col-sm-4">
+                                                                                                  <label class="form-control-label">Amount 2</label>
+                                                                                              </div>
+                                                                                              <div class="col-sm-8">
+                                                                                                  <input type="text" name="amount2" id="Amount2{{collpaseNo @index}}" key="amount" class="form-control input-sm uichargesform required" placeholder="Please Enter Amount 2">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                                  <div class="row">
+                                                                                      <div class="form-group row">
+                                                                                          <div class="col-sm-6">
+                                                                                              <div class="col-sm-4">
+                                                                                                  <label class="form-control-label">Due Date:</label>
+                                                                                              </div>
+                                                                                              <div class="col-sm-8">
+                                                                                                  <input type="text" name="duedate{{collpaseNo @index}}" key="duedate" id="datetimepicker3{{collpaseNo @index}}" class="form-control input-sm uichargesform uichargesform2 uichargesDueDate required txtDate" placeholder="Please Enter Due Date">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div class="col-sm-6">
+                                                                                              <div class="col-sm-4">
+                                                                                                  <label class="form-control-label">Date of Invoice Issue:</label>
+                                                                                              </div>
+                                                                                              <div class="col-sm-8">
+                                                                                                  <input type="text" name="dateofinvoiceissue{{collpaseNo @index}}" id="datetimepicker4{{collpaseNo @index}}" class="form-control input-sm  uichargesform uichargesform1 required txtDate" placeholder="Please Enter Invoice Date">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <hr>
+                                                              {{/each}}
+                                                              {{#if generate}}
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <center>
+                                                                          <button type="submit" id='submit' data-toggle="modal" data-target="#myModalView" class="btn btn-warning">Generate</button>
+                                                                      </center>
+                                                                      <div id="modalOpenUiChargesModalId" data-toggle='modal' data-target='#UiChargesModalId'></div>
+                                                                  </div>
+                                                              </div>
+                                                              {{/if}}
+                                                          </form>
+                                                      </fieldset>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </section>
+                                  </div>
+                                </div>
+                            {{/if}}
+                              <!-- RLDC Payment Note  -->
+                            {{#if isRLDCInvoiceSelected}}
+                              <div class="row">
+                                <div class="col-sm-12">
+                                    <section class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <fieldset class="scheduler-border">
+                                                        <legend class="scheduler-border">RLDC Payment Note</legend>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Month :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id='ddlMonthRLDCPaymentNote' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_month">
+                                                                                  <option value="">Select Month</option>
+                                                                                  {{#each monthShow}}
+                                                                                    <option value="{{this.value}}">{{this.key}}</option>
+                                                                                  {{/each}}
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Year :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id='ddlYearRLDCPaymentNote' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                                  <option value="">Select Year</option>
+                                                                                  {{#each yearShow}}
+                                                                                    <option value="{{this}}">{{this}}</option>
+                                                                                  {{/each}}
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">State :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id="StateForRLDCPaymentNote" class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_discoms">
+                                                                                  <option value="">Select State</option>
+                                                                                  <option value="Gujarat">Gujarat</option>
+                                                                                  <option value="MP">MP</option>
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                                          <div class="col-sm-8">
+                                                                            <select id='ddlFinancialYearRLDC' class="form-control form-control-sm input-sm ">
+                                                                              <option value="">Select Financial Year</option>
+                                                                              {{#each financialYearHelper}}
+                                                                                <option value="{{this}}">{{this}}</option>
+                                                                              {{/each}}
+                                                                            </select>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">SOC :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" id="socRLDC" class="form-control input-sm" placeholder="Enter System Operation Charges">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">MOC :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" id="mocRLDC" class="form-control input-sm" placeholder="Enter Market Operation Charges">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-5"></div>
+                                                                    <div class="col-sm-2">
+                                                                        <center>
+                                                                            <a id="btnRLDCPayment" class="btn btn-default btn-sm btn-warning pull-right">
+                                                                                <span class="glyphicon glyphicon-submit">Generate</span>
+                                                                            </a>
+                                                                        </center>
+                                                                    </div>
+                                                                    <div class="col-sm-5">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                              </div>
+                            {{/if}}
+                              <!-- Transmission Payment Note  -->
+                            {{#if isTransmissionInvoiceSelected}}
+                              <div class="row">
+                                <div class="col-sm-12">
+                                    <section class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <fieldset class="scheduler-border">
+                                                        <legend class="scheduler-border">Transmission Payment Note </legend>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Month :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id='ddlMonthTransmissionPaymentNote' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_month">
+                                                                                  <option value="">Select Month</option>
+                                                                                  {{#each monthShow}}
+                                                                                    <option value="{{this.value}}">{{this.key}}</option>
+                                                                                  {{/each}}
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Year :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id='ddlYearTransmissionPaymentNote' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                                  <option value="">Select Year</option>
+                                                                                  {{#each yearShow}}
+                                                                                    <option value="{{this}}">{{this}}</option>
+                                                                                  {{/each}}
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                                          <div class="col-sm-8">
+                                                                            <select id='ddlFinancialYearTransmission' class="form-control form-control-sm input-sm ">
+                                                                              <option value="">Select Financial Year</option>
+                                                                              {{#each financialYearHelper}}
+                                                                                <option value="{{this}}">{{this}}</option>
+                                                                              {{/each}}
+                                                                            </select>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">State :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id="StateForTransmissionPaymentNote" class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_discoms">
+                                                                                  <option value="">Select State</option>
+                                                                                  <option value="Gujarat">Gujarat</option>
+                                                                                  <option value="MP">MP</option>
+                                                                                  <option value="Rajasthan">Rajasthan</option>
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{#if isGujaratSelectedTransmissionInvoiceSelected}}
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Raised Date :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} raisedDate datepicker" value="{{isGujaratTransmissionInvoiceSelected.raisedDate}}" placeholder="Raised Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Recieved Date :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} recievedDate datepicker" value="{{isGujaratTransmissionInvoiceSelected.receivedDate}}" placeholder="Invoice Recieved Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <center><label class="form-control-label"><u>Details of Invoice 1 </u></label></center>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Invoice No. :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceNumber" value="{{isGujaratTransmissionInvoiceSelected.invoiceNumber.[0]}}" placeholder="Invoice Number">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Invoice Amount :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceAmount" value="{{isGujaratTransmissionInvoiceSelected.invoiceAmount.[0]}}" placeholder="Invoice Amount">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Date of Invoice :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceDate datepicker" value="{{isGujaratTransmissionInvoiceSelected.invoiceDate.[0]}}" placeholder="Invoice Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Due Date :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} dueDate datepicker" value="{{isGujaratTransmissionInvoiceSelected.dueDate.[0]}}" placeholder="Due Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Deduction if any  :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceDeduction " placeholder="Deduction Amount">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <center><label class="form-control-label"><u>Details of Invoice 2 </u></label></center>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Invoice No. :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceNumber" value="{{isGujaratTransmissionInvoiceSelected.invoiceNumber.[1]}}" placeholder="Invoice Number">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Invoice Amount :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceAmount" value="{{isGujaratTransmissionInvoiceSelected.invoiceAmount.[1]}}" placeholder="Invoice Amount">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Date of Invoice :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceDate datepicker" value="{{isGujaratTransmissionInvoiceSelected.invoiceDate.[1]}}" placeholder="Invoice Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Due Date :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} dueDate datepicker" value="{{isGujaratTransmissionInvoiceSelected.dueDate.[1]}}" placeholder="Due Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Deduction if any  :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceDeduction " placeholder="Deduction Amount">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <!-- <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Payment to be released :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm" id="txtPaymentToReleased" placeholder="Enter Payment to be released">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div> -->
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <center><label class="form-control-label"><u>Details of Invoice 3 </u></label></center>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Invoice No. :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceNumber" value="{{isGujaratTransmissionInvoiceSelected.invoiceNumber.[2]}}" placeholder="Invoice Number">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Invoice Amount :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceAmount" value="{{isGujaratTransmissionInvoiceSelected.invoiceAmount.[2]}}" placeholder="Invoice Amount">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Date of Invoice :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceDate datepicker" value="{{isGujaratTransmissionInvoiceSelected.invoiceDate.[2]}}" placeholder="Invoice Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Due Date :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} dueDate datepicker" value="{{isGujaratTransmissionInvoiceSelected.dueDate.[2]}}" placeholder="Due Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Deduction if any  :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceDeduction " placeholder="Deduction Amount">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <center><label class="form-control-label"><u>Details of Invoice 4 </u></label></center>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Invoice No. :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceNumber" value="{{isGujaratTransmissionInvoiceSelected.invoiceNumber.[3]}}" placeholder="Invoice Number">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Invoice Amount :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceAmount" value="{{isGujaratTransmissionInvoiceSelected.invoiceAmount.[3]}}" placeholder="Invoice Amount">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Date of Invoice :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceDate datepicker" value="{{isGujaratTransmissionInvoiceSelected.invoiceDate.[3]}}" placeholder="Invoice Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Due Date :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} dueDate datepicker" value="{{isGujaratTransmissionInvoiceSelected.dueDate.[3]}}" placeholder="Due Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Deduction if any  :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceDeduction " placeholder="Deduction Amount">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                        {{/if}}
+                                                        {{#if isRajasthanSelectedTransmissionInvoiceSelected}}
+                                                              <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Raised Date :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceRaisedDateTC datepicker" value="{{isRajasthanTransmissionInvoiceSelected.invoiceRaisedDateTC}}" placeholder="Invoice Raised Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Recieved Date :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} recievedDate datepicker" value="{{isRajasthanTransmissionInvoiceSelected.invoiceReceivedDateTC}}" placeholder="Invoice Recieved Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                            {{#each loopArr}}
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <div class="form-group row">
+                                                                          <center><label class="form-control-label"><u>Details of Invoice {{this}} </u></label></center>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <div class="form-group row">
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Bill No. :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                      <input type="text" class="form-control input-sm {{validateClass}} txtbillNumber" value="{{getArrValue isRajasthanTransmissionInvoiceSelected.billNumber @index}}" placeholder="Bill Number">
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Bill Date :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                      <input type="text" class="form-control input-sm {{validateClass}} datepicker txtbillDate" value="{{getArrValue isRajasthanTransmissionInvoiceSelected.billDate @index}}" placeholder="Bill Date">
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <div class="form-group row">
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Period From :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                      <input type="text" class="form-control input-sm {{validateClass}} txtperiodFrom datepicker" value="{{getArrValue isRajasthanTransmissionInvoiceSelected.periodFromArr @index}}" placeholder="Period From">
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Period To :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                      <input type="text" class="form-control input-sm {{validateClass}} txtperiodTo datepicker" value="{{getArrValue isRajasthanTransmissionInvoiceSelected.periodToArr @index}}" placeholder="Period To">
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <div class="form-group row">
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Capacity :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                      <input type="text" class="form-control input-sm {{validateClass}} txtCapacity" value="{{getArrValue isRajasthanTransmissionInvoiceSelected.capacity @index}}" placeholder="Contracted Capacity ">
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Due Date :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                      <input type="text" class="form-control input-sm {{validateClass}} txtDueDate datepicker" value="{{getArrValue isRajasthanTransmissionInvoiceSelected.dueDate @index}}" placeholder="Due Date">
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <div class="form-group row">
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Total Amount :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                      <input type="text" class="form-control input-sm {{validateClass}} txtTotalAmount" value="{{getArrValue isRajasthanTransmissionInvoiceSelected.totalAmount @index}}" placeholder="Total Amount">
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Excess Payment :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                      <input type="text" class="form-control input-sm {{validateClass}} txtExcessPayment" placeholder="Excess Payment">
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                            {{/each}}
+                                                        {{/if}}
+                                                        {{#if isMPSelectedTransmissionInvoiceSelected}}
+                                                            <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Raised Date :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm {{validateClass}} invoiceRaisedDateTC datepicker" value="{{isMPTransmissionInvoiceSelected.invoiceRaisedDateTC}}" placeholder="Invoice Raised Date">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Recieved Date :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <input type="text" id="txtEncloserDateMP" class="form-control input-sm datepicker" value="{{isMPTransmissionInvoiceSelected.encloserDate}}" placeholder="Invoice Recieved Date">
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <center><label class="form-control-label"><u>Details of Invoice </u></label></center>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Bill No. :</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm {{validateClass}} txtbillNumber" value="{{isMPTransmissionInvoiceSelected.billNumber}}" placeholder="Bill Number">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Bill Date :</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm {{validateClass}} datepicker txtbillDate" value="{{isMPTransmissionInvoiceSelected.billDate}}" placeholder="Bill Date">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Period From :</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm {{validateClass}} txtperiodFrom datepicker" value="{{isMPTransmissionInvoiceSelected.txtperiodFrom}}" placeholder="Period From">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Period To :</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm {{validateClass}} txtperiodTo datepicker" value="{{isMPTransmissionInvoiceSelected.txtperiodTo}}" placeholder="Period To">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Capacity :</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm {{validateClass}} txtCapacity" value="{{isMPTransmissionInvoiceSelected.capacity}}" placeholder="Contracted Capacity ">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Due Date :</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm {{validateClass}} txtDueDate datepicker" value="{{isMPTransmissionInvoiceSelected.dueDate}}" placeholder="Due Date">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Total Amount :</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm {{validateClass}} txtTotalAmount" value="{{isMPTransmissionInvoiceSelected.totalAmount}}" placeholder="Total Amount">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Excess Payment :</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm {{validateClass}} txtExcessPayment" placeholder="Excess Payment">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {{/if}}
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-5"></div>
+                                                                    <div class="col-sm-2">
+                                                                        <center>
+                                                                            <a id="btnTransmissionPayment" class="btn btn-default btn-sm btn-warning pull-right">
+                                                                                <span class="glyphicon glyphicon-submit">Generate</span>
+                                                                            </a>
+                                                                        </center>
+                                                                    </div>
+                                                                    <div class="col-sm-5">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                              </div>
+                            {{/if}}
+                              <!-- SLDC Payment Note  -->
+                            {{#if isSLDCInvoiceSelected}}
+                              <div class="row">
+                                <div class="col-sm-12">
+                                    <section class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <fieldset class="scheduler-border">
+                                                        <legend class="scheduler-border">SLDC Payment Note </legend>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Month :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id='ddlMonthSLDCPaymentNote' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_month">
+                                                                                  <option value="">Select Month</option>
+                                                                                  {{#each monthShow}}
+                                                                                    <option value="{{this.value}}">{{this.key}}</option>
+                                                                                  {{/each}}
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Year :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id='ddlYearSLDCPaymentNote' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                                                  <option value="">Select Year</option>
+                                                                                  {{#each yearShow}}
+                                                                                    <option value="{{this}}">{{this}}</option>
+                                                                                  {{/each}}
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                                          <div class="col-sm-8">
+                                                                            <select id='ddlFinancialYearSLDC' class="form-control form-control-sm input-sm ">
+                                                                              <option value="">Select Financial Year</option>
+                                                                              {{#each financialYearHelper}}
+                                                                                <option value="{{this}}">{{this}}</option>
+                                                                              {{/each}}
+                                                                            </select>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">State :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id="StateForSLDCPaymentNote" class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_discoms">
+                                                                                  <option value="">Select State</option>
+                                                                                  <!-- <option value="Gujarat">Gujarat</option> -->
+                                                                                  <!-- <option value="MP">MP</option> -->
+                                                                                  <option value="Rajasthan">Rajasthan</option>
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{#if isRajasthanSelectedSLDCInvoiceSelected}}
+                                                              <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Raised Date :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceRaisedDateSLDC datepicker" value="{{isRajasthanSLDCInvoiceSelected.invoiceRaisedDate}}" placeholder="Invoice Raised Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Recieved Date :</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm {{validateClass}} invoiceRecievedDateSLDC datepicker" value="{{isRajasthanSLDCInvoiceSelected.invoiceRecievedDate}}" placeholder="Invoice Recieved Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                            {{#each loopArrSLDC}}
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <div class="form-group row">
+                                                                          <center><label class="form-control-label"><u>Details of Invoice {{this}} </u></label></center>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <div class="form-group row">
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Bill No. :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                      <input type="text" class="form-control input-sm {{validateClass}} txtbillNumber" value="{{getArrValue isRajasthanSLDCInvoiceSelected.billNumber @index}}" placeholder="Bill Number">
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Bill Date :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                      <input type="text" class="form-control input-sm {{validateClass}} datepicker txtbillDate" value="{{getArrValue isRajasthanSLDCInvoiceSelected.billDate @index}}" placeholder="Bill Date">
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <div class="form-group row">
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Period From :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                      <input type="text" class="form-control input-sm {{validateClass}} txtperiodFrom datepicker" value="{{getArrValue isRajasthanSLDCInvoiceSelected.periodFromArr @index}}" placeholder="Period From">
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Period To :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                      <input type="text" class="form-control input-sm {{validateClass}} txtperiodTo datepicker" value="{{getArrValue isRajasthanSLDCInvoiceSelected.periodToArr @index}}" placeholder="Period To">
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <div class="form-group row">
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Capacity :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                      <input type="text" class="form-control input-sm {{validateClass}} txtCapacity" value="{{getArrValue isRajasthanSLDCInvoiceSelected.capacity @index}}" placeholder="Contracted Capacity">
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Due Date :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                      <input type="text" class="form-control input-sm {{validateClass}} txtDueDate datepicker" value="{{getArrValue isRajasthanSLDCInvoiceSelected.dueDate @index}}" placeholder="Due Date">
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                            {{/each}}
+                                                        {{/if}}
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-5"></div>
+                                                                    <div class="col-sm-2">
+                                                                        <center>
+                                                                            <a id="btnSLDCPayment" class="btn btn-default btn-sm btn-warning pull-right">
+                                                                                <span class="glyphicon glyphicon-submit">Generate</span>
+                                                                            </a>
+                                                                        </center>
+                                                                    </div>
+                                                                    <div class="col-sm-5">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                              </div>
+                            {{/if}}
+                              <!-- Icentive Payment Note  -->
+                            {{#if isIncentiveInvoiceSelected}}
+                              <div class="row">
+                                <div class="col-sm-12">
+                                    <section class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <fieldset class="scheduler-border">
+                                                        <legend class="scheduler-border">Incentive Payment Note </legend>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Year :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id='ddlYearIncentivePaymentNote' class="form-control form-control-sm input-sm" name="energy_invoice_year">
+                                                                                  <option value="">Select Year</option>
+                                                                                  {{#each yearShow}}
+                                                                                    <option value="{{this}}">{{this}}</option>
+                                                                                  {{/each}}
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                                          <div class="col-sm-8">
+                                                                            <select id='ddlFinancialYearIncentive' class="form-control form-control-sm input-sm ">
+                                                                              <option value="">Select Financial Year</option>
+                                                                              {{#each financialYearHelper}}
+                                                                                <option value="{{this}}">{{this}}</option>
+                                                                              {{/each}}
+                                                                            </select>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                  <!-- <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Select State :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id="StateForIncentivePaymentNote" class="form-control form-control-sm input-sm" name="energy_discoms">
+                                                                                  <option value="">Select State</option> -->
+                                                                                  <!-- <option value="Gujarat">Gujarat</option> -->
+                                                                                  <!-- <option value="MP">MP</option> -->
+                                                                                  <!-- <option value="Rajasthan">Rajasthan</option>
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div> -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                  <div class="col-sm-6 col-md-6">
+                                                                      <div class="form-group row">
+                                                                          <label class="col-sm-4 form-control-label">Select State :</label>
+                                                                          <div class="col-sm-8">
+                                                                              <select id="StateForIncentivePaymentNote" class="form-control form-control-sm input-sm" name="energy_discoms">
+                                                                                  <option value="">Select State</option>
+                                                                                  <!-- <option value="Gujarat">Gujarat</option> -->
+                                                                                  <!-- <option value="MP">MP</option> -->
+                                                                                  <option value="Rajasthan">Rajasthan</option>
+                                                                              </select>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{#if isRajasthanSelectedIncentiveInvoiceSelected}}
+                                                            {{#each loopArrIncentive}}
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <div class="form-group row">
+                                                                          <center><label class="form-control-label"><u>Details of Invoice {{this}} </u></label></center>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <div class="form-group row">
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Capacity (MW) :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                      <input type="text" class="form-control input-sm {{validateClass}} txtCapacity" value="{{getArrValue isRajasthanIncentiveInvoiceSelected.capacity @index}}" placeholder="Capacity">
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Amount(Rs) Raised by RVPN :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                      <input type="text" class="form-control input-sm {{validateClass}} txtRaisedByRVPN" value="{{getArrValue isRajasthanIncentiveInvoiceSelected.byRVPN @index}}" placeholder="Amount(Rs) Raised by RVPN">
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="row">
+                                                                  <div class="col-sm-12">
+                                                                      <div class="form-group row">
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Amount(Rs) to be raised by SECI :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                      <input type="text" class="form-control input-sm {{validateClass}} txtRaisedBySeci" value="{{getArrValue isRajasthanIncentiveInvoiceSelected.bySECI @index}}" placeholder="Amount(Rs) to be raised by SECI">
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                          <div class="col-sm-6 col-md-6">
+                                                                              <div class="form-group row">
+                                                                                  <label class="col-sm-4 form-control-label">Remarks :</label>
+                                                                                  <div class="col-sm-8">
+                                                                                      <input type="text" class="form-control input-sm {{validateClass}} txtRemarks" value="{{getArrValue isRajasthanIncentiveInvoiceSelected.remarks @index}}" placeholder="Remarks">
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                            {{/each}}
+                                                        {{/if}}
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-5"></div>
+                                                                    <div class="col-sm-2">
+                                                                        <center>
+                                                                            <a id="btnIncentivePayment" class="btn btn-default btn-sm btn-warning pull-right">
+                                                                                <span class="glyphicon glyphicon-submit">Generate</span>
+                                                                            </a>
+                                                                        </center>
+                                                                    </div>
+                                                                    <div class="col-sm-5">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                              </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

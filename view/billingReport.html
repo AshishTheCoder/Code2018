@@ -1,0 +1,464 @@
+<template name="billingReportSECIL">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Billing Report</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Select Month :</label>
+                                            <div class="col-sm-8">
+                                                <select id='selectMonth' class="form-control form-control-sm input-sm">
+                                                    <option value="">Select Month</option>
+                                                    {{#each monthShow}}
+                                                    <option value="{{this.value}}">{{this.key}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+
+                                            <label class="col-sm-4 form-control-label">Select Year :</label>
+                                            <div class="col-sm-8">
+                                                <select id='selectYear' class="form-control form-control-sm input-sm">
+                                                    <option value="">Select Year</option>
+                                                    {{#each yearHelper}}
+                                                      <option value="{{this}}">{{this}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    {{#if viewStateDiscom}}
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Select State :</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control input-sm" id="selectStateDiscom">
+                                                    <option value="">Select Discom State</option>
+                                                    <option value="Haryana">Haryana (HPPC)</option>
+                                                    <option value="Himachal Pradesh">Himachal Pradesh (HPSEBL)</option>
+                                                    <option value="Delhi(BRPL)">Delhi(BRPL)</option>
+                                                    <option value="Delhi(BYPL)">Delhi(BYPL)</option>
+                                                    <option value="Delhi(TPDDL)">Delhi(TPDDL)</option>
+                                                    <option value="Assam">Assam (APDCL)</option>
+                                                    <option value="Odisha">Odisha (GRIDCO)</option>
+                                                    <option value="Punjab">Punjab (PSPCL)</option>
+                                                    <option value="Maharashtra">Maharashtra (MSEDCL)</option>
+                                                    <option value="Jharkhand">Jharkhand (JUVNL)</option>
+                                                    <option value="Chhattisgarh">Chhattisgarh (CSPDCL)</option>
+                                                    <option value="Bihar">Bihar (SBPDCL) + (NBPDCL)</option>
+                                                    <option value="Goa">Goa</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{/if}} {{#if showDiscomlistUsingTransactionType}}
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Select SPD :</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control input-sm" id="selectDiscomData">
+                                                    <option value="">Select SPD</option>
+                                                    <option value="all">
+                                                        {{#each weeklyAllDiscom}} {{names}}+ {{/each}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{/if}}
+                                </div>
+
+                                {{#if showOrissaCaseState}}
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Select Orissa State:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control input-sm" id="selectOrissa">
+                                                    <option value="">Select State</option>
+                                                    <option value="Rajasthan">Rajasthan</option>
+                                                    <option value="Gujarat">Gujarat</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}}
+                                {{#if showMaharashtraCaseState}}
+                               <div class="row">
+                                   <div class="col-sm-6">
+                                       <div class="form-group row">
+                                           <label class="col-sm-4 form-control-label">Select Maharashtra State:</label>
+                                           <div class="col-sm-8">
+                                               <select class="form-control input-sm" id="selectMaharashtra">
+                                                   <option value="">Select State</option>
+                                                   <option value="Rajasthan">Rajasthan</option>
+                                                   <option value="MP">MP</option>
+                                               </select>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               {{/if}}
+                                <!--Table-->
+                                {{#if viewTabularTable}}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <section class="panel panel-default">
+                                            <div class="panel-body">
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12">
+                                                            <table class="table table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Month</th>
+                                                                        <th>State Name</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>{{viewMonthAndYear}}</td>
+                                                                        <td>{{viewStateName}}</td>
+                                                                        <td>
+                                                                            {{#if isStateOrissa}}
+                                                                            <button class="btn btn-sm btn-info" data-title="" data-toggle="modal" data-target="#billingScheduleOrissa">View</button>&nbsp; {{else}}
+                                                                            <button class="btn btn-sm btn-info" data-title="" data-toggle="modal" data-target="#billingSchedule">View</button>&nbsp;
+                                                                            {{/if}}
+                                                                            {{#if showHref}}
+                                                                            <a class="btn btn-sm btn-danger" href="{{showHref}}" target="_blank">Download Report</a>
+                                                                            {{else}}
+                                                                            <button class="btn btn-sm btn-success" id="generateReport">Generate Report</button>
+                                                                            {{/if}}
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{#if DiscomTransactionTypeHelperInter}}
+    <div id="billingSchedule" class="modal fade modal-widthincLarge" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <h4 class="modal-title">Billing Schedule for DISCOM</h4>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <button id="discomInterAll" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" style="overflow-x:scroll">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered" id="discomInterAllTable">
+                                <thead>
+                                    <tr>
+                                      <th colspan="4">
+                                        <center>{{returningValues.returnHeadValue}}</center>
+                                      </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center">DATE</td>
+                                        <td rowspan="2" class="text-center">{{returningValues.spdState}} STU LOSSES</td>
+                                        <td colspan="2" class="text-center">{{returningValues.spdState}}-{{returningValues.discomState}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">DATA AT</td>
+                                        <td>
+                                            ({{#each returningValues.spdList}} {{this.names}}+ {{/each}}) PER.
+                                        </td>
+                                        <td class="text-center">{{returningValues.dataAt}}({{returningValues.dynamicTopValue}})</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">DELIVERY POINT</td>
+                                        <td></td>
+                                        <td colspan="2">
+                                            ({{#each returningValues.spdList}} {{names}}+ {{/each}}) PER.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">RATE</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    {{#each returningValues.datesCount}}
+                                    <tr>
+                                        <td>
+                                            <center><strong>{{this}}</strong></center>
+                                        </td>
+                                        <th>
+                                            <center>{{showStuOnly returningValues.rate @index}}</center>
+                                        </th>
+                                        <td>
+                                            <center>{{showingTotal returningValues.ary @index}}</center>
+                                        </td>
+                                        <td>
+                                            <center>{{showingTotal returningValues.lossAry @index}}</center>
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                    <tr>
+                                        <th>
+                                            <center><strong>MONTHLY</strong></center>
+                                        </th>
+                                        <td></td>
+                                        <th>
+                                            <center>{{returningValues.aryTotal}}</center>
+                                        </th>
+                                        <th>
+                                            <center>{{returningValues.lossTotal}}</center>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <center><strong>REA/SEA</strong></center>
+                                        </th>
+                                        <td></td>
+                                        <th>
+                                            <center></center>
+                                        </th>
+                                        <th>
+                                            <center>{{returningValues.reaValue}}</center>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-8"></div>
+                                        <div class="col-sm-4"><strong>Authorised Signatory</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-8"></div>
+                                        <div class="col-sm-4"><strong>Solar Energy Corporation of India</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                        <div class="form-group pull-in clearfix">
+                          <div class="col-sm-12">
+                            {{#if returningValues.isDifference}}
+                            <div class="col-sm-2.2 pull-left">Manupulate REA :</div>
+                            <div class="col-sm-2">
+                              <input type="text" id="textValue" class="form-control input-sm" placeholder="Enter Data">
+                            </div>
+                            <div class="col-sm-3">
+                              {{reaUpdated}}
+                            </div>
+                            <div class="col-sm-3">
+                              <button class="btn btn-sm btn-info pull-left" id="add">Add</button>&nbsp;&nbsp;
+                              <button class="btn btn-sm btn-danger pull-left" id="subtract">Subtract</button>
+                            </div>
+                            <div class="col-sm-2">
+                              <button class="btn btn-sm btn-success pull-right" id="submitChange">Submit</button>
+                            </div>
+                              {{else}}
+                              {{#if isDateOfAdjustAvailable}}
+                              <span>Date of Adjust:- {{returningValues.dateOfAdjust}}</span><br>
+                              {{/if}}
+                              <strong>{{returningValues.reaValue}}</strong>
+                              {{/if}}
+                          </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group center-block">
+                            <button type="button" class="btn btn-danger center-block" data-dismiss="modal" id="closeModal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}} {{#if isStateOrissa}}
+    <div id="billingScheduleOrissa" class="modal fade modal-widthincLarge" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <h4 class="modal-title">Billing Schedule for DISCOM</h4>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <button id="discomOrissa" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" style="overflow-x:scroll">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered" id="discomOrissaTable">
+                                <thead>
+                                    <tr>
+                                      <th colspan="4">
+                                        <center>{{returningValues.returnHeadValue}}</center>
+                                      </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center">DATE</td>
+                                        <td rowspan="2" class="text-center">{{returningValues.spdState}} STU LOSSES</td>
+                                        <td rowspan="4" class="text-center">TOTAL (GENERATOR PER.)</td>
+                                        <td rowspan="4" class="text-center">{{#if uniqGujarat}} GPCL,GSECL, <br> BACKBONE & <br> ENERSAN TOTAL <br> (GUJARAT PER.) {{else}} SSPL TOTAL (RUVNL PER.){{/if}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">DATA AT</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">DELIVERY POINT</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">RATE</td>
+                                        <td></td>
+                                    </tr>
+                                    {{#each returningValues.datesCount}}
+                                    <tr>
+                                        <td>
+                                            <center><strong>{{this}}</strong></center>
+                                        </td>
+                                        <th>
+                                            <center>{{showStuOnly returningValues.rate @index}}</center>
+                                        </th>
+                                        <td>
+                                            <center>{{showingTotal returningValues.ary @index}}</center>
+                                        </td>
+                                        <td>
+                                            <center>{{showingTotal returningValues.lossAry @index}}</center>
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                    <tr>
+                                        <th>
+                                            <center><strong>MONTHLY</strong></center>
+                                        </th>
+                                        <td></td>
+                                        <th>
+                                            <center>{{returningValues.aryTotal}}</center>
+                                        </th>
+                                        <th>
+                                            <center>{{returningValues.lossTotal}}</center>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <center><strong>REA/SEA</strong></center>
+                                        </th>
+                                        <td></td>
+                                        <th></th>
+                                        <th>
+                                            <center>{{returningValues.reaValue}}</center>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-8"></div>
+                                        <div class="col-sm-4"><strong>Authorised Signatory</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-8"></div>
+                                        <div class="col-sm-4"><strong>Solar Energy Corporation of India</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                        <div class="form-group pull-in clearfix">
+                          <div class="col-sm-10">
+                            {{#if returningValues.isDifference}}
+                            <div class="col-sm-2.2 pull-left">Manupulate REA :</div>
+                            <div class="col-sm-2">
+                              <input type="text" id="textValueGujarat" class="form-control input-sm" placeholder="Enter Data">
+                            </div>
+                            <div class="col-sm-3">
+                              {{reaUpdated}}
+                            </div>
+                            <div class="col-sm-3">
+                              <button class="btn btn-sm btn-info pull-left" id="addGujarat">Add</button>&nbsp;&nbsp;
+                              <button class="btn btn-sm btn-danger pull-left" id="subtractGujarat">Subtract</button>
+                            </div>
+                            <div class="col-sm-2">
+                              <button class="btn btn-sm btn-success pull-right" id="submitChange">Submit</button>
+                            </div>
+                              {{else}}
+                              <strong>{{returningValues.reaValue}}</strong>
+                              {{/if}}
+                          </div>
+
+                            <div class="col-sm-2">
+                                <div class="form-group center-block pull-right">
+                                    <button type="button" class="btn btn-danger center-block" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+</template>

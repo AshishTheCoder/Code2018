@@ -1,0 +1,380 @@
+<template name="logBook_spd">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                  <h1 style="font-weight:bold;font-size:28px;text-align:center;">Log book For SPD </h1>
+                  </div>
+                    <div class="panel-body">
+                        <form id="logBook_spd_form" action="#">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">1</label>
+                                                            <label class="col-sm-4 form-control-label">Scheme :</label>
+                                                            <div class="col-sm-4">
+                                                            <select name="scheme" id="ddlScheme" class="form-control input-sm logBook_spd_form">
+                                                                <option value="">Select Scheme</option>
+                                                                {{#each returnSchemes}}
+                                                                <option value="{{scheme}}">{{scheme}}</option>
+                                                                {{/each}}
+                                                            </select>
+                                                          </div>
+                                                        </div>
+                                                     </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">2</label>
+                                                            <label class="col-sm-4 form-control-label">Name of Entity :</label>
+                                                            <div class="col-sm-4">
+                                                            <select name="nameOfEntity" id="ddlNameOfEntity" class="form-control input-sm logBook_spd_form entity">
+                                                                <option value="">Name of Entity</option>
+                                                                {{#each userDetails}}
+                                                                <option value="{{names}}" clientId="{{id}}" clientState="{{state}}">{{names}}</option>
+                                                                {{/each}}
+                                                            </select>
+                                                          </div>
+                                                        </div>
+                                                     </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">3</label>
+                                                            <label class="col-sm-4 form-control-label">Month :</label>
+                                                            <div class="col-sm-4">
+                                                                <select name="month" id="txtSelectMonth" class="form-control input-sm logBook_spd_form selectMonth">
+                                                                    <option value="">Select Month</option>
+                                                                    {{#each monthReturn}}
+                                                                    <option value="{{this.value}}">{{this.key}}</option>
+                                                                    {{/each}}
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">4</label>
+                                                            <label class="col-sm-4 form-control-label">Year :</label>
+                                                            <div class="col-sm-4">
+                                                                <select name="year"  id="ddlYear" class="form-control input-sm logBook_spd_form year">
+                                                                    <option value="">Year</option>
+                                                                    {{#each returnYearHelper}}
+                                                                    <option value="{{this.value}}">{{this.key}}</option>
+                                                                    {{/each}}
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">5</label>
+                                                            <label class="col-sm-4 form-control-label">Invoice Type :</label>
+                                                            <div class="col-sm-4">
+                                                                <select name="invoice_type" id="ddlInvoiceType" class="form-control input-sm logBook_spd_form">
+                                                                    <option value="">Select Invoice Type</option>
+                                                                    <option value="Energy">Energy</option>
+                                                                    <option value="Credit">Credit</option>
+                                                                    <option value="Debit">Debit</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">6</label>
+                                                            <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                            <div class="col-sm-4">
+                                                                <select name="financial_year" id="txtFinancialYear" class="form-control input-sm logBook_spd_form financialYear">
+                                                                    <option value="">Financial Year</option>
+                                                                    {{#each financialYearArrHelper}}
+                                                                    <option value="{{this}}">{{this}}</option>
+                                                                    {{/each}}
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">7</label>
+                                                            <label class="col-sm-4 form-control-label">Invoice Number :</label>
+                                                            <div class="col-sm-4">
+                                                                <input type="text" class="form-control input-sm logBook_spd_form" value={{retUnitAndInvoice.invoiceNumber}} {{dateOfReceiptReadOnly}}  name="invoiceNumber" placeholder="Invoice Number">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">8</label>
+                                                            <label class="col-sm-4 form-control-label">Date of Receipt of Invoice by SECI :</label>
+                                                            <div class="col-sm-4">
+                                                                <input type="text" class="form-control input-sm logBook_spd_form selectDate" id="dateInvoice"  {{dateOfReceiptReadOnly}} value={{dateOfReceipt}}  name="dateOfReceipt" placeholder="Date of Receipt of Invoice by SECI">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">9</label>
+                                                            <label class="col-sm-4 form-control-label">Due Date of Payment :</label>
+                                                            <div class="col-sm-4">
+                                                                <input type="text" class="form-control input-sm logBook_spd_form" value="{{dueDateData}}"  name="dueDate" placeholder="Due Date of Payment" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">10</label>
+                                                            <label class="col-sm-4 form-control-label">Unit (kWh) :</label>
+                                                            <div class="col-sm-4">
+                                                                <input type="text" id="txtLogBookUnit" value="{{retUnitAndInvoice.billedUnits}}" class="form-control input-sm logBook_spd_form" name="billedUnits" placeholder="unit (kWh)">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">11</label>
+                                                            <label class="col-sm-4 form-control-label">Rate :</label>
+                                                            <div class="col-sm-4">
+                                                                <input type="text" value="{{retUnitAndInvoice.rate}}" id="txtLogBookRate" class="form-control input-sm logBook_spd_form" name="rate" placeholder="Rate">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">12</label>
+                                                            <label class="col-sm-4 form-control-label">Invoice Amount:</label>
+                                                            <div class="col-sm-4">
+                                                                <input type="text" value="{{retUnitAndInvoiceForAmount.invoiceAmount}}" id="txtInvoiceAmount" {{dateOfReceiptReadOnly}}   class="form-control input-sm logBook_spd_form" name="invoiceAmount" placeholder="Invoice Amount">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">13</label>
+                                                            <label class="col-sm-4 form-control-label">Amount Paid to Developer :</label>
+                                                            <div class="col-sm-4">
+                                                                <input type="text" class="form-control input-sm" id="txtPaymentAmount" placeholder="Amount Paid to Developer">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">14</label>
+                                                            <label class="col-sm-4 form-control-label">Short Payment Done :</label>
+                                                            <div class="col-sm-4">
+                                                                <input type="text" class="form-control input-sm logBook_spd_form" value="{{shortPaymentHel}}" name="shortPaymentDone" placeholder="Short Payment Done" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">15</label>
+                                                            <label class="col-sm-4 form-control-label">Exceed Energy:</label>
+                                                            <div class="col-sm-4">
+                                                                <input type="text" value={{retUnitAndInvoice.exceedEnergy}} class="form-control input-sm logBook_spd_form" name="exceedEnergy" readonly placeholder="Exceed Energy">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">16</label>
+                                                            <label class="col-sm-4 form-control-label">Exceed Amount:</label>
+                                                            <div class="col-sm-4">
+                                                                <input type="text" value={{retUnitAndInvoice.exceedAmount}} class="form-control input-sm logBook_spd_form" name="exceedAmount" readonly placeholder="Exceed Amount">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">17</label>
+                                                            <label class="col-sm-4 form-control-label">Date of Payment:</label>
+                                                            <div class="col-sm-4">
+                                                                <input type="text" class="form-control input-sm logBook_spd_form selectDate" id="txtDateOfPayment" name="dateOfPayment" placeholder="Date of Payment">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">18</label>
+                                                            <label class="col-sm-4 form-control-label">Min. kWh as per PPA :</label>
+                                                            <div class="col-sm-4">
+                                                                <input type="text" readonly value="{{retUnitAndInvoice.minkWhValue}}" class="form-control input-sm logBook_spd_form" name="minkWh" placeholder="Min. kWh as per PPA">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">19</label>
+                                                            <label class="col-sm-4 form-control-label">Max. kWh as per PPA :</label>
+                                                            <div class="col-sm-4">
+                                                                <input type="text" readonly value="{{retUnitAndInvoice.maxkWhValue}}" class="form-control input-sm logBook_spd_form" name="maxkWh" placeholder="Max. kWh as per PPA">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="panel-body">
+                                                            <label class="col-sm-1 form-control-label">20</label>
+                                                            <label class="col-sm-4 form-control-label">Remarks :</label>
+                                                            <div class="col-sm-4">
+                                                                <input type="text" class="form-control input-sm logBook_spd_form" name="remark" placeholder="Remarks">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                      {{#if fileAvailability}}
+                                                      <a type="button" class="btn btn-primary" href="{{retUnitAndInvoice.filehref}}" target="_blank">View Uploaded File</a>
+                                                      {{/if}}
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <!-- <fieldset>
+                                                        <a type="button" class="btn btn-primary center-block" href="{{retUnitAndInvoice.filehref}}" target="_blank">View Uploaded File</a>
+                                                        {{fileAvailability}}
+                                                    </fieldset> -->
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <button class="btn btn-sm btn-success pull-right" id="submit">Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Test Days-->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3>Log book For SPD</h3>
+                </div>
+                <div class="modal-body">
+                    <form id="modalCompanyPastDetail" role="form">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="pwd">Name of Entity :</label>
+                                    <input type="text" value="{{viewValue.nameOfEntity}}" readonly class="form-control datepicker  required" id="nameOfEntity">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="pwd">Invoice Number :</label>
+                                    <input type="text" readonly value="{{viewValue.invoiceNumber}}" class="form-control datepicker  required" id="invoiceNumber">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="pwd">Date of Receipt of Invoice by SECI :</label>
+                                    <input type="text" readonly value="{{viewValue.dateOfReceipt}}" class="form-control datepicker  required" id="dateOfReceipt">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="pwd">Due Date of Payment :</label>
+                                    <input type="text" readonly value="{{viewValue.dueDate}}" class="form-control datepicker  required" id="dueDate">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="pwd">Month :</label>
+                                    <input type="text" readonly value="{{getMonthValue viewValue.month}}" class="form-control" id="month">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="pwd">Unit (kWh) :</label>
+                                    <input type="text" readonly value="{{viewValue.billedUnits}}" class="form-control" id="unit">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="pwd">Rate :</label>
+                                    <input type="text" readonly value="{{viewValue.rate}}" class="form-control datepicker  required" id="rate">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="pwd">Invoice Amount:</label>
+                                    <input type="text" readonly value="{{viewValue.invoiceAmount}}" class="form-control datepicker  required" id="invoiceAmount">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="pwd">Amount Paid to Developer :</label>
+                                    <input type="text" readonly value="{{viewValue.paymentMode}}" class="form-control datepicker required" id="paymentMode">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="pwd">Short Payment Done :</label>
+                                    <input type="text" readonly value="{{viewValue.shortPaymentDone}}" class="form-control datepicker  required" id="shortPaymentDone">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="pwd">Date of Payment:</label>
+                                    <input type="text" readonly value="{{viewValue.dateOfPayment}}" class="form-control datepicker  required" id="dateOfPayment">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="pwd">Min. kWh as per PPA :</label>
+                                    <input type="text" readonly value="{{viewValue.minkWh}}" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="pwd">Max. kWh as per PPA :</label>
+                                    <input type="text" readonly value="{{viewValue.maxkWh}}" class="form-control">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="pwd">Remark :</label>
+                                    <input type="text" readonly value="{{viewValue.remark}}" class="form-control required">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="pwd">Financial Year :</label>
+                                    <input type="text" readonly value="{{viewValue.financial_year}}" class="form-control required">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-5">
+                                <div class="form-group">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="form-group">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

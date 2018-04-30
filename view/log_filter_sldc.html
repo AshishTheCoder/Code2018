@@ -1,0 +1,229 @@
+<template name="logFilterSLDCInvoice">
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <div class="row">
+          <div class="col-sm-12 col-md-12 main">
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <h1 style="font-weight:bold;font-size:28px;text-align:center;">SLDC Log Filter</h1>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <section class="panel panel-default">
+                              <div class="panel-body">
+                                  <div class="row">
+                                      <div class="col-sm-12 col-md-12 ">
+                                          <fieldset class="scheduler-border">
+                                              <div class="row">
+                                                  <div class="col-sm-12">
+                                                      <div class="form-group row">
+                                                          <div class="col-sm-6 col-md-6">
+                                                              <div class="form-group row">
+                                                                  <label class="col-sm-4">Filter Type :</label>
+                                                                  <div class="col-sm-7">
+                                                                    <select class="form-control input-sm" id="ddlFilterType">
+                                                                        <option value="">Select Filter</option>
+                                                                        <option value="Year">Yearly</option>
+                                                                        <option value="FinancialYear">Financial Year</option>
+                                                                        <option value="PaymentRecieved">Payment Recieved</option>
+                                                                        <option value="DueDate">Due Date</option>
+                                                                    </select>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="row">
+                                                  <div class="col-sm-12">
+                                                      <div class="form-group row">
+                                                      {{#if isfilterTypeSelected}}
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">State :</label>
+                                                                <div class="col-sm-8">
+                                                                    <select id='ddlSPDState' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                                        <option value="Gujarat">Gujarat</option>
+                                                                        <option value="Rajasthan">Rajasthan</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                      {{/if}}
+                                                      {{#if isSPDStateTypeAllSelected}}
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">Discom State :</label>
+                                                                <div class="col-sm-8">
+                                                                    <select id='ddlDiscomState' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                                      {{#each discomStateList}}
+                                                                        <option value="{{this}}">{{this}}</option>
+                                                                      {{/each}}
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                      {{/if}}
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="row">
+                                                  <div class="col-sm-12">
+                                                      <div class="form-group row">
+                                                      {{#if filterTypeYearly}}
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">Year :</label>
+                                                                <div class="col-sm-8">
+                                                                    <select id='ddlFinancialyearSLDC' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                                      {{#each yearHelper}}
+                                                                        <option value="{{this}}">{{this}}</option>
+                                                                      {{/each}}
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                      {{/if}}
+                                                        {{#if filterTypeFinancialYear}}
+                                                          <div class="col-sm-6">
+                                                              <div class="form-group row">
+                                                                  <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                                  <div class="col-sm-8">
+                                                                      <select id='ddlFinancialyearSLDC' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                                          {{#each financialYearHelper}}
+                                                                            <option value="{{this}}">{{this}}</option>
+                                                                          {{/each}}
+                                                                      </select>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          {{/if}}
+                                                          {{#if PaymentRecievedFilterSelected}}
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group row">
+                                                                  <label class="col-sm-4 form-control-label">From Date :</label>
+                                                                    <div class="col-sm-7">
+                                                                        <input type="text" class="form-control input-sm" id="RaisedFromDate" placeholder="Select From Date">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group row">
+                                                                  <label class="col-sm-4 form-control-label">To Date :</label>
+                                                                    <div class="col-sm-7">
+                                                                        <input type="text" class="form-control input-sm" id="RaisedToDate" placeholder="Select To Date">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                          {{/if}}
+                                                          {{#if dueDateFilterSelected}}
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group row">
+                                                                  <label class="col-sm-4 form-control-label">Due Date From :</label>
+                                                                    <div class="col-sm-7">
+                                                                        <input type="text" class="form-control input-sm" id="DueDateFrom" placeholder="Select From Date">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group row">
+                                                                  <label class="col-sm-4 form-control-label">Due Date To :</label>
+                                                                    <div class="col-sm-7">
+                                                                        <input type="text" class="form-control input-sm" id="DueDateTo" placeholder="Select To Date">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                          {{/if}}
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </fieldset>
+                                      </div>
+                                  </div>
+                              </div>
+                          </section>
+                      </div>
+                  </div>
+                {{#if isDataFetchedgetData}}
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <section class="panel panel-default">
+                              <div class="panel-body" style="overflow-x:scroll">
+                                  <div class="row">
+                                      <div class="col-sm-12 col-md-12 ">
+                                          <fieldset class="scheduler-border">
+                                              <legend class="scheduler-border">Log Book For Transmission</legend>
+                                              <div class="row">
+                                                  <div class="col-sm-12">
+                                                      <div class="panel-body">
+                                                          <fieldset>
+                                                              <div class="row">
+                                                                  <div class="col-md-12 col-sm-12">
+                                                                      <button id="exportSLDCLog" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                                                                  </div>
+                                                              </div>
+                                                          </fieldset>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="row">
+                                                  <div class="col-sm-12">
+                                                      <table class="table table-bordered" id="exportToExcelSLDCLog">
+                                                          <thead>
+                                                              <tr>
+                                                                  <th class="text-center">S.No</th>
+                                                                  <th class="text-center">Discom State</th>
+                                                                  <th class="text-center">Invoice Number</th>
+                                                                  <th class="text-center">Generation&nbsp;Date</th>
+                                                                  <th class="text-center">&nbsp;&nbsp;Due&nbsp;Date&nbsp;&nbsp; </th>
+                                                                  <th class="text-center">Amount of Invoice(Rs)</th>
+                                                                  <th class="text-center">Payment&nbsp;Amount(Rs)</th>
+                                                                  <th class="text-center">Short&nbsp;Payment</th>
+                                                                  <th class="text-center">Date&nbsp;of&nbsp;Payment</th>
+                                                                  <th class="text-center">Surcharge Amounnt</th>
+                                                                  <th class="text-center">Remarks</th>
+                                                              </tr>
+                                                          </thead>
+                                                          <tbody>
+                                                            {{#each getData}}
+                                                              <tr>
+                                                                  <td class="text-center">{{serial @index}}</td>
+                                                                  <td class="text-center">{{discom_state}}</td>
+                                                                  <td class="text-center">{{invoice_number}}</td>
+                                                                  <td class="text-center">{{generation_date}}</td>
+                                                                  <td class="text-center">{{due_date}}</td>
+                                                                  <td class="text-center">{{total_amount}}</td>
+                                                                  <td class="text-center">{{payment_amount}}</td>
+                                                                  <td class="text-center">{{short_payment_amount}}</td>
+                                                                  <td class="text-center">{{date_of_payment}}</td>
+                                                                  <td class="text-center">{{sur_charge_amount}}</td>
+                                                                  <td class="text-center">{{remarks}}</td>
+                                                              </tr>
+                                                              {{/each}}
+                                                              <tr>
+                                                                  <th class="text-center" colspan="5">Total</th>
+                                                                  <th class="text-center">{{returnTotal.totalInvoiceAmount}}</th>
+                                                                  <th class="text-center">{{returnTotal.paymentAmountTotal}}</th>
+                                                                  <th class="text-center">{{returnTotal.shortPaymentTotal}}</th>
+                                                                  <th class="text-center"></th>
+                                                                  <th class="text-center">{{returnTotal.surChargeAmountTotal}}</th>
+                                                                  <th class="text-center"></th>
+                                                              </tr>
+                                                          </tbody>
+                                                      </table>
+                                                  </div>
+                                              </div>
+                                          </fieldset>
+                                      </div>
+                                  </div>
+                              </div>
+                          </section>
+                      </div>
+                  </div>
+                {{/if}}
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</template>

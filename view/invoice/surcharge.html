@@ -1,0 +1,770 @@
+<template name="surcharge">
+   <style>
+      .btn-success:hover{
+      background-color: #398439 !important;
+      }
+   </style>
+   <!-- <form id="transcotransmission"> -->
+   <div class="loading" id="loadercls" style="display:none;">Loading&#8230;</div>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+         <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+               <div class="panel panel-info">
+                  <div class="panel-heading">
+                     <h1 style="font-weight:bold;font-size:28px;text-align:center;">Generate Surcharge</h1>
+                  </div>
+                  <div class="panel-body">
+                     <div class="row">
+                        <div class="col-sm-12">
+                           <section class="panel panel-default">
+                              <div class="panel-body">
+                                 <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                       <fieldset class="scheduler-border">
+                                          <div class="row">
+                                             <div class="col-sm-12">
+                                                <div class="form-group row">
+                                                   <div class="col-sm-6 col-md-6">
+                                                      <div class="form-group row">
+                                                         <label class="col-sm-4 form-control-label">Surcharge Type :</label>
+                                                         <div class="col-sm-8">
+                                                            <select id='ddlTypeOfSurcharge' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_month">
+                                                               <option value="">Select Surcharge Type</option>
+                                                               <option value="Energy">Energy</option>
+                                                               <option value="Incentive">Incentive</option>
+                                                               <option value="SLDC">SLDC</option>
+                                                               <option value="Transmission">Transmission</option>
+                                                          </select>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </fieldset>
+                                    </div>
+                                 </div>
+                              </div>
+                           </section>
+                        </div>
+                     </div>
+                  </div>
+                  {{#if isEnergySurchargeSelected}}
+                  <div class="row">
+                     <div class="col-sm-12">
+                        <section class="panel panel-default">
+                           <div class="panel-body">
+                              <div class="row">
+                                 <div class="col-md-12 col-sm-12">
+                                    <fieldset class="scheduler-border">
+                                       <legend class="scheduler-border">Energy Surcharge </legend>
+                                       <div class="row">
+                                          <div class="col-sm-12">
+                                             <div class="form-group-row">
+                                                <div class="col-sm-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label"> Month :</label>
+                                                      <div class="col-sm-8">
+                                                         <select id='month' name="month" class="form-control form-control-sm input-sm">
+                                                            <option value="">Select Month</option>
+                                                            {{#each monthShow}}
+                                                            <option value="{{this.value}}" monthInWord="{{this.key}}">{{this.key}}</option>
+                                                            {{/each}}
+                                                         </select>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                {{#if ifMonthTypeSelected}}
+                                                <div class="col-sm-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                      <div class="col-sm-8">
+                                                         <select id='financial_year' name="financial_year" class="form-control form-control-sm input-sm">
+                                                            <option value="">Select Year</option>
+                                                            {{#each yearHelper}}
+                                                            <option value="{{this}}">{{this}}</option>
+                                                            {{/each}}
+                                                         </select>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                {{/if}}
+                                             </div>
+                                           </div>
+                                          </div>
+                                             <div class="row">
+                                               <div class="col-sm-12">
+                                                {{#if ifYearTypeSelected}}
+                                                <div class="col-sm-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Scheme : </label>
+                                                      <div class="col-sm-8">
+                                                         <select id='scheme' name="scheme" class="form-control form-control-sm input-sm">
+                                                            <option value="">Select Discom Scheme</option>
+                                                            {{#each discomSchemeArr}}
+                                                            <option value="{{discomScheme}}" attr="{{discomSchemeId}}">{{discomScheme}}</option>
+                                                            {{/each}}
+                                                         </select>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                {{/if}}
+                                                {{#if ifDiscomSchemeSelected}}
+                                                <div class="col-sm-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Discom :</label>
+                                                      <div class="col-sm-8">
+                                                         <select id='discom_state' name="discom_state" class="form-control form-control-sm input-sm">
+                                                            <option value="">Select Discom</option>
+                                                            {{#each discomListArr}}
+                                                            <option value="{{state}}" attrId="{{discomId}}">{{state}}</option>
+                                                            {{/each}}
+                                                         </select>
+                                                      </div>
+                                                   </div>
+                                                 </div>
+                                                {{/if}}
+                                             </div>
+                                            </div>
+                                             {{#if isreturnInvoiceInfoTrue}}
+                                          <div class="row">
+                                            <div class="col-sm-12">
+                                             <div class="form-group-row">
+                                                <div class="col-sm-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Invoice Number : </label>
+                                                      <div class="col-sm-8">
+                                                         <input type="text" class="form-control input-sm" id="txtInvoiceNumber" value="{{returnInvoiceInfo.invoiceNumber}}"  readonly>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Invoice Amount :</label>
+                                                      <div class="col-sm-8">
+                                                         <input type="text" class="form-control input-sm" id="txtInvoiceAmount" value="{{returnInvoiceInfo.invoiceAmount}}"  readonly>
+                                                      </div>
+                                                   </div>
+                                                 </div>
+                                             </div>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-sm-12">
+                                              <div class="from-group-row">
+                                                <div class="col-sm-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Invoice Date : </label>
+                                                      <div class="col-sm-8">
+                                                         <input type="text" class="form-control input-sm" id="txtInvoiceNumber" value="{{returnInvoiceInfo.invoiceGenerationDate}}"  readonly>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Due Date :</label>
+                                                      <div class="col-sm-8">
+                                                         <input type="text" class="form-control input-sm" id="txtInvoiceAmount" value="{{returnInvoiceInfo.invoiceDueDate}}"  readonly>
+                                                      </div>
+                                                   </div>
+                                                 </div>
+                                             </div>
+                                           </div>
+                                           </div>
+                                           <div class="row">
+                                            <div class="col-sm-12">
+                                             <div class="form-group-row">
+                                                <div class="col-sm-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Date of Payment :</label>
+                                                      <div class="col-sm-8">
+                                                         <input type="text" class="form-control input-sm" id="txtInvoiceNumber" value="{{isDateOfPaymentBlank returnInvoiceInfo.dateOfPayment}}" readonly>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Surcharge :</label>
+                                                      <div class="col-sm-8">
+                                                         <input type="text" class="form-control input-sm" id="txtInvoiceAmount" value="{{returnInvoiceInfo.surChargeAmt}}"  readonly>
+                                                      </div>
+                                                   </div>
+                                                 </div>
+                                               </div>
+                                             </div>
+                                             </div>
+                                           <div class="row">
+                                            <div class="col-sm-12">
+                                             <div class="form-group-row">
+                                               <div class="col-sm-6 col-md-6">
+                                                 <div class="form-group row">
+                                                     <label class="col-sm-4 form-control-label">Signature :</label>
+                                                     <div class="col-sm-8">
+                                                         <select id="ddlEnergyInvoiceAthorisedPerson" class="form-control form-control-sm input-sm">
+                                                             <option value="">Select Signature</option>
+                                                             {{#each authorisedSignatureArr}}
+                                                             <option value="{{name}}" attrDesignation="{{designation}}" attrDesignationFull="{{full_form}}" attrPhone="{{phone}}">{{name}}</option>
+                                                             {{/each}}
+                                                         </select>
+                                                     </div>
+                                                 </div>
+                                               </div>
+                                               </div>
+                                             </div>
+                                             </div>
+                                             {{/if}}
+                                             <!-- <div class="row"> -->
+                                               <!-- <div class="col-sm-12"> -->
+                                             <div class="row hidden energy">
+                                                <div class="col-sm-12">
+                                                   <div class="form-group row">
+                                                      <div class="col-sm-5"></div>
+                                                      <div class="col-sm-2">
+                                                         <center>
+                                                            <a id="btnEnergySurcharge" class="btn btn-default btn-sm btn-warning pull-right" href="{{filepath}}">
+                                                            <span class="glyphicon glyphicon-submit">Generate</span>
+                                                            </a>
+                                                         </center>
+                                                      </div>
+                                                    </div>
+                                                </div>
+                                             </div>
+                                          <!-- </div> -->
+                                       <!-- </div> -->
+                                    </fieldset>
+                                 </div>
+                              </div>
+                           </div>
+                        </section>
+                     </div>
+                  </div>
+                  {{/if}}
+                    <!-- Transmission surcharge   -->
+                  {{#if isTransmissionSurchargeSelected}}
+                  <div class="row">
+                     <div class="col-sm-12">
+                        <section class="panel panel-default">
+                           <div class="panel-body">
+                              <div class="row">
+                                 <div class="col-md-12 col-sm-12">
+                                    <fieldset class="scheduler-border">
+                                       <legend class="scheduler-border">Transmission Surcharge</legend>
+                                       <div class="row">
+                                          <div class="col-sm-12">
+                                             <div class="form-group row">
+                                                <div class="col-sm-6 col-md-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Month :</label>
+                                                      <div class="col-sm-8">
+                                                         <select id='ddlMonthTrans' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_month">
+                                                            <option value="">Select Month</option>
+                                                            {{#each monthShow}}
+                                                            <option value="{{this.value}}">{{this.key}}</option>
+                                                            {{/each}}
+                                                         </select>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                      <div class="col-sm-8">
+                                                         <select id='ddlFinancialYearTrans' class="form-control form-control-sm input-sm ">
+                                                            <option value="">Select Financial Year</option>
+                                                            {{#each yearHelper}}
+                                                            <option value="{{this}}">{{this}}</option>
+                                                            {{/each}}
+                                                         </select>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row">
+                                          <div class="col-sm-12">
+                                             <div class="form-group row">
+                                                <div class="col-sm-6 col-md-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">State :</label>
+                                                      <div class="col-sm-8">
+                                                         <select id="spdStateForTransmission" class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_discoms">
+                                                            <option value="">Select State</option>
+                                                            <option value="Gujarat">Gujarat</option>
+                                                            <option value="MP">MP</option>
+                                                            <option value="Rajasthan">Rajasthan</option>
+                                                         </select>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Discom :</label>
+                                                      <div class="col-sm-8">
+                                                         <select id='discom_stateTrans' name="discom_stateTrans" class="form-control form-control-sm input-sm">
+                                                            <option value="">Select Discom</option>
+                                                            {{#each discomListArrTrans}}
+                                                            <option value="{{this}}">{{this}}</option>
+                                                            {{/each}}
+                                                         </select>
+                                                      </div>
+                                                   </div>
+                                                  </div>
+                                                 </div>
+                                               </div>
+                                              </div>
+                                                {{#if isreturnInvoiceInfoTrue}}
+                                            <div class="row">
+                                              <div class="col-sm-12">
+                                                <div class="form-group row">
+                                                   <div class="col-sm-6">
+                                                      <div class="form-group row">
+                                                         <label class="col-sm-4 form-control-label">Invoice Number : </label>
+                                                         <div class="col-sm-8">
+                                                            <input type="text" class="form-control input-sm" id="txtInvoiceNumber" value="{{returnInvoiceInfo.invoiceNumber}}"  readonly>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-sm-6">
+                                                      <div class="form-group row">
+                                                         <label class="col-sm-4 form-control-label">Invoice Amount :</label>
+                                                         <div class="col-sm-8">
+                                                            <input type="text" class="form-control input-sm" id="txtInvoiceAmount" value="{{returnInvoiceInfo.invoiceAmount}}"  readonly>
+                                                         </div>
+                                                      </div>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-sm-12">
+                                                <div class="form-group row">
+                                                   <div class="col-sm-6">
+                                                      <div class="form-group row">
+                                                         <label class="col-sm-4 form-control-label">Invoice Date : </label>
+                                                         <div class="col-sm-8">
+                                                            <input type="text" class="form-control input-sm" id="txtInvoiceNumber" value="{{returnInvoiceInfo.invoiceGenerationDate}}"  readonly>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-sm-6">
+                                                      <div class="form-group row">
+                                                         <label class="col-sm-4 form-control-label">Due Date :</label>
+                                                         <div class="col-sm-8">
+                                                            <input type="text" class="form-control input-sm" id="txtInvoiceAmount" value="{{returnInvoiceInfo.invoiceDueDate}}"  readonly>
+                                                         </div>
+                                                      </div>
+                                                     </div>
+                                                    </div>
+                                                   </div>
+                                                  </div>
+                                                  <div class="row">
+                                                   <div class="col-sm-12">
+                                                     <div class="form-group row">
+                                                        <div class="col-sm-6">
+                                                           <div class="form-group row">
+                                                              <label class="col-sm-4 form-control-label">Date of Payment :</label>
+                                                              <div class="col-sm-8">
+                                                                 <input type="text" class="form-control input-sm" id="txtInvoiceNumber" value="{{isDateOfPaymentBlank returnInvoiceInfo.dateOfPayment}}"  readonly>
+                                                              </div>
+                                                           </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                           <div class="form-group row">
+                                                              <label class="col-sm-4 form-control-label">Surcharge :</label>
+                                                              <div class="col-sm-8">
+                                                                 <input type="text" class="form-control input-sm" id="txtInvoiceAmount" value="{{returnInvoiceInfo.surChargeAmt}}"  readonly>
+                                                              </div>
+                                                           </div>
+                                                          </div>
+                                                       </div>
+                                                      </div>
+                                                     </div>
+                                                     <div class="row">
+                                                       <div class="col-sm-12">
+                                                         <div class="form-group row">
+                                                          <div class="col-sm-6">
+                                                            <div class="form-group row">
+                                                              <label class="col-sm-4 form-control-label">Signature :</label>
+                                                              <div class="col-sm-8">
+                                                                  <select id="ddlEnergyInvoiceAthorisedPerson" class="form-control form-control-sm input-sm">
+                                                                      <option value="">Select Signature</option>
+                                                                      {{#each authorisedSignatureArr}}
+                                                                      <option value="{{name}}" attrDesignation="{{designation}}" attrDesignationFull="{{full_form}}" attrPhone="{{phone}}">{{name}}</option>
+                                                                      {{/each}}
+                                                                  </select>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                         </div>
+                                                       </div>
+                                                      </div>
+                                                {{/if}}
+                                                <div class="row hidden transmission">
+                                                   <div class="col-sm-12">
+                                                      <div class="form-group row">
+                                                         <div class="col-sm-5"></div>
+                                                         <div class="col-sm-2">
+                                                            <center>
+                                                               <a id="btnTransSurcharge" class="btn btn-default btn-sm btn-warning pull-right">
+                                                               <span class="glyphicon glyphicon-submit">Generate</span>
+                                                               </a>
+                                                            </center>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                    </fieldset>
+                                 </div>
+                              </div>
+                           </div>
+                        </section>
+                     </div>
+                  </div>
+                  {{/if}}
+                  <!-- SLDC Surcharge  -->
+                  {{#if isSLDCSurchargeSelected}}
+                  <div class="row">
+                     <div class="col-sm-12">
+                        <section class="panel panel-default">
+                           <div class="panel-body">
+                              <div class="row">
+                                 <div class="col-sm-12">
+                                    <fieldset class="scheduler-border">
+                                       <legend class="scheduler-border">SLDC Surcharge </legend>
+                                       <div class="row">
+                                          <div class="col-sm-12">
+                                             <div class="form-group-row">
+                                                <div class="col-sm-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Month :</label>
+                                                      <div class="col-sm-8">
+                                                         <select id='ddlMonthSLDCSurcharge' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_month">
+                                                            <option value="">Select Month</option>
+                                                            {{#each monthShow}}
+                                                            <option value="{{this.value}}">{{this.key}}</option>
+                                                            {{/each}}
+                                                         </select>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                      <div class="col-sm-8">
+                                                         <select id='ddlYearSLDCSurcharge' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                            <option value="">Select Financial Year</option>
+                                                            {{#each yearHelper}}
+                                                            <option value="{{this}}">{{this}}</option>
+                                                            {{/each}}
+                                                         </select>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row">
+                                          <div class="col-sm-12">
+                                             <div class="form-group-row">
+                                               <div class="col-sm-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Discom :</label>
+                                                      <div class="col-sm-8">
+                                                         <select id='discom_stateSLDC' name="discom_stateSLDC" class="form-control form-control-sm input-sm">
+                                                            <option value="">Select Discom</option>
+                                                            {{#each discomListArrSLDC}}
+                                                            <option value="{{this}}">{{this}}</option>
+                                                            {{/each}}
+                                                         </select>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       {{#if isreturnInvoiceInfoTrue}}
+                                       <div class="row">
+                                          <div class="col-sm-12">
+                                             <div class="form-group-row">
+                                                <div class="col-sm-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Invoice Number : </label>
+                                                      <div class="col-sm-8">
+                                                         <input type="text" class="form-control input-sm" id="txtInvoiceNumber" value="{{returnInvoiceInfo.invoiceNumber}}"  readonly>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                   <div class="form-group row">
+                                                    <label class="col-sm-4 form-control-label">Invoice Amount :</label>
+                                                      <div class="col-sm-8">
+                                                         <input type="text" class="form-control input-sm" id="txtInvoiceAmount" value="{{returnInvoiceInfo.invoiceAmount}}"  readonly>
+                                                      </div>
+                                                  </div>
+                                               </div>
+                                             </div>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                             <div class="col-sm-12">
+                                               <div class="form-group-row">
+                                                  <div class="col-sm-6">
+                                                     <div class="form-group row">
+                                                        <label class="col-sm-4 form-control-label">Invoice Date : </label>
+                                                        <div class="col-sm-8">
+                                                           <input type="text" class="form-control input-sm" id="txtInvoiceNumber" value="{{returnInvoiceInfo.invoiceGenerationDate}}"  readonly>
+                                                        </div>
+                                                     </div>
+                                                  </div>
+                                                  <div class="col-sm-6">
+                                                     <div class="form-group row">
+                                                        <label class="col-sm-4 form-control-label">Due Date :</label>
+                                                        <div class="col-sm-8">
+                                                           <input type="text" class="form-control input-sm" id="txtInvoiceAmount" value="{{returnInvoiceInfo.invoiceDueDate}}"  readonly>
+                                                        </div>
+                                                     </div>
+                                                  </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                             <div class="col-sm-12">
+                                               <div class="form-group-row">
+                                                  <div class="col-sm-6">
+                                                     <div class="form-group row">
+                                                        <label class="col-sm-4 form-control-label">Date of Payment :</label>
+                                                        <div class="col-sm-8">
+                                                           <input type="text" class="form-control input-sm" id="txtInvoiceNumber" value="{{isDateOfPaymentBlank returnInvoiceInfo.dateOfPayment}}"  readonly>
+                                                        </div>
+                                                     </div>
+                                                  </div>
+                                                  <div class="col-sm-6">
+                                                     <div class="form-group row">
+                                                        <label class="col-sm-4 form-control-label">Surcharge :</label>
+                                                        <div class="col-sm-8">
+                                                           <input type="text" class="form-control input-sm" id="txtInvoiceAmount" value="{{returnInvoiceInfo.surChargeAmt}}"  readonly>
+                                                        </div>
+                                                     </div>
+                                                   </div>
+                                              </div>
+                                           </div>
+                                       </div>
+                                          <div class="row">
+                                             <div class="col-sm-12">
+                                               <div class="form-group-row">
+                                                  <div class="col-sm-6">
+                                                    <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Signature :</label>
+                                                      <div class="col-sm-8">
+                                                          <select id="ddlEnergyInvoiceAthorisedPerson" class="form-control form-control-sm input-sm">
+                                                              <option value="">Select Signature</option>
+                                                              {{#each authorisedSignatureArr}}
+                                                              <option value="{{name}}" attrDesignation="{{designation}}" attrDesignationFull="{{full_form}}" attrPhone="{{phone}}">{{name}}</option>
+                                                              {{/each}}
+                                                          </select>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                              </div>
+                                           </div>
+                                       </div>
+                                       {{/if}}
+                                       <div class="row hidden SLDC">
+                                          <div class="col-sm-12">
+                                             <div class="form-group row">
+                                                <div class="col-sm-5">
+                                                </div>
+                                                <div class="col-sm-2">
+                                                   <center>
+                                                      <a id="btnSLDCSurcharge" class="btn btn-default btn-sm btn-warning pull-right" href="{{filepath}}">
+                                                      <span class="glyphicon glyphicon-submit">Generate</span>
+                                                      </a>
+                                                   </center>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </fieldset>
+                                 </div>
+                              </div>
+                           </div>
+                        </section>
+                     </div>
+                  </div>
+                  {{/if}}
+                  <!-- Icentive Surcharge  -->
+                  {{#if isIncentiveSurchargeSelected}}
+                  <div class="row">
+                     <div class="col-sm-12">
+                        <section class="panel panel-default">
+                           <div class="panel-body">
+                              <div class="row">
+                                 <div class="col-md-12 col-sm-12">
+                                    <fieldset class="scheduler-border">
+                                       <legend class="scheduler-border">Incentive Surchage Type </legend>
+                                       <div class="row">
+                                          <div class="col-sm-12">
+                                             <div class="form-group row">
+                                                <div class="col-sm-6 col-md-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Month :</label>
+                                                      <div class="col-sm-8">
+                                                         <select id='ddlMonthIncenSurcharge' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_month">
+                                                            <option value="">Select Month</option>
+                                                            {{#each monthShow}}
+                                                            <option value="{{this.value}}">{{this.key}}</option>
+                                                            {{/each}}
+                                                         </select>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                      <div class="col-sm-8">
+                                                         <select id='ddlYearIncentiveSurcharge' class="form-control form-control-sm input-sm" name="energy_invoice_year">
+                                                            <option value="">Select Financial Year</option>
+                                                            {{#each yearHelper}}
+                                                            <option value="{{this}}">{{this}}</option>
+                                                            {{/each}}
+                                                         </select>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row">
+                                          <div class="col-sm-12">
+                                             <div class="form-group row">
+                                                <div class="col-sm-6">
+                                                   <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Discom :</label>
+                                                      <div class="col-sm-8">
+                                                         <select id='discom_stateIncentive' name="discom_stateIncentive" class="form-control form-control-sm input-sm">
+                                                            <option value="">Select Discom</option>
+                                                            {{#each discomListArrIncentive}}
+                                                            <option value="{{this}}">{{this}}</option>
+                                                            {{/each}}
+                                                         </select>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       {{#if isreturnInvoiceInfoTrue}}
+                                       <div class="row">
+                                         <div class="col-sm-12">
+                                           <div class="form-group row">
+                                             <div class="col-sm-6">
+                                               <div class="form-group row">
+                                                  <label class="col-sm-4 form-control-label">Invoice Number : </label>
+                                                  <div class="col-sm-8">
+                                                     <input type="text" class="form-control input-sm" id="txtInvoiceNumber" value="{{returnInvoiceInfo.invoiceNumber}}"  readonly>
+                                                  </div>
+                                               </div>
+                                            </div>
+                                          <div class="col-sm-6">
+                                             <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Invoice Amount :</label>
+                                                <div class="col-sm-8">
+                                                   <input type="text" class="form-control input-sm" id="txtInvoiceAmount" value="{{returnInvoiceInfo.invoiceAmount}}"  readonly>
+                                                </div>
+                                             </div>
+                                           </div>
+                                        </div>
+                                       </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-sm-12">
+                                          <div class="form-group row">
+                                           <div class="col-sm-6">
+                                             <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Invoice Date : </label>
+                                                <div class="col-sm-8">
+                                                   <input type="text" class="form-control input-sm" id="txtInvoiceNumber" value="{{returnInvoiceInfo.invoiceGenerationDate}}"  readonly>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-sm-6">
+                                             <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Due Date :</label>
+                                                <div class="col-sm-8">
+                                                   <input type="text" class="form-control input-sm" id="txtInvoiceAmount" value="{{returnInvoiceInfo.invoiceDueDate}}"  readonly>
+                                                </div>
+                                             </div>
+                                           </div>
+                                       </div>
+                                     </div>
+                                    </div>
+                                     <div class="row">
+                                       <div class="col-sm-12">
+                                         <div class="form-group row">
+                                          <div class="col-sm-6">
+                                             <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Date of Payment :</label>
+                                                <div class="col-sm-8">
+                                                   <input type="text" class="form-control input-sm" id="txtInvoiceNumber" value="{{isDateOfPaymentBlank returnInvoiceInfo.dateOfPayment}}"  readonly>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-sm-6">
+                                             <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Surcharge :</label>
+                                                <div class="col-sm-8">
+                                                   <input type="text" class="form-control input-sm" id="txtInvoiceAmount" value="{{returnInvoiceInfo.surChargeAmt}}"  readonly>
+                                                </div>
+                                             </div>
+                                          </div>
+                                         </div>
+                                       </div>
+                                      </div>
+                                     <div class="row">
+                                       <div class="col-sm-12">
+                                         <div class="form-group row">
+                                          <div class="col-sm-6">
+                                            <div class="form-group row">
+                                              <label class="col-sm-4 form-control-label">Signature :</label>
+                                              <div class="col-sm-8">
+                                                  <select id="ddlEnergyInvoiceAthorisedPerson" class="form-control form-control-sm input-sm">
+                                                      <option value="">Select Signature</option>
+                                                      {{#each authorisedSignatureArr}}
+                                                      <option value="{{name}}" attrDesignation="{{designation}}" attrDesignationFull="{{full_form}}" attrPhone="{{phone}}">{{name}}</option>
+                                                      {{/each}}
+                                                  </select>
+                                              </div>
+                                            </div>
+                                          </div>
+                                         </div>
+                                       </div>
+                                      </div>
+                                       {{/if}}
+                                       <div class="row hidden incentive">
+                                          <div class="col-sm-12">
+                                             <div class="form-group row">
+                                                <div class="col-sm-5"></div>
+                                                <div class="col-sm-2">
+                                                   <center>
+                                                      <a id="btnIncenSurch" class="btn btn-default btn-sm btn-warning pull-right"  href="{{filepath}}">
+                                                      <span class="glyphicon glyphicon-submit">Generate</span>
+                                                      </a>
+                                                   </center>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </fieldset>
+                                 </div>
+                              </div>
+                           </div>
+                        </section>
+                     </div>
+                  </div>
+                  {{/if}}
+               </div>
+            </div>
+         </div>
+      </div>
+</template>

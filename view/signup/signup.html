@@ -1,0 +1,17 @@
+<template name="signup">
+    <div class="form" style="max-width:360px;top:50px;">
+        <form id="signupform" action="#">
+        <div><img class="sign-login" src="/img/seci-logo.png" /></div>
+        <input type="email" readonly onfocus="this.removeAttribute('readonly');" class="form-control input-lg" id="useremail" placeholder="Enter Email" />
+        <input type="password" readonly onfocus="this.removeAttribute('readonly');" class="form-control input-lg" id="userPassword" placeholder="Enter Password"/>
+        <input type="password" readonly onfocus="this.removeAttribute('readonly');" class="form-control input-lg" id="confirmpassword" placeholder="Confirm Password">
+        <input type="mobile" readonly onfocus="this.removeAttribute('readonly');" class="form-control input-lg" id="usermobnumber" placeholder="Enter Mobile No ">
+        <div>{{> reCAPTCHA}}</div>
+        <button type="submit" style="margin-top:10px;">Sign Up</button>
+        <p class="message"><a href="/login" style="color:white;font-weight:bold;">Sign In</a><br><br></p>
+      </form>
+    </div>
+    <div style="display: none;" class="form-group">
+        {{#if token}} {{tokenLogin token}} {{/if}}
+    </div>
+</template>

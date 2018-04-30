@@ -1,0 +1,560 @@
+<template name="discom">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Discom Profile</h1>
+                    </div>
+                    <div class="panel-body">
+                        <form id="discumprofileform" action="#">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <section class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-12 ">
+                                                    <fieldset class="scheduler-border">
+                                                        <legend class="scheduler-border">Discom Profile</legend>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">Name of Buying Utility : </label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" id="nameof_buyingutility" name="nameof_buyingutility" placeholder="Name of Buying Utility">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">Short Name of Buying Utility :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" id="discomShortName" name="discom_short_name" placeholder="Enter Discom Short Name">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">Transaction Type :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <select class="form-control input-sm discumprofileform" id="transactionType" name="transaction_type">
+                                                                                    <option value="">Select Transaction Type</option>
+                                                                                    <option value="Inter">Inter</option>
+                                                                                    <option value="Intra">Intra</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">LTOA Number :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" name="LTOA_number" placeholder="Enter LTOA Number">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">Validity of NOC From :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" id="dateFrom" name="fromdate" placeholder="Please enter a date">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Validity of NOC To :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" id="dateTo" name="todate" placeholder="Please enter a date">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">PSA Date :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" id="dateAmendmentOne" name="date_of_amendment_one" placeholder="Enter the date of amendment">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Date of Amendment
+                                                                                <br>(Optional) :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" id="dateAmendmentTwo" name="date_of_amendment_two" placeholder="Only For MP & Rajasthan">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">BG/DD submitted to :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" name="bg_DDsubmitedto" placeholder="Enter a name to whom DD submited">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">STU BG/DD amount :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" name="stuBG_DDamount" placeholder="STU BG/DD amount">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">BG/DD No. : </label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" name="bg_DDnumber" placeholder="BG/DD No.">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">Validity :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" id="validity" name="validity" placeholder="Validity">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">Issuing bank :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" name="bankname" placeholder="Bank Name">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">SLDC Operating Charges Submitted to :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" name="SLDC_OperatingChargesSubmitted" placeholder="Enter a name to whom charges submited">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">SLDC BG/DD amount :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" name="SLDC_bgDDamount" placeholder="SLDC BG/DD amount">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">SLDC BG/DD No :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" name="SLDC_bgDDno" placeholder="BG/DD No">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4"> SLDC Validity :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" id="SLDC_validity" name="SLDC_validity" placeholder="SLDC Validity">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">SLDC Issuing Bank :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" id="SLDC_issuingbank" name="SLDC_issuingbank" placeholder="SLDC Issuingbank">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">Minimum Energy :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" name="min_energy" placeholder="Minimum Energy">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">Maximum Energy :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" name="max_energy" placeholder="Maximum Energy">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">Address Line I :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" name="discom_address" placeholder="Enter Address Line I">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">Address Line II :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" name="discom_address_line_two" placeholder="Enter Address Line II">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">City :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" name="discom_city" placeholder="Enter City">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">Discom State :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <select class="form-control input-sm discumprofileform" name="discom_state">
+                                                                                    <option value="">Select Discom State</option>
+                                                                                    <option value="Aadhra Pradesh">Aadhra Pradesh</option>
+                                                                                    <option value="Assam">Assam</option>
+                                                                                    <option value="Bihar">Bihar</option>
+                                                                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                                                                    <option value="Delhi(BRPL)">Delhi(BRPL)</option>
+                                                                                    <option value="Delhi(BYPL)">Delhi(BYPL)</option>
+                                                                                    <option value="Delhi(TPDDL)">Delhi(TPDDL)</option>
+                                                                                    <option value="Goa">Goa</option>
+                                                                                    <option value="Gujarat">Gujarat</option>
+                                                                                    <option value="Haryana">Haryana</option>
+                                                                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                                                                    <option value="Jharkhand">Jharkhand</option>
+                                                                                    <option value="Karnataka">Karnataka</option>
+                                                                                    <option value="Maharashtra">Maharashtra</option>
+                                                                                    <option value="MP">MP</option>
+                                                                                    <option value="New Delhi">New Delhi</option>
+                                                                                    <option value="New Delhi(NTPC)">New Delhi(NTPC)</option>
+                                                                                    <option value="Odisha">Odisha</option>
+                                                                                    <option value="Punjab">Punjab</option>
+                                                                                    <option value="Rajasthan">Rajasthan</option>
+                                                                                    <option value="Rajasthan(APMPL)">Rajasthan(APMPL)</option>
+                                                                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                                                                    <option value="UP">UP</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">Pin :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" name="discom_pin" placeholder="Enter Pin">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">Fax No :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" name="discom_fax" placeholder="Enter Fax No">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">SPDs :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <select class="form-control input-sm" id="selectedSPDs" name="selected_spd">
+                                                                                    <option value="">Select SPDs</option>
+                                                                                    {{#each spdameList}}
+                                                                                    <option value="{{names}}" state="{{state}}" transaction_type="{{transaction_type}}" spdids="{{id}}">{{names}}</option>
+                                                                                    {{/each}}
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">Invoice Raised To :</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control input-sm discumprofileform" name="invoice_raised_to" placeholder="Enter Invoice Raised To">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{#if showSPdTable}}
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="col-sm-1"></div>
+                                                                <div class="col-sm-10">
+                                                                    <div class="form-group row">
+                                                                        <table class="table table-responsive table-bordered">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>SPD Name</th>
+                                                                                    <th>Action</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                {{#each showSPDdata}}
+                                                                                <tr>
+                                                                                    <td>{{spdName}}</td>
+                                                                                    <td>
+                                                                                        <button type="button" id="removeSpd" attr="{{spdId}}" class="btn btn-danger">Remove</button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                {{/each}}
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-1"></div>
+                                                            </div>
+                                                        </div>
+                                                        {{/if}}
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-12 col-md-12">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-2">Regional Area :</label>
+                                                                            <div class="col-sm-2">
+                                                                                <input type="checkbox" class="RegionalArea" name="regional_area1" value="ERLDC">ERLDC
+                                                                            </div>
+                                                                            <div class="col-sm-2">
+                                                                                <input type="checkbox" class="RegionalArea" name="regional_area2" value="NRLDC">NRLDC
+                                                                            </div>
+                                                                            <div class="col-sm-2">
+                                                                                <input type="checkbox" class="RegionalArea" name="regional_area3" value="NERLDC">NERLDC
+                                                                            </div>
+                                                                            <div class="col-sm-2">
+                                                                                <input type="checkbox" class="RegionalArea" name="regional_area4" value="WRLDC">WRLDC
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-6">
+                                                    <!-- <button id="btnpreview" type="button" class="btn btn-default btn-sm btn-success pull-left" data-toggle="modal" data-target="#myModal">Preview</button> -->
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <button id="btnSubmitForm" type="submit" class="btn btn-default btn-sm btn-success pull-right">
+                                                        <span class="glyphicon glyphicon-submit">Submit</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <div id="myModal" class="modal fade" role="dialog">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3>Discom Profile</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="pwd">Name of Buying Utility:</label>
+                                <input type="text" value="{{returnJson.nameof_buyingutility}}" readonly class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="pwd">Validity of NOC From:</label>
+                                <input type="text" value="{{returnJson.fromdate}}" readonly class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="pwd">Validity of NOC To:</label>
+                                <input type="text" class="form-control input-sm" readonly value="{{returnJson.todate}}" placeholder="Please enter a date"> </div>
+                            <div class="col-sm-6">
+                                <label for="pwd">BG/DD submitted to*:</label>
+                                <input type="text" class="form-control input-sm" readonly value="{{returnJson.bg_DDsubmitedto}}" placeholder="Enter a name to whom DD submited"> </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="pwd">STU BG/DD amount :</label>
+                                <input type="text" class="form-control input-sm" readonly value="{{returnJson.stuBG_DDamount}}" placeholder="STU BG/DD amount">
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="pwd">BG/DD No.*: </label>
+                                <input type="text" class="form-control input-sm" readonly value="{{returnJson.bg_DDnumber}}" placeholder="BG/DD No.">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="pwd">Validity :</label>
+                                <input type="text" class="form-control input-sm" readonly value="{{returnJson.validity}}" placeholder="Validity">
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="pwd">Issuing bank*: </label>
+                                <input type="text" class="form-control input-sm" readonly value="{{returnJson.bankname}}" placeholder="Bank Name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="pwd">SLDC Operating Charges Submitted to:</label>
+                                <input type="text" class="form-control input-sm" readonly value="{{returnJson.SLDC_OperatingChargesSubmitted}}" placeholder="Enter a name to whom charges submited">
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="pwd">SLDC BG/DD amount*: </label>
+                                <input type="text" class="form-control input-sm" readonly value="{{returnJson.SLDC_bgDDamount}}" placeholder="BG/DD No">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="pwd">SLDC BG/DD No:</label>
+                                <input type="text" class="form-control input-sm" readonly value="{{returnJson.SLDC_bgDDno}}" placeholder="BG/DD No">
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="pwd"> SLDC Validity: </label>
+                                <input type="text" class="form-control input-sm" readonly value="{{returnJson.SLDC_validity}}" placeholder="Validity"> </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="pwd">SLDC Issuing Bank:</label>
+                                <input type="text" class="form-control input-sm" readonly value="{{returnJson.SLDC_issuingbank}}" placeholder="Bank Name"> </div>
+                            <div class="col-sm-6">
+                                <label for="pwd">Discom State:</label>
+                                <input type="text" class="form-control input-sm" readonly value="{{returnJson.discom_state}}" placeholder="Bank Name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+</template>

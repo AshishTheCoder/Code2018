@@ -1,0 +1,624 @@
+<template name="open_access">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Open Access</h1>
+                    </div>
+                    <form id="openaccessform" action="#">
+                        <div class="panel-body">
+                            <div class="row" id="entityForm">
+                                <div class="col-sm-12">
+                                    <section class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <fieldset>
+                                                        <legend>Long Term Open Access</legend>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-2">
+                                                                        <label>List of Users :</label>
+                                                                    </div>
+                                                                    <div class="col-sm-4">
+                                                                        <select id="selectedUser" class="form-control input-sm">
+                                                                            <option value="">Select Discom</option>
+                                                                            {{#each returnJsonAccess}}
+                                                                            <option value="{{_id}}">{{nameof_buyingutility}}</option>
+                                                                            {{/each}}
+                                                                        </select>
+                                                                    </div>
+                                                                    {{#if isRegistereduserSelected}}
+                                                                    <div class="col-sm-1"></div>
+                                                                    <div class="col-sm-1">
+                                                                      <a id="btnEdit" class="btn btn-warning center-block">Edit</a>
+                                                                      <div id="modalForOpenAccess" data-toggle='modal' data-target='#openAccessReportForView'></div>
+                                                                    </div>
+                                                                    <div class="col-sm-1">
+                                                                      <a id="btnView" class="btn btn-info center-block">View</a>
+                                                                    </div>
+                                                                    {{/if}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{#if userSelected}}
+                                                        {{#if validationForSomeDiscoms}}
+                                                        <section class="panel panel-default">
+                                                            <div class="panel-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 col-sm-12">
+                                                                        <fieldset>
+                                                                            <legend>CTU</legend>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-5 form-control-label">CTU Name :</label>
+                                                                                                <div class="col-sm-7">
+                                                                                                    <input class="form-control input-sm" placeholder="Enter CTU name" value="{{dataUsedForEditingHelper.ctu_name}}" name="CTUName" id="txtCTUName">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 col-md-6">
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-5">LTOA Intimation No.: </label>
+                                                                                                <div class="col-sm-7">
+                                                                                                    <input type="text" class="form-control input-sm" id="txtCTULtaIntimationNo" value="{{dataUsedForEditingHelper.ctu_intimation_no}}" name="CTULtaIntimationNo" placeholder="Enter LTOA intimation no">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-5">Date of LTOA :</label>
+                                                                                                <div class="col-sm-7">
+                                                                                                    <input type="text" class="form-control input-sm txtDate" id="txtCTUdateofLTA" value="{{dataUsedForEditingHelper.ctu_lta_date}}" name="CTUdateofLTA" placeholder="Enter the date of LTA">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-5 form-control-label">From :</label>
+                                                                                                <div class="col-sm-7">
+                                                                                                    <input type="text" class="form-control input-sm txtDate getDateValidity" name="CTUFromDate" value="{{dataUsedForEditingHelper.ctu_from_date}}" placeholder="From Date" id="txtCTUFromDate">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-5 form-control-label">To :</label>
+                                                                                                <div class="col-sm-7">
+                                                                                                    <input type="text" class="form-control input-sm txtDate getDateValidity" name="CTUToDate" value="{{dataUsedForEditingHelper.ctu_to_date}}" placeholder="To Date" id="txtCTUToDate">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-5 form-control-label">Valid upto :</label>
+                                                                                                <div class="col-sm-7">
+                                                                                                    <input class="form-control input-sm txtDate" name="CTUValidUptoDate" value="{{dataUsedForEditingHelper.ctu_valid_upto}}" placeholder="Enter Valid upto" id="txtCTUValidUptoDate">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-5 form-control-label">Capacity(MW) :</label>
+                                                                                                <div class="col-sm-7">
+                                                                                                    <input class="form-control input-sm" name="CTUCapacity" value="{{dataUsedForEditingHelper.ctu_capacity}}" placeholder="Enter Capacity in MW" id="txtCTUCapacity">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-10">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-3 form-control-label">Connected SPDs :</label>
+                                                                                                <div class="col-sm-7">
+                                                                                                    <table class="table table-bordered">
+                                                                                                        <thead>
+                                                                                                            <tr>
+                                                                                                                <th>Sn.No.</th>
+                                                                                                                <th>SPD Names</th>
+                                                                                                            </tr>
+                                                                                                        </thead>
+                                                                                                        <tbody>
+                                                                                                          {{#each spdListHelper}}
+                                                                                                            <tr>
+                                                                                                                <td>{{sn}}</td>
+                                                                                                                <td>{{spdName}}</td>
+                                                                                                            </tr>
+                                                                                                            {{/each}}
+                                                                                                        </tbody>
+                                                                                                    </table>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 col-md-6">
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </fieldset>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </section>
+                                                        <section class="panel panel-default">
+                                                            <div class="panel-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 col-sm-12">
+                                                                        <fieldset>
+                                                                            <legend>STU</legend>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-5 form-control-label">STU Name :</label>
+                                                                                                <div class="col-sm-7">
+                                                                                                    <input class="form-control input-sm" value="{{dataUsedForEditingHelper.stu_name}}" name="STUname" placeholder="Enter STU name" id="txtSTUname">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 col-md-6">
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-5">LTOA Intimation No.: </label>
+                                                                                                <div class="col-sm-7">
+                                                                                                    <input type="text" class="form-control input-sm" id="txtSTULtaIntimationNo" value="{{dataUsedForEditingHelper.stu_intimation_no}}" name="STULtaIntimationNo" placeholder="Enter LTOA intimation no">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-5">Date of LTOA :</label>
+                                                                                                <div class="col-sm-7">
+                                                                                                    <input type="text" class="form-control input-sm txtDate" id="txtSTUdateofLTA" value="{{dataUsedForEditingHelper.stu_lta_date}}" name="STUdateofLTA" placeholder="Enter the date of LTA">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-5 form-control-label">From :</label>
+                                                                                                <div class="col-sm-7">
+                                                                                                    <input type="text" class="form-control input-sm txtDate" name="STUFromDate" value="{{dataUsedForEditingHelper.stu_from_date}}" placeholder="From Date" id="txtSTUFromDate">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-5 form-control-label">To :</label>
+                                                                                                <div class="col-sm-7">
+                                                                                                    <input type="text" class="form-control input-sm txtDate" name="STUToDate" value="{{dataUsedForEditingHelper.stu_to_date}}" placeholder="To Date" id="txtSTUToDate">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-5 form-control-label">Valid upto :</label>
+                                                                                                <div class="col-sm-7">
+                                                                                                    <input class="form-control input-sm txtDate" name="STUValidUptoDate" value="{{dataUsedForEditingHelper.stu_valid_upto}}" placeholder="Enter Valid upto" id="txtSTUValidUptoDate">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                          <div class="form-group row">
+                                                                                              <label class="col-sm-5 form-control-label">Capacity(MW) :</label>
+                                                                                              <div class="col-sm-7">
+                                                                                                  <input class="form-control input-sm" name="STUCapacity" placeholder="Enter Capacity in MW" value="{{dataUsedForEditingHelper.stu_capacity}}" id="txtSTUCapacity">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </fieldset>
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </section>
+                                                        {{/if}}
+                                                        <section class="panel panel-default">
+                                                            <div class="panel-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 col-sm-12">
+                                                                        <fieldset>
+                                                                            <legend>DISCOM</legend>
+                                                                            {{#if validationForSomeDiscoms}}
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-5 form-control-label">NOC Reference No. :</label>
+                                                                                                <div class="col-sm-7">
+                                                                                                    <input class="form-control input-sm" placeholder="Enter NOC Reference No." value="{{dataUsedForEditingHelper.discom_noc_refNo}}" name="DISCOMNocRefNo" id="txtDISCOMNocRefNo">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                          <div class="form-group row">
+                                                                                              <label class="col-sm-5">NOC Intimation No.: </label>
+                                                                                              <div class="col-sm-7">
+                                                                                                  <input type="text" class="form-control input-sm" id="txtDISCOMLtaIntimationNo" value="{{dataUsedForEditingHelper.discom_intimation_no}}" name="DISCOMLtaIntimationNo" placeholder="Enter NOC Intimation No.">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                          <div class="form-group row">
+                                                                                              <label class="col-sm-5">Date of NOC :</label>
+                                                                                              <div class="col-sm-7">
+                                                                                                  <input type="text" class="form-control input-sm txtDate" id="txtDISCOMDateOfNOC" value="{{dataUsedForEditingHelper.discom_noc_date}}" name="DISCOMDateOfNOC" placeholder="Date of NOC">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                          <div class="form-group row">
+                                                                                              <label class="col-sm-5 form-control-label">From :</label>
+                                                                                              <div class="col-sm-7">
+                                                                                                  <input type="text" class="form-control input-sm txtDate" name="DISCOMFromDate" value="{{dataUsedForEditingHelper.discom_from_date}}" placeholder="From Date" id="txtDISCOMFromDate">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                          <div class="form-group row">
+                                                                                              <label class="col-sm-5 form-control-label">To :</label>
+                                                                                              <div class="col-sm-7">
+                                                                                                  <input type="text" class="form-control input-sm txtDate" name="DISCOMToDate" value="{{dataUsedForEditingHelper.discom_to_date}}" placeholder="To Date" id="txtDISCOMToDate">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                          <div class="form-group row">
+                                                                                              <label class="col-sm-5 form-control-label">Valid upto :</label>
+                                                                                              <div class="col-sm-7">
+                                                                                                  <input type="text" class="form-control input-sm txtDate" name="DISCOMValidUptoDate" value="{{dataUsedForEditingHelper.discom_valid_upto}}" placeholder="Enter Valid upto" id="txtDISCOMValidUptoDate">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            {{/if}}
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                          <div class="form-group row">
+                                                                                              <label class="col-sm-5 form-control-label">PSA Validity Form :</label>
+                                                                                              <div class="col-sm-7">
+                                                                                                  <input type="text" class="form-control input-sm txtDate" name="DISCOMPSAValidityFromDate" value="{{dataUsedForEditingHelper.discom_psa_validity_from}}" placeholder="Enter PSA Validity From" id="txtDISCOMPSAValidityFromDate">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                          <div class="form-group row">
+                                                                                              <label class="col-sm-5 form-control-label">PSA Validity To :</label>
+                                                                                              <div class="col-sm-7">
+                                                                                                  <input type="text" class="form-control input-sm txtDate" name="DISCOMPSAValidityToDate" value="{{dataUsedForEditingHelper.discom_psa_validity_to}}" placeholder="Enter PSA Validity To" id="txtDISCOMPSAValidityToDate">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                          <div class="form-group row">
+                                                                                              <label class="col-sm-5 form-control-label">Capacity(MW) :</label>
+                                                                                              <div class="col-sm-7">
+                                                                                                  <input type="text" class="form-control input-sm" name="DISCOMCapacity" value="{{dataUsedForEditingHelper.discom_capacity}}" placeholder="Enter Capacity in MW" id="txtDISCOMCapacity">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 col-md-6">
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            {{#if validationForViewSelectedState}}
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-10">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-3 form-control-label">Connected SPDs :</label>
+                                                                                                <div class="col-sm-7">
+                                                                                                    <table class="table table-bordered">
+                                                                                                        <thead>
+                                                                                                            <tr>
+                                                                                                                <th>Sn.No.</th>
+                                                                                                                <th>SPD Names</th>
+                                                                                                            </tr>
+                                                                                                        </thead>
+                                                                                                        <tbody>
+                                                                                                          {{#each spdListHelper}}
+                                                                                                            <tr>
+                                                                                                                <td>{{sn}}</td>
+                                                                                                                <td>{{spdName}}</td>
+                                                                                                            </tr>
+                                                                                                            {{/each}}
+                                                                                                        </tbody>
+                                                                                                    </table>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 col-md-6">
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            {{/if}}
+                                                                        </fieldset>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </section>
+                                                        {{#if updateButtonShowAfterClickEditBtn}}
+                                                        <div class="form-group">
+                                                            <div class="col-xs-offset-3 col-xs-6">
+                                                                <button type="submit" class="btn btn-primary center-block">Update</button>
+                                                            </div>
+                                                        </div>
+                                                        {{else}}
+                                                        <div class="form-group">
+                                                            <div class="col-xs-offset-3 col-xs-6">
+                                                                <button type="submit" class="btn btn-primary center-block">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                        {{/if}}
+                                                        {{/if}}
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--using Modal to view report and export to excel-->
+    <div id="openAccessReportForView" class="modal fade modal-widthincLarge" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <h4 class="modal-title">Open Access Report</h4>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <button id="idForExportToExcelAll" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 main">
+                            <div class="panel-heading">
+                              <h3 style="font-weight:bold;font-size:20px;text-align:center;">Solar Energy Corporation  of India Ltd. <br> New Delhi-110017</h3>
+                            </div>
+                            {{#if validationForViewSelectedState}}
+                            <table id="openAccessCovertToExcel" class="table table-striped table-bordered table-hover table responsive">
+                                <tbody>
+                                    <tr>
+                                        <th colspan="4"><center>DISCOM</center></th>
+                                    </tr>
+                                    <tr>
+                                        <th>PSA Validity From</th>
+                                        <td>{{helperUsedForViewData.discom.discom_psa_validity_from}}</td>
+                                        <th>PSA Validity To</th>
+                                        <td>{{helperUsedForViewData.discom.discom_psa_validity_to}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Capacity(Mw)</th>
+                                        <td>{{helperUsedForViewData.discom.discom_capacity}}</td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Connected SPDs</th>
+                                        <td colspan="3">
+                                        {{#each helperUsedForViewData.discom.connected_spd}}
+                                        {{sn}}. {{spdName}} <br>
+                                        {{/each}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            {{else}}
+                            <table id="openAccessCovertToExcel" class="table table-striped table-bordered table-hover table responsive">
+                                <tbody>
+                                  <tr>
+                                      <th colspan="4"><center>CTU</center></th>
+                                  </tr>
+                                    <tr>
+                                        <th>CTU Name</th>
+                                        <td>{{helperUsedForViewData.ctu.ctu_name}}</td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>LTOA No</th>
+                                        <td>{{helperUsedForViewData.ctu.ctu_intimation_no}}</td>
+                                        <th>Date of LTOA</th>
+                                        <td>{{helperUsedForViewData.ctu.ctu_lta_date}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>From</th>
+                                        <td>{{helperUsedForViewData.ctu.ctu_from_date}}</td>
+                                        <th>TO</th>
+                                        <td>{{helperUsedForViewData.ctu.ctu_to_date}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Valid Up to</th>
+                                        <td>{{helperUsedForViewData.ctu.ctu_valid_upto}}</td>
+                                        <th>Capacity(Mw)</th>
+                                        <td>{{helperUsedForViewData.ctu.ctu_capacity}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Connected SPDs</th>
+                                        <td colspan="3">
+                                        {{#each helperUsedForViewData.ctu.connected_spd}}
+                                        {{sn}}. {{spdName}} <br>
+                                        {{/each}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4"><center>STU</center></th>
+                                    </tr>
+                                    <tr>
+                                        <th>STU Name</th>
+                                        <td>{{helperUsedForViewData.stu.stu_name}}</td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>LTOA No</th>
+                                        <td>{{helperUsedForViewData.stu.stu_intimation_no}}</td>
+                                        <th>Date of LTOA</th>
+                                        <td>{{helperUsedForViewData.stu.stu_lta_date}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>From</th>
+                                        <td>{{helperUsedForViewData.stu.stu_from_date}}</td>
+                                        <th>TO</th>
+                                        <td>{{helperUsedForViewData.stu.stu_to_date}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Valid Up to</th>
+                                        <td>{{helperUsedForViewData.stu.stu_valid_upto}}</td>
+                                        <th>Capacity(Mw)</th>
+                                        <td>{{helperUsedForViewData.stu.stu_capacity}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4"><center>DISCOM</center></th>
+                                    </tr>
+                                    <tr>
+                                        <th>NOC Reference No</th>
+                                        <td>{{helperUsedForViewData.discom.discom_noc_refNo}}</td>
+                                        <th>NOC Intimation No</th>
+                                        <td>{{helperUsedForViewData.discom.discom_intimation_no}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Date of NOC</th>
+                                        <td>{{helperUsedForViewData.discom.discom_noc_date}}</td>
+                                        <th>From</th>
+                                        <td>{{helperUsedForViewData.discom.discom_from_date}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>To</th>
+                                        <td>{{helperUsedForViewData.discom.discom_to_date}}</td>
+                                        <th>Valid Up To </th>
+                                        <td>{{helperUsedForViewData.discom.discom_valid_upto}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>PSA Validity From</th>
+                                        <td>{{helperUsedForViewData.discom.discom_psa_validity_from}}</td>
+                                        <th>PSA Validity To</th>
+                                        <td>{{helperUsedForViewData.discom.discom_psa_validity_to}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Capacity(Mw)</th>
+                                        <td>{{helperUsedForViewData.discom.discom_capacity}}</td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4">
+                                <div class="form-group center-block">
+                                    <button type="button" class="btn btn-danger center-block" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

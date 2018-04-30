@@ -1,0 +1,85 @@
+<template name="daily_actual_Generation">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Daily Actual Generation</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row" id="filterForm">
+                            <div class="col-sm-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">Select Date :</label>
+                                                                        <div class="col-sm-8">
+                                                                            <input type="text" class="form-control input-sm selectDateValue" placeholder="Select Date">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        {{#if showTable}}
+                        <section class="panel panel-default">
+                            <div class="panel">
+                                <center><h4>Actual Generation for {{showDate}}</h4></center>
+                            </div>
+                            <button id="triggerMail" class="btn btn-sm btn-danger pull-left">Send Mail</button>
+
+                            <button id="dailyJmrDataExcel" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                            <br>
+                            <br>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <fieldset>
+                                            <div class="row">
+                                                <table class="table table-bordered" id="dailyJmrData">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>S.No</th>
+                                                            <th>SPD Name</th>
+                                                            <th>State</th>
+                                                            <th>Actual Energy Generation (LUs)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {{#each showAll}}
+                                                        <tr>
+                                                            <th>{{serial @index}}</th>
+                                                            <td>{{spdName}}</td>
+                                                            <td>{{spdStateName}}</td>
+                                                            <td>{{generatedSchedule}}</td>
+                                                        </tr>
+                                                        {{/each}}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

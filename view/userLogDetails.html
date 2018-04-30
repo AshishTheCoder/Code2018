@@ -1,0 +1,105 @@
+<template name="userLogDetails">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Users Log Details </h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                  <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-4 form-control-label">Select Date:</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" id="selectDate" class="form-control input-sm selectedDate" placeholder="Select Date">
+                                          </div>
+                                      </div>
+                              </div>
+                              <div class="col-sm-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 form-control-label">User Type :</label>
+                                      <div class="col-sm-8">
+                                        <select class="form-control input-sm validate" id="selectUserType">
+                                            <option value="">Select User</option>
+                                            <option  value="spd">Spd</option>
+                                            <option  value="admin">Operation</option>
+                                          {{#if isUserTypeMaster}}
+                                            <option  value="commercial">Commercial</option>
+                                            <option  value="finance">Finance</option>
+                                          {{/if}}
+                                        </select>
+                                      </div>
+                                  </div>
+                          </div>
+                          {{#if showUserNames}}
+                              <div class="col-sm-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 form-control-label">Users Name :</label>
+                                      <div class="col-sm-8">
+                                        <select class="form-control input-sm validate" id="selectSpdName">
+                                            <option value="">Select User</option>
+                                            {{#each selectedUsers}}
+                                            {{#if isUserSPD}}
+                                            <option  value="{{_id}}">{{profile.registration_form.name_of_spd}} </option>
+                                            {{else}}
+                                            <option  value="{{_id}}">{{username}} </option>
+                                            {{/if}}
+                                            {{/each}}
+                                        </select>
+                                      </div>
+                                  </div>
+                          </div>
+
+                   {{/if}}
+      {{#if showTable}}
+     <div class="row">
+         <div class="col-sm-12">
+           <section class="panel panel-default">
+                <div class="panel-body">
+                   <fieldset>
+                      <div class="row">
+                            <div class="col-md-12 col-sm-12">
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th class="text-center"> S.No </th>
+                                        <th class="text-center"> User Name </th>
+                                        <th class="text-center">Action Date </th>
+                                        <th class="text-center">Log</th>
+                                        <th class="text-center"> URL Click time </th>
+
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {{#each showTableData}}
+                                    <tr>
+                                      <td class="text-center">{{serialNO @index}}</td>
+                                      <td class="text-center">{{user_name }}</td>
+                                      <td class="text-center">{{action_date  }}</td>
+                                      <td class="text-center">{{log_type }}</td>
+                                      <td class="text-center">{{Timestamp  timestamp }}</td>
+                                    </tr>
+                                    {{/each}}
+                                  </tbody>
+                            </table>
+                           </div>
+                          </div>
+                         </fieldset>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

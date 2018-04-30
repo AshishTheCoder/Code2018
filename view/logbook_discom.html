@@ -1,0 +1,1028 @@
+<template name="logbook_discom">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Log Book For Discom</h1>
+                    </div>
+                    <div class="panel-body">
+                        <form id="logbookdiscumform" action="#">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <section class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-12 ">
+                                                    <fieldset class="scheduler-border">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">Invoice Type :</label>
+                                                                            <div class="col-sm-8">
+                                                                              <select name="discomId" class="form-control input-sm" id="ddlEnergyType">
+                                                                                  <option value="">Select Type</option>
+                                                                                  <option value="Energy Invoice">Energy Invoice</option>
+                                                                                  <option value="Incentive Invoice">Incentive Invoice</option>
+                                                                                  <option value="Transmission Invoice">Transmission Invoice</option>
+                                                                                  <option value="SLDC Invoice">SLDC Invoice</option>
+                                                                              </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                            {{#if isEnergyTypeSelected}}
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <section class="panel panel-default">
+                                          <div class="panel-body">
+                                              <div class="row">
+                                                  <div class="col-sm-12 col-md-12 ">
+                                                      <fieldset class="scheduler-border">
+                                                          <legend class="scheduler-border">Log Book For Energy</legend>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4">Party Name: </label>
+                                                                              <div class="col-sm-8">
+                                                                                <select name="discomId" class="form-control input-sm logbookdiscom" id="discomName">
+                                                                                    <option value="">Name of Party</option>
+                                                                                    {{#each returnDiscomNames}}
+                                                                                    <option value="{{discomId}}" state={{discomState}} discomName={{names}}>{{names}}</option>
+                                                                                    {{/each}}
+                                                                                </select>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4">Month:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <select name="month" class="form-control input-sm logbookdiscom" id="month">
+                                                                                      <option value="">Select Month</option>
+                                                                                      {{#each monthReturn}}
+                                                                                      <option value="{{this.value}}">{{this.key}}</option>
+                                                                                      {{/each}}
+                                                                                  </select>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">Type: </label>
+                                                                            <div class="col-sm-8">
+                                                                              <select name="invoice_type" class="form-control input-sm logbookdiscom" id="invoice_type">
+                                                                                  <option value="">-Select Type-</option>
+                                                                                  <option value="Provisional_Invoice">Provisional Invoice</option>
+                                                                                  <option value="Credit">Credit</option>
+                                                                                  <option value="Debit">Debit</option>
+                                                                                  <!-- {{#if showCreditDebit}}
+                                                                                  <option value="Credit">Credit</option>
+                                                                                  <option value="Debit">Debit</option>
+                                                                                  {{/if}} -->
+                                                                              </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    {{#if isMaharashtraAndRajasthanProvisional}}
+                                                                    {{#if returnDynamicOption}}
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4">Invoice State/City: </label>
+                                                                            <div class="col-sm-8">
+                                                                              <select name="invoice_from" class="form-control input-sm logbookdiscom" id="invoice_from">
+                                                                                  <option value="">-Select City-</option>
+                                                                                  {{#each returnDynamicOption}}
+                                                                                  <option value="{{this.value}}">{{this.key}}</option>
+                                                                                  {{/each}}
+                                                                              </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    {{/if}}
+                                                                    {{/if}}
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Financial Year:</label>
+                                                                              <div class="col-sm-8">
+                                                                                <select id='selectFinancialyear' class="form-control form-control-sm input-sm logbookdiscom" name="financial_year">
+                                                                                    <option value="">Financial Year</option>
+                                                                                    {{#each financialYearHelper}}
+                                                                                      <option value="{{this}}">{{this}}</option>
+                                                                                    {{/each}}
+                                                                                </select>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      {{#if isDataAvailableForEnergy}}
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Invoice Number:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom" value="{{returnInitialData.invoice_number}}" name="invoice_number" readonly placeholder="Invoice Number">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      {{/if}}
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          {{#if isDataAvailableForEnergy}}
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Invoice Date:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom" value="{{returnInitialData.energy_invoice_generation_date}}" name="energy_invoice_generation_date" readonly placeholder="Invoice Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4">Due Date: </label>
+                                                                              <div class="col-sm-8">
+                                                                                  <!-- <input type="text" class="form-control input-sm logbookdiscom" value="{{plusDaysInDueDate returnInitialData.energy_invoice_due_date}}" id="newDueDate" readonly name="energy_invoice_due_date" placeholder="Due Date"> -->
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom" value="{{returnInitialData.energy_invoice_due_date}}" id="newDueDate" readonly name="energy_invoice_due_date" placeholder="Due Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Energy Units:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom" value="{{returnInitialData.total_energy}}" name="total_energy" readonly placeholder="Energy Units">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4">Rate Per Unit: </label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom" value="{{returnInitialData.rate_per_unit}}" name="rate_per_unit" readonly placeholder="Rate Per Unit">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4">Amount of Invoice: </label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom amountValue" value="{{returnInitialData.total_amount}}" name="amount_of_invoice" readonly placeholder="Amount of Invoice">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4">Payment Amount: </label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm" id="paymentAmountId" name="payment_amount" placeholder="Payment Amount">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Short Payment:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom" value="{{shortPaymentData}}" id="shortpayment" name="short_payment" readonly placeholder="Short Payment">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Date of Payment:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom dateoflogbookdiscomPayment" id="txtDateOfPaymentEnergy" name="date_of_payment" placeholder="Date of Payment">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4">Period: </label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom" value="{{periodValue returnInitialData.month returnInitialData.year}}" name="period" placeholder="Period" readonly>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Remarks:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom" id="remarks" name="remarks" placeholder="Remarks">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Max Energy:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom" id="max_energy" name="max-energy" value="{{returnInitialData.max_energy}}" readonly placeholder="Max. Energy">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4">Min Energy: </label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom" id="min_energy" name="min-energy" value="{{returnInitialData.min_energy}}" readonly placeholder="Min. Energy">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Surcharge:</label>
+                                                                              <div class="col-sm-8">
+                                                                                <label class="form-control-label">1.25%</label>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4">Surcharge Amount:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom" value="{{showSirCharge}}" id="txtSirChargeAmount" readonly name="sur_charge_amount">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          {{/if}}
+                                                      </fieldset>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </section>
+                                      <div class="row">
+                                          <div class="col-sm-12">
+                                              <div class="form-group row">
+                                                  <div class="col-sm-12">
+                                                     <center><button id="btnSubmitForm" type="submit" class="btn btn-default btn-sm btn-success">Submit</button></center>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              {{#if isDataFromLogBook}}
+                              <!-- Edit Option Is Time Taking thats why we can add delecte option for  last submitted invoice -->
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <section class="panel panel-default">
+                                          <div class="panel-body">
+                                              <div class="row">
+                                                  <div class="col-sm-12 col-md-12 ">
+                                                      <fieldset class="scheduler-border">
+                                                          <legend class="scheduler-border">Energy Log Book Last Submitted Data </legend>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                <table class="table table-bordered" id="exportToExcelDiscom">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th class="text-center">Name of Party</th>
+                                                                            <th class="text-center">Inv No.</th>
+                                                                            <th class="text-center">Energy</th>
+                                                                            <!-- <th class="text-center">Rate/Unit</th> -->
+                                                                            <th class="text-center">Invoice Date</th>
+                                                                            <th class="text-center">Due Date </th>
+                                                                            <th class="text-center">Date of Payment</th>
+                                                                            <th class="text-center">Invoice Amount</th>
+                                                                            <th class="text-center">Payment Amount</th>
+                                                                            <th class="text-center">Short Payment</th>
+                                                                            <!-- <th class="text-center">Surcharge</th> -->
+                                                                            <th class="text-center">Type</th>
+                                                                            <th class="text-center">Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td class="text-center">{{returnInitialData.discom_name}}</td>
+                                                                            <td class="text-center">{{returnInitialData.invoice_number}}</td>
+                                                                            <td class="text-center">{{returnInitialData.total_energy}}</td>
+                                                                            <!-- <td class="text-center">{{returnInitialData.rate_per_unit}}</td> -->
+                                                                            <td class="text-center">{{returnInitialData.energy_invoice_generation_date}}</td>
+                                                                            <td class="text-center">{{returnInitialData.energy_invoice_due_date}}</td>
+                                                                            <td class="text-center">{{returnInitialData.date_of_payment}}</td>
+                                                                            <td class="text-center">{{returnInitialData.amount_of_invoice}}</td>
+                                                                            <td class="text-center">{{returnInitialData.payment_amount}}</td>
+                                                                            <td class="text-center">{{returnInitialData.short_payment}}</td>
+                                                                            <!-- <td class="text-center">{{returnInitialData.sir_charge_amount}}</td> -->
+                                                                            <td class="text-center">{{invoiceTypeFilter returnInitialData.invoice_type}}</td>
+                                                                            <td class="text-center"><a id="btnEditForm" discomId="{{returnInitialData.discomId}}" class="btn btn-default btn-sm btn-primary">Edit</a></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                              </div>
+                                                          </div>
+                                                      </fieldset>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </section>
+                                  </div>
+                              </div>
+                              {{/if}}
+                            {{/if}}
+                            {{#if isTransmissionTypeSelected}}
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <section class="panel panel-default">
+                                          <div class="panel-body">
+                                              <div class="row">
+                                                  <div class="col-sm-12 col-md-12 ">
+                                                      <fieldset class="scheduler-border">
+                                                          <legend class="scheduler-border">Log Book For Transmission </legend>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4">State: </label>
+                                                                              <div class="col-sm-8">
+                                                                                <select name="spdState"  class="form-control input-sm logbookdiscom" id="ddlStateForTC">
+                                                                                    <option value="">Select State</option>
+                                                                                    <option value="Gujarat">Gujarat</option>
+                                                                                    <option value="MP">MP</option>
+                                                                                    <option value="Rajasthan">Rajasthan</option>
+                                                                                </select>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4">Discom State:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <select name="discom_state" class="form-control input-sm logbookdiscom" id="ddlDiscomSateForTC">
+                                                                                      <option value="">Select State</option>
+                                                                                      {{#each discomStateList}}
+                                                                                        <option value="{{this}}">{{this}}</option>
+                                                                                      {{/each}}
+                                                                                  </select>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4">Month:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <select name="month" class="form-control input-sm logbookdiscom" id="ddlMonthTC">
+                                                                                      <option value="">Select Month</option>
+                                                                                      {{#each monthReturn}}
+                                                                                      <option value="{{this.value}}">{{this.key}}</option>
+                                                                                      {{/each}}
+                                                                                  </select>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Financial Year:</label>
+                                                                              <div class="col-sm-8">
+                                                                                <select id='ddlFinancialyearTC' class="form-control form-control-sm input-sm logbookdiscom" name="financial_year">
+                                                                                    <option value="">Select Financial Year</option>
+                                                                                    {{#each financialYearHelper}}
+                                                                                      <option value="{{this}}">{{this}}</option>
+                                                                                    {{/each}}
+                                                                                </select>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Invoice Number:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom" value="{{returnTcData.invoice_number}}" name="invoice_number" readonly placeholder="Invoice Number">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                    {{#if isMPspdStateSelectedTC}}
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4">Energy: </label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom amountValue" value="{{returnTcData.total_energy_or_project_capicity}}" name="total_energy_or_project_capicity" readonly placeholder="Energy">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                    {{else}}
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4">Capacity: </label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom amountValue" value="{{returnTcData.total_energy_or_project_capicity}}" name="total_energy_or_project_capicity" readonly placeholder="Capacity">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                    {{/if}}
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Invoice Date:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom" value="{{returnTcData.generation_date}}" name="generation_date" readonly placeholder="Invoice Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4">Due Date: </label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom" value="{{returnTcData.due_date}}" id="txtDueDateTC" readonly name="due_date" placeholder="Due Date">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4">Amount of Invoice: </label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom amountValue" value="{{returnTcData.total_transmission_invoice}}" id="txtInvoiceAmount" name="total_transmission_invoice" readonly placeholder="Amount of Invoice">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4">Payment Amount: </label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm" id="txtPaymentAmountTC" name="payment_amount" placeholder="Payment Amount">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Short Payment:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom" value="{{shortPaymentAmountTC}}" id="shortpayment" name="short_payment_amount" readonly placeholder="Short Payment">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Date of Payment:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm logbookdiscom" id="txtdDateOfPaymentTC" name="date_of_payment" placeholder="Date of Payment">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Surcharge:</label>
+                                                                              <div class="col-sm-8">
+                                                                                <label class="form-control-label">1.25%</label>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4">Surcharge Amount:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <input type="text" class="form-control input-sm" id="txtSirChargeAmount" value="{{sirChargeAmountTC}}" readonly name="sur_charge_amount">
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                                  <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                          <div class="form-group row">
+                                                                              <label class="col-sm-4 form-control-label">Remarks:</label>
+                                                                              <div class="col-sm-8">
+                                                                                  <textarea type="text" name="remarks" row="2" id="remarks" class="form-control input-sm" placeholder="Enter Remarks"></textarea>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                      </fieldset>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </section>
+                                      <div class="row">
+                                          <div class="col-sm-12">
+                                              <div class="form-group row">
+                                                  <div class="col-sm-12">
+                                                     <center><button id="btnSubmitForm" type="submit" class="btn btn-default btn-sm btn-success">Submit</button></center>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                            {{/if}}
+                            {{#if isSLDCTypeSelected}}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <section class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-12 ">
+                                                        <fieldset class="scheduler-border">
+                                                            <legend class="scheduler-border">Log Book For SLDC </legend>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4">State: </label>
+                                                                                <div class="col-sm-8">
+                                                                                  <select name="spdState"  class="form-control input-sm logbookdiscom" id="ddlStateForSLDC">
+                                                                                      <option value="">Select State</option>
+                                                                                      <option value="Gujarat">Gujarat</option>
+                                                                                      <!-- <option value="MP">MP</option> -->
+                                                                                      <option value="Rajasthan">Rajasthan</option>
+                                                                                  </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4">Discom State:</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <select name="discom_state" class="form-control input-sm logbookdiscom" id="ddlDiscomSateForSLDC">
+                                                                                        <option value="">Select State</option>
+                                                                                        {{#each discomStateListForSLDC}}
+                                                                                          <option value="{{this}}">{{this}}</option>
+                                                                                        {{/each}}
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Financial Year:</label>
+                                                                                <div class="col-sm-8">
+                                                                                  <select id='ddlFinancialyearSLDC' class="form-control form-control-sm input-sm logbookdiscom" name="financial_year">
+                                                                                      <option value="">Select Financial Year</option>
+                                                                                      {{#each financialYearHelper}}
+                                                                                        <option value="{{this}}">{{this}}</option>
+                                                                                      {{/each}}
+                                                                                  </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Period :</label>
+                                                                                <div class="col-sm-8">
+                                                                                  <select id='ddlPeriodSLDC' class="form-control form-control-sm input-sm logbookdiscom" name="document_id">
+                                                                                      <option value="">Select Period</option>
+                                                                                      {{#each periodForSLDC}}
+                                                                                        <option value="{{id}}">{{period}}</option>
+                                                                                      {{/each}}
+                                                                                  </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Invoice Number:</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm logbookdiscom" value="{{returnDataToSLDCInvoice.invoice_number}}" name="invoice_number" readonly placeholder="Invoice Number">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4">Capacity: </label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm logbookdiscom" value="{{returnDataToSLDCInvoice.project_capicity}}" name="project_capicity" readonly placeholder="Capacity">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Invoice Date:</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm logbookdiscom" value="{{returnDataToSLDCInvoice.generation_date}}" name="generation_date" readonly placeholder="Invoice Date">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4">Due Date: </label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm logbookdiscom" value="{{returnDataToSLDCInvoice.due_date}}" id="txtDueDateSLDC" readonly name="due_date" placeholder="Due Date">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4">Amount of Invoice: </label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm logbookdiscom amountValue" value="{{sldcIncoiceAmountFixedTo2 returnDataToSLDCInvoice.total_amount}}" id="txtInvoiceAmount" name="total_amount" readonly placeholder="Amount of Invoice">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4">Payment Amount: </label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm" id="txtPaymentAmountSLDC" name="payment_amount" placeholder="Payment Amount">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Short Payment:</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm logbookdiscom" value="{{shortPaymentAmountSLDC}}" id="shortpayment" name="short_payment_amount" readonly placeholder="Short Payment">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Date of Payment:</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm logbookdiscom" id="txtdDateOfPaymentSLDC" name="date_of_payment" placeholder="Date of Payment">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Surcharge:</label>
+                                                                                <div class="col-sm-8">
+                                                                                  <label class="form-control-label">1.25%</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4">Surcharge Amount:</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm" id="txtSurChargeAmount" value="{{surChargeAmountSLDC}}" readonly name="sur_charge_amount">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Remarks:</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <textarea type="text" name="remarks" row="2" id="remarks" class="form-control input-sm" placeholder="Enter Remarks"></textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12">
+                                                       <center><button id="btnSubmitForm" type="submit" class="btn btn-default btn-sm btn-success">Submit</button></center>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/if}}
+                            {{#if isIncentiveTypeSelected}}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <section class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-12 ">
+                                                        <fieldset class="scheduler-border">
+                                                            <legend class="scheduler-border">Log Book For Incentive</legend>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4">Discom: </label>
+                                                                                <div class="col-sm-8">
+                                                                                  <select name="discomId"  class="form-control input-sm logbookdiscom" id="ddlDiscomStateIC">
+                                                                                      <option value="">Select Discom</option>
+                                                                                      {{#each returnDiscomNamesIC}}
+                                                                                      <option value="{{discomId}}" state="{{discomState}}" discomName="{{names}}">{{discomState}}</option>
+                                                                                      {{/each}}
+                                                                                  </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Financial Year:</label>
+                                                                                <div class="col-sm-8">
+                                                                                  <select id='ddlFinancialyearIncentive' class="form-control form-control-sm input-sm logbookdiscom" name="financial_year">
+                                                                                      <option value="">Select Financial Year</option>
+                                                                                      {{#each financialYearHelper}}
+                                                                                        <option value="{{this}}">{{this}}</option>
+                                                                                      {{/each}}
+                                                                                  </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Invoice Number:</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm logbookdiscom" value="{{incentiveChargesHelper.invoice_number}}" name="invoice_number" readonly placeholder="Invoice Number">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4">Capacity: </label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm logbookdiscom" value="{{incentiveChargesHelper.capacity}}" name="capacity" readonly placeholder="Capacity">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4">Rate: </label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm logbookdiscom" value="{{incentiveChargesHelper.rate_per_unit}}" name="rate_per_unit" readonly placeholder="Rate">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                      <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Invoice Date:</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm logbookdiscom" value="{{incentiveChargesHelper.generation_date}}" name="generation_date" readonly placeholder="Invoice Date">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4">Due Date: </label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm logbookdiscom" value="{{incentiveChargesHelper.due_date}}" id="txtDueDateIC" readonly name="due_date" placeholder="Due Date">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4">Amount of Invoice: </label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm logbookdiscom amountValue" value="{{incentiveChargesHelper.incentive_charges}}" id="txtInvoiceAmount" name="incentive_charges" readonly placeholder="Amount of Invoice">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4">Payment Amount: </label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm" id="txtPaymentAmountIncentive" name="payment_amount" placeholder="Payment Amount">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Short Payment:</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm logbookdiscom" value="{{shortPaymentAmountIC}}" id="shortpayment" name="short_payment_amount" readonly placeholder="Short Payment">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Date of Payment:</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm logbookdiscom" id="txtdDateOfPaymentIC" name="date_of_payment" placeholder="Date of Payment">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Surcharge:</label>
+                                                                                <div class="col-sm-8">
+                                                                                  <label class="form-control-label">1.25%</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4">Surcharge Amount:</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" class="form-control input-sm" id="txtSurChargeAmount" value="{{surChargeAmountIC}}" readonly name="sur_charge_amount">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-6 col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 form-control-label">Remarks:</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <textarea type="text" name="remarks" row="2" id="remarks" class="form-control input-sm" placeholder="Enter Remarks"></textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12">
+                                                       <center><button id="btnSubmitForm" type="submit" class="btn btn-default btn-sm btn-success">Submit</button></center>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/if}}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

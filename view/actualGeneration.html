@@ -1,0 +1,62 @@
+<template name="actual_Generation">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h1 style="font-weight:bold;font-size:28px;text-align:center;">Daily Actual Generation</h1>
+                  </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-1 form-control-label"></label>
+                                            <label class="col-sm-2 form-control-label">Date :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" value="{{today}}" class="form-control input-sm validate" id='dateToday' placeholder="Select Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12">
+                                                        <strong> NOTE : Please submit actual generated schedule in LUs</strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-3">
+                                                        <label>Actual Generated Schedule</label>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" id="generatedSchedule" placeholder="Enter actual generation(LUs)" class="form-control input-sm empty validate number">
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <button type="submit" id="submitJmr" class="btn btn-success center-block">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

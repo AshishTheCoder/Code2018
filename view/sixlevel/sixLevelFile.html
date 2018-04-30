@@ -1,0 +1,305 @@
+<template name="sixLevelFilesInitialization">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                      <h1 style="font-weight:bold;font-size:28px;text-align:center;">Payment Note Approval</h1>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <fieldset class="scheduler-border">
+                                                  <div class="row">
+                                                      <div class="col-sm-12">
+                                                          <div class="form-group row">
+                                                              <div class="col-sm-6 col-md-6">
+                                                                  <div class="form-group row">
+                                                                      <label class="col-sm-4 form-control-label">Payment Note :</label>
+                                                                      <div class="col-sm-8">
+                                                                          <select id='ddlTypeOfPaymentNoteForApproval' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_month">
+                                                                              <option value="">All</option>
+                                                                              <option value="Energy">Energy</option>
+                                                                              <option value="Incentive">Incentive</option>
+                                                                              <option value="SLDC">SLDC</option>
+                                                                              <option value="Transmission">Transmission</option>
+                                                                              <option value="RLDC">RLDC</option>
+                                                                              <!-- <option value="UI">UI</option> -->
+                                                                          </select>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="col-sm-6 col-md-6">
+
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <div class="table table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">S.No.</th>
+                                        <th class="text-center">Payment Note</th>
+                                        <th class="text-center">State</th>
+                                        <th class="text-center" style="background-color:{{userLevelIs 'levelOne'}}">Level-1 Status</th>
+                                        <th class="text-center" style="background-color:{{userLevelIs 'levelTwo'}}">Level-2 Status</th>
+                                        <th class="text-center" style="background-color:{{userLevelIs 'levelThree'}}">Level-3 Status</th>
+                                        <th class="text-center" style="background-color:{{userLevelIs 'levelFour'}}">Level-4 Status</th>
+                                        <th class="text-center" style="background-color:{{userLevelIs 'levelFive'}}">Level-5 Status</th>
+                                        <th class="text-center" style="background-color:{{userLevelIs 'levelSix'}}">Level-6 Status</th>
+                                        <th class="text-center">View PDF</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  {{#each returnHelper}}
+                                    <tr>
+                                        <td class="text-center">{{serial @index}}</td>
+                                        <td class="text-center">{{file_type}}</td>
+                                        <td class="text-center">{{state}}</td>
+                                        <td class="text-center">{{levelOne.status}}</td>
+                                        <td class="text-center">{{levelTwo.status}}</td>
+                                        <td class="text-center">{{levelThree.status}}</td>
+                                        <td class="text-center">{{levelFour.status}}</td>
+                                        <td class="text-center">{{levelFive.status}}</td>
+                                        <td class="text-center">{{levelSix.status}}</td>
+                                        <td class="text-center"><button type="button" filePath="{{file_path}}" class="btn btn-sm btn-info paymentNotePdfBtn">View</button></td>
+                                        <td class="text-center">
+                                          <button type="button" attrId={{_id}} class="btn btn-sm btn-primary actionBtnPaymentNote">Action</button>
+                                          <div id="modalOpenSixLevel" data-toggle='modal' data-target='#SixLevelApprovalModal'></div>
+                                        </td>
+                                    </tr>
+                                  {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="SixLevelApprovalModal" class="modal fade modal-widthincLarge" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-sm-12">
+                        <div class="col-sm-11">
+                            <h4 class="modal-title">Payment Note Status</h4>
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                  <div class="table table-responsive">
+                      <table class="table table-bordered">
+                          <thead>
+                              <tr>
+                                  <th class="text-center" style="width:5%">Level</th>
+                                  <th class="text-center" style="width:20%">Username</th>
+                                  <th class="text-center" style="width:10%">Status</th>
+                                  <th class="text-center" style="width:15%">Forwarded To</th>
+                                  <th class="text-center" style="width:25%">Comment</th>
+                                  <th class="text-center" style="width:25%">Remarks</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td class="text-center">{{returnData.levelOne.level}}</td>
+                                  <td class="text-center">{{returnData.levelOne.username}}</td>
+                                  <td class="text-center">{{returnData.levelOne.status}}</td>
+                                  <td class="text-center">{{returnData.levelOne.forward_to_name}}</td>
+                                  <td class="text-center">{{returnData.levelOne.comment}}</td>
+                                  <td class="text-center">{{returnData.levelOne.remark}}</td>
+                              </tr>
+                              <tr>
+                                  <td class="text-center">{{returnData.levelTwo.level}}</td>
+                                  <td class="text-center">{{returnData.levelTwo.username}}</td>
+                                  <td class="text-center">{{returnData.levelTwo.status}}</td>
+                                  <td class="text-center">{{returnData.levelTwo.forward_to_name}}</td>
+                                  <td class="text-center">{{returnData.levelTwo.comment}}</td>
+                                  <td class="text-center">{{returnData.levelTwo.remark}}</td>
+                              </tr>
+                              <tr>
+                                  <td class="text-center">{{returnData.levelThree.level}}</td>
+                                  <td class="text-center">{{returnData.levelThree.username}}</td>
+                                  <td class="text-center">{{returnData.levelThree.status}}</td>
+                                  <td class="text-center">{{returnData.levelThree.forward_to_name}}</td>
+                                  <td class="text-center">{{returnData.levelThree.comment}}</td>
+                                  <td class="text-center">{{returnData.levelThree.remark}}</td>
+                              </tr>
+                              <tr>
+                                  <td class="text-center">{{returnData.levelFour.level}}</td>
+                                  <td class="text-center">{{returnData.levelFour.username}}</td>
+                                  <td class="text-center">{{returnData.levelFour.status}}</td>
+                                  <td class="text-center">{{returnData.levelFour.forward_to_name}}</td>
+                                  <td class="text-center">{{returnData.levelFour.comment}}</td>
+                                  <td class="text-center">{{returnData.levelFour.remark}}</td>
+                              </tr>
+                              <tr>
+                                  <td class="text-center">{{returnData.levelFive.level}}</td>
+                                  <td class="text-center">{{returnData.levelFive.username}}</td>
+                                  <td class="text-center">{{returnData.levelFive.status}}</td>
+                                  <td class="text-center">{{returnData.levelFive.forward_to_name}}</td>
+                                  <td class="text-center">{{returnData.levelFive.comment}}</td>
+                                  <td class="text-center">{{returnData.levelFive.remark}}</td>
+                              </tr>
+                              <tr>
+                                  <td class="text-center">{{returnData.levelSix.level}}</td>
+                                  <td class="text-center">{{returnData.levelSix.username}}</td>
+                                  <td class="text-center">{{returnData.levelSix.status}}</td>
+                                  <td class="text-center">{{returnData.levelSix.forward_to_name}}</td>
+                                  <td class="text-center">{{returnData.levelSix.comment}}</td>
+                                  <td class="text-center">{{returnData.levelSix.remark}}</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                  <br>
+                  <div class="row">
+                      <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                  <div class="col-sm-6 col-md-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-4 form-control-label">Status:</label>
+                                          <div class="col-sm-8">
+                                              <select id='ddlStatus' class="form-control form-control-sm input-sm">
+                                                  <option value="">Select Status</option>
+                                                  <option value="Approved">Approve</option>
+                                                  <option value="Rejected">Reject</option>
+                                                  {{#if isUserComercialOrMaster}}
+                                                  <option value="Closed">Close</option>
+                                                  {{/if}}
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-6 col-md-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-4 form-control-label">Comment :</label>
+                                          <div class="col-sm-8">
+                                              <textarea type="text" row="2" class="form-control input-sm" id="txtComments" placeholder="Enter Comment"></textarea>
+                                          </div>
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                      {{#if userStats}}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                  <div class="col-sm-6 col-md-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-4 form-control-label">Forward To :</label>
+                                          <div class="col-sm-8">
+                                              <select id='ddlForwardTo' class="form-control form-control-sm input-sm">
+                                                  <option value="">Select User</option>
+                                                  {{#each userComercial}}
+                                                  <option levelNumber="{{profile.registration_form.levelNumber}}" attrName="{{profile.registration_form.name}}" value="{{username}}">{{profile.registration_form.name}}</option>
+                                                  {{/each}}
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-6 col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 form-control-label">Remark :</label>
+                                        <div class="col-sm-8">
+                                            <textarea type="text" row="2" class="form-control input-sm" id="txtRemark" placeholder="Enter Remark"></textarea>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{#each absentUserComment}}
+                          <div class="row">
+                              <div class="col-sm-12">
+                                  <div class="form-group row">
+                                      <center><label class="form-control-label"><u>Level-{{levelNumber}} Status</u></label></center>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-sm-12">
+                                  <div class="form-group row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Status:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control form-control-sm input-sm ddlAbsentUserStatus">
+                                                    <option value="">Select Status</option>
+                                                    <option value="Absent">Absent</option>
+                                                    <option value="On Leave">On Leave</option>
+                                                    <option value="In Meeting">In Meeting</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Comment :</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" row="2" class="form-control input-sm txtAbsentUserStatusComments" placeholder="Enter Comment"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                              </div>
+                          </div>
+                        {{/each}}
+                      {{/if}}
+                        <!-- <div class="row">
+                            <div class="col-sm-12">
+                              <div class="form-group row">
+                                <center>
+                                    <button id='btnSubmitApproval' attrId="{{returnData._id}}" class="btn btn-success">Submit</button>
+                                </center>
+                              </div>
+                            </div>
+                        </div> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-2">
+                              <div class="form-group center-block">
+                                <button id='btnSubmitApproval' attrId="{{returnData._id}}" class="btn btn-success">Submit</button>
+                              </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group center-block">
+                                    <button id='closeModalBtn' class="btn btn-danger center-block" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

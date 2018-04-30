@@ -1,0 +1,180 @@
+<template name="spdLogFilter">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">SPD Log Filter</h1>
+                    </div>
+                    <div class="panel-body">
+                        <section class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                      <div class="col-sm-6">
+                                          <div class="form-group row">
+                                              <label class="col-sm-4 form-control-label">Scheme :</label>
+                                              <div class="col-sm-8">
+                                                  <select id="ddlScheme" class="form-control form-control-sm input-sm">
+                                                    <option value="">Select Scheme</option>
+                                                    {{#each returnSchemes}}
+                                                    <option value="{{scheme}}">{{scheme}}</option>
+                                                    {{/each}}
+                                                  </select>
+                                              </div>
+                                          </div>
+                                      </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">State :</label>
+                                                <div class="col-sm-8">
+                                                    <select id="ddlSPDState" multiple="multiple" class="form-control form-control-sm input-sm">
+                                                      {{#each returnSPDStateList}}
+                                                        <option value="{{this}}">{{this}}</option>
+                                                      {{/each}}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                      {{#if isSPDArrListAvailable}}
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">SPD :</label>
+                                                <div class="col-sm-8">
+                                                    <select id='ddlSPDList' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                      {{#each returnSPDArrList}}
+                                                        <option value="{{spdId}}">{{spdName}}</option>
+                                                      {{/each}}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {{/if}}
+                                    {{#if isStateAndSPDbothAreSelected}}
+                                      <div class="col-sm-6">
+                                          <div class="form-group row">
+                                              <label class="col-sm-4 form-control-label">Filter :</label>
+                                              <div class="col-sm-8">
+                                                  <select id='ddlFilterType' class="form-control form-control-sm input-sm">
+                                                      <option value="">Select Filter Type</option>
+                                                      <option value="Financial Year">Financial Year</option>
+                                                      <option value="Month">Month</option>
+                                                  </select>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      {{/if}}
+                                    </div>
+                                </div>
+                              <!--If Monthly Selected For Invoice Log Filter-->
+                              {{#if isFinancialYearSelected}}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                      <div class="col-sm-6">
+                                          <div class="form-group row">
+                                              <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                              <div class="col-sm-8">
+                                                  <select id='ddlFinancialYear' class="form-control form-control-sm input-sm">
+                                                    <option value="">Select Financial Year</option>
+                                                    {{#each financialYearHelper}}
+                                                      <option value="{{this}}">{{this}}</option>
+                                                    {{/each}}
+                                                  </select>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      {{#if isMonthlySelected}}
+                                      <div class="col-sm-6">
+                                          <div class="form-group row">
+                                              <label class="col-sm-4 form-control-label">Month :</label>
+                                              <div class="col-sm-8">
+                                                  <select id='ddlMonth' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                    {{#each monthShow}}
+                                                      <option value="{{this.value}}">{{this.key}}</option>
+                                                    {{/each}}
+                                                  </select>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      {{/if}}
+                                    </div>
+                                </div>
+                              {{/if}}
+                            </div>
+                        </section>
+                    </div>
+                  {{#if isDataAvailable}}
+                    <div class="panel-body" style="overflow-x:scroll">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <fieldset>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                          <table class="table table-bordered">
+                                              <thead>
+                                                  <tr>
+                                                      <th class="text-center">S.No</th>
+                                                      <!-- <th class="text-center">State</th> -->
+                                                      <th class="text-center">&nbsp;&nbsp;Name&nbsp;of&nbsp;SPD&nbsp;&nbsp;</th>
+                                                      <th class="text-center">Invoice No.</th>
+                                                      <th class="text-center">Invoice Type</th>
+                                                      <th class="text-center">&nbsp;Month&nbsp;</th>
+                                                      <th class="text-center">Invoice&nbsp;Date</th>
+                                                      <th class="text-center">&nbsp;&nbsp;Due&nbsp;Date&nbsp;&nbsp;</th>
+                                                      <th class="text-center">&nbsp;Unit&nbsp;(kWh)&nbsp;</th>
+                                                      <th class="text-center">&nbsp;Rate&nbsp;</th>
+                                                      <th class="text-center">Invoice Amount</th>
+                                                      <th class="text-center">Payment&nbsp;Amount</th>
+                                                      <th class="text-center">Short&nbsp;Payment</th>
+                                                      <th class="text-center">Date&nbsp;of&nbsp;Payment</th>
+                                                      <th class="text-center">&nbsp;&nbsp;&nbsp;Remarks&nbsp;&nbsp;&nbsp;</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                                {{#each returnSPDTable}}
+                                                  <tr>
+                                                      <td class="text-center">{{serial @index}}</td>
+                                                      <!-- <td class="text-center">{{clientState}}</td> -->
+                                                      <td class="text-center">{{nameOfEntity}}</td>
+                                                      <td class="text-center">{{breakData1 invoiceNumber}}<br>{{breakData2 invoiceNumber}}<br>{{breakData3 invoiceNumber}}<br>{{breakData4 invoiceNumber}}</td>
+                                                      <td class="text-center">{{invoiceType}}</td>
+                                                      <td class="text-center">{{month}}</td>
+                                                      <td class="text-center">{{dateOfReceipt}}</td>
+                                                      <td class="text-center">{{dueDate}}</td>
+                                                      <td class="text-center">{{billedUnits}}</td>
+                                                      <td class="text-center">{{rate}}</td>
+                                                      <td class="text-center">{{invoiceAmount}}</td>
+                                                      <td class="text-center"><input type="text" attrInd="{{@index}}" class="form-control input-sm clsPaymentAmount{{@index}}" attrInvoiceAmount="{{invoiceAmount}}" value="0" id="txtPaymentAmount" placeholder="Payment Amount"></td>
+                                                      <td class="text-center"><input type="text" attrInd="{{@index}}" class="form-control input-sm clsShortPayment{{@index}}" readonly placeholder="Short Payment"></td>
+                                                      <td class="text-center"><input type="text" attrInd="{{@index}}" class="form-control input-sm clsDateOfPayment{{@index}} txtFromClass" id="txtDateOfPayment" placeholder="Select Date of Payment"></td>
+                                                      <td class="text-center"><input type="text" attrInd="{{@index}}" class="form-control input-sm clsRemarks{{@index}}"  placeholder="Remarks"></td>
+                                                  </tr>
+                                                {{/each}}
+                                              </tbody>
+                                          </table>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-10"></div>
+                                                <div class="col-sm-2">
+                                                   <center><button id="btnSubmitForAll" class="btn btn-default btn-sm btn-success">Submit</button></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                  {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

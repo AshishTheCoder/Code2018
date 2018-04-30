@@ -1,0 +1,12 @@
+<template name="layout">
+       {{#if isLoggedin}}
+    <div class="container-fluid">
+        <div class="row">
+            {{> header}}
+            {{> yield }}
+        </div>
+    </div>
+       {{else}}
+        {{> yield}}
+        {{/if}}
+</template>

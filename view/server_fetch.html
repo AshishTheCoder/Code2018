@@ -1,0 +1,204 @@
+<template name="serverFetch">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Fetch Available Data</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Select Date :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="selectDate" class="form-control input-sm" placeholder="Select Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <center>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" id="inlineRadio" class="radio" name="inlineRadioOptions" value="NRLDC">NRLDC
+                                                    </label>
+                                                </center>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <center>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" id="inlineRadio" class="radio" name="inlineRadioOptions" value="WRLDC">WRLDC
+                                                    </label>
+                                                </center>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <center>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" id="inlineRadio" class="radio" name="inlineRadioOptions" value="ERLDC">ERLDC
+                                                    </label>
+                                                </center>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <center>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" id="inlineRadio" class="radio" name="inlineRadioOptions" value="NERLDC">NERLDC
+                                                    </label>
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{#if showNRContent}}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">
+                                                <label>List of State :</label>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <select id="selectedState" class="form-control input-sm">
+                                                    <option value="">Select Discom</option>
+                                                    <option value="Rajasthan">Rajasthan</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-sm-3"></div>
+                                                <div class="col-sm-6">
+                                                    <label class="radio-inline ">
+                                                        <button class="btn btn-sm btn-primary" id="getNRdata">Submit</button>
+                                                    </label>
+                                                </div>
+
+                                                <br>
+                                                <div class="col-sm-6">
+                                                    <label class="radio-inline">
+                                                      <span>Working Status <strong>{{returnStatus}}</strong></span>
+                                                      <br />
+                                                        <span>Last fetched at <strong>{{showLastUpdated}}</strong></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}} {{#if showERContent}}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">
+                                                <label>List of State :</label>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <select id="selectedStateER" class="form-control input-sm">
+                                                    <option value="">Select Discom</option>
+                                                    <option value="Jharkhand">Jharkhand & Assam & Odisha</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-sm-3"></div>
+                                                <div class="col-sm-6">
+                                                    <label class="radio-inline ">
+                                                        <button class="btn btn-sm btn-primary" id="getERdata">Submit</button>
+                                                    </label>
+                                                </div>
+
+                                                <br>
+                                                <div class="col-sm-6">
+                                                    <label class="radio-inline ">
+                                                      <span>Working Status <strong>{{returnStatus}}</strong></span>
+                                                      <br />
+                                                        <span>Last fetched at <strong>{{showLastUpdated}}</strong></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}} {{#if showNERContent}}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">
+                                                <label>List of State :</label>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <select id="selectedStateNER" class="form-control input-sm">
+                                                    <option value="">Select Discom</option>
+                                                    <option value="Assam">Assam</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-sm-3"></div>
+                                                <div class="col-sm-6">
+                                                    <label class="radio-inline ">
+                                                        <button class="btn btn-sm btn-primary" id="getNERdata">Submit</button>
+                                                    </label>
+                                                </div>
+
+                                                <br>
+                                                <div class="col-sm-6">
+                                                    <label class="radio-inline ">
+                                                      <span>Working Status <strong>{{returnStatus}}</strong></span>
+                                                      <br />
+                                                        <span>Last fetched at <strong>{{showLastUpdated}}</strong></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}} {{#if showWRContent}}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">
+                                                <label>List of State :</label>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <select id="selectedStateWR" class="form-control input-sm">
+                                                    <option value="">Select Discom</option>
+                                                    <option value="MP">MP</option>
+                                                    <option value="Rajasthan">Rajasthan</option>
+                                                    <option value="Gujarat">Gujarat</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-sm-3"></div>
+                                                <div class="col-sm-6">
+                                                    <label class="radio-inline ">
+                                                        <button class="btn btn-sm btn-primary" id="getWRdata">Submit</button>
+                                                    </label>
+                                                </div>
+
+                                                <br>
+                                                <div class="col-sm-6">
+                                                    <label class="radio-inline ">
+                                                      <span>Working Status <strong>{{returnStatus}}</strong></span>
+                                                      <br />
+                                                        <span>Last fetched at <strong>{{showLastUpdated}}</strong></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

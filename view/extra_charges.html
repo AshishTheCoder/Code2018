@@ -1,0 +1,269 @@
+<template name="extra_charges">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h1 style="font-weight:bold;font-size:28px;text-align:center;">Extra Charges</h1>
+                  </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form id="extrachargesform" class="" action="#">
+                                    <section class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+
+
+                                                    <fieldset>
+                                                        <legend>Extra Charges</legend>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <label class="col-sm-4 form-control-label datetimepicker">From :</label>
+                                                                        <div class="col-sm-8">
+                                                                            <input type="text" name="fromdate" placeholder="Enter from date" class="form-control input-sm extraCharges defaultdate ">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <label class="col-sm-4 form-control-label datetimepicker">To :</label>
+                                                                        <div class="col-sm-8">
+                                                                            <input type="text" name="todate" placeholder="Enter to date" class="form-control input-sm extraCharges defaultdate">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <div class="col-sm-4"></div>
+                                                                        <div class="col-sm-5">
+                                                                            <label class="radio-inline ">
+                                                                                <input type="radio" name="inlineRadioOptions" id="inlineRadio" class="extraCharges" value="SPD"> SPDs
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="col-sm-3">
+                                                                            <label class="radio-inline ">
+                                                                                <input type="radio" name="inlineRadioOptions" id="inlineRadio" class="extraCharges" value="DISCOM"> DISCOMs
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        {{#if spdrediobuttonischecked}}
+                                                                        <label class="col-sm-4 form-control-label">SPD Name :</label>
+                                                                        <div class="col-sm-8">
+                                                                            <select class="form-control form-control-sm input-sm extraCharges" id="select_spd" name="select_spd">
+                                                                                <option value="">SPDs</option>
+                                                                                <option value="father">abc</option>
+                                                                                <option value="mother">def</option>
+                                                                                <option value="husband">hij</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        {{/if }} {{#if discomrediobuttonischecked}}
+                                                                        <label class="col-sm-4 form-control-label">Discom Name:</label>
+                                                                        <div class="col-sm-8">
+                                                                            <select class="form-control form-control-sm input-sm extraCharges" id="select_discom" name="select_discom">
+                                                                                <option value="">DISCOMs</option>
+                                                                                <option value="father">abc</option>
+                                                                                <option value="mother">def</option>
+                                                                                <option value="husband">hij</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        {{/if }}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6 ">
+                                                                        <label for="inputCurrentMode" class="control-label col-sm-4">Contracted Capacity (MW):</label>
+                                                                        <div class="col-sm-8">
+                                                                            <input type="text" class="form-control right extraCharges" placeholder=" Enter contracted capacity" readonly="" name="contracted_capacity" value="ReadOnly">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6">
+                                                                        <label for="inputCurrentMode" class="control-label col-sm-4">Credit/Debit (If any):</label>
+                                                                        <div class="col-sm-8">
+                                                                            <input type="text" class="form-control right extraCharges" placeholder="Enter Credit or Debit " name="credit_debit">
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6">
+                                                                        <label for="inputCurrentMode" class="control-label col-sm-4">SLDC Operations Charges:</label>
+                                                                        <div class="col-sm-8">
+                                                                            <input type="text" class="form-control right extraCharges" placeholder="Enter SLDC operations charges " name="sldc_opeartion_charges">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <label for="inputCurrentMode" class="control-label col-sm-4">Transmission Charges:</label>
+                                                                        <div class="col-sm-8">
+                                                                            <input type="text" class="form-control right extraCharges" placeholder="Enter transmission charges " name="transmission_charges">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6">
+
+                                                                        <label for="inputCurrentMode" class="control-label col-sm-4">UI Charges :</label>
+                                                                        <div class="col-sm-8">
+                                                                            <input type="text" class="form-control right extraCharges" placeholder="Enter UI charges " name="ui_charges">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6">
+                                                                        <label for="inputCurrentMode" class="control-label col-sm-4">RLDC Charges :</label>
+                                                                        <div class="col-sm-8">
+                                                                            <input type="text" class="form-control right extraCharges" placeholder="Enter RLDC charges " name="rldc_charges">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-6 pull-left">
+                                                <a href="#" type='submit' class="btn btn-default btn-sm btn-info pull-left" id="priviewbtn" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-submit">Preview</span></a>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <button type="submit" class="btn btn-default btn-sm btn-success pull-right">
+                                                    <span class="glyphicon glyphicon-submit">Submit</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Test Days-->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4>Extra Charges</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="fromdate">From :</label>
+                                    <input type="text" name="fromdate" class="form-control input-sm" readonly="" value="{{returnModalData.fromdate}}">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="todate">To :</label>
+                                    <input type="text" name="todate" class="form-control input-sm" readonly="" value="{{returnModalData.todate}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">SPDs/ DISCOMs:</label>
+                                    <input type="text" class="form-control" readonly="" value="{{returnModalData.inlineRadioOptions}}">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    {{#if spdrediobuttonischecked}}
+                                    <label for="">SPD Name :</label>
+                                    <input type="text" class="form-control" readonly="" value="{{returnModalData.select_spd}}"> {{/if }} {{#if discomrediobuttonischecked}}
+                                    <label>Discom Name:</label>
+                                    <input type="text" class="form-control" readonly="" value="{{returnModalData.select_discom}}"> {{/if }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="inputCurrentMode">Contracted Capacity (MW):</label>
+                                    <input type="text" class="form-control" readonly="" name="contracted_capacity" value="{{returnModalData.contracted_capacity}}">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="inputCurrentMode">Credit/Debit (If any):</label>
+                                    <input type="text" class="form-control" readonly="" name="credit_debit" value="{{returnModalData.credit_debit}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="inputCurrentMode">SLDC Operations Charges:</label>
+                                    <input type="text" class="form-control" readonly="" name="sldc_opeartion_charges" value="{{returnModalData.sldc_opeartion_charges}}">
+                                </div>SLDC Operations Charges
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="inputCurrentMode">Transmission Charges:</label>
+                                    <input type="text" class="form-control" readonly="" name="transmission_charges" value="{{returnModalData.transmission_charges}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="inputCurrentMode">UI Charges:</label>
+                                    <input type="text" class="form-control" readonly="" name="ui_charges" value="{{returnModalData.ui_charges}}">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="inputCurrentMode">RLDC Charges:</label>
+                                    <input type="text" class="form-control" readonly="" name="rldc_charges" value="{{returnModalData.rldc_charges}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-sm btn-warning" data-dismiss="modal">Print</button> -->
+                    <center>
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

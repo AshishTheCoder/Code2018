@@ -1,0 +1,495 @@
+<template name="sixLevelApprovedFiles">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Payment Made</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div class="form-group row">
+                                          <div class="col-sm-6">
+                                              <label class="radio-inline">
+                                                  <input type="radio" name="inlineRadio" id="radioBtnForType" value="paymentMadeToSPD">Payment Made to SPD
+                                              </label>
+                                          </div>
+                                          <div class="col-sm-6">
+                                              <label class="radio-inline">
+                                                  <input type="radio" name="inlineRadio" id="radioBtnForType" value="paymentMadeToSLDCRLDC">Payment Made to SLDC/RLDC
+                                              </label>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <br>
+                              {{#if paymentMadeToSPD}}
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                          <div class="col-sm-6">
+                                              <div class="form-group row">
+                                                  <label class="col-sm-4 form-control-label">Type of Filter :</label>
+                                                  <div class="col-sm-8">
+                                                      <select id="ddlFilterType" class="form-control form-control-sm input-sm">
+                                                          <option value="">Select Filter</option>
+                                                          <option value="financialYear">Financial Year</option>
+                                                          <option value="month">Month</option>
+                                                          <option value="dueDate">Due Date</option>
+                                                          <option value="dateOfPayment">Date of Payment</option>
+                                                      </select>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          {{#if financialYearSelected}}
+                                            <div class="col-sm-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 form-control-label">Financial Year:</label>
+                                                    <div class="col-sm-8">
+                                                        <select id='ddlFinancialYear' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                          {{#each financialYearHelper}}
+                                                            <option value="{{this._id}}">{{this}}</option>
+                                                          {{/each}}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{#if isFySelected}}
+                                              <div class="col-sm-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Scheme:</label>
+                                                      <div class="col-sm-8">
+                                                          <select id='ddlScheme' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                            {{#each returnSchemes}}
+                                                              <option value="{{scheme}}">{{scheme}}</option>
+                                                            {{/each}}
+                                                          </select>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              {{#if isSchemeSelected}}
+                                                <div class="col-sm-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 form-control-label">SPD:</label>
+                                                        <div class="col-sm-8">
+                                                            <select id='ddlSPDList' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                              {{#each returnSPDlist}}
+                                                                <option value="{{this._id}}">{{profile.registration_form.name_of_spd}}</option>
+                                                              {{/each}}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                              {{/if}}
+                                            {{/if}}
+                                          {{/if}}
+                                          <!--filterType Monthly Is Selected  -->
+                                           {{#if monthFilterSelected}}
+                                             <div class="col-sm-6">
+                                                 <div class="form-group row">
+                                                     <label class="col-sm-4 form-control-label">Financial Year:</label>
+                                                     <div class="col-sm-8">
+                                                         <select id='ddlFinancialYear' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                           {{#each financialYearHelper}}
+                                                             <option value="{{this}}">{{this}}</option>
+                                                           {{/each}}
+                                                         </select>
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                             {{#if isFyForMonthSelected}}
+                                              <div class="col-sm-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Month :</label>
+                                                      <div class="col-sm-8">
+                                                          <select id='ddlMonth' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                              {{#each monthShow}}
+                                                              <option value="{{this.value}}">{{this.key}}</option>
+                                                              {{/each}}
+                                                          </select>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              {{#if isMonthSelected}}
+                                                <div class="col-sm-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 form-control-label">Scheme:</label>
+                                                        <div class="col-sm-8">
+                                                            <select id='ddlScheme' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                              {{#each returnSchemes}}
+                                                                <option value="{{scheme}}">{{scheme}}</option>
+                                                              {{/each}}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                  {{#if isSchemeSelected}}
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 form-control-label">SPD:</label>
+                                                            <div class="col-sm-8">
+                                                                <select id='ddlSPDList' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                                  {{#each returnSPDlist}}
+                                                                    <option value="{{this._id}}">{{profile.registration_form.name_of_spd}}</option>
+                                                                  {{/each}}
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                  {{/if}}
+                                                {{/if}}
+                                              {{/if}}
+                                          {{/if}}
+                                      </div>
+                                      <!--filterType Due Date Or Date of rececipe is Selected  -->
+                                      <div class="col-sm-12">
+                                        {{#if dueDateSelected}}
+                                          <div class="col-sm-6">
+                                              <div class="form-group row">
+                                                  <label class="col-sm-4 form-control-label">From Date:</label>
+                                                  <div class="col-sm-8">
+                                                      <input type="text" class="form-control input-sm" id="txtFromDate" placeholder="Select From Date">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-sm-6">
+                                              <div class="form-group row">
+                                                  <label class="col-sm-4 form-control-label">To Date :</label>
+                                                  <div class="col-sm-8">
+                                                      <input type="text" class="form-control input-sm" id="txtToDate" placeholder="Select To Date">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          {{#if datesAreSelected}}
+                                            <div class="col-sm-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 form-control-label">Scheme:</label>
+                                                    <div class="col-sm-8">
+                                                        <select id='ddlScheme' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                          {{#each returnSchemes}}
+                                                            <option value="{{scheme}}">{{scheme}}</option>
+                                                          {{/each}}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{#if isSchemeSelected}}
+                                              <div class="col-sm-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">SPD:</label>
+                                                      <div class="col-sm-8">
+                                                          <select id='ddlSPDList' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                            {{#each returnSPDlist}}
+                                                              <option value="{{this._id}}">{{profile.registration_form.name_of_spd}}</option>
+                                                            {{/each}}
+                                                          </select>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                            {{/if}}
+                                          {{/if}}
+                                        {{/if}}
+                                      </div>
+                                  </div>
+                                  {{#if isDataReceived}}
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                          <section class="panel panel-default">
+                                              <div class="panel-body" style="overflow-x:scroll">
+                                                  <div class="row">
+                                                      <div class="col-sm-12 col-md-12 ">
+                                                          <fieldset class="scheduler-border">
+                                                              <legend class="scheduler-border">Approved Files</legend>
+                                                              <table class="table table-responsive table-bordered">
+                                                                  <thead>
+                                                                      <tr>
+                                                                          <th class="text-center">S.No</th>
+                                                                          <th class="text-center">Name&nbsp;of&nbsp;Entity</th>
+                                                                          <th class="text-center">State</th>
+                                                                          <th class="text-center">Invoice Number</th>
+                                                                          <th class="text-center">Date&nbsp;of&nbsp;Receipt of Invoice by SECI</th>
+                                                                          <th class="text-center">&nbsp;&nbsp;Due&nbsp;Date&nbsp;&nbsp;</th>
+                                                                          <th class="text-center">Month</th>
+                                                                          <th class="text-center">Financial&nbsp;Year</th>
+                                                                          <th class="text-center">Billed Units (kWh)</th>
+                                                                          <th class="text-center">Rate&nbsp;Per Unit (Rs)</th>
+                                                                          <th class="text-center">Invoice Amount(Rs)</th>
+                                                                          <th class="text-center">Amount Paid to Developer</th>
+                                                                          <th class="text-center">Short Paymet</th>
+                                                                          <th class="text-center">Remarks</th>
+                                                                          <th class="text-center">PDF</th>
+                                                                      </tr>
+                                                                  </thead>
+                                                                  <tbody>
+                                                                    {{#each returnDataToUI}}
+                                                                      <tr>
+                                                                          <td class="text-center">{{serial @index}}</td>
+                                                                          <td class="text-center">{{logBook.nameOfEntity}}</td>
+                                                                          <td class="text-center">{{logBook.clientState}}</td>
+                                                                          <td class="text-center">{{breakData1 logBook.invoiceNumber}}<br>{{breakData2 logBook.invoiceNumber}}<br>{{breakData3 logBook.invoiceNumber}}<br>{{breakData4 logBook.invoiceNumber}}</td>
+                                                                          <td class="text-center">{{logBook.dateOfReceipt}}</td>
+                                                                          <td class="text-center">{{logBook.dueDate}}</td>
+                                                                          <td class="text-center">{{logBook.month}}</td>
+                                                                          <td class="text-center">{{logBook.financial_year}}</td>
+                                                                          <td class="text-center">{{logBook.billedUnits}}</td>
+                                                                          <td class="text-center">{{logBook.rate}}</td>
+                                                                          <td class="text-center">{{logBook.invoiceAmount}}</td>
+                                                                          <td class="text-center">{{logBook.paymentMode}}</td>
+                                                                          <td class="text-center">{{logBook.shortPaymentDone}}</td>
+                                                                          <td class="text-center">{{logBook.remark}}</td>
+                                                                          <td class="text-center"><button id='viewInvoicePdf' filePath="{{paymentNote.file_path}}" class="btn btn-primary">View</button></td>
+                                                                      </tr>
+                                                                      {{/each}}
+                                                                  </tbody>
+                                                              </table>
+                                                          </fieldset>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </section>
+                                      </div>
+                                  </div>
+                                  {{/if}}
+                              {{/if}}
+<!--????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????  -->
+                              {{#if paymentMadeToSLDCRLDC}}
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                          <div class="col-sm-6">
+                                              <div class="form-group row">
+                                                  <label class="col-sm-4 form-control-label">Type of Filter :</label>
+                                                  <div class="col-sm-8">
+                                                      <select id="ddlFilterType" class="form-control form-control-sm input-sm">
+                                                          <option value="">Select Filter</option>
+                                                          <option value="financialYear">Financial Year</option>
+                                                          <option value="month">Month</option>
+                                                          <!-- <option value="dueDate">Due Date</option>
+                                                          <option value="dateOfPayment">Date of Payment</option> -->
+                                                      </select>
+                                                  </div>
+                                              </div>
+                                          </div>
+
+                                          {{#if financialYearSelected}}
+                                            <div class="col-sm-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 form-control-label">Financial Year:</label>
+                                                    <div class="col-sm-8">
+                                                        <select id='ddlFinancialYear' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                          {{#each financialYearHelper}}
+                                                            <option value="{{this._id}}">{{this}}</option>
+                                                          {{/each}}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{#if isFySelected}}
+                                              <div class="col-sm-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Type:</label>
+                                                      <div class="col-sm-8">
+                                                          <select id='ddlPaymentNoteType' class="form-control form-control-sm input-sm">
+                                                              var<option value="">Selecte RLDC</option>
+                                                              <option value="SLDC">SLDC</option>
+                                                              <option value="RLDC">RLDC</option>
+                                                          </select>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              {{#if ispaymentNoteTypeSelected}}
+                                              <div class="col-sm-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">State:</label>
+                                                      <div class="col-sm-8">
+                                                          <select id='ddlStateForRLDC' class="form-control form-control-sm input-sm">
+                                                              <option value="">Select State</option>
+                                                              {{#if rldcTypeSelected}}
+                                                              <option value="Gujarat">Gujarat</option>
+                                                              <option value="MP">MP</option>
+                                                              {{/if}}
+                                                              {{#if sldcTypeSelected}}
+                                                              <option value="Rajasthan">Rajasthan</option>
+                                                              {{/if}}
+                                                          </select>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              {{/if}}
+                                            {{/if}}
+                                          {{/if}}
+
+
+                                          <!--filterType Monthly Is Selected  -->
+                                           {{#if monthFilterSelected}}
+                                             <div class="col-sm-6">
+                                                 <div class="form-group row">
+                                                     <label class="col-sm-4 form-control-label">Financial Year:</label>
+                                                     <div class="col-sm-8">
+                                                         <select id='ddlFinancialYear' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                           {{#each financialYearHelper}}
+                                                             <option value="{{this._id}}">{{this}}</option>
+                                                           {{/each}}
+                                                         </select>
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                             {{#if isFyForMonthSelected}}
+                                             <div class="col-sm-6">
+                                                 <div class="form-group row">
+                                                     <label class="col-sm-4 form-control-label">Month :</label>
+                                                     <div class="col-sm-8">
+                                                         <select id='ddlMonth' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                             {{#each monthShow}}
+                                                             <option value="{{this.value}}">{{this.key}}</option>
+                                                             {{/each}}
+                                                         </select>
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                             {{#if isFNYearSelected}}
+                                               <div class="col-sm-6">
+                                                   <div class="form-group row">
+                                                       <label class="col-sm-4 form-control-label">Type:</label>
+                                                       <div class="col-sm-8">
+                                                           <select id='ddlPaymentNoteType' class="form-control form-control-sm input-sm">
+                                                               var<option value="">Selecte RLDC</option>
+                                                               <option value="SLDC">SLDC</option>
+                                                               <option value="RLDC">RLDC</option>
+                                                           </select>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                               {{#if ispaymentNoteTypeSelected}}
+                                               <div class="col-sm-6">
+                                                   <div class="form-group row">
+                                                       <label class="col-sm-4 form-control-label">State:</label>
+                                                       <div class="col-sm-8">
+                                                           <select id='ddlStateForRLDC' class="form-control form-control-sm input-sm">
+                                                               <option value="">Select State</option>
+                                                               {{#if rldcTypeSelected}}
+                                                               <option value="Gujarat">Gujarat</option>
+                                                               <option value="MP">MP</option>
+                                                               {{/if}}
+                                                               {{#if sldcTypeSelected}}
+                                                               <option value="Rajasthan">Rajasthan</option>
+                                                               {{/if}}
+                                                           </select>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                               {{/if}}
+                                             {{/if}}
+                                             {{/if}}
+                                          {{/if}}
+                                      </div>
+
+
+                                      <!--filterType Due Date Or Date of rececipe is Selected  -->
+                                      <div class="col-sm-12">
+                                        {{#if dueDateSelected}}
+                                          <div class="col-sm-6">
+                                              <div class="form-group row">
+                                                  <label class="col-sm-4 form-control-label">From Date:</label>
+                                                  <div class="col-sm-8">
+                                                      <input type="text" class="form-control input-sm" id="txtFromDate" placeholder="Select From Date">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-sm-6">
+                                              <div class="form-group row">
+                                                  <label class="col-sm-4 form-control-label">To Date :</label>
+                                                  <div class="col-sm-8">
+                                                      <input type="text" class="form-control input-sm" id="txtToDate" placeholder="Select To Date">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          {{#if isFNYearSelected}}
+                                            <div class="col-sm-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 form-control-label">Type:</label>
+                                                    <div class="col-sm-8">
+                                                        <select id='ddlPaymentNoteType' class="form-control form-control-sm input-sm">
+                                                            var<option value="">Selecte RLDC</option>
+                                                            <option value="SLDC">SLDC</option>
+                                                            <option value="RLDC">RLDC</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{#if ispaymentNoteTypeSelected}}
+                                            <div class="col-sm-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 form-control-label">State:</label>
+                                                    <div class="col-sm-8">
+                                                        <select id='ddlStateForRLDC' class="form-control form-control-sm input-sm">
+                                                            <option value="">Select State</option>
+                                                            {{#if rldcTypeSelected}}
+                                                            <option value="Gujarat">Gujarat</option>
+                                                            <option value="MP">MP</option>
+                                                            {{/if}}
+                                                            {{#if sldcTypeSelected}}
+                                                            <option value="Rajasthan">Rajasthan</option>
+                                                            {{/if}}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{/if}}
+                                          {{/if}}
+                                        {{/if}}
+                                      </div>
+                                  </div>
+                                  {{#if isDataReceived}}
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                          <section class="panel panel-default">
+                                              <div class="panel-body">
+                                                  <div class="row">
+                                                      <div class="col-sm-12 col-md-12 ">
+                                                          <fieldset class="scheduler-border">
+                                                              <legend class="scheduler-border">Approved Files</legend>
+                                                              <table class="table table-responsive table-bordered">
+                                                                  <thead>
+                                                                      <tr>
+                                                                          <th class="text-center">Sr. No.</th>
+                                                                          <th class="text-center">State</th>
+                                                                          <th class="text-center">Type</th>
+                                                                          <th class="text-center">Month</th>
+                                                                          <th class="text-center">Year</th>
+                                                                          <th class="text-center">Generation Date</th>
+                                                                          <th class="text-center">PDF</th>
+                                                                      </tr>
+                                                                  </thead>
+                                                                  <tbody>
+                                                                    {{#each returnDataToUI}}
+                                                                      <tr>
+                                                                          <td class="text-center">{{serial @index}}</td>
+                                                                          <td class="text-center">{{data.state}}</td>
+                                                                          <td class="text-center">{{data.type}}</td>
+                                                                          <td class="text-center">{{data.month}}</td>
+                                                                          <td class="text-center">{{data.year}}</td>
+                                                                          <td class="text-center">{{data.generatedDate}}</td>
+                                                                          <td class="text-center"><button id='viewInvoicePdf' filePath="{{data.file_path}}" class="btn btn-primary">View</button></td>
+                                                                      </tr>
+                                                                      {{/each}}
+                                                                  </tbody>
+                                                              </table>
+                                                          </fieldset>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </section>
+                                      </div>
+                                  </div>
+                                  {{/if}}
+                              {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

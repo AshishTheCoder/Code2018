@@ -1,0 +1,234 @@
+<template name="discomLogFilterReporting">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Discom Log Filter Report</h1>
+                    </div>
+                    <div class="panel-body">
+                        <section class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Invoice Type :</label>
+                                                <div class="col-sm-7">
+                                                    <select id="ddlInvoiceType" multiple="multiple" class="form-control form-control-sm input-sm">
+                                                        <option value="Energy">Energy</option>
+                                                        <option value="Incentive">Incentive</option>
+                                                        <option value="SLDC">SLDC</option>
+                                                        <option value="Transmission">Transmission</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{#if ifInvoiceTypeSelected}}
+                                          <div class="col-sm-6">
+                                              <div class="form-group row">
+                                                  <label class="col-sm-4 form-control-label">Filter Type :</label>
+                                                  <div class="col-sm-8">
+                                                      <select id='ddlFilterType' class="form-control form-control-sm input-sm">
+                                                          <option value="">Select Filter Type</option>
+                                                          <option value="Financial Year">Financial Year</option>
+                                                          <option value="Month">Month</option>
+                                                          <option value="Payment Received">Payment Received</option>
+                                                      </select>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      {{/if}}
+                                    </div>
+                                </div>
+                                <!--If Yearly Selected For Invoice Log Filter-->
+                                {{#if isFilterTypeFYSelected}}
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                          <div class="col-sm-6">
+                                              <div class="form-group row">
+                                                  <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                  <div class="col-sm-8">
+                                                      <select id='ddlFinancialYear' class="form-control form-control-sm input-sm">
+                                                        <option value="">Select Financial Year</option>
+                                                        {{#each financialYearHelper}}
+                                                          <option value="{{this}}">{{this}}</option>
+                                                        {{/each}}
+                                                      </select>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      {{#if isDisomSeletcted}}
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">Select Discom:</label>
+                                                <div class="col-sm-8">
+                                                    <select id='ddlDiscomList' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                      {{#each discomListArr}}
+                                                        <option value="{{discomId}}">{{state}}</option>
+                                                      {{/each}}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      {{/if}}
+                                      </div>
+                                  </div>
+                                {{/if}}
+
+                                <!--If Monthly Selected For Invoice Log Filter-->
+                                {{#if isFilterTypeMonth}}
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                       <div class="col-sm-6">
+                                           <div class="form-group row">
+                                               <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                               <div class="col-sm-8">
+                                                   <select id='ddlFinancialYearSingle' class="form-control form-control-sm input-sm">
+                                                     <option value="">Select Financial Year</option>
+                                                     {{#each financialYearHelper}}
+                                                       <option value="{{this}}">{{this}}</option>
+                                                     {{/each}}
+                                                   </select>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       {{#if isSingleFYSelected}}
+                                       <div class="col-sm-6">
+                                           <div class="form-group row">
+                                               <label class="col-sm-4 form-control-label">Month :</label>
+                                               <div class="col-sm-8">
+                                                   <select id='ddlMonth' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                     {{#each monthShow}}
+                                                       <option value="{{this.value}}">{{this.key}}</option>
+                                                     {{/each}}
+                                                   </select>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       {{/if}}
+                                      </div>
+                                  </div>
+                                  {{#if isFYandMonthSeletcted}}
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                              <div class="col-sm-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 form-control-label">Select Discom:</label>
+                                                      <div class="col-sm-8">
+                                                          <select id='ddlDiscomList' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                            {{#each discomListArr}}
+                                                              <option value="{{discomId}}">{{state}}</option>
+                                                            {{/each}}
+                                                          </select>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                        </div>
+                                    </div>
+                                  {{/if}}
+                                {{/if}}
+
+                                <!--If Payment Received Selected For Invoice Log Filter-->
+                                {{#if isFilterTypePaymentReceived}}
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                          <div class="col-sm-6">
+                                              <div class="form-group row">
+                                                  <label class="col-sm-4 form-control-label">From :</label>
+                                                  <div class="col-sm-8">
+                                                      <input type="text" id="txtFromDate" class="form-control input-sm txtFromClass" placeholder="Select From Date">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 form-control-label">To :</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="txtToDate" class="form-control input-sm txtToClass" placeholder="Select To Date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                  </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 form-control-label">Select Discom:</label>
+                                                    <div class="col-sm-8">
+                                                        <select id='ddlDiscomList' multiple="multiple" class="form-control form-control-sm input-sm">
+                                                          {{#each discomListArr}}
+                                                            <option value="{{discomId}}">{{state}}</option>
+                                                          {{/each}}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{/if}}
+                            </div>
+                        </section>
+                    </div>
+                  {{#if isDataAvailable}}
+                    <div class="panel-body" style="overflow-x:scroll">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <fieldset>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table class="table table-bordered" id="exportToExcelDiscom">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">S.No</th>
+                                                        <th class="text-center">State</th>
+                                                        <!-- <th class="text-center">Name of Party</th> -->
+                                                        <th class="text-center">Invoice No.</th>
+                                                        <th class="text-center">&nbsp;Rate&nbsp;</th>
+                                                        <th class="text-center">Type of Invoice</th>
+                                                        <th class="text-center">&nbsp;Month&nbsp;</th>
+                                                        <th class="text-center">Invoice&nbsp;Date</th>
+                                                        <th class="text-center">&nbsp;&nbsp;Due&nbsp;Date&nbsp;&nbsp;</th>
+                                                        <th class="text-center">Invoice Amount</th>
+                                                        <th class="text-center">Payment&nbsp;Amount</th>
+                                                        <th class="text-center">Short&nbsp;Payment</th>
+                                                        <th class="text-center">Date&nbsp;of&nbsp;Payment</th>
+                                                        <th class="text-center">Surcharge&nbsp;Amount</th>
+                                                        <th class="text-center">&nbsp;&nbsp;&nbsp;Remarks&nbsp;&nbsp;&nbsp;</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                  {{#each returnDiscomTable}}
+                                                    <tr>
+                                                        <td class="text-center">{{serial @index}}</td>
+                                                        <td class="text-center">{{discomState}}</td>
+                                                        <!-- <td class="text-center">{{name}}</td> -->
+                                                        <td class="text-center">{{breakData1 invoice_number}}<br>{{breakData2 invoice_number}}<br>{{breakData3 invoice_number}}<br>{{breakData4 invoice_number}}</td>
+                                                        <td class="text-center">{{rate_per_unit}}</td>
+                                                        <td class="text-center">{{isProvisional invoice_type}}</td>
+                                                        <td class="text-center">{{month}}</td>
+                                                        <td class="text-center">{{generation_date}}</td>
+                                                        <td class="text-center">{{due_date}}</td>
+                                                        <td class="text-center">{{amount_of_invoice}}</td>
+                                                        <td class="text-center">{{payment_amount}}</td>
+                                                        <td class="text-center">{{short_payment_amount}}</td>
+                                                        <td class="text-center">{{date_of_payment}}</td>
+                                                        <td class="text-center">{{sirChargeAmount}}</td>
+                                                        <td class="text-center">{{remarks}}</td>
+                                                    </tr>
+                                                  {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                  {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

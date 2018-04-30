@@ -1,0 +1,116 @@
+<template name="uiCharges1">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <center>
+                        <h4><b>Solar Energy Corporation of India Ltd.<br>New Delhi-110017</b></h4></center>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-sm-offset-10">
+                    <p><b>Date:&nbsp;{{currentDate}}</b></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <br>
+                    <p><b>Sub: Payment of Unscheduled Interchange(UI) charges for the week {{fromDate}} &nbsp;-&nbsp; {{toDate}} Week No.&nbsp;{{weekArrayNo}} towards
+                              scheduling of GSECL(10MW) Solar power Plants.</b></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <br>
+                    <p>1. Solar Energy Corporation of India Ltd started scheduling from GPCL and GSECL Solar Power Plants in Gujarat to Odisha
+                        <br> on 01.06.2015</p>
+                    <br>
+                    <p>2. On 01.06.2016,02.06.2016 & 04.06.2016 SLDC issued invoices on account of UI for payments as mentioned below</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>SI.No.</th>
+                                <th>UI(Deviation)charges for the week</th>
+                                <th>Name of SPD</th>
+                                <th>Amount in INR</th>
+                                <th>Due Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each tableWeekDateRange }}
+                            <tr>
+                                <td>1</td>
+                                <td rowspan="2">{{this}}</td>
+                                <td>GPCL(Solar) Charanka</td>
+                                <td>{{Amount1 @index}}</td>
+                                <td rowspan="2">{{dueDate @index}}</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+
+                                <td>GPCL(Solar) Charanka</td>
+                                <td>{{Amount2 @index}}</td>
+
+                            </tr>
+                            {{/each}}
+                            <tr>
+                                <td colspan="4"><b>Total Amount in (words):&nbsp;&nbsp;{{amountInWords}}</b></td>
+                                <td>{{Sum}}</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <br>
+                    <p>3. In our earlier proposal it was agreed in principal to adjust UI charges from Energy payment of GPCL and GSECL(refer
+                        <br> page no.23 to 26)</p>
+                    <br>
+                    <p>4.Since, the UI implication arise due to deviation by GCPL and GSECL from schedule to actual so, GCPL & GSECL should
+                        <br> be liable for this deviation.</p>
+                    <br>
+                    <p>5. Since, SECI has given understanding to SLDC Gujarat to indemnify any implication to state of Gujarat, so it is proposed
+                        <br> to make payment of this UI charges and same may be recovered from GPCL and GSECL from next billing cycle.</p>
+                    <p>The total Invoice of amount <b>Rs.&nbsp; {{Sum}}&nbsp;&nbsp;({{amountInWords}})</b> may be paid to SLDC Gujarat as per the accounts mentioned.</p>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="form-group row">
+                    <div class="col-sm-12 col-sm-offset-10">
+                        <p>(Shibasish Das)
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Manager</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 ">
+                    <p>AGM(PS)</p>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-sm-12 ">
+                    <p>Director(Fin/Comm-Trading)</p>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row ">
+                <div class="col-sm-12 ">
+                    <p>AGM(F)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

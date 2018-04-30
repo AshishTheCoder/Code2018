@@ -1,0 +1,285 @@
+<template name="PaymentAdviceFront">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-2">
+                                </div>
+                                <div class="col-sm-8">
+                                    <h1 style="font-weight:bold;font-size:28px;text-align:center;">PAYMENT ADVICE APPROVAL</h1>
+                                </div>
+                                <div class="col-sm-2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th><center>S.NO.</center></th>
+                                        <th><center>Type</center></th>
+                                        <th><center>New Application</center></th>
+                                        <th><center>Status at L1</center></th>
+                                        <th><center>Status at L2</center></th>
+                                        <th><center>Status at L3</center></th>
+                                        <th><center>Status at L4</center></th>
+                                        <th><center>Status at L5</center></th>
+                                        <th><center>Status at L6</center></th>
+                                        <th>
+                                            <center>Action</center>
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                  {{#each AppTable}}
+                                    <tr>
+                                        <td><center>{{serial @index}}</center></td>
+                                        <td><center>{{appType}}</center></td>
+                                        <td><center>{{appName}}</center></td>
+                                        <td><center>{{appArray.[0]}}</center></td>
+                                        <td><center>{{appArray.[1]}}</center></td>
+                                        <td><center>{{appArray.[2]}}</center></td>
+                                        <td><center>{{appArray.[3]}}</center></td>
+                                        <td><center>{{appArray.[4]}}</center></td>
+                                        <td><center>{{appArray.[5]}}</center></td>
+                                        <td>
+                                            <center>
+                                                <button type="button" data-id="{{_id}}" class="btn btn-sm btn-primary " data-toggle="modal"  id="openModal" data-target="#myModalView">View</button>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myModalView" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title"><center>Payment Advice Approve View Details</center></h4>
+                  </div>
+                  {{#each AppModal}}
+                  <div class="modal-body">
+                      <form id="modalForm" data-id="{{_id}}" action="#">
+                          <table class="table table-bordered">
+                              <thead>
+                                <tr>
+                                    <th colspan="4"><label>&nbsp; {{appName}} &nbsp; {{appType}}</label><span class="pull-right"><a type="button" target="_blank"  href={{absoURL}} class="btn btn-md btn-primary ">View File</a></span></th>
+                                </tr>
+                                  <tr>
+                                      <th>Level</th>
+                                      <th>USER NAME</th>
+                                      <th>DATE</th>
+                                      <th>ACTION</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td>1</td>
+                                      <td>{{ByLevel1.CommentBy}}</td>
+                                      <td>{{ByLevel1.timestamp}}</td>
+                                      <td>{{ByLevel1.optradio}}</td>
+                                  </tr>
+                                  <tr>
+                                      <td>2</td>
+                                      <td>{{ByLevel2.CommentBy}}</td>
+                                      <td>{{ByLevel2.timestamp}}</td>
+                                      <td>{{ByLevel2.optradio}}</td>
+                                  </tr>
+                                  <tr>
+                                      <td>3</td>
+                                      <td>{{ByLevel3.CommentBy}}</td>
+                                      <td>{{ByLevel3.timestamp}}</td>
+                                      <td>{{ByLevel3.optradio}}</td>
+                                  </tr>
+                                  <tr>
+                                      <td>4</td>
+                                      <td>{{ByLevel4.CommentBy}}</td>
+                                      <td>{{ByLevel4.timestamp}}</td>
+                                      <td>{{ByLevel4.optradio}}</td>
+                                  </tr>
+                                  <tr>
+                                      <td>5</td>
+                                      <td>{{ByLevel5.CommentBy}}</td>
+                                      <td>{{ByLevel5.timestamp}}</td>
+                                      <td>{{ByLevel5.optradio}}</td>
+                                  </tr>
+                                  <tr>
+                                      <td>6</td>
+                                      <td>{{ByLevel6.CommentBy}}</td>
+                                      <td>{{ByLevel6.timestamp}}</td>
+                                      <td>{{ByLevel6.optradio}}</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                          <div class="panel panel-default">
+                              <div class="panel-heading">
+                                  <h5>Action Performed </h5>
+                              </div>
+                              <div class="panel panel-body">
+                                <div class="row">
+                                <div class="form-group">
+                                  <div class="col-sm-3">
+                                    <label class="form-control-label" >Comment by:</label>
+                                  </div>
+                                  <div class="col-sm-5">
+                                    <input class="form-control appmodal"  name="CommentBy" >
+                                    </div>
+                                  </div>
+                                </div>
+                                <br>
+                              <div class="row">
+                                <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="radio-inline "><input class="required appmodal radioValue1"  id="radioValue" type="radio" value="Approved" name="optradio">&nbsp;&nbsp;&nbsp;<b>Approved</b></label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="radio-inline "><input class="required appmodal radioValue1" id="radioValue" type="radio" value="Reject" name="optradio">&nbsp;&nbsp;&nbsp;<b>Rejected</b></label>
+                                </div>
+                              </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                <div class="form-group">
+                                  <div class="col-sm-12">
+                                    <label >Approved/Rejected to:</label>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- {{#if validateLevelRadioButton}} -->
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                  <div class="form-group">
+                                  <div class="col-sm-4">
+                                            <input  type="checkbox" key="1" class="modalCheck modalCheck1 validateCheckbox" value="1" name="check" disabled>
+                                            <label>Level1</label>
+                                      </div>
+                                      <div class="col-sm-4">
+                                                <input type="checkbox" key="2" class="modalCheck modalCheck2 validateCheckbox" value="2" name="check" disabled>
+                                                <label>Level2</label>
+                                          </div>
+                                          <div class="col-sm-4">
+                                                    <input type="checkbox" key="3" class="modalCheck modalCheck3 validateCheckbox" value="3" name="check" disabled>
+                                                    <label>Level3</label>
+                                              </div>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm-12">
+                                <div class="form-group">
+                                <div class="col-sm-4">
+                                          <input type="checkbox" class="modalCheck modalCheck4 validateCheckbox" key="4" value="4" name="check" disabled>
+                                          <label>Level4</label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                              <input type="checkbox" class="modalCheck modalCheck5 validateCheckbox" key="5" value="5" name="check" disabled>
+                                              <label>Level5</label>
+                                        </div>
+                                        <div class="col-sm-4">
+                                                  <input type="checkbox" class="modalCheck modalCheck6 validateCheckbox" key="6" value="6" name="check" disabled>
+                                                  <label>Level6</label>
+                                            </div>
+                                  </div>
+                                </div>
+                            </div>
+                            <!-- {{/if}} -->
+
+
+
+                              </div>
+                          </div>
+                            {{#if comment1}}
+                             <div class="form-group">
+                              <label for="comment">Comment by Level1:</label>
+                              <textarea class="form-control appmodal" rows="1" name="Comment" id="comment1"></textarea>
+                             </div>
+                             {{/if}}
+                             {{#if comment2}}
+                              <div class="form-group">
+                              <label for="comment">Comment by Level2:</label>
+                              <textarea class="form-control appmodal" rows="1" name="Comment" id="comment2"></textarea>
+                              </div>
+                              {{/if}}
+                              {{#if comment3}}
+                              <div class="form-group">
+                              <label for="comment">Comment by Level3:</label>
+                              <textarea class="form-control appmodal" rows="1" name="Comment" id="comment3"></textarea>
+                              </div>
+                              {{/if}}
+                              {{#if comment4}}
+                              <div class="form-group">
+                              <label for="comment">Comment by Level4:</label>
+                              <textarea class="form-control appmodal" rows="1" name="Comment" id="comment4"></textarea></div>
+                              {{/if}}
+                              {{#if comment5}}
+                              <div class="form-group">
+                              <label for="comment">Comment by Level5:</label>
+                              <textarea class="form-control appmodal" rows="1" name="Comment" id="comment5"></textarea></div>
+                               {{/if}}
+                              {{#if comment6}}
+                              <div class="form-group">
+                              <label for="comment">Comment by Level6:</label>
+                              <textarea class="form-control appmodal" rows="1" name="Comment" id="comment6"></textarea>
+                              </div>
+                              {{/if}}
+                              <div class="panel panel-body">
+                                <div class="row">
+                                <div class="form-group">
+                                  <label>Comment At Level1:</label>&nbsp;{{ByLevel1.Comment}}
+                                </div>
+                              </div>
+                              <div class="row">
+                              <div class="form-group">
+                                  <label>Comment At Level2:</label>&nbsp;{{ByLevel2.Comment}}
+                                </div>
+                              </div>
+                              <div class="row">
+                              <div class="form-group">
+                                  <label>Comment At Level3:</label>&nbsp;{{ByLevel3.Comment}}
+                                </div>
+                              </div>
+                              <div class="row">
+                              <div class="form-group">
+                                  <label>Comment At Level4:</label>&nbsp;{{ByLevel4.Comment}}
+                                </div>
+                              </div>
+                                  <div class="row">
+                                  <div class="form-group">
+                                  <label>Comment At Level5:</label>&nbsp;{{ByLevel5.Comment}}
+                                </div>
+                              </div>
+                                  <div class="row">
+                                  <div class="form-group">
+                                  <label>Comment At Level6:</label>&nbsp;{{ByLevel6.Comment}}
+                                </div>
+                              </div>
+                                </div>
+                                <!-- {{#if confirmButton}} -->
+                                <center><button type="submit" class="btn btn-md btn-success" id="submit" >Confirm</button></center>
+                                <!-- {{else}} -->
+                                 <!-- <center><a type="button" class="btn btn-md btn-success disabled" >Confirm</a></center> -->
+                                <!-- {{/if}} -->
+                      </form>
+                  </div>
+                  {{/each}}
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default modalClose" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+</template>

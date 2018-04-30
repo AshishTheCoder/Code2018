@@ -1,0 +1,116 @@
+<template name="viewPaymentAdviceToSPD">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h1 style="font-weight:bold;font-size:28px;text-align:center;">View Payment Advice</h1>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <section class="panel panel-default">
+                              <div class="panel-body">
+                                  <div class="row">
+                                      <div class="col-md-12 col-sm-12">
+                                          <fieldset class="scheduler-border">
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-6 col-md-6">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                                                <div class="col-sm-8">
+                                                                    <select id='ddlFinancialYear' class="form-control form-control-sm input-sm">
+                                                                      <option value="">Select Financial Year</option>
+                                                                      {{#each financialYearHelper}}
+                                                                        <option value="{{this}}">{{this}}</option>
+                                                                      {{/each}}
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6 col-md-6">
+                                                          <div class="form-group row">
+                                                              <label class="col-sm-4 form-control-label">Month :</label>
+                                                              <div class="col-sm-8">
+                                                                  <select id='ddlMonth' class="form-control form-control-sm input-sm">
+                                                                    <option value="">Select Month</option>
+                                                                    <option value="All">All</option>
+                                                                    {{#each monthShow}}
+                                                                      <option value="{{this.value}}">{{this.key}}</option>
+                                                                    {{/each}}
+                                                                  </select>
+                                                              </div>
+                                                          </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                          </fieldset>
+                                      </div>
+                                  </div>
+                              </div>
+                          </section>
+                      </div>
+                  </div>
+                  {{#if isDataAvailable}}
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <section class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <fieldset class="scheduler-border">
+                                              <legend class="scheduler-border">Payment Advice </legend>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                              <table class="table table-bordered">
+                                                                  <thead>
+                                                                      <tr>
+                                                                          <th class="text-center">S.No.</th>
+                                                                          <th class="text-center">Invoice No</th>
+                                                                          <th class="text-center">Date of Receipt</th>
+                                                                          <th class="text-center">Due Date</th>
+                                                                          <th class="text-center">Invoice Amount</th>
+                                                                          <th class="text-center">Paid Amount</th>
+                                                                          <th class="text-center">Date of Payment </th>
+                                                                          <th class="text-center">View</th>
+                                                                      </tr>
+                                                                  </thead>
+                                                                  <tbody>
+                                                                      {{#each returnData}}
+                                                                          <tr>
+                                                                              <td class="text-center">{{serial @index}}</td>
+                                                                              <td class="text-center">{{invoice_number}}</td>
+                                                                              <td class="text-center">{{dateOfReceipt}}</td>
+                                                                              <td class="text-center">{{duedate}}</td>
+                                                                              <td class="text-center">{{invoice_amount}}</td>
+                                                                              <td class="text-center">{{paid_amount}}</td>
+                                                                              <td class="text-center">{{dateOfPayment}}</td>
+                                                                              <td class="text-center">
+                                                                                  <button id='viewPaymentAdvicePdf' filePath="{{file_path}}" class="btn btn-info">View PDF</button>
+                                                                              </td>
+                                                                          </tr>
+                                                                      {{/each}}
+                                                                  </tbody>
+                                                              </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

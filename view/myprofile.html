@@ -1,0 +1,360 @@
+<template name="myprofile">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h1 style="font-weight:bold;font-size:28px;text-align:center;">My Profile</h1>
+                  </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>1.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>Name of SPD :</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.name_of_spd}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>2.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>Project ID :</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.project_id}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>3.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>Project Capicity :</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.project_capicity}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>4.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>Project location :</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.project_location}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>5.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>Connected Substation Details :</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.connected_substation_details}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>6.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>Injection Voltage(kV):</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.injection_voltage}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>7.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>Point of Supply(kV):</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.point_of_supply}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>8.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>Name of Coordinator for Energy Schedules :</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.name_of_coordinator_for_energy_schedules}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>9.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>Contact Details(Mobile No. & Email ID) :</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.contact_details}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>10.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>PAN Number :</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.pan_number}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>11.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>TAN Number :</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.tan_number}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>12</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>Bank Details :</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.bank_details}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>13.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>Main Meter Number :</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.main_meter_number}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>14.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>Check Meter Number :</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.check_meter_number}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>15.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>Max CUF as per PPA(Capacity Utilization Factor) %:</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.max_cuf_as_per_ppa}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>16.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>SPD's Min Energy as per PPA(MUs) :</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.spd_min_energy_as_per_ppa}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>17.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>SPD's Max Energy as per PPA(MUs) :</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.spd_max_energy_as_per_ppa}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>18.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>Rate per Unit :</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.rate_per_unit}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>19.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>Transaction Type :</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.transaction_type}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>20.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>SPD State :</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.spd_state}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>21.</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>DCR/NON-DCR :</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <span>{{returnData.dcr_nonDcr}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-8"></div>
+                                <div class="col-sm-4">
+                                    <a href="/change-credential" class="btn btn-sm btn-success">Create Request to Update the Information</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

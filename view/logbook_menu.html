@@ -1,0 +1,261 @@
+<!-- <template name="logbook_menu">
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+              <div class="panel panel-info">
+                  <div class="panel-heading">
+                      <h1 style="font-weight:bold;font-size:28px;text-align:center;">Log Book Discom</h1>
+                  </div>
+                <div class="panel-body">
+                  {{#if isUserTypeFinanceLoggedIn}}
+                    <div class="row col-sm-12">
+                        <div class="col-sm-6 col-md-6">
+                            <a href="/logbook-discom" class="thumbnail mycards">
+                                <div class="caption">
+                                    <h4>Log Book Discom</h4>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                          <a href="/discom-log-filter" class="thumbnail mycards">
+                              <div class="caption">
+                                  <h4>Log Book Discom Multi Entry</h4>
+                              </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                      <div class="col-sm-6 col-md-6">
+                        <a href="/log-filter" class="thumbnail mycards">
+                            <div class="caption">
+                                <h4>Energy Log Filter</h4>
+                            </div>
+                        </a>
+                      </div>
+                        <div class="col-sm-6 col-md-6">
+                            <a href="/transmission-log-filter" class="thumbnail mycards">
+                                <div class="caption">
+                                    <h4>Transmission Log Filter</h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                      <div class="col-sm-6 col-md-6">
+                        <a href="/sldc-log-filter" class="thumbnail mycards">
+                            <div class="caption">
+                                <h4>SLDC Log Filter</h4>
+                            </div>
+                        </a>
+                      </div>
+                        <div class="col-sm-6 col-md-6">
+                          <a href="/incentive-log-filter" class="thumbnail mycards">
+                              <div class="caption">
+                                  <h4>Incentive Log Filter</h4>
+                              </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-6 col-md-6">
+                          <a href="/discom-log-filter-report" class="thumbnail mycards">
+                              <div class="caption">
+                                  <h4>Discom Log Filter Report</h4>
+                              </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-6 col-md-6">
+                          <a href="/invoice/transco-sheet-entry" class="thumbnail mycards">
+                              <div class="caption">
+                                  <h4>Transcon Sheet Entry</h4>
+                              </div>
+                          </a>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                          <a href="/invoice/transco-sheet-report" class="thumbnail mycards">
+                              <div class="caption">
+                                  <h4>Transcon Sheet Report</h4>
+                              </div>
+                          </a>
+                        </div>
+                    </div>
+                {{else}}
+                  <div class="row col-sm-12">
+                      <div class="col-sm-6 col-md-6">
+                          <a href="/log-filter" class="thumbnail mycards">
+                              <div class="caption">
+                                  <h4>Energy Log Filter</h4>
+                              </div>
+                          </a>
+                      </div>
+                      <div class="col-sm-6 col-md-6">
+                          <a href="transmission-log-filter" class="thumbnail mycards">
+                              <div class="caption">
+                                  <h4>Transmission Log Filter</h4>
+                              </div>
+                          </a>
+                      </div>
+                  </div>
+                  <div class="row col-sm-12">
+                    <div class="col-sm-6 col-md-6">
+                      <a href="sldc-log-filter" class="thumbnail mycards">
+                          <div class="caption">
+                              <h4>SLDC Log Filter</h4>
+                          </div>
+                      </a>
+                    </div>
+                  </div>
+                {{/if}}
+              </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</template> -->
+
+
+
+
+
+<template name="logbook_menu">
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+              <div class="panel panel-info">
+                  <div class="panel-heading">
+                      <h1 style="font-weight:bold;font-size:28px;text-align:center;">Log Book Discom</h1>
+                  </div>
+                <div class="panel-body">
+                  {{#if isUserTypeFinanceLoggedIn}}
+                    <div class="row col-sm-12">
+                        <div class="col-sm-6 col-md-6">
+                            <a href="/logbook-spd" class="thumbnail mycards">
+                                <div class="caption">
+                                    <h4>Log Book for SPD</h4>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <a href="/logbook-discom" class="thumbnail mycards">
+                                <div class="caption">
+                                    <h4>Log Book for DISCOM</h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-6 col-md-6">
+                          <a href="/log-filter" class="thumbnail mycards">
+                              <div class="caption">
+                                  <h4>Energy Log Filter</h4>
+                              </div>
+                          </a>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <a href="/transmission-log-filter" class="thumbnail mycards">
+                                <div class="caption">
+                                    <h4>Transmission Log Filter</h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-6 col-md-6">
+                          <a href="/sldc-log-filter" class="thumbnail mycards">
+                              <div class="caption">
+                                  <h4>SLDC Log Filter</h4>
+                              </div>
+                          </a>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                          <a href="/incentive-log-filter" class="thumbnail mycards">
+                              <div class="caption">
+                                  <h4>Incentive Log Filter</h4>
+                              </div>
+                          </a>
+                        </div>
+                    </div>
+
+                    <div class="row col-sm-12">
+                        <div class="col-sm-6 col-md-6">
+                          <a href="/discom-log-filter" class="thumbnail mycards">
+                              <div class="caption">
+                                  <h4>Discom Log Filter</h4>
+                              </div>
+                          </a>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                          <a href="/discom-log-filter-report" class="thumbnail mycards">
+                              <div class="caption">
+                                  <h4>Discom Log Filter Report</h4>
+                              </div>
+                          </a>
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-6 col-md-6">
+                          <a href="/spd-log-filter" class="thumbnail mycards">
+                              <div class="caption">
+                                  <h4>SPD Log Filter</h4>
+                              </div>
+                          </a>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                          <a href="/spd-log-filter-report" class="thumbnail mycards">
+                              <div class="caption">
+                                  <h4>SPD Log Filter Report</h4>
+                              </div>
+                          </a>
+                        </div>
+                    </div>
+                    <!-- <div class="row col-sm-12">
+                        <div class="col-sm-6 col-md-6">
+                          <a href="/invoice/transco-sheet-entry" class="thumbnail mycards">
+                              <div class="caption">
+                                  <h4>Transcon Sheet Entry</h4>
+                              </div>
+                          </a>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                          <a href="/invoice/transco-sheet-report" class="thumbnail mycards">
+                              <div class="caption">
+                                  <h4>Transcon Sheet Report</h4>
+                              </div>
+                          </a>
+                        </div>
+                    </div> -->
+                {{else}}
+                  <div class="row col-sm-12">
+                      <div class="col-sm-6 col-md-6">
+                          <a href="/log-filter" class="thumbnail mycards">
+                              <div class="caption">
+                                  <h4>Energy Log Filter</h4>
+                              </div>
+                          </a>
+                      </div>
+                      <div class="col-sm-6 col-md-6">
+                          <a href="transmission-log-filter" class="thumbnail mycards">
+                              <div class="caption">
+                                  <h4>Transmission Log Filter</h4>
+                              </div>
+                          </a>
+                      </div>
+                  </div>
+                  <div class="row col-sm-12">
+                    <div class="col-sm-6 col-md-6">
+                      <a href="sldc-log-filter" class="thumbnail mycards">
+                          <div class="caption">
+                              <h4>SLDC Log Filter</h4>
+                          </div>
+                      </a>
+                    </div>
+                  </div>
+                {{/if}}
+              </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</template>

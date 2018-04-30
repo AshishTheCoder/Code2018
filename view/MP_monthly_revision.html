@@ -1,0 +1,151 @@
+<template name="MP_monthly_revision">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h1 style="font-weight:bold;font-size:28px;text-align:center;">MP Monthly Revision Report</h1>
+                  </div>
+                  <div class="panel-body">
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-4 form-control-label">Select Month :</label>
+                                          <div class="col-sm-8">
+                                              <select id='selectMonth' class="form-control form-control-sm input-sm">
+                                                  <option value="">Select Month</option>
+                                                  {{#each monthShow}}
+                                                    <option value="{{this.value}}" monthInWord="{{this.key}}">{{this.key}}</option>
+                                                  {{/each}}
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-4 form-control-label">Select Year :</label>
+                                          <div class="col-sm-8">
+                                              <select id='selectYear' class="form-control form-control-sm input-sm">
+                                                  <option value="">Select Year</option>
+                                                  {{#each yearHelper}}
+                                                    <option value="{{this}}">{{this}}</option>
+                                                  {{/each}}
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <!--Table-->
+                              {{#if viewTabularTable}}
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <section class="panel panel-default">
+                                          <div class="panel-body">
+                                              <fieldset>
+                                                  <div class="row">
+                                                      <div class="col-md-12 col-sm-12">
+                                                          <table class="table table-bordered">
+                                                              <thead>
+                                                                  <tr>
+                                                                      <th>Month</th>
+                                                                      <th>Year</th>
+                                                                      <th>Action</th>
+                                                                  </tr>
+                                                              </thead>
+                                                              <tbody>
+                                                                  <tr>
+                                                                      <td>{{selectedMonth}}</td>
+                                                                      <td>{{selectedYear}}</td>
+                                                                      <td>
+                                                                          &nbsp;
+                                                                          <button id="getMPreport" class="btn btn-sm btn-info">View Report</button>&nbsp;
+                                                                      </td>
+                                                                  </tr>
+                                                              </tbody>
+                                                          </table>
+                                                      </div>
+                                                  </div>
+                                              </fieldset>
+                                          </div>
+                                      </section>
+                                  </div>
+                              </div>
+                              {{/if}}
+
+                              {{#if showTabublarData}}
+                              <div class="row">
+                                  <div class="form-group">
+                                      <div class="col-sm-12 col-md-12 table-responsive">
+                                          <table class="table table-bordered text-center" id="exportMPDataTable">
+                                              <tbody>
+                                                  <tr>
+                                                      <th class="text-center" colspan="1"></th>
+                                                      <th colspan="4" class="text-center">Revision Sought by</th>
+                                                      <th colspan="1" class="text-center">Revision Number</th>
+                                                  </tr>
+                                                  <tr>
+                                                      <th colspan="1" class="text-center">Dates</th>
+                                                      {{#each returnFetchedValues.spdArray}}
+                                                      <th class="text-center">{{this.spdName}} (REV.NO)</th>
+                                                      {{/each}}
+                                                      <th colspan="1" class="text-center">Total</th>
+                                                  </tr>
+                                                  {{#each returnFetchedValues.datesArray}} {{#let bigloop=@index}}
+                                                  <tr>
+                                                      <td>
+                                                          <center><strong>{{this}}</strong></center>
+                                                      </td>
+                                                      {{#each returnFetchedValues.spdArray}}
+                                                      <td>
+                                                          <center>{{returningDataHelper returnFetchedValues.revisionValues @index bigloop}}</center>
+                                                      </td>
+                                                      {{/each}}
+                                                      <td>
+                                                        <center>{{returningDataHelper returnFetchedValues.revisionValues 4 bigloop}}</center>
+                                                      </td>
+                                                  </tr>
+                                                  {{/let}} {{/each}}
+                                                  <tr>
+                                                      <td>
+                                                          <center> <strong>Total</strong></center>
+                                                      </td>
+                                                      {{#each returnFetchedValues.spdArray}}
+                                                      <th>
+                                                          <center>{{returningColoum returnFetchedValues.totalRevision @index}}</center>
+                                                      </th>
+                                                      {{/each}}
+                                                      <td>
+                                                          <center><strong>{{returningColoum returnFetchedValues.totalRevision 4}}</strong></center>
+                                                      </td>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="panel-body">
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                          <div class="form-group">
+                                              <div class="col-sm-6">
+                                                  <button id="exportMPRevision" class="btn btn-sm btn-info glyphicon glyphicon-print center-block pull-left">Export to Excel</button>
+                                              </div>
+                                              <div class="col-sm-6">
+                                                <button id="sendMPrevision" class="btn btn-sm btn-success pull-right">Send Mail</button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                                {{/if}}
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

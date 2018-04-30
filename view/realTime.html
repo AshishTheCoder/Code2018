@@ -1,0 +1,664 @@
+<template name="realtime">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h1 style="font-weight:bold;font-size:28px;text-align:center;">Home</h1>
+                </div>
+                {{#if isUserTypeAdminToShow}}
+                <div class="row">
+                    <div class="col-sm-12">
+                        <section class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 ">
+                                        <fieldset class="scheduler-border">
+                                            <legend class="scheduler-border">Revisions</legend>
+                                            <table class="table table-responsive table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">Sr. No.</th>
+                                                        <th>SPD Name</th>
+                                                        <th class="text-center">Date</th>
+                                                        <th class="text-center">No. of Revision</th>
+                                                        <th class="text-center">Type of Revision</th>
+                                                        <th class="text-center">Revision Time</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                  {{#each showRevisions}}
+                                                    <tr>
+                                                        <td class="text-center">{{serial @index}}</td>
+                                                        <td>{{name}}</td>
+                                                        <td class="text-center">{{revision_date}}</td>
+                                                        <td class="text-center">{{rev}}</td>
+                                                        <td class="text-center">{{type_of_revision}}</td>
+                                                        <td class="text-center">{{rev_time}}</td>
+                                                    </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- {{#if viewListOfDefaulters}} -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <section class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 ">
+                                        <fieldset class="scheduler-border">
+                                            <legend class="scheduler-border">Defaulters</legend>
+                                            <table class="table table-responsive table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr. No.</th>
+                                                        <th>SPD Name</th>
+                                                        <th>Date</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                  {{#each listOfDefaulters}}
+                                                    <tr>
+                                                        <td>{{serial @index}}</td>
+                                                        <td>{{name}}</td>
+                                                        <td>{{tommorowDateShow}}</td>
+                                                        <td>
+                                                            &nbsp;
+                                                            <button class="btn btn-sm btn-warning btn-xs" data-toggle="modal" data-target="#emailModel" id="sendEmail" data-title="{{email}}">Email</button>
+                                                        </td>
+                                                    </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- {{/if}} -->
+                {{/if}}
+                {{#if isUserTypeCommercialToShow}}
+                <div class="row">
+                    <div class="col-sm-12">
+                        <section class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 ">
+                                        <fieldset class="scheduler-border">
+                                            <legend class="scheduler-border">Notifications</legend>
+                                            <table class="table table-responsive table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>SPD Name</th>
+                                                        <th>Notice</th>
+                                                        <th>Date</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{#each userValues}}
+                                                    <tr>
+                                                        <td>{{name}}</td>
+                                                        <td>{{notice}}</td>
+                                                        <td>{{date}}</td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-info btn-xs" data-title="{{id}}" data-toggle="modal" data-target="#myModalViewuser" id="viewUser">View</button>&nbsp;
+                                                            <button class="btn btn-sm btn-primary btn-xs" attr="{{id}}" id="approveUser">Approve</button>&nbsp;
+                                                            <button class="btn btn-sm btn-danger btn-xs" attr="{{id}}" id="rejectUser">Reject</button>
+                                                        </td>
+                                                    </tr>
+                                                    {{/each}}
+                                                     {{#each credentialRequest}}
+                                                    <tr>
+                                                        <td>{{name}}</td>
+                                                        <td>{{notice}}</td>
+                                                        <td>{{date}}</td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-info btn-xs" data-title="{{id}}" data-toggle="modal" data-target="#myModalViewCredentials" id="viewChangeCredentials">View</button>&nbsp;
+                                                            <button class="btn btn-sm btn-primary btn-xs" attr="{{clientId}}" myattr="{{id}}" id="approveChange">Approve</button>&nbsp;
+                                                            <button class="btn btn-sm btn-danger btn-xs" attr="{{clientId}}" myattr="{{id}}" id="rejectChange">Reject</button>
+                                                        </td>
+                                                    </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                {{/if}}
+                <!-- Payment Note Rejected Files -->
+              {{#if isUserTypeFinancial_Master_Comercial}}
+                <div class="row">
+                    <div class="col-sm-12">
+                        <section class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 ">
+                                        <fieldset class="scheduler-border">
+                                            <legend class="scheduler-border">Rejected Payment Notes</legend>
+                                            <table class="table table-responsive table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr. No.</th>
+                                                        <th>Payment Note</th>
+                                                        <th>Status</th>
+                                                        <th>Rejected By</th>
+                                                        <th>Date</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{#each returnRejectedFileStatus}}
+                                                    <tr>
+                                                        <td>{{serial @index}}</td>
+                                                        <td>{{file_type}}</td>
+                                                        <td>{{status}}</td>
+                                                        <td>{{forwarded_by_name}}</td>
+                                                        <td>{{date}}</td>
+                                                        <td>
+                                                            <button class="btn btn-primary btn-xs" attrId="{{_id}}" id="btnHideIt">Hide it</button>
+                                                        </td>
+                                                    </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+              {{/if}}
+              {{#if isUserTypeCommercialToShow}}
+                <!-- for all Alerts -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <section class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 ">
+                                        <fieldset class="scheduler-border">
+                                            <legend class="scheduler-border">Exceed JMR Data Alerts</legend>
+                                            <table class="table table-responsive table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr. No.</th>
+                                                        <th>SPD Name</th>
+                                                        <th>Reason</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{#each callAlerts}}
+                                                    <tr>
+                                                        <td>{{serial @index}}</td>
+                                                        <td>{{name}}</td>
+                                                        <td>{{reason}}</td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-primary btn-xs" attr="{{userId}}" id="remove">Remove</button>
+                                                        </td>
+                                                    </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <section class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 ">
+                                        <fieldset class="scheduler-border">
+                                            <legend class="scheduler-border">Extra Energy Alerts</legend>
+                                            <table class="table table-responsive table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr. No.</th>
+                                                        <th>SPD Name</th>
+                                                        <th>Energy</th>
+                                                        <th>Amount</th>
+                                                        <th>Month</th>
+                                                        <th>Financial Year</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                  {{#each callAlertsJmrData}}
+                                                    <tr>
+                                                        <td>{{serial @index}}</td>
+                                                        <td>{{spdName}}</td>
+                                                        <td>{{energy}}</td>
+                                                        <td>{{amount}}</td>
+                                                        <td>{{getMonthValue month}}</td>
+                                                        <td>{{financialYear}}</td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-success" attr="{{userId}}" atrMonth="{{month}}" atrYear="{{financialYear}}" id="removeExtraJmr">Reject Request</button>&nbsp;&nbsp;
+                                                            <button class="btn btn-sm btn-danger" attr="{{userId}}" atrMonth="{{month}}" atrYear="{{financialYear}}" id="acceptExtraJmr">Accept Request</button>
+                                                        </td>
+                                                    </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                {{/if}}
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- Modal for SPD-->
+    <div id="myModalViewuser" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">User Profile</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="modalCompanyPastDetail" role="form">
+                        <div class="form-group">
+                            <label for="pwd">Name of SPD: </label>
+
+                            <input type="text" value={{viewFormSpdUser.name_of_spd}} class="form-control input-sm" name="name_of_spd" placeholder="Name of SPD" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Project ID: </label>
+                            <input type="text" value={{viewFormSpdUser.project_id}} class="form-control input-sm" name="project_id" placeholder="Project Id" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Project Capacity: </label>
+                            <input type="text" value={{viewFormSpdUser.project_capicity}} class="form-control input-sm" name="project_capicity" placeholder="Project Capicity" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Project Location: </label>
+                            <input type="text" value={{viewFormSpdUser.project_location}} class="form-control input-sm" name="project_location" placeholder="Project Location" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Connected Substation Details: </label>
+                            <input type="text" value={{viewFormSpdUser.connected_substation_details}} class="form-control input-sm" name="connected_substation_details" placeholder="Connected Substation Details" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Injection Voltage:</label>
+                            <input type="text" value={{viewFormSpdUser.injection_voltage}} class="form-control input-sm" name="injection_voltage" placeholder="Injection Voltage" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Point of Supply: </label>
+                            <input type="text" value={{viewFormSpdUser.point_of_supply}} class="form-control input-sm" name="point_of_supply" placeholder="Point of Supply" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Name of Coordinator for Energy Schedules: </label>
+                            <input type="text" value={{viewFormSpdUser.name_of_coordinator_for_energy_schedules}} class="form-control input-sm updateSpd" name="name_of_coordinator_for_energy_schedules" placeholder="Name of coordinator for energy schedules" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Contact Details(Mobile No. & Email ID): </label>
+                            <input type="text" value={{viewFormSpdUser.contact_details}} class="form-control input-sm" name="contact_details" placeholder="Contact details" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">PAN Number:</label>
+                            <input type="text" value={{viewFormSpdUser.pan_number}} class="form-control input-sm" name="pan_number" placeholder="Pan number" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="pwd">TAN Number: </label>
+                            <input type="text" value={{viewFormSpdUser.tan_number}} class="form-control input-sm" name="tan_number" placeholder="Tan number" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Bank Details:</label>
+                            <input type="text" value={{viewFormSpdUser.bank_details}} class="form-control input-sm" name="bank_details" placeholder="Bank details" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Main Meter Number: </label>
+                            <input type="text" value={{viewFormSpdUser.main_meter_number}} class="form-control input-sm" name="main_meter_number" placeholder="Main meter number" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Check Meter Number:</label>
+                            <input type="text" value={{viewFormSpdUser.check_meter_number}} class="form-control input-sm" name="check_meter_number" placeholder="Check meter number" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Max CUF as per PPA(Capacity Utilization Factor):</label>
+                            <input type="text" value={{viewFormSpdUser.max_cuf_as_per_ppa}} class="form-control input-sm" name="max_cuf_as_per_ppa" placeholder="M<ax cuf as per ppa" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">SPD's Min Energy as per PPA(kWh):</label>
+                            <input type="text" value={{viewFormSpdUser.spd_min_energy_as_per_ppa}} class="form-control input-sm" name="spd_min_energy_as_per_ppa" placeholder="Spd min energy as per ppa" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">SPD's Max Energy as per PPA(kWh):</label>
+                            <input type="text" value={{viewFormSpdUser.spd_max_energy_as_per_ppa}} class="form-control input-sm" name="spd_max_energy_as_per_ppa" placeholder="Spd max energy as per ppa" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Transaction Type :</label>
+                            <input type="text" value={{viewFormSpdUser.transaction_type}} class="form-control input-sm" name="transaction_type" placeholder="Transaction Type" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">SPD State:</label>
+                            <input type="text" value={{viewFormSpdUser.spd_state}} class="form-control input-sm" name="spd_state" placeholder="SPD State" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Rate per Unit:</label>
+                            <input type="text" value={{viewFormSpdUser.rate_per_unit}} class="form-control input-sm" name="rate_per_unit" placeholder="Rate per Unit" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">DCR/NON-DCR:</label>
+                            <input type="text" value={{viewFormSpdUser.dcr_nonDcr}} class="form-control input-sm" name="dcr_nonDcr" placeholder="DCR/NON-DCR" readonly>
+                        </div>
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-danger pull-left closeSpd" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModalViewCredentials" class="modal fade " role="dialog">
+        <div class="modal-dialog" style=" max-width:90%; width:auto !important; ">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Change Request</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                                <div>
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Sr. No.</th>
+                                                            <th>Field Name</th>
+                                                            <th>Old Data</th>
+                                                            <th>New Data</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {{#each allCredential}}
+                                                        <tr>
+                                                            <td>{{count}}</td>
+                                                            <td>{{data}}</td>
+                                                            <td>{{old_data}}</td>
+                                                            <td>{{new_data}}</td>
+                                                        </tr>
+                                                        {{/each}}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group pull-in clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-danger closeSpd" data-dismiss="modal" style="margin:auto;display:block;">Close</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div id="emailModel" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Send Email</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <section class="panel panel-default">
+                                <div class="panel-body">
+                                    <fieldset>
+                                        <div class="form-group pull-in clearfix">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="txtChannelName">To:</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="txtTO" value="{{showEmail}}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                        </div>
+                                        <div class="form-group pull-in clearfix">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="txtChannelName">CC:</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="txtCC" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                        </div>
+                                        <div class="form-group pull-in clearfix">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="txtChannelName">Date:</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="txtDate" readonly value="{{viewTodayDate}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                        </div>
+                                        <div class="form-group pull-in clearfix">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="txtChannelName">Subject:</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="txtSubject" placeholder="Enter Subject">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                        </div>
+                                        <div class="form-group pull-in clearfix">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="txtChannelName">Message:</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <textarea class="form-control" row="2" id="txtMessage" placeholder="Enter Message"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group pull-in clearfix">
+                  <div class="col-sm-1"></div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-danger pull-left closeSpd" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group pull-right">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" id="sendIndividualMailBtn">Send</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div id="emailModel" class="modal fade" role="dialog">
+           <div class="modal-dialog">
+               <!-- Modal content-->
+               <div class="modal-content">
+                   <div class="modal-header">
+                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                       <h4 class="modal-title">Send Email</h4>
+                   </div>
+                   <div class="modal-body">
+                       <!-- <form id="modalCompanyNameHistory" role="form"> -->
+                       <div class="row">
+                           <div class="col-sm-12">
+                               <section class="panel panel-default">
+                                   <div class="panel-body">
+                                       <fieldset>
+                                           <div class="form-group pull-in clearfix">
+                                               <div class="col-sm-2"></div>
+                                               <div class="col-sm-3">
+                                                   <div class="form-group">
+                                                       <label for="txtChannelName">To:</label>
+                                                   </div>
+                                               </div>
+                                               <div class="col-sm-5">
+                                                   <div class="form-group">
+                                                       <input type="text" class="form-control" id="txtEmailTO" value="{{showEmail}}" readonly>
+                                                   </div>
+                                               </div>
+                                               <div class="col-sm-2"></div>
+                                           </div>
+                                           <!-- <div class="form-group pull-in clearfix">
+                                               <div class="col-sm-2"></div>
+                                               <div class="col-sm-3">
+                                                   <div class="form-group">
+                                                       <label for="txtChannelName">CC:</label>
+                                                   </div>
+                                               </div>
+                                               <div class="col-sm-5">
+                                                   <div class="form-group">
+                                                       <input type="text" class="form-control" id="txtEmailCC" placeholder="">
+                                                   </div>
+                                               </div>
+                                               <div class="col-sm-2"></div>
+                                           </div> -->
+                                           <div class="form-group pull-in clearfix">
+                                               <div class="col-sm-2"></div>
+                                               <div class="col-sm-3">
+                                                   <div class="form-group">
+                                                       <label for="txtChannelName">Date:</label>
+                                                   </div>
+                                               </div>
+                                               <div class="col-sm-5">
+                                                   <div class="form-group">
+                                                       <input type="text" class="form-control" id="txtCurrentDate" readonly value="{{viewTodayDate}}">
+                                                   </div>
+                                               </div>
+                                               <div class="col-sm-2"></div>
+                                           </div>
+                                           <div class="form-group pull-in clearfix">
+                                               <div class="col-sm-2"></div>
+                                               <div class="col-sm-3">
+                                                   <div class="form-group">
+                                                       <label for="txtChannelName">Subject:</label>
+                                                   </div>
+                                               </div>
+                                               <div class="col-sm-5">
+                                                   <div class="form-group">
+                                                       <input type="text" class="form-control" id="txtEmailSubject" placeholder="Enter Subject">
+                                                   </div>
+                                               </div>
+                                               <div class="col-sm-2"></div>
+                                           </div>
+                                           <div class="form-group pull-in clearfix">
+                                               <div class="col-sm-2"></div>
+                                               <div class="col-sm-3">
+                                                   <div class="form-group">
+                                                       <label for="txtChannelName">Message:</label>
+                                                   </div>
+                                               </div>
+                                               <div class="col-sm-5">
+                                                   <div class="form-group">
+                                                       <textarea class="form-control" row="2" id="txtEmailMessage" placeholder="Enter message only"></textarea>
+                                                   </div>
+                                               </div>
+                                               <div class="col-sm-2"></div>
+                                           </div>
+                                       </fieldset>
+                                   </div>
+                               </section>
+                           </div>
+                       </div>
+                       <!-- </form> -->
+                   </div>
+                   <div class="form-group pull-in clearfix">
+                     <div class="col-sm-1"></div>
+                       <div class="col-sm-5">
+                           <div class="form-group">
+                               <button type="button" class="btn btn-danger pull-left closeSpd" data-dismiss="modal">Close</button>
+                           </div>
+                       </div>
+                       <div class="col-sm-5">
+                           <div class="form-group pull-right">
+                               <button type="button" class="btn btn-primary" id="sendIndividualMailBtn" data-dismiss="modal">Send</button>
+                           </div>
+                       </div>
+                       <div class="col-sm-1"></div>
+                   </div>
+                   <div class="modal-footer">
+                   </div>
+               </div>
+           </div>
+       </div>
+</template>

@@ -1,0 +1,656 @@
+<template name="sldc_report">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">SLDC Report</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Select Date :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="selectDate" class="form-control input-sm" placeholder="Select Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Select State :</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control input-sm" id="selectStateDiscom">
+                                                    <option value="">Select State</option>
+                                                    <option value="Rajasthan">Rajasthan</option>
+                                                    <option value="Gujarat">Gujarat</option>
+                                                    <option value="MP">MP</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{#if viewTable}}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Date</th>
+                                                                <th>State Name</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>{{viewDateSelected}}</td>
+                                                                <td>{{viewStateSelected}}</td>
+                                                                <td>
+                                                                    <button class="btn btn-sm btn-primary" id="viewAllData">View</button>&nbsp;
+                                                                    <a href="{{generateHref}}" target='_blank' class='btn btn-sm btn-info' style="color:black">Show Last Revision Excel of {{viewDateSelected}}</a>
+                                                                  </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        {{/if}} {{#if stateIsGujarat}}
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-12 col-md-12 table-responsive">
+                                    <table class="table table-bordered text-center" id="exportGujaratDataTable">
+                                        <tbody>
+                                            <tr>
+                                                <th>
+                                                    <center>Regd. Office:</center>
+                                                </th>
+                                                <td colspan="100%">
+                                                    <tr>SOLAR ENERGY CORPORATION OF INDIA LIMITED,1st Floor,A Wing,D-3, District Centre,Saket,New Delhi-110017</tr>
+                                                    <tr>Phones:011-71989285/86</tr>
+                                                    <tr>Fax: 011-71989287, Website: www.seci.co.in</tr>
+                                                    <tr>CIN: U40106DL2011NPL225263 </tr>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <center>TRANSACTION:</center>
+                                                </th>
+                                                <td colspan="2">
+                                                    <center>{{returnGujarat.spdState}} - {{returnGujarat.discomSate}}</center>
+                                                </td>
+                                                <th>
+                                                    <center>ISSUE DATE:</center>
+                                                </th>
+                                                <td colspan="100%">
+                                                    {{returnGujarat.minusOneDay}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <center>STU LOSS</center>
+                                                </th>
+                                                <td colspan="2">
+                                                    <center>{{returnGujarat.stuLossValue}}</center>
+                                                </td>
+                                                <th>
+                                                    <center>SCHEDULE FOR:</center>
+                                                </th>
+                                                <td colspan="100%">
+                                                    {{returnGujarat.scheduleDate}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="2">
+                                                    <center></center>
+                                                </th>
+                                                <th>
+                                                    <center>REV:</center>
+                                                </th>
+                                                <td colspan="100%">
+                                                    {{returnGujarat.valueHighestRevision}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <center>LTOA Intimation No.</center>
+                                                </th>
+                                                <td colspan="3">{{returnGujarat.LTOA_number}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th colspan="5" class="text-center">GENERATION SCHEDULE</th>
+                                                <th colspan="5" class="text-center">AT GUJARAT PERIPHERY AFTER STU LOSSES</th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="2" class="text-center">TIME BLOCK</th>
+                                                {{#each returnGujarat.headBefore}}
+                                                <th class="text-center">{{this}}</th>
+                                                {{/each}} {{#each returnGujarat.headAfter}}
+                                                <th class="text-center">{{this}}</th>
+                                                {{/each}}
+                                            </tr>
+                                            {{#each blockCount}} {{#let bigloop=@index}}
+                                            <tr>
+                                                <td>
+                                                    <center><strong>{{returnSlots "from" bigloop}}-{{returnSlots "to" bigloop}}</strong></center>
+                                                </td>
+                                                <th>
+                                                    <center>{{serial bigloop}}</center>
+                                                </th>
+                                                {{#each returnGujarat.headBefore}}
+                                                <td>
+                                                    <center>{{returningDataHelper returnGujarat.trueResult @index bigloop}}</center>
+                                                </td>
+                                                {{/each}} {{#each returnGujarat.headBefore}}
+                                                <td>
+                                                    <center>{{returningDataHelper returnGujarat.errorResult @index bigloop}}</center>
+                                                </td>
+                                                {{/each}}
+                                            </tr>
+                                            {{/let}} {{/each}}
+                                            <tr>
+                                                <th>TOTAL(MUs)</th>
+                                                <th></th>
+
+                                                {{#each returnGujarat.headBefore}}
+                                                <th>{{returningDataHelper returnGujarat.trueResult @index 96}}</th>
+                                                {{/each}} {{#each returnGujarat.headBefore}}
+                                                <th>{{returningDataHelper returnGujarat.errorResult @index 96}}</th>
+                                                {{/each}}
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-8"></div>
+                                                  <div class="col-sm-4"><strong></strong></div>
+                                                <!-- <div class="col-sm-4"><strong>Authorised Signatory</strong></div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-8"></div>
+                                                <div class="col-sm-4"><strong></strong></div>
+                                                <!-- <div class="col-sm-4"><strong>Solar Energy Corporation of India</strong></div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="col-sm-4">
+                                            <button id="exportGujaratData" class="btn btn-sm btn-info glyphicon glyphicon-print center-block pull-left">Export to Excel</button>
+                                        </div>
+                                        <div class="col-sm-4"></div>
+                                        <div class="col-sm-4">
+                                          <!-- <button id="shootGujaratMail" class="btn btn-sm btn-danger pull-right">Send Gujarat SLDC Report</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{/if}} {{#if stateIsMP}}
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-12 col-md-12 table-responsive">
+                                    <table class="table table-bordered" id="exportMPdataTable">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2"></th>
+                                                <th></th>
+                                                <th colspan="12" class="text-center">Requisition For Injection Schedule Of Power In MW(Ex-bus At Pooling S/S) To Other States.</th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="2">Date:</th>
+                                                <th>{{returnMPsldc.minusOneDay}}</th>
+                                                <th colspan="12" rowspan="4"></th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="2">Schedule for date:</th>
+                                                <th>{{returnMPsldc.scheduleDate}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="2">REV. No.</th>
+                                                <th>{{returnMPsldc.valueHighestRevision}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="2">TIME</th>
+                                                <th>{{returnMPsldc.lastRevison}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="2">Remarks:</th>
+                                                <th></th>
+                                                <th class="text-center" colspan="2">50 MW_Waneep_Solar</th>
+                                                <th class="text-center" colspan="2">20 MW_Focal_Energy_Solar</th>
+                                                <th class="text-center" rowspan="2">70 MW_SECI_Solar_Chattisgarh</th>
+                                                <th class="text-center" colspan="2">40 MW_IL&FS_Solar</th>
+                                                <th class="text-center" rowspan="2">25 MW_SECI_Solar_GOA</th>
+                                                <th class="text-center" rowspan="2">15 MW_SECI_Solar_Maharashtra</th>
+                                                <th class="text-center" colspan="2">10 MW_Focal_Renewable_Solar</th>
+                                                <th class="text-center" rowspan="2">10 MW_SECI_Solar_Bihar</th>
+                                            </tr>
+
+                                            <tr>
+                                                <th class="text-center">BLK No.</th>
+                                                <th class="text-center">FROM TIME</th>
+                                                <th class="text-center">TO TIME</th>
+                                                <th class="text-center">Availability in MW</th>
+                                                <th class="text-center">Forecast in MW</th>
+                                                <th class="text-center">Availability in MW</th>
+                                                <th class="text-center">Forecast in MW</th>
+                                                <th class="text-center">Availability in MW</th>
+                                                <th class="text-center">Forecast in MW</th>
+                                                <th class="text-center">Availability in MW</th>
+                                                <th class="text-center">Forecast in MW</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{#each blockCount}}
+                                            <tr>
+                                                <td class="text-center">{{serial @index}}</td>
+                                                <td class="text-center">{{returnSlots "from" @index}}</td>
+                                                <td class="text-center">{{returnSlots "to" @index}}</td>
+                                                <td class="text-center">{{returningDataHelper returnMPsldc.ChhattisgarhAvaibilityArray 1 @index}}</td>
+                                                <td class="text-center">{{returningDataHelper returnMPsldc.ChhattisgarhArrayResult 1 @index}}</td>
+
+                                                <td class="text-center">{{returningDataHelper returnMPsldc.ChhattisgarhAvaibilityArray 0 @index}}</td>
+                                                <td class="text-center">{{returningDataHelper returnMPsldc.ChhattisgarhArrayResult 0 @index}}</td>
+
+                                                <td class="text-center">{{returningDataHelper returnMPsldc.ChhattisgarhArrayResult 2 @index}}</td>
+
+                                                <td class="text-center">{{returningDataHelper returnMPsldc.GoaAvaibilityArray 2 @index}}</td>
+                                                <td class="text-center">{{returningDataHelper returnMPsldc.GoaArrayResult 2 @index}}</td>
+
+                                                <td class="text-center">{{returningDataHelper returnMPsldc.GoaArrayResult 0 @index}}</td>
+
+                                                <td class="text-center">{{returningDataHelper returnMPsldc.GoaArrayResult 1 @index}}</td>
+
+                                                <td class="text-center">{{returningDataHelper returnMPsldc.BiharAvaibilityArray 0 @index}}</td>
+                                                <td class="text-center">{{returningDataHelper returnMPsldc.BiharArrayResult 0 @index}}</td>
+
+                                                <td class="text-center">{{returningDataHelper returnMPsldc.BiharArrayResult 0 @index}}</td>
+                                            </tr>
+                                            {{/each}}
+                                            <tr>
+                                                <th class="text-center" colspan="3">TOTAL(MUs)</th>
+                                                <th class="text-center">{{returningDataHelper returnMPsldc.ChhattisgarhAvaibilityArray 1 96}}</th>
+                                                <th class="text-center">{{returningDataHelper returnMPsldc.ChhattisgarhArrayResult 1 96}}</th>
+
+                                                <th class="text-center">{{returningDataHelper returnMPsldc.ChhattisgarhAvaibilityArray 0 96}}</th>
+                                                <th class="text-center">{{returningDataHelper returnMPsldc.ChhattisgarhArrayResult 0 96}}</th>
+
+                                                <th class="text-center">{{returningDataHelper returnMPsldc.ChhattisgarhArrayResult 2 96}}</th>
+
+                                                <th class="text-center">{{returningDataHelper returnMPsldc.GoaAvaibilityArray 2 96}}</th>
+                                                <th class="text-center">{{returningDataHelper returnMPsldc.GoaArrayResult 2 96}}</th>
+
+                                                <th class="text-center">{{returningDataHelper returnMPsldc.GoaArrayResult 0 96}}</th>
+                                                <th class="text-center">{{returningDataHelper returnMPsldc.GoaArrayResult 1 96}}</th>
+
+                                                <th class="text-center">{{returningDataHelper returnMPsldc.BiharAvaibilityArray 0 96}}</th>
+                                                <th class="text-center">{{returningDataHelper returnMPsldc.BiharArrayResult 0 96}}</th>
+
+                                                <th class="text-center">{{returningDataHelper returnMPsldc.BiharArrayResult 0 96}}</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="col-sm-4">
+                                            <button id="exportMPdata" class="btn btn-sm btn-info glyphicon glyphicon-print center-block pull-left">Export to Excel</button>
+                                        </div>
+                                        <div class="col-sm-4"></div>
+                                        <div class="col-sm-4">
+                                          <!-- <button id="shootMPMail" class="btn btn-sm btn-danger pull-right">Send MP SLDC Report</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{/if}} {{#if stateIsRajasthan}}
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                </div>
+                                <div class="col-sm-6">
+                                    <h4 class="page-header">Solar Energy Corporation of India Ltd.</h4>
+                                </div>
+                                <div class="col-sm-2">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>(A Government of India Enterprise)</label>
+                                </div>
+                                <div class="col-sm-2">
+                                </div>
+                            </div>
+                            <section class="panel panel-default">
+                                <div class="panel-body">
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label>Regd. office:</label>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <P>SOLAR ENERGY CORPORATION OF INDIA LIMITED,1ST FLOOR,A WING, D-3,District Center,Saket, New Delhi-110017</P>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <P>Phones:011-71989285/86</P>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <P>Fax:011-71989287, Website:www.seci.co.in</P>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <P>CIN:U40106DL2011NPL225263</P>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <!-- <P>TRANSACTION</P> -->
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <!-- <P>RAJASTHAN-HPPC</P> -->
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <P>ISSUE DATE:</P>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <P>{{returnRajasthan.minusOneDay}}</P>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <P>STU LOSS</P>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <P>{{returnRajasthan.stuLossValue}}</P>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <P>SCHEDULE FOR:</P>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <P>{{returnRajasthan.scheduleDate}}</P>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                        </div>
+                                        <div class="col-sm-3">
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <P>REV</P>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <P>0</P>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-body"></div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-condensed text-center" id="exportRajasthanDataTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center" colspan="2"></th>
+
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 0 'spdName'}}-
+                                                                <br> {{returningData returnRajasthan.normalSpds 0 'discomState'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 1 'spdName'}}-
+                                                                <br> {{returningData returnRajasthan.normalSpds 1 'discomState'}}</th>
+
+                                                            <th class="text-center">NORTHERN, AZURE GREEN TECH, AZURE SUNSHINE-HPPC</th>
+
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 2 'spdName'}}-
+                                                                <br> {{returningData returnRajasthan.normalSpds 2 'discomState'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 3 'spdName'}}-
+                                                                <br> {{returningData returnRajasthan.normalSpds 3 'discomState'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 4 'spdName'}}-
+                                                                <br> {{returningData returnRajasthan.normalSpds 4 'discomState'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 5 'spdName'}}-
+                                                                <br> {{returningData returnRajasthan.normalSpds 5 'discomState'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 6 'spdName'}}-
+                                                                <br> {{returningData returnRajasthan.normalSpds 6 'discomState'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 7 'spdName'}}-
+                                                                <br> {{returningData returnRajasthan.normalSpds 7 'discomState'}}</th>
+
+                                                            <th class="text-center">TODAY GREEN 1 RJ AND 2 RJ AND 3 RJ-PUNJAB</th>
+
+                                                            <th class="text-center"></th>
+
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 0 'spdName'}}-
+                                                                <br> {{returningData returnRajasthan.normalSpds 0 'discomState'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 1 'spdName'}}-
+                                                                <br> {{returningData returnRajasthan.normalSpds 1 'discomState'}}</th>
+
+                                                            <th class="text-center">NORTHERN, AZURE GREEN TECH, AZURE SUNSHINE-HPPC</th>
+
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 2 'spdName'}}-
+                                                                <br> {{returningData returnRajasthan.normalSpds 2 'discomState'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 3 'spdName'}}-
+                                                                <br> {{returningData returnRajasthan.normalSpds 3 'discomState'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 4 'spdName'}}-
+                                                                <br> {{returningData returnRajasthan.normalSpds 4 'discomState'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 5 'spdName'}}-
+                                                                <br> {{returningData returnRajasthan.normalSpds 5 'discomState'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 6 'spdName'}}-
+                                                                <br> {{returningData returnRajasthan.normalSpds 6 'discomState'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 7 'spdName'}}-
+                                                                <br> {{returningData returnRajasthan.normalSpds 7 'discomState'}}</th>
+
+                                                            <th class="text-center">TODAY GREEN 1 RJ AND 2 RJ and 3 RJ-PUNJAB</th>
+
+                                                            <th rowspan="3" class="text-center">TOTAL (240 MW)</th>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th colspan="2" class="text-center">ALLOCATED CAPACITY</th>
+                                                            <th class="text-center">GENERATION SCHEDULE</th>
+                                                            <th class="text-center">GENERATION SCHEDULE</th>
+
+                                                            <th class="text-center">GENERATION SCHEDULE</th>
+                                                            <th class="text-center">GENERATION SCHEDULE</th>
+                                                            <th class="text-center">GENERATION SCHEDULE</th>
+                                                            <th class="text-center">GENERATION SCHEDULE</th>
+                                                            <th class="text-center">GENERATION SCHEDULE</th>
+                                                            <th class="text-center">GENERATION SCHEDULE</th>
+                                                            <th class="text-center">GENERATION SCHEDULE</th>
+                                                            <th class="text-center">GENERATION SCHEDULE</th>
+
+                                                            <th class="text-center">TOTAL (240 MW)</th>
+                                                            <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                            <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                            <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                            <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                            <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                            <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                            <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                            <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                            <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                            <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th colspan="2" class="text-center">TIME BLOCK</th>
+
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 0 'spdCapacity'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 1 'spdCapacity'}}</th>
+                                                            <th class="text-center">80 MW</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 2 'spdCapacity'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 3 'spdCapacity'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 4 'spdCapacity'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 5 'spdCapacity'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 6 'spdCapacity'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 7 'spdCapacity'}}</th>
+
+                                                            <th class="text-center">30 MW</th>
+
+                                                            <th class="text-center"></th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 0 'spdCapacity'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 1 'spdCapacity'}}</th>
+                                                            <th class="text-center">80 MW</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 2 'spdCapacity'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 3 'spdCapacity'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 4 'spdCapacity'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 5 'spdCapacity'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 6 'spdCapacity'}}</th>
+                                                            <th class="text-center">{{returningData returnRajasthan.normalSpds 7 'spdCapacity'}}</th>
+
+                                                            <th class="text-center">30 MW</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {{#each blockCount}} {{#let bigloop=@index}}
+                                                        <tr>
+                                                            <td>{{returnSlots "from" bigloop}}-{{returnSlots "to" bigloop}}</td>
+                                                            <td>{{serial bigloop}}</td>
+
+                                                            <td>{{returningDataHelper returnRajasthan.resultNormal 0 bigloop}}</td>
+                                                            <td>{{returningDataHelper returnRajasthan.resultNormal 1 bigloop}}</td>
+                                                            <td>{{returningColoum returnRajasthan.haryanaTotalSet bigloop}}</td>
+                                                            <td>{{returningDataHelper returnRajasthan.resultNormal 2 bigloop}}</td>
+                                                            <td>{{returningDataHelper returnRajasthan.resultNormal 3 bigloop}}</td>
+                                                            <td>{{returningDataHelper returnRajasthan.resultNormal 4 bigloop}}</td>
+                                                            <td>{{returningDataHelper returnRajasthan.resultNormal 5 bigloop}}</td>
+                                                            <td>{{returningDataHelper returnRajasthan.resultNormal 6 bigloop}}</td>
+                                                            <td>{{returningDataHelper returnRajasthan.resultNormal 7 bigloop}}</td>
+
+                                                            <td>{{returningColoum returnRajasthan.punjabTotalSet bigloop}}</td>
+                                                            <td>{{returningColoum returnRajasthan.onlyTotal bigloop}}</td>
+
+                                                            <td>{{returningDataHelper returnRajasthan.resultNormalLoss 0 bigloop}}</td>
+                                                            <td>{{returningDataHelper returnRajasthan.resultNormalLoss 1 bigloop}}</td>
+                                                            <td>{{returningColoum returnRajasthan.haryanaTotalSetLoss bigloop}}</td>
+                                                            <td>{{returningDataHelper returnRajasthan.resultNormalLoss 2 bigloop}}</td>
+                                                            <td>{{returningDataHelper returnRajasthan.resultNormalLoss 3 bigloop}}</td>
+                                                            <td>{{returningDataHelper returnRajasthan.resultNormalLoss 4 bigloop}}</td>
+                                                            <td>{{returningDataHelper returnRajasthan.resultNormalLoss 5 bigloop}}</td>
+                                                            <td>{{returningDataHelper returnRajasthan.resultNormalLoss 6 bigloop}}</td>
+                                                            <td>{{returningDataHelper returnRajasthan.resultNormalLoss 7 bigloop}}</td>
+
+                                                            <td>{{returningColoum returnRajasthan.punjabTotalSetLoss bigloop}}</td>
+                                                            <td>{{returningColoum returnRajasthan.onlyTotalLoss bigloop}}</td>
+                                                        </tr>
+                                                        {{/let}} {{/each}}
+                                                        <tr>
+                                                            <th>TOTAL(MUs)</th>
+                                                            <th></th>
+
+                                                            <th>{{returningDataHelper returnRajasthan.resultNormal 0 96}}</th>
+                                                            <th>{{returningDataHelper returnRajasthan.resultNormal 1 96}}</th>
+                                                            <th>{{returningColoum returnRajasthan.haryanaTotalSet 96}}</th>
+                                                            <th>{{returningDataHelper returnRajasthan.resultNormal 2 96}}</th>
+                                                            <th>{{returningDataHelper returnRajasthan.resultNormal 3 96}}</th>
+                                                            <th>{{returningDataHelper returnRajasthan.resultNormal 4 96}}</th>
+                                                            <th>{{returningDataHelper returnRajasthan.resultNormal 5 96}}</th>
+                                                            <th>{{returningDataHelper returnRajasthan.resultNormal 6 96}}</th>
+                                                            <th>{{returningDataHelper returnRajasthan.resultNormal 7 96}}</th>
+
+                                                            <th>{{returningColoum returnRajasthan.punjabTotalSet 96}}</th>
+                                                            <th>{{returningColoum returnRajasthan.onlyTotal 96}}</th>
+
+                                                            <th>{{returningDataHelper returnRajasthan.resultNormalLoss 0 96}}</th>
+                                                            <th>{{returningDataHelper returnRajasthan.resultNormalLoss 1 96}}</th>
+                                                            <th>{{returningColoum returnRajasthan.haryanaTotalSetLoss 96}}</th>
+                                                            <th>{{returningDataHelper returnRajasthan.resultNormalLoss 2 96}}</th>
+                                                            <th>{{returningDataHelper returnRajasthan.resultNormalLoss 3 96}}</th>
+                                                            <th>{{returningDataHelper returnRajasthan.resultNormalLoss 4 96}}</th>
+                                                            <th>{{returningDataHelper returnRajasthan.resultNormalLoss 5 96}}</th>
+                                                            <th>{{returningDataHelper returnRajasthan.resultNormalLoss 6 96}}</th>
+                                                            <th>{{returningDataHelper returnRajasthan.resultNormalLoss 7 96}}</th>
+
+                                                            <th>{{returningColoum returnRajasthan.punjabTotalSetLoss 96}}</th>
+                                                            <th>{{returningColoum returnRajasthan.onlyTotalLoss 96}}</th>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4 pull-left">
+                                                </div>
+                                                <div class="col-sm-5 pull-left">
+                                                </div>
+                                                <div class="col-sm-3 pull-left">
+                                                    <!-- <label>Authorised Signatory</label> -->
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4 pull-left">
+                                                </div>
+                                                <div class="col-sm-5 pull-left">
+                                                </div>
+                                                <div class="col-sm-3 pull-left">
+                                                    <!-- <label>Solar Energy Corporation of India Limited</label> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="col-sm-4">
+                                            <button id="exportRajasthanData" class="btn btn-sm btn-info glyphicon glyphicon-print center-block pull-left">Export to Excel</button>
+                                        </div>
+                                        <div class="col-sm-4"></div>
+                                        <div class="col-sm-4">
+                                          <!-- <button id="shootRajasthanMail" class="btn btn-sm btn-danger pull-right">Send Rajasthan SLDC Report</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

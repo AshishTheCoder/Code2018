@@ -1,0 +1,184 @@
+<template name="SpdScheduleStatus">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">SPD Schedule Status</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <div class="col-sm-12">
+                                                <label class="col-sm-4 form-control-label">From Date :</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="txtFromDate" class="form-control input-sm" placeholder="From Date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">To Date :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="txtToDate" class="form-control input-sm" placeholder="To Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <center>
+                                                        <button id='buttonSubmit' class="btn btn-success">Submit</button>
+                                                    </center>
+                                                </div>
+                                                <div class="col-sm-10">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Table-->
+                            {{#if isDateSelected}}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <section class="panel panel-default">
+                                        <div class="panel-body">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Sr. No.</th>
+                                                                    <th>Date</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {{#each dataShow}}
+                                                                <tr>
+                                                                    <td>{{serialNO}}</td>
+                                                                    <td>{{date}}</td>
+                                                                    <td>
+                                                                        <button id="viewSchedule" data-title="{{id}}" selectedDate="{{date}}" class="btn btn-sm btn-info btnViewScheduleRealTime" data-toggle="modal">View</button>
+
+                                                                        <!-- <button id="viewSchedule" data-title="{{id}}" selectedDate="{{date}}" class="btn btn-sm btn-info" data-toggle="modal" data-target="#myModalView">View</button> -->
+                                                                    </td>
+                                                                </tr>
+                                                                {{/each}}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                            {{/if}}
+                            {{#if isRealTimeViewScheduleClicked}}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="panel-body">
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <button id="exportRevisons" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <section class="panel panel-default">
+                                        <div class="panel-body" style="overflow-x:scroll">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12">
+                                                      {{#if isMPStateSPSSelectedForScheduleSubmission}}
+                                                        <table class="table table-responsive table-bordered" id="revisionTable">
+                                                            <thead>
+                                                                <tr>
+                                                                    {{#each getTableHeadings isRealTimeViewBtnClicked}}
+                                                                    <td><b>{{this}}</b></td>
+                                                                    {{/each}}
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {{#each isRealTimeViewBtnClicked}}
+                                                                <tr>
+                                                                    {{#each getValues this}}
+                                                                    <td style="background-color:{{actuallyColor}}">{{this.data}}</td>
+                                                                    {{/each}}
+                                                                </tr>
+                                                                {{/each}}
+                                                            </tbody>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th colspan="2">
+                                                                        <center>Total(MU's) :</center>
+                                                                    </th>
+                                                                    {{#each isRealTimeTotalMwhView}}
+                                                                    <td><b>{{totalAvaibility}}</b></td>
+                                                                    <td><b>{{totalMwh}}</b></td>
+                                                                    {{/each}}
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                      {{else}}
+                                                        <table class="table table-responsive table-bordered" id="revisionTable">
+                                                            <thead>
+                                                                <tr>
+                                                                    {{#each getTableHeadings isRealTimeViewBtnClicked}}
+                                                                    <td><b>{{this}}</b></td>
+                                                                    {{/each}}
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {{#each isRealTimeViewBtnClicked}}
+                                                                <tr>
+                                                                    <td>{{serial @index}}</td>
+                                                                    {{#each getValues this}}
+                                                                    <td style="background-color:{{actuallyColor}}">{{this.data}}</td>
+                                                                    {{/each}}
+                                                                </tr>
+                                                                {{/each}}
+                                                            </tbody>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th colspan="3">
+                                                                        <center>Total(MU's) :</center>
+                                                                    </th>
+                                                                    {{#each isRealTimeTotalMwhView}}
+                                                                    <td><b>{{totalMwh}}</b></td>
+                                                                    {{/each}}
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                      {{/if}}
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

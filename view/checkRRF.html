@@ -1,0 +1,165 @@
+<template name="checkRRFdata">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Validate RRF</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Select Date :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="selectDate" class="form-control input-sm" placeholder="Select Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{#if viewTable}}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Date</th>
+                                                                <th>Type</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>{{viewDateSelected}}</td>
+                                                                <td>MP RRF View</td>
+                                                                <td>
+                                                                    <button class="btn btn-sm btn-primary" id="viewRRF">View</button>&nbsp;
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        {{/if}}
+
+                        {{#if showTabublarData}}
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-12 col-md-12 table-responsive">
+                                    <table class="table table-bordered text-center" id="exportMPDataTable">
+                                        <tbody>
+                                            <tr>
+                                                <th class="text-center" colspan="2" style="background-color:orange">Revision Number: {{returnFetchedValues.revisionNumber}}</th>
+                                                <th colspan="4" class="text-center">QUANTUM IS AFTER APPLYING STU LOSSES ON SPD SCHEDULE</th>
+                                                <th colspan="4" class="text-center">SCHEDULE RECEIVED FROM MPSLDC</th>
+                                                <th colspan="4" class="text-center">CHECK</th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="2" class="text-center">TIME BLOCK</th>
+                                                <th class="text-center">Chhattisgarh</th>
+                                                {{#each returnFetchedValues.stateArray}}
+                                                <th class="text-center">{{this}}</th>
+                                                {{/each}}
+                                                <th class="text-center">Chhattisgarh</th>
+                                                 {{#each returnFetchedValues.stateArray}}
+                                                <th class="text-center">{{this}}</th>
+                                                {{/each}}
+                                                <th class="text-center">Chhattisgarh</th>
+                                                 {{#each returnFetchedValues.stateArray}}
+                                                <th class="text-center">{{this}}</th>
+                                                {{/each}}
+                                            </tr>
+                                            {{#each blockCount}} {{#let bigloop=@index}}
+                                            <tr>
+                                                <td>
+                                                    <center><strong>{{returnSlots "from" bigloop}}-{{returnSlots "to" bigloop}}</strong></center>
+                                                </td>
+                                                <th>
+                                                    <center>{{serial bigloop}}</center>
+                                                </th>
+                                                <td>
+                                                  <center>{{returningColoum returnFetchedValues.ChhattisgarhTotalSetLoss bigloop}}</center>
+                                                </td>
+                                                {{#each returnFetchedValues.stateArray}}
+                                                <td>
+                                                    <center>{{returningDataHelper returnFetchedValues.resultRestLoss @index bigloop}}</center>
+                                                </td>
+                                                {{/each}}
+                                                <td>
+                                                  <center>{{returningColoum returnFetchedValues.ChhattisgarhRRF bigloop}}</center>
+                                                </td>
+                                                {{#each returnFetchedValues.stateArray}}
+                                                <td>
+                                                    <center>{{returningDataHelper returnFetchedValues.RestRRF @index bigloop}}</center>
+                                                </td>
+                                                {{/each}}
+
+                                                <td style="background-color:{{colourCheckCha returnFetchedValues.subChhattisgarh bigloop}}">
+                                                  <center>{{returningColoum returnFetchedValues.subChhattisgarh bigloop}}</center>
+                                                </td>
+                                                {{#each returnFetchedValues.stateArray}}
+                                                <td style="background-color:{{colourCheckAll returnFetchedValues.subRest @index bigloop}}">
+                                                    <center>{{returningDataHelper returnFetchedValues.subRest @index bigloop}}</center>
+                                                </td>
+                                                {{/each}}
+                                            </tr>
+                                            {{/let}} {{/each}}
+                                            <tr>
+                                                <td class="text-center" colspan="2"><strong>Total MUs</strong></td>
+                                                <td class="text-center"><strong>{{returnFetchedValues.totalJson.chhatishgarhTotalSch}}</strong></td>
+                                                {{#each returnFetchedValues.totalJson.SchTotalArr}}
+                                                <td class="text-center"><strong>{{this}}</strong></td>
+                                                {{/each}}
+                                                <td class="text-center"><strong>{{returnFetchedValues.totalJson.chhatishgarhTotalRRF}}</strong></td>
+                                                {{#each returnFetchedValues.totalJson.RRFTotalArr}}
+                                                <td class="text-center"><strong>{{this}}</strong></td>
+                                                {{/each}}
+                                                <td class="text-center"><strong>{{returnFetchedValues.totalJson.chhatishgarhTotalCal}}</strong></td>
+                                                {{#each returnFetchedValues.totalJson.CalTotalArr}}
+                                                <td class="text-center"><strong>{{this}}</strong></td>
+                                                {{/each}}
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="col-sm-4">
+                                            <button id="exportMPData" class="btn btn-sm btn-info glyphicon glyphicon-print center-block pull-left">Export to Excel</button>
+                                        </div>
+                                        <div class="col-sm-4">
+                                          <button id="rejectMPrrf" class="btn btn-sm btn-danger center-block pull-right" attrID="{{returnFetchedValues.rrfId}}" attrFilePath="{{returnFetchedValues.filePath}}">Reject RRF</button>
+                                        </div>
+                                        <div class="col-sm-4">
+                                          <button id="verifyMPrrf" class="btn btn-sm btn-success pull-right" attr="{{returnFetchedValues.rrfId}}">Approve RRF</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,539 @@
+<template name="rldc_comparision">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">RLDC Comparisions</h1>
+                    </div>
+                    <div class="panel-body">
+                      <div class="row">
+                          <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="inlineRadioOptions" id="inlineRadio" value="checkReports">Check Reports
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="inlineRadioOptions" id="inlineRadio" value="checkLogs">Check Logs
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            {{#if checkReports}}
+                            <div class="row">
+                                <div class="col-sm-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 form-control-label">Select Date:</label>
+                                      <div class="col-sm-8">
+                                          <input type="text" id="selectDate" class="form-control input-sm showDatepicker" placeholder="Select Date">
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-4 form-control-label">Select SLDC/RLDC :</label>
+                                          <div class="col-sm-8">
+                                              <select class="form-control input-sm" id="selectRldc">
+                                                  <option value="">Select SLDC/RLDC</option>
+                                                  <option value="All">All</option>
+                                                  <option value="NRLDC">NRLDC</option>
+                                                  <option value="WRLDC">WRLDC</option>
+                                                  <option value="ERLDC">ERLDC</option>
+                                                  <option value="NERLDC">NERLDC</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  {{#if allRldc}}
+                                  <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-4 form-control-label">Select Discom :</label>
+                                          <div class="col-sm-8">
+                                              <select class="form-control input-sm" id="selectDiscom">
+                                                  <option value="">Select State</option>
+                                                  {{#each showAllStates}}
+                                                  <option value="{{this.state}}" rldcarea="{{this.regional_area}}" spds={{this.spdIds}} spdState={{this.stateofSpd}}>{{this.state}}</option>
+                                                  {{/each}}
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  {{/if}}
+
+                                  {{#if showBiferAllState}}
+                                    <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-4 form-control-label">Select {{showState}} State:</label>
+                                          <div class="col-sm-8">
+                                              <select class="form-control input-sm" id="selectBiferAll">
+                                                <option value="">Select State</option>
+                                                <option value="Rajasthan">Rajasthan</option>
+                                                {{#if checkState showState}}
+                                                <option value="Gujarat">Gujarat</option>
+                                                {{else}}
+                                                <option value="MP">MP</option>
+                                                {{/if}}
+                                              </select>
+                                          </div>
+                                      </div>
+                                    </div>
+                                  {{/if}}
+
+                                  {{#if IndiRldc}}
+                                  <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-4 form-control-label">Select {{showStates.selectedRldc}} Discom:</label>
+                                          <div class="col-sm-8">
+                                              <select class="form-control input-sm" id="selectRldcDiscom">
+                                                  <option value="">Select {{showStates.selectedRldc}} State</option>
+                                                  {{#if hideAllAssam}}
+                                                  <option value="All">All</option>
+                                                  {{/if}}
+                                                  {{#each showStates.statesArray}}
+                                                  <option value="{{this}}">{{this}}</option>
+                                                  {{/each}}
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  {{/if}}
+                              </div>
+                              {{#if showBiferRldc}}
+                              <div class="row">
+                                <div class="col-sm-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 form-control-label">Select Orissa State:</label>
+                                      <div class="col-sm-8">
+                                          <select class="form-control input-sm" id="selectBifer">
+                                            <option value="">Select State</option>
+                                            <option value="Rajasthan">Rajasthan</option>
+                                            {{#if showOdisha}}
+                                            <option value="Gujarat">Gujarat</option>
+                                            {{/if}}
+                                            {{#if showMaharashtra}}
+                                            <option value="MP">MP</option>
+                                            {{/if}}
+                                          </select>
+                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                              {{/if}}
+
+                              {{#if viewTable}}
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <section class="panel panel-default">
+                                          <div class="panel-body">
+                                              <fieldset>
+                                                  <div class="row">
+                                                      <div class="col-md-12 col-sm-12">
+                                                          <table class="table table-bordered">
+                                                              <thead>
+                                                                  <tr>
+                                                                      <th>Date</th>
+                                                                      <th>Transaction</th>
+                                                                      <th>Selected Rldc</th>
+                                                                      <th>Action</th>
+                                                                  </tr>
+                                                              </thead>
+                                                              <tbody>
+                                                                  <tr>
+                                                                      <td>{{returnFetchedValues.selectedDate}}</td>
+                                                                      <td>{{returnFetchedValues.spdState}}-{{returnFetchedValues.discomState}}</td>
+                                                                      <td>{{returnFetchedValues.selectedRldc}}</td>
+                                                                      <td>
+                                                                          <button class="btn btn-sm btn-primary" id="viewReport">View</button>&nbsp;
+                                                                      </td>
+                                                                  </tr>
+                                                              </tbody>
+                                                          </table>
+                                                      </div>
+                                                  </div>
+                                              </fieldset>
+                                          </div>
+                                      </section>
+                                  </div>
+                              </div>
+                              {{/if}}
+
+
+                              {{#if allTransactionTableView}}
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <section class="panel panel-default">
+                                          <div class="panel-body">
+                                              <fieldset>
+                                                  <div class="row">
+                                                      <div class="col-md-12 col-sm-12">
+                                                          <table class="table table-bordered">
+                                                              <thead>
+                                                                  <tr>
+                                                                      <th>Date</th>
+                                                                      <th>Transaction</th>
+                                                                      <th>Related RLDC</th>
+                                                                      <th>Action</th>
+                                                                  </tr>
+                                                              </thead>
+                                                              <tbody>
+                                                                  <tr>
+                                                                      <td>{{allTransactionTable.json.date}}</td>
+                                                                      <td>{{allTransactionTable.json.spdState}}-{{allTransactionTable.json.discomState}}</td>
+                                                                      <td>{{allTransactionTable.json.comparisionArray}}</td>
+                                                                      <td>
+                                                                          <button class="btn btn-sm btn-primary" id="viewAllTransaction">View Report</button>&nbsp;
+                                                                      </td>
+                                                                  </tr>
+                                                              </tbody>
+                                                          </table>
+                                                      </div>
+                                                  </div>
+                                              </fieldset>
+                                          </div>
+                                      </section>
+                                  </div>
+                              </div>
+                              {{/if}}
+
+                              {{#if showAllTransactionData}}
+                              <div class="row">
+                                  <div class="form-group">
+                                      <div class="col-sm-12 col-md-12 table-responsive">
+                                          <table class="table table-bordered text-center" id="exportAllComparisionDataTable">
+                                              <tbody>
+                                                  <tr>
+                                                      <th class="text-center" colspan="2">TIME BLOCK</th>
+                                                      <th colspan="1" class="text-center">AFTER APPLYING STU LOSSES ON SPD SCHEDULE all case</th>
+                                                      <th colspan="{{colspan returnAllTransaction.json.comparisionArray}}" class="text-center">SCHEDULE RECEIVED FROM RLDC</th>
+                                                      <th colspan="{{colspan returnAllTransaction.json.comparisionArray}}" class="text-center">CHECK</th>
+                                                  </tr>
+                                                  <tr>
+                                                      <th colspan="2"></th>
+                                                      <th></th>
+                                                      {{#each returnAllTransaction.json.comparisionArray}}
+                                                      <th>
+                                                          <center>{{this}}</center>
+                                                      </th>
+                                                      {{/each}}
+                                                      {{#each returnAllTransaction.json.comparisionArray}}
+                                                      <th>
+                                                          <center>{{this}}</center>
+                                                      </th>
+                                                      {{/each}}
+                                                  </tr>
+                                                  {{#each blockCount}} {{#let bigloop=@index}}
+                                                  <tr>
+                                                      <td>
+                                                          <center><strong>{{returnSlots "from" bigloop}}-{{returnSlots "to" bigloop}}</strong></center>
+                                                      </td>
+                                                      <th>
+                                                          <center>{{serial bigloop}}</center>
+                                                      </th>
+                                                      <td>
+                                                        <center>{{returningColoum returnAllTransaction.result bigloop}}</center>
+                                                      </td>
+                                                      {{#each returnAllTransaction.json.comparisionArray}}
+                                                      <td>
+                                                        <center>{{showServerData this bigloop}}</center>
+                                                      </td>
+                                                      {{/each}}
+                                                      {{#each returnAllTransaction.json.comparisionArray}}
+                                                      <td style="background-color:{{colourCheckAllState this bigloop}}">
+                                                        <center>{{showDifference this bigloop}}</center>
+                                                      </td>
+                                                      {{/each}}
+                                                  </tr>
+                                                  {{/let}} {{/each}}
+                                                  <tr>
+                                                      <th class="text-center">Total(MU's)</th>
+                                                      <th class="text-center"></th>
+                                                      <th class="text-center">{{returningColoum returnAllTransaction.result 96}}</th>
+                                                      {{#each returnAllTransaction.json.comparisionArray}}
+                                                      <th class="text-center">{{showServerData this 96}}</th>
+                                                      {{/each}}
+                                                      {{#each returnAllTransaction.json.comparisionArray}}
+                                                      <th class="text-center" style="background-color:{{colourCheckAllState this 96}}">{{showDifference this 96}}</th>
+                                                      {{/each}}
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="panel-body">
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                          <div class="form-group">
+                                              <div class="col-sm-4">
+                                                <button id="exportAllComparision" class="btn btn-sm btn-info glyphicon glyphicon-print pull-left">Export to Excel</button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              {{/if}}
+
+                              {{#if showTabublarData}}
+                              <div class="row">
+                                  <div class="form-group">
+                                      <div class="col-sm-12 col-md-12 table-responsive">
+                                          <table class="table table-bordered text-center" id="exportIndiDataTable">
+                                              <tbody>
+                                                  <tr>
+                                                      <th class="text-center" colspan="2">TIME BLOCK</th>
+                                                      <th colspan="1" class="text-center">AFTER APPLYING STU LOSSES ON SPD SCHEDULE</th>
+                                                      <th colspan="1" class="text-center">SCHEDULE RECEIVED FROM RLDC</th>
+                                                      <th colspan="1" class="text-center">CHECK</th>
+                                                  </tr>
+                                                  {{#each blockCount}} {{#let bigloop=@index}}
+                                                  <tr>
+                                                      <td>
+                                                          <center><strong>{{returnSlots "from" bigloop}}-{{returnSlots "to" bigloop}}</strong></center>
+                                                      </td>
+                                                      <th>
+                                                          <center>{{serial bigloop}}</center>
+                                                      </th>
+                                                      <td>
+                                                        <center>{{returningColoum returnFetchedValues.onlyTotal bigloop}}</center>
+                                                      </td>
+                                                      <td>
+                                                        <center>{{returningColoum returnFetchedValues.serverArray bigloop}}</center>
+                                                      </td>
+                                                      <td style="background-color:{{colourCheckCha returnFetchedValues.difference bigloop}}">
+                                                        <center>{{returningColoum returnFetchedValues.difference bigloop}}</center>
+                                                      </td>
+                                                  </tr>
+                                                  {{/let}} {{/each}}
+                                                  <tr>
+                                                      <td>
+                                                          <center> <strong>Total(MU's)</strong></center>
+                                                      </td>
+                                                      <th>
+                                                          <center></center>
+                                                      </th>
+                                                      <td>
+                                                          <center><strong>{{returningColoum returnFetchedValues.onlyTotal 96}}</strong></center>
+                                                      </td>
+                                                      <td>
+                                                          <center><strong>{{returningColoum returnFetchedValues.serverArray 96}}</strong></center>
+                                                      </td>
+                                                      <td>
+                                                          <center><strong>{{returningColoum returnFetchedValues.difference 96}}</strong></center>
+                                                      </td>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="panel-body">
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                          <div class="form-group">
+                                              <div class="col-sm-4">
+                                                  <button id="exportIndiData" class="btn btn-sm btn-info glyphicon glyphicon-print center-block pull-left">Export to Excel</button>
+                                              </div>
+                                              <div class="col-sm-4">
+                                              </div>
+                                              <div class="col-sm-4">
+                                                <button id="createLog" class="btn btn-sm btn-success pull-right" attr="{{returnFetchedValues}}">Create Log</button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              {{/if}}
+
+                              {{#if allRLDCSelected}}
+                              <div class="panel-body">
+                                  <div class="row">
+                                      <div class="col-sm-4">
+                                      </div>
+                                      <div class="col-sm-6">
+                                        <center>
+                                          <h4 class="page-header">Solar Energy Corporation of India Ltd.</h4>
+                                        </center>
+                                      </div>
+                                      <div class="col-sm-2">
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-sm-4">
+                                      </div>
+                                      <div class="col-sm-6">
+                                        <center>
+                                          <label>(A Government of India Enterprise)</label>
+                                        </center>
+                                      </div>
+                                      <div class="col-sm-2">
+                                      </div>
+                                  </div>
+                                  <section class="panel panel-default">
+                                      <div class="panel-body">
+                                          <div class="panel-body">
+                                              <div class="row">
+                                                  <div class="table-responsive">
+                                                    <table class="table table-bordered table-condensed text-center" id="exportAllDataTable">
+                                                          <thead>
+                                                            <tr>
+                                                                <th class="text-center" colspan="2"></th>
+                                                                <th colspan="{{colspan returnAllNRLDC.restArray}}" class="text-center">AFTER APPLYING STU LOSSES ON SPD SCHEDULE</th>
+                                                                <th colspan="{{colspan returnAllNRLDC.restArray}}" class="text-center">SCHEDULE RECEIVED FROM RLDC</th>
+                                                                <th colspan="{{colspan returnAllNRLDC.restArray}}" class="text-center">CHECK</th>
+                                                            </tr>
+                                                              <tr>
+                                                                  <th class="text-center" colspan="2">TIME BLOCK</th>
+                                                                  {{#each returnAllNRLDC.restArray}}
+                                                                  <th class="text-center">{{this.spdState}}-{{this.discomState}}</th>
+                                                                  {{/each}}
+                                                                  {{#each returnAllNRLDC.restArray}}
+                                                                  <th class="text-center">{{this.spdState}}-{{this.discomState}}</th>
+                                                                  {{/each}}
+                                                                  {{#each returnAllNRLDC.restArray}}
+                                                                  <th class="text-center">{{this.spdState}}-{{this.discomState}}</th>
+                                                                  {{/each}}
+                                                              </tr>
+                                                          </thead>
+                                                          <tbody>
+                                                              {{#each blockCount}} {{#let bigloop=@index}}
+                                                              <tr>
+                                                                  <td>{{returnSlots "from" bigloop}}-{{returnSlots "to" bigloop}}</td>
+                                                                  <td>{{serial bigloop}}</td>
+                                                                  {{#each returnAllNRLDC.restArray}}
+                                                                  <td>{{returnHelperRLDC returnAllNRLDC.restArray @index 'spdSchedule' bigloop}}</td>
+                                                                  {{/each}}
+                                                                  {{#each returnAllNRLDC.restArray}}
+                                                                  <td>{{returnHelperRLDC returnAllNRLDC.restArray @index 'serverArray' bigloop}}</td>
+                                                                  {{/each}}
+                                                                  {{#each returnAllNRLDC.restArray}}
+                                                                  <td style="background-color:{{colourCheckAll returnAllNRLDC.restArray @index 'difference' bigloop}}">{{returnHelperRLDC returnAllNRLDC.restArray @index 'difference' bigloop}}</td>
+                                                                  {{/each}}
+                                                              </tr>
+                                                              {{/let}} {{/each}}
+                                                              <tr>
+                                                                  <th>TOTAL(MUs)</th>
+                                                                  <th></th>
+                                                                  {{#each returnAllNRLDC.restArray}}
+                                                                  <td>{{returnHelperRLDC returnAllNRLDC.restArray @index 'spdSchedule' 96}}</td>
+                                                                  {{/each}}
+                                                                  {{#each returnAllNRLDC.restArray}}
+                                                                  <td>{{returnHelperRLDC returnAllNRLDC.restArray @index 'serverArray' 96}}</td>
+                                                                  {{/each}}
+                                                                  {{#each returnAllNRLDC.restArray}}
+                                                                  <td style="background-color:{{colourCheckAll returnAllNRLDC.restArray @index 'difference' 96}}">{{returnHelperRLDC returnAllNRLDC.restArray @index 'difference' 96}}</td>
+                                                                  {{/each}}
+                                                              </tr>
+                                                          </tbody>
+                                                      </table>
+                                                  </div>
+                                                  <div class="row">
+                                                      <div class="col-sm-4 pull-left">
+                                                      </div>
+                                                      <div class="col-sm-5 pull-left">
+                                                      </div>
+                                                      <div class="col-sm-3 pull-left">
+                                                      </div>
+                                                  </div>
+                                                  <div class="row">
+                                                      <div class="col-sm-4 pull-left">
+                                                      </div>
+                                                      <div class="col-sm-5 pull-left">
+                                                      </div>
+                                                      <div class="col-sm-3 pull-left">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </section>
+                              </div>
+                              <div class="panel-body">
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                          <div class="form-group">
+                                              <div class="col-sm-4">
+                                              </div>
+                                              <div class="col-sm-4"></div>
+                                              <div class="col-sm-4">
+                                                <button id="exportAllData" class="btn btn-sm btn-info glyphicon glyphicon-print center-block pull-left">Export to Excel all</button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              {{/if}}
+
+                              {{/if}}
+                              {{#if checkLogs}}
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 form-control-label">Select Date:</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" id="selectDateLogs" class="form-control input-sm showDatepicker" placeholder="Select Date">
+                                        </div>
+                                    </div>
+                                  </div>
+                              </div>
+
+                              {{#if showLogsTable}}
+                              <div class="row">
+                                  <div class="form-group">
+                                      <div class="col-sm-12 col-md-12 table-responsive">
+                                          <table class="table table-bordered text-center">
+                                              <tbody>
+                                                  <tr>
+                                                      <th class="text-center" colspan="1">Serial</th>
+                                                      <th colspan="1" class="text-center">Date</th>
+                                                      <th colspan="1" class="text-center">RLDC</th>
+                                                      <th colspan="1" class="text-center">Transaction<br />(SPD State-Discom State)</th>
+                                                      <th colspan="1" class="text-center">Error Slots</th>
+                                                      <th colspan="1" class="text-center">Action</th>
+                                                  </tr>
+                                                  {{#each returnLogsValue}}
+                                                  <tr>
+                                                      <td>
+                                                          <center><strong>{{serial @index}}</strong></center>
+                                                      </td>
+                                                      <td>
+                                                        <center>{{this.selectedDate}}</center>
+                                                      </td>
+                                                      <td>
+                                                        <center>{{this.selectedRldc}}</center>
+                                                      </td>
+                                                      <td>
+                                                        <center>{{this.spdState}}-{{this.discomState}}</center>
+                                                      </td>
+                                                      <td>
+                                                        <center>{{firstAndLast this.diffSLots}}</center>
+                                                      </td>
+                                                      <td>
+                                                        <center><button class="btn btn-sm btn-success" id="sendReport" region="{{this.selectedRldc}}" attr="{{@index}}">Send Report</button></center>
+                                                      </td>
+                                                  </tr>
+                                                  {{/each}}
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+                              {{/if}}
+                              {{/if}}
+                          </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

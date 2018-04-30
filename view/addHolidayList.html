@@ -1,0 +1,81 @@
+<template name="addHolidaysList">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h1 style="font-weight:bold;font-size:28px;text-align:center;">SECI Holidays</h1>
+                  </div>
+                  <div class="panel-body">
+                      <div class="row">
+                          <div class="col-sm-12">
+                            {{#if isUserTypeSPD}}
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <section class="panel panel-default">
+                                          <div class="panel-body">
+                                              <div class="row">
+                                                  <div class="col-sm-12">
+                                                      <fieldset class="scheduler-border">
+                                                          <legend class="scheduler-border">Add Holidays</legend>
+                                                          <div class="row">
+                                                              <div class="col-sm-5">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-4 form-control-label">Select Date :</label>
+                                                                    <div class="col-sm-8">
+                                                                        <input type="text" id="txtDate" class="form-control input-sm txtDateClass" placeholder="Select Date">
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                              <div class="col-sm-5">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-4 form-control-label">Holiday Name :</label>
+                                                                    <div class="col-sm-8">
+                                                                        <input type="text" id="txtHoliday" class="form-control input-sm" placeholder="Enter Holiday Name">
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                              <div class="col-sm-2">
+                                                                <div class="form-group row">
+                                                                  {{#if returnDataToEdit}}
+                                                                    <center><button id="btnUpdateHoliday" class="btn btn-warning">Update</button></center>
+                                                                  {{else}}
+                                                                    <center><button id="btnAddHoliday" class="btn btn-success">Add</button></center>
+                                                                  {{/if}}
+                                                                </div>
+                                                              </div>
+                                                          </div>
+                                                      </fieldset>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </section>
+                                  </div>
+                              </div>
+                              {{/if}}
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <section class="panel panel-default">
+                                          <div class="panel-body">
+                                              <div class="row">
+                                                  <div class="col-sm-12 col-md-12 ">
+                                                      <fieldset class="scheduler-border">
+                                                          <legend class="scheduler-border">Holiday's List</legend>
+                                                          {{#if isView}}
+                                                          {{> reactiveTable settings=settings}}
+                                                          {{/if}}
+                                                      </fieldset>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </section>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

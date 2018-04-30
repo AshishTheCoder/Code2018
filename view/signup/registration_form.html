@@ -1,0 +1,329 @@
+<template name="secilRegistrationForm">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <form id="secilRegForm" action="#">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 main">
+                    {{#if alreadyRegistered}}
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h1 style="font-weight:bold;font-size:28px;text-align:center;">SPD Registration Form</h1>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">1</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>Name of SPD</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm secilRegistrationDetails required" placeholder="" name="name_of_spd">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">2</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>Project ID</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm secilRegistrationDetails required" placeholder="" name="project_id">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">3</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>Project Capacity (MW)</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm secilRegistrationDetails required" placeholder="" name="project_capicity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">4</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>Project location</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm secilRegistrationDetails required" placeholder="" name="project_location">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">5</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>Connected Substation Details</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm secilRegistrationDetails required" placeholder="" name="connected_substation_details">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">6</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>Injection Voltage(kV)</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm secilRegistrationDetails required" placeholder="" name="injection_voltage">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">7</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>Point of Supply(kV)</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm secilRegistrationDetails required" placeholder="" name="point_of_supply">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">8</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>Name of Coordinator for Energy Schedules</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm secilRegistrationDetails required" placeholder="" name="name_of_coordinator_for_energy_schedules">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">9</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>Contact Details(Mobile No. & Email ID)</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm secilRegistrationDetails required" placeholder="" name="contact_details">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">10</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>PAN Number</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm secilRegistrationDetails required" placeholder="" name="pan_number">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">11</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>TAN Number</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm secilRegistrationDetails required" placeholder="" name="tan_number">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">12</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>Bank Details</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm secilRegistrationDetails required" placeholder="" name="bank_details">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">13</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>Main Meter Number</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm secilRegistrationDetails required" placeholder="" name="main_meter_number">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">14</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>Check Meter Number</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm secilRegistrationDetails required" placeholder="" name="check_meter_number">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">15</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>Max CUF as per PPA(Capacity Utilization Factor)%</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm secilRegistrationDetails required" placeholder="" name="max_cuf_as_per_ppa">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">16</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>SPD's Min Energy as per PPA(MUs)</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm secilRegistrationDetails required" placeholder="" name="spd_min_energy_as_per_ppa">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">17</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>SPD's Max Energy as per PPA(MUs)</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm secilRegistrationDetails required" placeholder="" name="spd_max_energy_as_per_ppa">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">18</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>Transaction Type :</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <select id="selectTransactionType" class="form-control input-sm secilRegistrationDetails required" name="transaction_type">
+                                                        <option value="">Select Transaction Type</option>
+                                                        <option value="Inter">Inter</option>
+                                                        <option value="Intra">Intra</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">19</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>SPD State :</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <select id="selectState" class="form-control input-sm secilRegistrationDetails required" name="spd_state">
+                                                        <option value="">Select SPD State</option>
+                                                        <option value="Delhi">Delhi</option>
+                                                        <option value="Gujarat">Gujarat</option>
+                                                        <option value="Karnataka">Karnataka</option>
+                                                        <option value="Maharashtra">Maharashtra</option>
+                                                        <option value="MP">MP</option>
+                                                        <option value="Odisha">Odisha</option>
+                                                        <option value="Rajasthan">Rajasthan</option>
+                                                        <option value="Tamil Nadu">Tamil Nadu</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">20</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>Tariff(Rs/kWh):</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control input-sm secilRegistrationDetails required" placeholder="" name="rate_per_unit">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group row">
+                                                <div class="col-sm-1">
+                                                    <label class="pull-right">21</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>DCR/NON-DCR :</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <select id="selectDCR" class="form-control input-sm secilRegistrationDetails required" name="dcr_nonDcr">
+                                                        <option value="">Select DCR/NON-DCR</option>
+                                                        <option value="DCR">DCR</option>
+                                                        <option value="NON_DCR">NON-DCR</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="submit" class="btn btn-sm btn-success" placeholder="Submit">Submit</button>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <!-- <buttom type="submit" class="btn btn-sm btn-info" placeholder="Create Request to Update the Information">Create Request to Update the Information</buttom> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{else}}
+                    <h2>You are registered, wait for approval.</h2> {{/if}}
+                </div>
+            </div>
+        </form>
+    </div>
+</template>

@@ -1,0 +1,1472 @@
+<template name="monthlyReportSECIL">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h1 style="font-weight:bold;font-size:28px;text-align:center;">SPD/Discom Report</h1>
+                  </div>
+                  <div class="panel-body">
+                      <div class="row">
+                          <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-3 form-control-label">Report Type :</label>
+                                      <div class="col-sm-8">
+                                          <select id='ddlReportForAdmin' class="form-control form-control-sm input-sm">
+                                              <option value="">Select Report Type</option>
+                                              <option value="SPD">SPD Wise</option>
+                                              <option value="DISCOM">Discom Wise</option>
+                                              <option value="SLDC">SLDC Wise</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-3 form-control-label">Monthly/Yearly :</label>
+                                      <div class="col-sm-8">
+                                          <select id='ddlMonthlyYearly' class="form-control form-control-sm input-sm">
+                                              <option value="">Select Monthly/Yearly</option>
+                                              <option value="Monthly">Monthly</option>
+                                              <option value="Yearly">Yearly</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
+                          {{#if isReportTypeSPDSelectedForMonthly}}
+                            <div class="row">
+                                  <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-3 form-control-label">Select Month :</label>
+                                          <div class="col-sm-8">
+                                              <select id='ddlSelectMonth' class="form-control form-control-sm input-sm">
+                                                  <option value="">Select Month</option>
+                                                  {{#each monthShow}}
+                                                    <option value="{{this.value}}">{{this.key}}</option>
+                                                  {{/each}}
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-3 form-control-label">Select Year :</label>
+                                          <div class="col-sm-8">
+                                              <select id='ddlSelectYear' class="form-control form-control-sm input-sm">
+                                                  <option value="">Select Year</option>
+                                                  {{#each yearHelper}}
+                                                    <option value="{{this}}">{{this}}</option>
+                                                  {{/each}}
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">Select SPD :</label>
+                                            <div class="col-sm-8">
+                                                <select id='ddlSelectSPDList' class="form-control form-control-sm input-sm">
+                                                    <option value="">Select SPD</option>
+                                                    {{#each sldListArr}}
+                                                      <option value="{{_id}}" attrName="{{profile.registration_form.name_of_spd}}" attrState="{{profile.registration_form.spd_state}}">{{profile.registration_form.name_of_spd}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+
+                                        </div>
+                                    </div>
+                                </div>
+                          {{#if showInvidualMonthlyDataTable}}
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <section class="panel panel-default">
+                                            <div class="panel-body">
+                                                <fieldset>
+                                                  <div class="row">
+                                                      <div class="col-sm-12">
+                                                          <div class="panel-body">
+                                                              <fieldset>
+                                                                  <div class="row">
+                                                                      <div class="col-md-12 col-sm-12">
+                                                                          <button id="BtnExportSPDReport" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                                                                      </div>
+                                                                  </div>
+                                                              </fieldset>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12">
+                                                            <table class="table table-responsive table-bordered" id="exportSPDReport">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">Sr. No.</th>
+                                                                        <th class="text-center">Date</th>
+                                                                        <th class="text-center">Total MWh Without Loss</th>
+                                                                        <th class="text-center">Total MWh With Loss</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {{#each ShowIndividualMonthlySPDData}}
+                                                                    <tr>
+                                                                        <td class="text-center">{{sn}}</td>
+                                                                        <td class="text-center">{{date}}</td>
+                                                                        <td class="text-center">{{mwhData}}</td>
+                                                                        <td class="text-center">{{mwhWithLoss}}</td>
+                                                                    </tr>
+                                                                    {{/each}}
+                                                                    <tr>
+                                                                        <th colspan="2">
+                                                                            <center>Total(MU's) :</center>
+                                                                        </th>
+                                                                        <td class="text-center">
+                                                                            <b>{{ShowIndividualMonthlyTotalData.total}}</b>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <b>{{ShowIndividualMonthlyTotalData.totalWithLoss}}</b>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                                {{/if}}
+                            {{/if}}
+                          {{#if isReportTypeSPDSelectedForYearly}}
+                            <div class="row">
+                                  <div class="col-sm-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label">Select Year :</label>
+                                        <div class="col-sm-8">
+                                            <select id='ddlSelectYear' class="form-control form-control-sm input-sm">
+                                                <option value="">Select Year</option>
+                                                <!-- <option value="2016">2016</option> -->
+                                                <option value="2017">2017</option>
+                                                <option value="2018">2018</option>
+                                                <option value="2019">2019</option>
+                                                <option value="2020">2020</option>
+                                                <option value="2021">2021</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label">Select SPD :</label>
+                                        <div class="col-sm-8">
+                                            <select id='ddlSelectSPDList' class="form-control form-control-sm input-sm">
+                                                <option value="">Select SPD</option>
+                                                {{#each sldListArr}}
+                                                  <option value="{{_id}}" attrName="{{profile.registration_form.name_of_spd}}" attrState="{{profile.registration_form.spd_state}}">{{profile.registration_form.name_of_spd}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+                                    </div>
+                                  </div>
+                              </div>
+                              {{#if showInvidualYearlyDataTable}}
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="panel-body">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <button id="BtnExportSPDReport" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <section class="panel panel-default">
+                                            <div class="panel-body">
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12">
+                                                            <table class="table table-responsive table-bordered" id="exportSPDReport">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">Sr. No.</th>
+                                                                        <th class="text-center">Month</th>
+                                                                        <th class="text-center">Monthly Total MWh Without Loss</th>
+                                                                        <th class="text-center">Monthly Total MWh With Loss</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {{#each ShowIndividualYearlySPDData}}
+                                                                    <tr>
+                                                                        <td class="text-center">{{sr}}</td>
+                                                                        <td class="text-center"><b>{{month}}</b></td>
+                                                                        <td class="text-center">{{total}}</td>
+                                                                        <td class="text-center">{{totalWithLoss}}</td>
+                                                                    </tr>
+                                                                    {{/each}}
+                                                                    <tr>
+                                                                        <th colspan="2">
+                                                                            <center>Total(MU's) :</center>
+                                                                        </th>
+                                                                        <td class="text-center">
+                                                                            <b>{{ShowIndividualYearlyTotalData.monthlyTotalMwh}}</b>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <b>{{ShowIndividualYearlyTotalData.monthlyTotalMwhWithLoss}}</b>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                              {{/if}}
+                              {{/if}}
+
+                          {{#if isReportTypeDISCOMSelectedForMonthly}}
+                              <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">Select Month :</label>
+                                            <div class="col-sm-8">
+                                                <select id='ddlSelectMonthForDiscom' class="form-control form-control-sm input-sm">
+                                                    <option value="">Select Month</option>
+                                                    {{#each monthShow}}
+                                                      <option value="{{this.value}}">{{this.key}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">Select Year :</label>
+                                            <div class="col-sm-8">
+                                                <select id='ddlSelectYearForDiscom' class="form-control form-control-sm input-sm">
+                                                    <option value="">Select Year</option>
+                                                    <!-- <option value="2016">2016</option> -->
+                                                    <option value="2017">2017</option>
+                                                    <option value="2018">2018</option>
+                                                    <option value="2019">2019</option>
+                                                    <option value="2020">2020</option>
+                                                    <option value="2021">2021</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-3 form-control-label">Select Discom :</label>
+                                          <div class="col-sm-8">
+                                              <select id='ddlDiscomState' class="form-control form-control-sm input-sm">
+                                                <option value="">Select Discom</option>
+                                                  {{#each discoListArr}}
+                                                  <option value="{{id}}" attrState="{{discom_state}}">{{discom_state}}</option>
+                                                  {{/each}}
+                                              </select>
+                                          </div>
+                                      </div>
+                                    </div>
+                                    {{#if isSpdListAvailabel}}
+                                    <div class="col-sm-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label">Select Discom :</label>
+                                        <div class="col-sm-8">
+                                            <select id='ddlSPDListByDiscom' class="form-control form-control-sm input-sm">
+                                                <option value="">Select SPD</option>
+                                                <option value="All">All</option>
+                                                {{#each listOfSPDArr}}
+                                                <option value="{{spdId}}">{{spdName}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    {{/if}}
+                                </div>
+                                {{#if ifDiscomOdishaStatesSlectedAndAll}}
+                                <div class="row">
+                                      <div class="col-sm-6">
+                                          <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">Select State :</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control input-sm" id="ddlOdishaSelected">
+                                                  <option value="">Select State</option>
+                                                  <option value="Gujarat">Gujarat</option>
+                                                  <option value="Rajasthan">Rajasthan</option>
+                                                </select>
+                                            </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-6">
+                                          <div class="form-group row">
+
+                                          </div>
+                                      </div>
+                                  </div>
+                                {{/if}}
+                                {{#if ifDiscomMaharashtraStatesSlectedAndAll}}
+                                <div class="row">
+                                      <div class="col-sm-6">
+                                          <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">Select State :</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control input-sm" id="ddlMaharshtraSelected">
+                                                  <option value="">Select State</option>
+                                                  <option value="MP">MP</option>
+                                                  <option value="Rajasthan">Rajasthan</option>
+                                                </select>
+                                            </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-6">
+                                          <div class="form-group row">
+
+                                          </div>
+                                      </div>
+                                  </div>
+                                {{/if}}
+                                {{#if isMonthlyIndividualDiscomReport}}
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="panel-body">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <button id="BtnExportDISCOMYearlyReport" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <section class="panel panel-default">
+                                            <div class="panel-body">
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12">
+                                                            <table class="table table-responsive table-bordered" id="exportDISCOMYearlyReport">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">Sr. No.</th>
+                                                                        <th class="text-center">Date</th>
+                                                                        <th class="text-center">Total MWh Without Loss</th>
+                                                                        <th class="text-center">Total MWh With Loss</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {{#each ShowIndividualMonthlyDiscomReportData}}
+                                                                    <tr>
+                                                                        <td class="text-center">{{sn}}</td>
+                                                                        <td class="text-center">{{date}}</td>
+                                                                        <td class="text-center">{{mwhData}}</td>
+                                                                        <td class="text-center">{{mwhWithLoss}}</td>
+                                                                    </tr>
+                                                                    {{/each}}
+                                                                    <tr>
+                                                                        <th colspan="2">
+                                                                            <center>Total(MU's) :</center>
+                                                                        </th>
+                                                                        <td class="text-center">
+                                                                            <b>{{ShowIndividualMonthlyDiscomReportTotalData.total}}</b>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <b>{{ShowIndividualMonthlyDiscomReportTotalData.totalWithLoss}}</b>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                                {{/if}}
+                                {{#if isDiscomMonthlyAllAvailable}}
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="panel-body">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <button id="BtnExportDISCOMYearlyReport" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <section class="panel panel-default">
+                                            <div class="panel-body">
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12">
+                                                            <table class="table table-responsive table-bordered" id="exportDISCOMYearlyReport">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th rowspan="2" class="text-center">Sr. No.</th>
+                                                                        <th rowspan="2" class="text-center">Date</th>
+                                                                        <th class="text-center" colspan="{{DiscomMonthlyAllData.colSpanVar}}">GENERATION SCHEDULE</th>
+                                                                        <th class="text-center" colspan="{{DiscomMonthlyAllData.colSpanVar}}">AT {{DiscomMonthlyAllData.stateArr.[0].state}} PERIPHERY AFTER STU LOSSES</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        {{#each DiscomMonthlyAllData.arrName}}
+                                                                        <th class="text-center">{{this}}</th>
+                                                                        {{/each}}
+                                                                        <th class="text-center">TOTAL MW</th>
+                                                                        {{#each DiscomMonthlyAllData.arrName}}
+                                                                        <th class="text-center">{{this}}</th>
+                                                                        {{/each}}
+                                                                        <th class="text-center">MW AFTER LOSSES</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {{#each DiscomMonthlyAllData.dateArr}}
+                                                                    {{#let value=@index}}
+                                                                    <tr>
+                                                                        <td class="text-center">{{serial @index}}</td>
+                                                                        <td class="text-center"><b>{{this}}</b></td>
+                                                                        {{#each DiscomMonthlyAllData.tempArray}}
+                                                                        <td class="text-center">{{showHelper DiscomMonthlyAllData.result @index value}}</td>
+                                                                        {{/each}}
+                                                                        {{#each DiscomMonthlyAllData.tempArray}}
+                                                                        <td class="text-center">{{showHelper DiscomMonthlyAllData.lossResult @index value}}</td>
+                                                                        {{/each}}
+                                                                    </tr>
+                                                                      {{/let}}
+                                                                    {{/each}}
+                                                                    <tr>
+                                                                        <th colspan="2">
+                                                                            <center>Total(MU's) :</center>
+                                                                        </th>
+                                                                        {{#each DiscomMonthlyAllData.tempArray}}
+                                                                        <td class="text-center">
+                                                                            <b>{{returningColoum DiscomMonthlyAllData.tempArray @index}}</b>
+                                                                        </td>
+                                                                        {{/each}}
+                                                                        {{#each DiscomMonthlyAllData.tempArrayLoss}}
+                                                                        <td class="text-center">
+                                                                            <b>{{returningColoum DiscomMonthlyAllData.tempArrayLoss @index}}</b>
+                                                                        </td>
+                                                                        {{/each}}
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                                {{/if}}
+                          {{/if}}
+                          {{#if isReportTypeDISCOMSelectedForYearly}}
+                              <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                          <label class="col-sm-3 form-control-label">Select Year :</label>
+                                          <div class="col-sm-8">
+                                              <select id='ddlSelectYearForDiscom' class="form-control form-control-sm input-sm">
+                                                  <option value="">Select Year</option>
+                                                  <!-- <option value="2016">2016</option> -->
+                                                  <option value="2017">2017</option>
+                                                  <option value="2018">2018</option>
+                                                  <option value="2019">2019</option>
+                                                  <option value="2020">2020</option>
+                                                  <option value="2021">2021</option>
+                                              </select>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                          <label class="col-sm-3 form-control-label">Select Discom :</label>
+                                          <div class="col-sm-8">
+                                              <select id='ddlDiscomState' class="form-control form-control-sm input-sm">
+                                                <option value="">Select Discom</option>
+                                                  {{#each discoListArr}}
+                                                  <option value="{{id}}" attrState="{{discom_state}}">{{discom_state}}</option>
+                                                  {{/each}}
+                                              </select>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                  {{#if isSpdListAvailabel}}
+                                    <div class="col-sm-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label">Select Discom :</label>
+                                        <div class="col-sm-8">
+                                            <select id='ddlSPDListByDiscom' class="form-control form-control-sm input-sm">
+                                                <option value="">Select SPD</option>
+                                                <option value="All">All</option>
+                                                {{#each listOfSPDArr}}
+                                                <option value="{{spdId}}">{{spdName}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    {{/if}}
+                                    {{#if ifDiscomOdishaStatesSlectedAndAll}}
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                              <label class="col-sm-3 form-control-label">Select State :</label>
+                                              <div class="col-sm-8">
+                                                  <select class="form-control input-sm" id="ddlOdishaSelected">
+                                                    <option value="">Select State</option>
+                                                    <option value="Gujarat">Gujarat</option>
+                                                    <option value="Rajasthan">Rajasthan</option>
+                                                  </select>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    {{/if}}
+                                    {{#if ifDiscomMaharashtraStatesSlectedAndAll}}
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                              <label class="col-sm-3 form-control-label">Select State :</label>
+                                              <div class="col-sm-8">
+                                                  <select class="form-control input-sm" id="ddlMaharshtraSelected">
+                                                    <option value="">Select State</option>
+                                                    <option value="MP">MP</option>
+                                                    <option value="Rajasthan">Rajasthan</option>
+                                                  </select>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    {{/if}}
+                                </div>
+                                {{#if isDiscomYearlyIndividualReportAvailable}}
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="panel-body">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <button id="BtnExportDISCOMYearlyReport" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <section class="panel panel-default">
+                                            <div class="panel-body">
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12">
+                                                            <table class="table table-responsive table-bordered" id="exportDISCOMYearlyReport">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">Sr. No.</th>
+                                                                        <th class="text-center">Date</th>
+                                                                        <th class="text-center">Total MWh Without Loss</th>
+                                                                        <th class="text-center">Total MWh With Loss</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {{#each ShowIndividualYearlyDiscomReportData}}
+                                                                    <tr>
+                                                                        <td class="text-center">{{sr}}</td>
+                                                                        <td class="text-center"><b>{{month}}</b></td>
+                                                                        <td class="text-center">{{total}}</td>
+                                                                        <td class="text-center">{{totalWithLoss}}</td>
+                                                                    </tr>
+                                                                    {{/each}}
+                                                                    <tr>
+                                                                        <th colspan="2">
+                                                                            <center>Total(MU's) :</center>
+                                                                        </th>
+                                                                        <td class="text-center">
+                                                                            <b>{{ShowTotalIndividualYearlyDiscomReportData.yearlyTotalMwh}}</b>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <b>{{ShowTotalIndividualYearlyDiscomReportData.yearlyTotalMwhWithLoss}}</b>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                                {{/if}}
+                                {{#if isDiscomYearlyAllAvailable}}
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="panel-body">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <button id="BtnExportDISCOMYearlyReport" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <section class="panel panel-default">
+                                            <div class="panel-body">
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12">
+                                                            <table class="table table-responsive table-bordered" id="exportDISCOMYearlyReport">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th rowspan="2" class="text-center">Sr. No.</th>
+                                                                        <th rowspan="2" class="text-center">Date</th>
+                                                                        <th class="text-center" colspan="{{DiscomYearlyAllData.colSpanVar}}">GENERATION SCHEDULE</th>
+                                                                        <th class="text-center" colspan="{{DiscomYearlyAllData.colSpanVar}}">AT {{DiscomYearlyAllData.stateArr.[0].state}} PERIPHERY AFTER STU LOSSES</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        {{#each DiscomYearlyAllData.arrName}}
+                                                                        <th class="text-center">{{this}}</th>
+                                                                        {{/each}}
+                                                                        <th class="text-center">TOTAL MW</th>
+                                                                        {{#each DiscomYearlyAllData.arrName}}
+                                                                        <th class="text-center">{{this}}</th>
+                                                                        {{/each}}
+                                                                        <th class="text-center">MW AFTER LOSSES</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {{#each DiscomYearlyAllData.dateArr}}
+                                                                    {{#let value=@index}}
+                                                                    <tr>
+                                                                        <td class="text-center">{{serial @index}}</td>
+                                                                        <td class="text-center"><b>{{this.month}}</b></td>
+                                                                        {{#each DiscomYearlyAllData.tempArray}}
+                                                                        <td class="text-center">{{showHelper DiscomYearlyAllData.result @index value}}</td>
+                                                                        {{/each}}
+                                                                        {{#each DiscomYearlyAllData.tempArray}}
+                                                                        <td class="text-center">{{showHelper DiscomYearlyAllData.lossResult @index value}}</td>
+                                                                        {{/each}}
+                                                                    </tr>
+                                                                      {{/let}}
+                                                                    {{/each}}
+                                                                    <tr>
+                                                                        <th colspan="2">
+                                                                            <center>Total(MU's) :</center>
+                                                                        </th>
+                                                                        {{#each DiscomYearlyAllData.tempArray}}
+                                                                        <td class="text-center">
+                                                                            <b>{{returningColoum DiscomYearlyAllData.tempArray @index}}</b>
+                                                                        </td>
+                                                                        {{/each}}
+                                                                        {{#each DiscomYearlyAllData.tempArrayLoss}}
+                                                                        <td class="text-center">
+                                                                            <b>{{returningColoum DiscomYearlyAllData.tempArrayLoss @index}}</b>
+                                                                        </td>
+                                                                        {{/each}}
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                                {{/if}}
+                          {{/if}}
+                          {{#if isReportTypeSLDCSelectedForMonthly}}
+                            <div class="row">
+                                  <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-3 form-control-label">Select Month :</label>
+                                          <div class="col-sm-8">
+                                              <select id='ddlSLDCSelectMonth' class="form-control form-control-sm input-sm">
+                                                  <option value="">Select Month</option>
+                                                  {{#each monthShow}}
+                                                    <option value="{{this.value}}">{{this.key}}</option>
+                                                  {{/each}}
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-3 form-control-label">Select Year :</label>
+                                          <div class="col-sm-8">
+                                              <select id='ddlSLDCSelectMonthly' class="form-control form-control-sm input-sm">
+                                                  <option value="">Select Year</option>
+                                                  <!-- <option value="2016">2016</option> -->
+                                                  <option value="2017">2017</option>
+                                                  <option value="2018">2018</option>
+                                                  <option value="2019">2019</option>
+                                                  <option value="2020">2020</option>
+                                                  <option value="2021">2021</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-3 form-control-label">Select State :</label>
+                                          <div class="col-sm-8">
+                                              <select id='ddlSLDCState' class="form-control form-control-sm input-sm">
+                                                  <option value="">Select State</option>
+                                                  <option value="Gujarat">Gujarat</option>
+                                                  <option value="MP">MP</option>
+                                                  <option value="Rajasthan">Rajasthan</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                                </div>
+                            {{#if isSLDCMonthlyReportAvailable}}
+                              {{#if isGujaratSLDCSelectedMonthlyReport}}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="panel-body">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <button id="BtnExportSLDCYearlyReport" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-12 col-md-12 table-responsive">
+
+                                            <table class="table table-bordered text-center" id="exportSLDCYearlyReport">
+                                                <tbody>
+                                                  <tr>
+                                                      <th rowspan="2" class="text-center">Sr. No.</th>
+                                                      <th rowspan="2" class="text-center">Date</th>
+                                                      <th colspan="5" class="text-center">GENERATION SCHEDULE</th>
+                                                      <th colspan="5" class="text-center">AT GUJARAT PERIPHERY AFTER STU LOSSES</th>
+                                                  </tr>
+                                                    <tr>
+                                                        {{#each returnGujarat.headBefore}}
+                                                        <th class="text-center">{{this}}</th>
+                                                        {{/each}} {{#each returnGujarat.headAfter}}
+                                                        <th class="text-center">{{this}}</th>
+                                                        {{/each}}
+                                                    </tr>
+                                                    {{#each returnGujarat.dateVar}} {{#let bigloop=@index}}
+                                                    <tr>
+                                                        <th>
+                                                            <center>{{serial bigloop}}</center>
+                                                        </th>
+                                                        <td>
+                                                            <center><strong>{{this}}</strong></center>
+                                                        </td>
+                                                        {{#each returnGujarat.headBefore}}
+                                                        <td>
+                                                            <center>{{returningDataHelper returnGujarat.trueResult @index bigloop}}</center>
+                                                        </td>
+                                                        {{/each}} {{#each returnGujarat.headBefore}}
+                                                        <td>
+                                                            <center>{{returningDataHelper returnGujarat.errorResult @index bigloop}}</center>
+                                                        </td>
+                                                        {{/each}}
+                                                    </tr>
+                                                    {{/let}} {{/each}}
+                                                    <tr>
+                                                        <th colspan="2" class="text-center">TOTAL(MUs)</th>
+                                                        {{#each returnGujarat.headBefore}}
+                                                        <th class="text-center">{{returningColoum returnGujarat.tempArray @index}}</th>
+                                                        {{/each}} {{#each returnGujarat.headBefore}}
+                                                        <th class="text-center">{{returningColoum returnGujarat.tempArrayLoss @index}}</th>
+                                                        {{/each}}
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                              {{/if}}
+                              {{#if isMPSLDCSelectedForMonthlyReport}}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="panel-body">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <button id="BtnExportSLDCYearlyReport" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-12 col-md-12 table-responsive">
+                                          <table class="table table-bordered" id="exportSLDCYearlyReport">
+                                              <thead>
+                                                  <tr>
+                                                      <th>
+                                                          <center>Sr. No.</center>
+                                                      </th>
+                                                      <th>
+                                                          <center>Date</center>
+                                                      </th>
+                                                      <th>
+                                                          <center>50 MW_Waneep_Solar</center>
+                                                      </th>
+                                                      <th>
+                                                          <center>20 MW_Focal_Energy_Solar</center>
+                                                      </th>
+                                                      <th>
+                                                          <center>70 MW_SECI_Solar_Chattisgarh</center>
+                                                      </th>
+                                                      <th>
+                                                          <center>40 MW_IL&FS_Solar</center>
+                                                      </th>
+                                                      <th>
+                                                          <center>25 MW_SECI_Solar_GOA</center>
+                                                      </th>
+                                                      <th>
+                                                          <center>15 MW_SECI_Solar_Maharashtra</center>
+                                                      </th>
+                                                      <th>
+                                                          <center>10 MW_Focal_Renewable_Solar</center>
+                                                      </th>
+                                                      <th>
+                                                          <center>10 MW_SECI_Solar_Bihar</center>
+                                                      </th>
+                                                  </tr>
+                                              </thead>
+
+                                              <tbody>
+                                                  {{#each returnMPData.dateArr}}
+                                                  <tr>
+                                                      <td class="text-center">{{serial @index}}</td>
+                                                      <td class="text-center">{{date}}</td>
+                                                      <td class="text-center">{{chhattisgarh_one}}</td>
+                                                      <td class="text-center">{{chhattisgarh_two}}</td>
+                                                      <td class="text-center">{{chhattisgarh_three}}</td>
+                                                      <td class="text-center">{{goa_one}}</td>
+                                                      <td class="text-center">{{goa_two}}</td>
+                                                      <td class="text-center">{{goa_three}}</td>
+                                                      <td class="text-center">{{bihar_one}}</td>
+                                                      <td class="text-center">{{bihar_two}}</td>
+                                                  </tr>
+                                                  {{/each}}
+                                                  <tr>
+                                                      <th class="text-center" colspan="2">Total(MUs)</th>
+                                                      <th class="text-center">{{returnMPData.jsonTotal.chhattisgarh_one_total}}</th>
+                                                      <th class="text-center">{{returnMPData.jsonTotal.chhattisgarh_two_total}}</th>
+                                                      <th class="text-center">{{returnMPData.jsonTotal.chhattisgarh_three_total}}</th>
+                                                      <th class="text-center">{{returnMPData.jsonTotal.goa_one_total}}</th>
+                                                      <th class="text-center">{{returnMPData.jsonTotal.goa_two_total}}</th>
+                                                      <th class="text-center">{{returnMPData.jsonTotal.goa_three_total}}</th>
+                                                      <th class="text-center">{{returnMPData.jsonTotal.bihar_one_total}}</th>
+                                                      <th class="text-center">{{returnMPData.jsonTotal.bihar_two_total}}</th>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                        </div>
+                                    </div>
+                                </div>
+                              {{/if}}
+                              {{#if isRajasthanSLDCSelectedForMonthlyReport}}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="panel-body">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <button id="BtnExportSLDCYearlyReport" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-12 col-md-12 table-responsive">
+                                          <table class="table table-bordered table-condensed text-center" id="exportSLDCYearlyReport">
+                                              <thead>
+                                                  <tr>
+                                                      <th class="text-center" colspan="2"></th>
+
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 0 'spdName'}}-
+                                                          <br> {{returningData returnRajasthan.normalSpds 0 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 1 'spdName'}}-
+                                                          <br> {{returningData returnRajasthan.normalSpds 1 'discomState'}}</th>
+
+                                                      <th class="text-center">NORTHERN, AZURE GREEN TECH, AZURE SUNSHINE-HPPC</th>
+
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 2 'spdName'}}-
+                                                          <br> {{returningData returnRajasthan.normalSpds 2 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 3 'spdName'}}-
+                                                          <br> {{returningData returnRajasthan.normalSpds 3 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 4 'spdName'}}-
+                                                          <br> {{returningData returnRajasthan.normalSpds 4 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 5 'spdName'}}-
+                                                          <br> {{returningData returnRajasthan.normalSpds 5 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 6 'spdName'}}-
+                                                          <br> {{returningData returnRajasthan.normalSpds 6 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 7 'spdName'}}-
+                                                          <br> {{returningData returnRajasthan.normalSpds 7 'discomState'}}</th>
+
+                                                      <th class="text-center">TODAY GREEN 1 RJ AND 2 RJ AND 3 RJ-PUNJAB</th>
+
+                                                      <th class="text-center"></th>
+
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 0 'spdName'}}-
+                                                          <br> {{returningData returnRajasthan.normalSpds 0 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 1 'spdName'}}-
+                                                          <br> {{returningData returnRajasthan.normalSpds 1 'discomState'}}</th>
+
+                                                      <th class="text-center">NORTHERN, AZURE GREEN TECH, AZURE SUNSHINE-HPPC</th>
+
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 2 'spdName'}}-
+                                                          <br> {{returningData returnRajasthan.normalSpds 2 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 3 'spdName'}}-
+                                                          <br> {{returningData returnRajasthan.normalSpds 3 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 4 'spdName'}}-
+                                                          <br> {{returningData returnRajasthan.normalSpds 4 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 5 'spdName'}}-
+                                                          <br> {{returningData returnRajasthan.normalSpds 5 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 6 'spdName'}}-
+                                                          <br> {{returningData returnRajasthan.normalSpds 6 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 7 'spdName'}}-
+                                                          <br> {{returningData returnRajasthan.normalSpds 7 'discomState'}}</th>
+
+                                                      <th class="text-center">TODAY GREEN 1 RJ AND 2 RJ and 3 RJ-PUNJAB</th>
+
+                                                      <th rowspan="3" class="text-center">TOTAL (240 MW)</th>
+
+                                                  </tr>
+                                                  <tr>
+                                                      <th colspan="2" class="text-center">ALLOCATED CAPACITY</th>
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+
+                                                      <th class="text-center">TOTAL (240 MW)</th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+
+                                                  </tr>
+                                                  <tr>
+                                                      <th class="text-center">Sr.No.</th>
+                                                      <th class="text-center">DATE</th>
+
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 0 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 1 'spdCapacity'}}</th>
+                                                      <th class="text-center">80 MW</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 2 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 3 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 4 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 5 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 6 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 7 'spdCapacity'}}</th>
+
+                                                      <th class="text-center">30 MW</th>
+
+                                                      <th class="text-center"></th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 0 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 1 'spdCapacity'}}</th>
+                                                      <th class="text-center">80 MW</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 2 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 3 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 4 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 5 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 6 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData returnRajasthan.normalSpds 7 'spdCapacity'}}</th>
+
+                                                      <th class="text-center">30 MW</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                                  {{#each returnRajasthanForData}}
+                                                  <tr>
+                                                      <td class="text-center">{{serial @index}}</td>
+                                                      <th class="text-center">{{date}}</th>
+
+                                                      <td class="text-center">{{withoutLoss.tpddl}}</td>
+                                                      <td class="text-center">{{withoutLoss.assam}}</td>
+                                                      <td class="text-center">{{withoutLoss.haryana}}</td>
+                                                      <td class="text-center">{{withoutLoss.odisha}}</td>
+                                                      <td class="text-center">{{withoutLoss.himachal}}</td>
+                                                      <td class="text-center">{{withoutLoss.brpl}}</td>
+                                                      <td class="text-center">{{withoutLoss.bypl}}</td>
+                                                      <td class="text-center">{{withoutLoss.maharashtra}}</td>
+                                                      <td class="text-center">{{withoutLoss.jharjhand}}</td>
+                                                      <td class="text-center">{{withoutLoss.panjab}}</td>
+                                                      <td class="text-center">{{withoutLoss.daily_total}}</td>
+
+                                                      <td class="text-center">{{withLoss.tpddl_loss}}</td>
+                                                      <td class="text-center">{{withLoss.assam_loss}}</td>
+                                                      <td class="text-center">{{withLoss.haryana_loss}}</td>
+                                                      <td class="text-center">{{withLoss.odisha_loss}}</td>
+                                                      <td class="text-center">{{withLoss.himachal_loss}}</td>
+                                                      <td class="text-center">{{withLoss.brpl_loss}}</td>
+                                                      <td class="text-center">{{withLoss.bypl_loss}}</td>
+                                                      <td class="text-center">{{withLoss.maharashtra_loss}}</td>
+                                                      <td class="text-center">{{withLoss.jharjhand_loss}}</td>
+                                                      <td class="text-center">{{withLoss.panjab_loss}}</td>
+                                                      <td class="text-center">{{withLoss.dailyLoss_total}}</td>
+                                                  </tr>
+                                                 {{/each}}
+                                                  <tr>
+                                                      <th class="text-center" colspan="2">TOTAL(MUs)</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJson.tpddlFinalTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJson.assamFinalTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJson.haryanaFinalTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJson.odishaFinalTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJson.himachalFinalTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJson.brplFinalTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJson.byplFinalTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJson.maharashtraFinalTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJson.jharkhandFinalTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJson.panjabFinalTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJson.fianlTotal}}</th>
+
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJsonWithLoss.tpddlFinalLossTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJsonWithLoss.assamFinalLossTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJsonWithLoss.haryanaFinalLossTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJsonWithLoss.odishaFinalLossTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJsonWithLoss.himachalFinalLossTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJsonWithLoss.brplFinalLossTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJsonWithLoss.byplFinalLossTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJsonWithLoss.maharashtraFinalLossTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJsonWithLoss.jharkhandFinalLossTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJsonWithLoss.panjabFinalLossTotal}}</th>
+                                                      <th class="text-center">{{monthlyTotalRaj.sldcTotalJsonWithLoss.lossFianlTotal}}</th>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                        </div>
+                                    </div>
+                                </div>
+                              {{/if}}
+                            {{/if}}
+                          {{/if}}
+                          {{#if isReportTypeSLDCSelectedForYearly}}
+                            <div class="row">
+                                  <div class="col-sm-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label">Select Year :</label>
+                                        <div class="col-sm-8">
+                                            <select id='ddlSLDCSelectYearly' class="form-control form-control-sm input-sm">
+                                                <option value="">Select Year</option>
+                                                <!-- <option value="2016">2016</option> -->
+                                                <option value="2017">2017</option>
+                                                <option value="2018">2018</option>
+                                                <option value="2019">2019</option>
+                                                <option value="2020">2020</option>
+                                                <option value="2021">2021</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <div class="form-group row">
+                                          <label class="col-sm-3 form-control-label">Select State :</label>
+                                          <div class="col-sm-8">
+                                              <select id='ddlSLDCStateYearly' class="form-control form-control-sm input-sm">
+                                                  <option value="">Select State</option>
+                                                  <option value="Gujarat">Gujarat</option>
+                                                  <option value="MP">MP</option>
+                                                  <option value="Rajasthan">Rajasthan</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              {{#if isSLDCYearlyReportAvailable}}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="panel-body">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <button id="BtnExportSLDCYearlyReport" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-12 col-md-12 table-responsive">
+                                          <table class="table table-bordered table-condensed text-center" id="exportSLDCYearlyReport">
+                                              <thead>
+                                                  <tr>
+                                                      <th class="text-center" colspan="2"></th>
+
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 0 'spdName'}}-
+                                                          <br> {{returningData RajasthanYearly.normalSpds 0 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 1 'spdName'}}-
+                                                          <br> {{returningData RajasthanYearly.normalSpds 1 'discomState'}}</th>
+
+                                                      <th class="text-center">NORTHERN, AZURE GREEN TECH, AZURE SUNSHINE-HPPC</th>
+
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 2 'spdName'}}-
+                                                          <br> {{returningData RajasthanYearly.normalSpds 2 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 3 'spdName'}}-
+                                                          <br> {{returningData RajasthanYearly.normalSpds 3 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 4 'spdName'}}-
+                                                          <br> {{returningData RajasthanYearly.normalSpds 4 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 5 'spdName'}}-
+                                                          <br> {{returningData RajasthanYearly.normalSpds 5 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 6 'spdName'}}-
+                                                          <br> {{returningData RajasthanYearly.normalSpds 6 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 7 'spdName'}}-
+                                                          <br> {{returningData RajasthanYearly.normalSpds 7 'discomState'}}</th>
+
+                                                      <th class="text-center">TODAY GREEN 1 RJ AND 2 RJ AND 3 RJ-PUNJAB</th>
+
+                                                      <th class="text-center"></th>
+
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 0 'spdName'}}-
+                                                          <br> {{returningData RajasthanYearly.normalSpds 0 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 1 'spdName'}}-
+                                                          <br> {{returningData RajasthanYearly.normalSpds 1 'discomState'}}</th>
+
+                                                      <th class="text-center">NORTHERN, AZURE GREEN TECH, AZURE SUNSHINE-HPPC</th>
+
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 2 'spdName'}}-
+                                                          <br> {{returningData RajasthanYearly.normalSpds 2 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 3 'spdName'}}-
+                                                          <br> {{returningData RajasthanYearly.normalSpds 3 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 4 'spdName'}}-
+                                                          <br> {{returningData RajasthanYearly.normalSpds 4 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 5 'spdName'}}-
+                                                          <br> {{returningData RajasthanYearly.normalSpds 5 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 6 'spdName'}}-
+                                                          <br> {{returningData RajasthanYearly.normalSpds 6 'discomState'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 7 'spdName'}}-
+                                                          <br> {{returningData RajasthanYearly.normalSpds 7 'discomState'}}</th>
+
+                                                      <th class="text-center">TODAY GREEN 1 RJ AND 2 RJ and 3 RJ-PUNJAB</th>
+
+                                                      <th rowspan="3" class="text-center">TOTAL (240 MW)</th>
+
+                                                  </tr>
+                                                  <tr>
+                                                      <th colspan="2" class="text-center">ALLOCATED CAPACITY</th>
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+                                                      <th class="text-center">GENERATION SCHEDULE</th>
+
+                                                      <th class="text-center">TOTAL (240 MW)</th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+                                                      <th class="text-center">AT RAJASTHAN PERIPHERY AFTER STU LOSSES </th>
+
+                                                  </tr>
+                                                  <tr>
+                                                      <th class="text-center">Sr.No.</th>
+                                                      <th class="text-center">MONTH</th>
+
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 0 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 1 'spdCapacity'}}</th>
+                                                      <th class="text-center">80 MW</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 2 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 3 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 4 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 5 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 6 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 7 'spdCapacity'}}</th>
+
+                                                      <th class="text-center">30 MW</th>
+
+                                                      <th class="text-center"></th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 0 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 1 'spdCapacity'}}</th>
+                                                      <th class="text-center">80 MW</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 2 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 3 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 4 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 5 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 6 'spdCapacity'}}</th>
+                                                      <th class="text-center">{{returningData RajasthanYearly.normalSpds 7 'spdCapacity'}}</th>
+
+                                                      <th class="text-center">30 MW</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                                  {{#each returnRajasthanYearlyReport}}
+                                                  <tr>
+                                                      <td class="text-center">{{serial @index}}</td>
+                                                      <th class="text-center">{{period}}</th>
+
+                                                      <td class="text-center">{{withoutLoss.tpddl}}</td>
+                                                      <td class="text-center">{{withoutLoss.assam}}</td>
+                                                      <td class="text-center">{{withoutLoss.haryana}}</td>
+                                                      <td class="text-center">{{withoutLoss.odisha}}</td>
+                                                      <td class="text-center">{{withoutLoss.himachal}}</td>
+                                                      <td class="text-center">{{withoutLoss.brpl}}</td>
+                                                      <td class="text-center">{{withoutLoss.bypl}}</td>
+                                                      <td class="text-center">{{withoutLoss.maharashtra}}</td>
+                                                      <td class="text-center">{{withoutLoss.jharjhand}}</td>
+                                                      <td class="text-center">{{withoutLoss.panjab}}</td>
+                                                      <td class="text-center">{{withoutLoss.daily_total}}</td>
+
+                                                      <td class="text-center">{{withLoss.tpddl_loss}}</td>
+                                                      <td class="text-center">{{withLoss.assam_loss}}</td>
+                                                      <td class="text-center">{{withLoss.haryana_loss}}</td>
+                                                      <td class="text-center">{{withLoss.odisha_loss}}</td>
+                                                      <td class="text-center">{{withLoss.himachal_loss}}</td>
+                                                      <td class="text-center">{{withLoss.brpl_loss}}</td>
+                                                      <td class="text-center">{{withLoss.bypl_loss}}</td>
+                                                      <td class="text-center">{{withLoss.maharashtra_loss}}</td>
+                                                      <td class="text-center">{{withLoss.jharjhand_loss}}</td>
+                                                      <td class="text-center">{{withLoss.panjab_loss}}</td>
+                                                      <td class="text-center">{{withLoss.dailyLoss_total}}</td>
+                                                  </tr>
+                                                 {{/each}}
+                                                  <tr>
+                                                      <th class="text-center" colspan="2">TOTAL(MUs)</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJson.tpddlFinalTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJson.assamFinalTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJson.haryanaFinalTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJson.odishaFinalTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJson.himachalFinalTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJson.brplFinalTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJson.byplFinalTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJson.maharashtraFinalTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJson.jharkhandFinalTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJson.panjabFinalTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJson.fianlTotal}}</th>
+
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJsonWithLoss.tpddlFinalLossTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJsonWithLoss.assamFinalLossTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJsonWithLoss.haryanaFinalLossTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJsonWithLoss.odishaFinalLossTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJsonWithLoss.himachalFinalLossTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJsonWithLoss.brplFinalLossTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJsonWithLoss.byplFinalLossTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJsonWithLoss.maharashtraFinalLossTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJsonWithLoss.jharkhandFinalLossTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJsonWithLoss.panjabFinalLossTotal}}</th>
+                                                      <th class="text-center">{{yearlyTotalRaj.sldcTotalJsonWithLoss.lossFianlTotal}}</th>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                        </div>
+                                    </div>
+                                </div>
+                              {{/if}}
+                              {{#if isMPSLDCSelectedForYearlyReport}}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="panel-body">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <button id="BtnExportSLDCYearlyReport" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-12 col-md-12 table-responsive">
+                                          <table class="table table-bordered" id="exportSLDCYearlyReport">
+                                              <thead>
+                                                  <tr>
+                                                      <th class="text-center">Sr. No.</th>
+                                                      <th class="text-center">Month</th>
+                                                      <th class="text-center">50 MW_Waneep_Solar</th>
+                                                      <th class="text-center">20 MW_Focal_Energy_Solar</th>
+                                                      <th class="text-center">70 MW_SECI_Solar_Chattisgarh</th>
+                                                      <th class="text-center">40 MW_IL&FS_Solar</th>
+                                                      <th class="text-center">25 MW_SECI_Solar_GOA</th>
+                                                      <th class="text-center">15 MW_SECI_Solar_Maharashtra</th>
+                                                      <th class="text-center">10 MW_Focal_Renewable_Solar</th>
+                                                      <th class="text-center">10 MW_SECI_Solar_Bihar</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                                  {{#each MPSLDCYearlyData.monthlyArr}}
+                                                  <tr>
+                                                      <td class="text-center">{{serial @index}}</td>
+                                                      <th class="text-center">{{period}}</th>
+                                                      <td class="text-center">{{chhattisgarh_one}}</td>
+                                                      <td class="text-center">{{chhattisgarh_two}}</td>
+                                                      <td class="text-center">{{chhattisgarh_three}}</td>
+                                                      <td class="text-center">{{goa_one}}</td>
+                                                      <td class="text-center">{{goa_two}}</td>
+                                                      <td class="text-center">{{goa_three}}</td>
+                                                      <td class="text-center">{{bihar_one}}</td>
+                                                      <td class="text-center">{{bihar_two}}</td>
+                                                  </tr>
+                                                  {{/each}}
+                                                  <tr>
+                                                      <th class="text-center" colspan="2">Total(MUs)</th>
+                                                      <th class="text-center">{{MPSLDCYearlyData.jsonTotal.chhattisgarhOneYearlyTotal}}</th>
+                                                      <th class="text-center">{{MPSLDCYearlyData.jsonTotal.chhattisgarhTwoYearlyTotal}}</th>
+                                                      <th class="text-center">{{MPSLDCYearlyData.jsonTotal.chhattisgarhThreeYearlyTotal}}</th>
+                                                      <th class="text-center">{{MPSLDCYearlyData.jsonTotal.goaOneYearlyTotal}}</th>
+                                                      <th class="text-center">{{MPSLDCYearlyData.jsonTotal.goaTwoYearlyTotal}}</th>
+                                                      <th class="text-center">{{MPSLDCYearlyData.jsonTotal.goaThreeYearlyTotal}}</th>
+                                                      <th class="text-center">{{MPSLDCYearlyData.jsonTotal.biharOneYearlyTotal}}</th>
+                                                      <th class="text-center">{{MPSLDCYearlyData.jsonTotal.biharTwoYearlyTotal}}</th>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                        </div>
+                                    </div>
+                                </div>
+                              {{/if}}
+                              {{#if isGujaratSLDCSelectedYearlyReport}}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="panel-body">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <button id="BtnExportSLDCYearlyReport" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-12 col-md-12 table-responsive">
+                                            <table class="table table-bordered text-center" id="exportSLDCYearlyReport">
+                                                <tbody>
+                                                  <tr>
+                                                      <th rowspan="2" class="text-center">Sr. No.</th>
+                                                      <th rowspan="2" class="text-center" style="width:12%;">MONTH</th>
+                                                      <th colspan="5" class="text-center">GENERATION SCHEDULE</th>
+                                                      <th colspan="5" class="text-center">AT GUJARAT PERIPHERY AFTER STU LOSSES</th>
+                                                  </tr>
+                                                    <tr>
+                                                        {{#each returnGujaratSLDCReport.headBefore}}
+                                                        <th class="text-center">{{this}}</th>
+                                                        {{/each}} {{#each returnGujaratSLDCReport.headAfter}}
+                                                        <th class="text-center">{{this}}</th>
+                                                        {{/each}}
+                                                    </tr>
+                                                    {{#each returnGujaratSLDCReport.dateVar}} {{#let bigloop=@index}}
+                                                    <tr>
+                                                        <th>
+                                                            <center>{{serial bigloop}}</center>
+                                                        </th>
+                                                        <td style="width:12%;">
+                                                            <center><strong>{{this}}</strong></center>
+                                                        </td>
+                                                        {{#each returnGujaratSLDCReport.headBefore}}
+                                                        <td>
+                                                            <center>{{returningDataHelper returnGujaratSLDCReport.trueResult @index bigloop}}</center>
+                                                        </td>
+                                                        {{/each}} {{#each returnGujaratSLDCReport.headBefore}}
+                                                        <td>
+                                                            <center>{{returningDataHelper returnGujaratSLDCReport.errorResult @index bigloop}}</center>
+                                                        </td>
+                                                        {{/each}}
+                                                    </tr>
+                                                    {{/let}} {{/each}}
+                                                    <tr>
+                                                        <th colspan="2" class="text-center">TOTAL(MUs)</th>
+                                                        {{#each returnGujaratSLDCReport.headBefore}}
+                                                        <th class="text-center">{{returningColoum returnGujaratSLDCReport.tempArray @index}}</th>
+                                                        {{/each}} {{#each returnGujaratSLDCReport.headBefore}}
+                                                        <th class="text-center">{{returningColoum returnGujaratSLDCReport.tempArrayLoss @index}}</th>
+                                                        {{/each}}
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                              {{/if}}
+                            {{/if}}
+                            </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

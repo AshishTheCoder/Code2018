@@ -1,0 +1,483 @@
+<template name="jmr">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h1 style="font-weight:bold;font-size:28px;text-align:center;">JMR/SEA {{#if showRadio}}/REA{{/if}}</h1>
+                  </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-1 form-control-label"></label>
+                                            <label class="col-sm-3 form-control-label">Financial Year :</label>
+                                            <div class="col-sm-7">
+                                                <select class="form-control input-sm submitSea" id="txtfinancialyear">
+                                                    <option value="">Select Financial Year</option>
+                                                    <option value="2016-2017">2016-2017</option>
+                                                    <option value="2017-2018">2017-2018</option>
+                                                    <option value="2018-2019">2018-2019</option>
+                                                    <option value="2019-2020">2019-2020</option>
+                                                    <option value="2020-2021">2020-2021</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">Month :</label>
+                                            <div class="col-sm-7">
+                                                <select class="form-control input-sm submitSea" id="month">
+                                                    <option value="">Select Month</option>
+                                                    {{#each monthReturn}}
+                                                    <option value="{{this.value}}">{{this.key}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label class="col-sm-1 form-control-label"></label>
+                                        <div class="col-sm-2">
+                                            <label class="radio-inline ">
+                                                <input type="radio" class="inlineRadio" name="inlineRadioOptions" value="JMR">JMR
+                                            </label>
+                                        </div>
+                                        <label class="col-sm-8 form-control-label"></label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="radio-inline ">
+                                            <input type="radio" class="inlineRadio" name="inlineRadioOptions" value="SEA"> SEA
+                                        </label>
+                                    </div>
+                                    {{#if showRadio}}
+                                    <div class="col-sm-4">
+                                        <label class="radio-inline ">
+                                            <input type="radio" class="inlineRadio" name="inlineRadioOptions" value="REA"> REA
+                                        </label>
+                                    </div>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--JMR Table-->
+                        {{#if showJmr}}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <legend class="scheduler-border">JMR</legend>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-3">
+                                                        <label>Import</label>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <input type="text" id="importPrevious" value={{initialValues.importPrevious}} placeholder="Enter JMR Import Previous reading" class="form-control input-sm number">
+                                                        <label> Previous</label>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <input type="text" id="importCurrent" placeholder="Enter JMR Import Current reading" class="form-control input-sm number validate">
+                                                        <label> Current</label>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-3">
+                                                        <label>Export</label>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <input type="text" id="exportPrevious" value="{{initialValues.exportPrevious}}" placeholder="Enter JMR Export Previous reading" class="form-control input-sm number">
+                                                        <label> Previous</label>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <input type="text" id="exportCurrent" placeholder="Enter JMR Export Current reading" class="form-control input-sm number validate">
+                                                        <label> Current</label>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-3">
+                                                        <label>JMR</label>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <input type="text" id="import" value="{{importValue}}" placeholder="Enter JMR import reading" readonly class="form-control input-sm">
+                                                        <label> Import</label>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <input type="text" id="export" value="{{exportValue}}" placeholder="Enter JMR export reading" readonly class="form-control input-sm">
+                                                        <label> Export</label>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <input type="text" id="MF" placeholder="Enter JMR MF reading" class="form-control input-sm number validate">
+                                                        <label> MF</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Billed Units :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" id="jmrBilledUnits" value="{{BilledCalculate}}" class="form-control input-sm" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Rate/Unit :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" id="jmrUnits" value="{{initialValues.rate}}" placeholder="Enter JMR unit reading" readonly class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Amount :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" id="jmrAmount" value="{{jmrAmount}}" readonly="" class="form-control input-sm validate">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Meter No.:</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" id="jmrMeterNumber" readonly value="{{initialValues.meterNumber}}" placeholder="Enter JMR meter number" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Upload Copy of JMR :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                      {{> upload_bootstrap callbacks=myCallbacks fileTypes='.pdf' autoStart=true multiple=false formData=specificFormData}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Invoice Number :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" id="jmrInvoice" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Exceed Energy :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        {{showExceedEnergy}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Exceed Amount :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                          {{showExceedAmount}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                    <div class="col-sm-12">
+                                                        <label>Note : <i>Due Date of Payment shall be calculated from the Date of Receiving of all revelant documents in hard form.</i></label>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                  <label>Till date Billed Units: {{initialValues.tillDateBilledUnits}}</label>
+                                </div>
+                                  <div class="col-sm-4">
+                                      <button type="submit" id="submitJmr" class="btn btn-success center-block">Submit</button>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <label>Max. PPA Submitted: {{showMaxPpa}}</label>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                        <!--SEA Table-->
+                        {{#if showSea}}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <legend class="scheduler-border">SEA</legend>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>SEA Billed Units :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" id="seaBilledUnits" value="{{BilledCalculate}}" placeholder="Enter SEA billed reading" class="form-control input-sm number validate">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Rate/Unit :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" id="seaUnits" value="{{initialValues.rate}}" placeholder="Enter SEA unit reading" class="form-control input-sm" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Amount :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" id="seaAmount" value="{{seaAmount}}" readonly class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Invoice Number :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" id="seaInvoice" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Upload Copy of SEA :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                            <!-- <input type="file" id="seaFile" class="submitSea validate">
+                                                            <span class="file-custom"></span> -->
+                                                            {{> upload_bootstrap callbacks=myCallbacks fileTypes='.pdf' autoStart=true multiple=false formData=specificFormData}}
+                                                            <!-- {{> upload_bootstrap callbacks=myCallbacks fileTypes='.jpg' autoStart=true multiple=false}} -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Exceed Energy :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        {{showExceedEnergy}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Exceed Amount :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                          {{showExceedAmount}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                    <div class="col-sm-12">
+                                                        <label>Note : <i>Due Date of Payment shall be calculated from the Date of Receiving of all revelant documents in hard form.</i></label>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                  <label>Till date Billed Units: {{initialValues.tillDateBilledUnits}}</label>
+                                </div>
+                                  <div class="col-sm-4">
+                                    <button type="submit" id="submitSea" class="btn btn-success center-block">Submit</button>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <label>Max. PPA Submitted: {{showMaxPpa}}</label>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                        <!-- REA Table-->
+                        {{#if showRea}}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <legend class="scheduler-border">REA</legend>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>REA Billed Units :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" id="reaBilledUnits" placeholder="Enter REA billed reading" class="form-control input-sm number validate">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Rate/Unit :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" id="reaUnits" value={{initialValues.rate}} placeholder="Enter REA unit reading" readonly class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Amount :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" id="reaAmount" value="{{reaAmount}}" readonly class="form-control input-sm number validate">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Invoice Number :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" id="reaInvoice" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Upload Copy of REA :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        {{> upload_bootstrap callbacks=myCallbacks fileTypes='.pdf' autoStart=true multiple=false formData=specificFormData}}
+                                                          <!-- {{> upload_bootstrap fileTypes='.pdf,.jpg' callbacks=myCallbacks  autoStart=true multiple=false}} -->
+                                                            <!-- <input type="file" id="reaFile" class="submitRea validate">
+                                                            <span class="file-custom"></span> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Exceed Energy :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        {{showExceedEnergy}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label>Exceed Amount :</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                          {{showExceedAmount}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                    <div class="col-sm-12">
+                                                        <label>Note : <i>Due Date of Payment shall be calculated from the Date of Receiving of all revelant documents in hard form.</i></label>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                  <label>Till date Billed Units: {{initialValues.tillDateBilledUnits}}</label>
+                                </div>
+                                  <div class="col-sm-4">
+                                    <button type="submit" id="submitRea" class="btn btn-success center-block">Submit</button>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <label>Max. PPA Submitted: {{showMaxPpa}}</label>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

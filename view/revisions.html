@@ -1,0 +1,863 @@
+<!-- <template name="revisions">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Revisions</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 ">
+                                                <fieldset class="scheduler-border">
+                                                    <legend class="scheduler-border">Please provide the credentials for generating the previous invoice</legend>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="panel-body">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-3 col-md-1"></div>
+                                                                    <div class="col-sm-4 col-md-5">
+                                                                        <label class="radio-inline ">
+                                                                            <input type="radio" name="inlineRadioOptions" id="radioDayAhead" value="day_ahead_revision"> Day Ahead Revision
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-sm-4 col-md-5">
+                                                                        <label class="radio-inline ">
+                                                                            <input type="radio" name="inlineRadioOptions" id="radioRealTime" value="real_time_devision"> Real Time Revision
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{#if isRadioBtnDayAheadSlected}}
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <section class="panel panel-default">
+                                                                    <div class="panel-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12 col-sm-12">
+                                                                                <fieldset class="scheduler-border">
+                                                                                    <legend class="scheduler-border">Day Ahead Revision</legend>
+                                                                                    <div class="row" id="alert">
+                                                                                        <div class="col-sm-12">
+                                                                                            <div class="form-group row">
+                                                                                                <div class="col-sm-6 col-md-5">
+                                                                                                    <div class="form-group row">
+                                                                                                        <label class="col-sm-3 form-control-label">From :</label>
+                                                                                                        <div class="col-sm-9">
+                                                                                                            <input type="text" id="fromdate" class="form-control fromdate input-sm ScheduleDate" placeholder="Enter from date">
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-sm-6 col-md-5">
+                                                                                                    <div class="form-group row">
+                                                                                                        <label class="col-sm-3 form-control-label">To :</label>
+                                                                                                        <div class="col-sm-9">
+                                                                                                            <input type="text" id="todate" class="form-control todate input-sm ScheduleDate" placeholder="Enter to date">
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-sm-6 col-md-2">
+                                                                                                    <div class="form-group row">
+                                                                                                        <div class="col-sm-2"></div>
+                                                                                                        <a type="button" class="btn btn-sm btn-success" id="btnSubmitDayAheadDetail">Submit</a>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    {{#if viewDataOnlyForTableShow}}
+                                                                                    <table class="table table-responsive table-bordered">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th>S No.</th>
+                                                                                                <th>Date</th>
+                                                                                                <th>Action</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            {{#each viewDataRevision}}
+                                                                                            <tr>
+                                                                                                <td>{{sn}}</td>
+                                                                                                <td>{{date}} </td>
+                                                                                                <td>
+                                                                                                    <button type="button" getDate={{date}} class="btn btn-sm btn-primary btnEditBidDayAhead">Edit</button>
+                                                                                                    <button type="button" getDate={{date}} class="btn btn-sm btn-info btnViewScheduleDayAhead">View</button>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            {{/each}}
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                    {{/if}} {{#if showForRajasthanOnly}}
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-12">
+                                                                                            <div class="form-group row">
+                                                                                                <div class="col-sm-12">
+                                                                                                    <strong> NOTE : Schedule for next day cannot be changed after 10:30 AM</strong>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    {{/if}} {{#if btnBidSubmitClicked}}
+                                                                                    <table class="table table-responsive table-bordered">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th>S.No.</th>
+                                                                                                <th>Date</th>
+                                                                                                <th>Time Block</th>
+                                                                                                <th>Scheduling Requested(MW)</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            {{#each isRevisionBidSubmited}}
+                                                                                            <tr class="trData">
+                                                                                                <td>{{serial @index}}</td>
+                                                                                                <td>{{date}}</td>
+                                                                                                <td>{{mySlot}}</td>
+                                                                                                <td>
+                                                                                                    <input type="text" class="form-control input-sm numberOfBid" slot="{{mySlot}}" value="{{bidMwh}}">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            {{/each}}
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12 col-sm-12">
+                                                                                            <div class="col-sm-10"></div>
+                                                                                            <div class="col-sm-1">
+                                                                                                <button id="BtnFinalSubmitDayAhead" class="btn btn-sm btn-success">Update</button>
+                                                                                            </div>
+                                                                                            <div class="col-sm-1"></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    {{/if}} {{#if isViewBtnClicked}}
+                                                                                    <table class="table table-responsive table-bordered">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th>S.No.</th>
+                                                                                                <th>Date</th>
+                                                                                                <th>Time Block</th>
+                                                                                                <th>Scheduling Requested(MW)</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            {{#each DayAheadViewData}}
+                                                                                            <tr>
+                                                                                                <td>{{serial @index}}</td>
+                                                                                                <td>{{DayAheadDateHelper.date}}</td>
+                                                                                                <td>{{time_slot}}</td>
+                                                                                                <td>{{bidMwh}}</td>
+                                                                                            </tr>
+                                                                                            {{/each}}
+                                                                                        </tbody>
+                                                                                        <tbody>
+                                                                                            <tr>
+                                                                                                <th colspan="3">
+                                                                                                    <center>Total(MU's) :</center>
+                                                                                                </th>
+                                                                                                <td><b>{{DayAheadDateHelper.totalMwh}}</b></td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                    {{/if}}
+                                                                                </fieldset>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </section>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{/if}} {{#if isRadioBtnRealTimeSlected}}
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <section class="panel panel-default">
+                                                                    <div class="panel-body">
+                                                                        <fieldset class="scheduler-border">
+                                                                            <legend class="scheduler-border">Real Time Revision</legend>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-4 form-control-label">Date :</label>
+                                                                                                <div class="col-sm-8">
+                                                                                                    <input type="text" class="form-control input-sm" id="txtTodayDate" value="{{RealTimeSlectedPassCurentDate}}" readonly>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-4 form-control-label">Time Slot :</label>
+                                                                                                <div class="col-sm-8">
+                                                                                                    <select id='ddlStartTime' class="form-control form-control-sm input-sm">
+                                                                                                        <option value="">Select Start Time</option>
+                                                                                                        {{#each isStartTimeSelected}}
+                                                                                                        <option value="{{time_slot}}">{{time_slot}}</option>
+                                                                                                        {{/each}}
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-4 form-control-label"> </label>
+                                                                                                <div class="col-sm-8">
+                                                                                                    <select id='ddlEndTime' class="form-control form-control-sm input-sm">
+                                                                                                        <option value="">Select End Time</option>
+                                                                                                        {{#each isEndTimeSelected}}
+                                                                                                        <option value="{{time_slot}}">{{time_slot}}</option>
+                                                                                                        {{/each}}
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            {{#if isEndTimeSelectedRealTime}}
+                                                                            <table class="table table-responsive table-bordered">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>S No.</th>
+                                                                                        <th>Date</th>
+                                                                                        <th>Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td>1</td>
+                                                                                        <td>{{RealTimeSlectedPassCurentDate}}</td>
+                                                                                        <td>
+                                                                                            <button type="button" getDate={{RealTimeSlectedPassCurentDate}} class="btn btn-sm btn-primary btnRealTimeSubmitBid">Edit</button>
+                                                                                            <button type="button" class="btn btn-sm btn-info btnViewScheduleRealTime" getDate={{RealTimeSlectedPassCurentDate}}>View</button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                            {{/if}} {{#if btnBidSubmitClickedRealTime}}
+                                                                            <table class="table table-responsive table-bordered">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Date</th>
+                                                                                        <th>Time Block</th>
+                                                                                        <th>Scheduling Requested(MW)</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                {{#if forExcelUsesRealTimeDataData}}
+                                                                                <tbody>
+                                                                                    {{#each isRealTimeBidSubmitedForExcel}}
+                                                                                    <tr>
+                                                                                        <td>{{date}}</td>
+                                                                                        <td>{{time_slot}}</td>
+                                                                                        <td>
+                                                                                            <input type="text" class="form-control input-sm numberOfBidRealTime" slot="{{time_slot}}" value="{{bidMwh}}">
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    {{/each}}
+                                                                                </tbody>
+                                                                                {{else}}
+                                                                                <tbody>
+                                                                                    {{#each isRealTimeBidSubmited}}
+                                                                                    <tr>
+                                                                                        <td>{{date}}</td>
+                                                                                        <td>{{time_slot}}</td>
+                                                                                        <td>
+                                                                                            <input type="text" class="form-control input-sm numberOfBidRealTime" slot="{{time_slot}}" value="{{bidMwh}}">
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    {{/each}}
+                                                                                </tbody>
+                                                                                {{/if}}
+
+                                                                            </table>
+                                                                            <div class="row">
+                                                                                <div class="col-md-12 col-sm-12">
+                                                                                    <div class="col-sm-10"></div>
+                                                                                    <div class="col-sm-1">
+                                                                                        <button id="RealTimeBtnSubmit" class="btn btn-sm btn-success">Update</button>
+                                                                                    </div>
+                                                                                    <div class="col-sm-1"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            {{/if}} {{#if isRealTimeViewScheduleClicked}}
+                                                                            <table class="table table-responsive table-bordered">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        {{#each getTableHeadings isRealTimeViewBtnClicked}}
+                                                                                        <td><b>{{this}}</b></td>
+                                                                                        {{/each}}
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    {{#each isRealTimeViewBtnClicked}}
+                                                                                    <tr>
+                                                                                        {{#each getValues this}}
+                                                                                        <td class="{{this.color}}">{{this.data}}</td>
+                                                                                        {{/each}}
+                                                                                    </tr>
+                                                                                    {{/each}}
+                                                                                </tbody>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <th colspan="2">
+                                                                                            <center>Total(MU's) :</center>
+                                                                                        </th>
+                                                                                        {{#each isRealTimeTotalMwhView}}
+                                                                                        <td><b>{{totalMwh}}</b></td>
+                                                                                        {{/each}}
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                            {{/if}}
+                                                                        </fieldset>
+                                                                    </div>
+                                                                </section>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{/if}}
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<template name="revisions">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Revisions</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 ">
+                                                <fieldset class="scheduler-border">
+                                                    <!-- <legend class="scheduler-border">Please provide the credentials for generating the previous invoice</legend> -->
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="panel-body">
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-3 col-md-1"></div>
+                                                                    <div class="col-sm-4 col-md-5">
+                                                                        <label class="radio-inline ">
+                                                                            <input type="radio" name="inlineRadioOptions" id="radioDayAhead" value="day_ahead_revision"> Day Ahead Revision
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-sm-4 col-md-5">
+                                                                        <label class="radio-inline ">
+                                                                            <input type="radio" name="inlineRadioOptions" id="radioRealTime" value="real_time_devision"> Real Time Revision
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{#if isRadioBtnDayAheadSlected}}
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <section class="panel panel-default">
+                                                                    <div class="panel-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12 col-sm-12">
+                                                                                <fieldset class="scheduler-border">
+                                                                                    <legend class="scheduler-border">Day Ahead Revision</legend>
+                                                                                    <div class="row" id="alert">
+                                                                                        <div class="col-sm-12">
+                                                                                            <div class="form-group row">
+                                                                                                <div class="col-sm-6 col-md-5">
+                                                                                                    <div class="form-group row">
+                                                                                                        <label class="col-sm-3 form-control-label">From :</label>
+                                                                                                        <div class="col-sm-9">
+                                                                                                            <input type="text" id="fromdate" class="form-control fromdate input-sm ScheduleDate" placeholder="Enter from date">
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-sm-6 col-md-5">
+                                                                                                    <div class="form-group row">
+                                                                                                        <label class="col-sm-3 form-control-label">To :</label>
+                                                                                                        <div class="col-sm-9">
+                                                                                                            <input type="text" id="todate" class="form-control todate input-sm ScheduleDate" placeholder="Enter to date">
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-sm-6 col-md-2">
+                                                                                                    <div class="form-group row">
+                                                                                                        <div class="col-sm-2"></div>
+                                                                                                        <a type="button" class="btn btn-sm btn-success" id="btnSubmitDayAheadDetail">Submit</a>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    {{#if viewDataOnlyForTableShow}}
+                                                                                    <table class="table table-responsive table-bordered">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th>S No.</th>
+                                                                                                <th>Date</th>
+                                                                                                <th>Action</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            {{#each viewDataRevision}}
+                                                                                            <tr>
+                                                                                                <td>{{sn}}</td>
+                                                                                                <td>{{date}} </td>
+                                                                                                <td>
+                                                                                                    <button type="button" getDate={{date}} class="btn btn-sm btn-primary btnEditBidDayAhead">Edit</button>
+                                                                                                    <button type="button" getDate={{date}} class="btn btn-sm btn-info btnViewScheduleDayAhead">View</button>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            {{/each}}
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                    {{/if}} {{#if showForRajasthanOnly}}
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-12">
+                                                                                            <div class="form-group row">
+                                                                                                <div class="col-sm-12">
+                                                                                                    <strong> NOTE : Schedule for next day cannot be changed after 10:30 AM</strong>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    {{/if}} {{#if btnBidSubmitClicked}}
+                                                                                    {{#if isMPStateSPSSelectedForScheduleSubmission}}
+                                                                                      <table class="table table-responsive table-bordered">
+                                                                                          <thead>
+                                                                                              <tr>
+                                                                                                  <th>S.No.</th>
+                                                                                                  <th>Date</th>
+                                                                                                  <th>Time Block</th>
+                                                                                                  <th>Availability in MW</th>
+                                                                                                  <th>Forecast in MW</th>
+                                                                                              </tr>
+                                                                                          </thead>
+                                                                                          <tbody>
+                                                                                              {{#each isRevisionBidSubmited}}
+                                                                                              <tr class="trData">
+                                                                                                  <td>{{serial @index}}</td>
+                                                                                                  <td>{{date}}</td>
+                                                                                                  <td>{{mySlot}}</td>
+                                                                                                  <td>
+                                                                                                      <input type="text" class="form-control input-sm availability" slot="{{mySlot}}" value="{{availability}}">
+                                                                                                  </td>
+                                                                                                  <td>
+                                                                                                      <input type="text" class="form-control input-sm numberOfBid" slot="{{mySlot}}" value="{{bidMwh}}">
+                                                                                                  </td>
+                                                                                              </tr>
+                                                                                              {{/each}}
+                                                                                          </tbody>
+                                                                                      </table>
+                                                                                    {{else}}
+                                                                                      <table class="table table-responsive table-bordered">
+                                                                                          <thead>
+                                                                                              <tr>
+                                                                                                  <th>S.No.</th>
+                                                                                                  <th>Date</th>
+                                                                                                  <th>Time Block</th>
+                                                                                                  <th>Scheduling Requested(MW)</th>
+                                                                                              </tr>
+                                                                                          </thead>
+                                                                                          <tbody>
+                                                                                              {{#each isRevisionBidSubmited}}
+                                                                                              <tr class="trData">
+                                                                                                  <td>{{serial @index}}</td>
+                                                                                                  <td>{{date}}</td>
+                                                                                                  <td>{{mySlot}}</td>
+                                                                                                  <td>
+                                                                                                      <input type="text" class="form-control input-sm numberOfBid" slot="{{mySlot}}" value="{{bidMwh}}">
+                                                                                                  </td>
+                                                                                              </tr>
+                                                                                              {{/each}}
+                                                                                          </tbody>
+                                                                                      </table>
+                                                                                    {{/if}}
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12 col-sm-12">
+                                                                                            <div class="col-sm-10"></div>
+                                                                                            <div class="col-sm-1">
+                                                                                                <button id="BtnFinalSubmitDayAhead" class="btn btn-sm btn-success">Update</button>
+                                                                                            </div>
+                                                                                            <div class="col-sm-1"></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    {{/if}} {{#if isViewBtnClicked}}
+                                                                                      {{#if isMPStateSPSSelectedForScheduleSubmission}}
+                                                                                        <table class="table table-responsive table-bordered">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th>S.No.</th>
+                                                                                                    <th>Date</th>
+                                                                                                    <th>Time Block</th>
+                                                                                                    <th>Availability in MW</th>
+                                                                                                    <th>Forecast in MW</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                                {{#each DayAheadViewData}}
+                                                                                                <tr>
+                                                                                                    <td>{{serial @index}}</td>
+                                                                                                    <td>{{DayAheadDateHelper.date}}</td>
+                                                                                                    <td>{{time_slot}}</td>
+                                                                                                    <td>{{availability}}</td>
+                                                                                                    <td>{{bidMwh}}</td>
+                                                                                                </tr>
+                                                                                                {{/each}}
+                                                                                            </tbody>
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <th colspan="3">
+                                                                                                        <center>Total(MU's) :</center>
+                                                                                                    </th>
+                                                                                                    <td><b>{{DayAheadDateHelper.totalAvaibility}}</b></td>
+                                                                                                    <td><b>{{DayAheadDateHelper.totalMwh}}</b></td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                      {{else}}
+                                                                                        <table class="table table-responsive table-bordered">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th>S.No.</th>
+                                                                                                    <th>Date</th>
+                                                                                                    <th>Time Block</th>
+                                                                                                    <th>Scheduling Requested(MW)</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                                {{#each DayAheadViewData}}
+                                                                                                <tr>
+                                                                                                    <td>{{serial @index}}</td>
+                                                                                                    <td>{{DayAheadDateHelper.date}}</td>
+                                                                                                    <td>{{time_slot}}</td>
+                                                                                                    <td>{{bidMwh}}</td>
+                                                                                                </tr>
+                                                                                                {{/each}}
+                                                                                            </tbody>
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <th colspan="3">
+                                                                                                        <center>Total(MU's) :</center>
+                                                                                                    </th>
+                                                                                                    <td><b>{{DayAheadDateHelper.totalMwh}}</b></td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                      {{/if}}
+                                                                                    {{/if}}
+                                                                                </fieldset>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </section>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{/if}} {{#if isRadioBtnRealTimeSlected}}
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <section class="panel panel-default">
+                                                                    <div class="panel-body">
+                                                                        <fieldset class="scheduler-border">
+                                                                            <legend class="scheduler-border">Real Time Revision</legend>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-4 form-control-label">Date :</label>
+                                                                                                <div class="col-sm-8">
+                                                                                                    <input type="text" class="form-control input-sm" id="txtTodayDate" value="{{RealTimeSlectedPassCurentDate}}" readonly>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-4 form-control-label">Time Slot :</label>
+                                                                                                <div class="col-sm-8">
+                                                                                                    <select id='ddlStartTime' class="form-control form-control-sm input-sm">
+                                                                                                        <option value="">Select Start Time</option>
+                                                                                                        {{#each isStartTimeSelected}}
+                                                                                                        <option value="{{time_slot}}">{{time_slot}}</option>
+                                                                                                        {{/each}}
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 col-md-6">
+                                                                                            <div class="form-group row">
+                                                                                                <label class="col-sm-4 form-control-label"> </label>
+                                                                                                <div class="col-sm-8">
+                                                                                                    <select id='ddlEndTime' class="form-control form-control-sm input-sm">
+                                                                                                        <option value="">Select End Time</option>
+                                                                                                        {{#each isEndTimeSelected}}
+                                                                                                        <option value="{{time_slot}}">{{time_slot}}</option>
+                                                                                                        {{/each}}
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            {{#if isEndTimeSelectedRealTime}}
+                                                                            <table class="table table-responsive table-bordered">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>S No.</th>
+                                                                                        <th>Date</th>
+                                                                                        <th>Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td>1</td>
+                                                                                        <td>{{RealTimeSlectedPassCurentDate}}</td>
+                                                                                        <td>
+                                                                                            <button type="button" getDate={{RealTimeSlectedPassCurentDate}} class="btn btn-sm btn-primary btnRealTimeSubmitBid">Edit</button>
+                                                                                            <button type="button" class="btn btn-sm btn-info btnViewScheduleRealTime" getDate={{RealTimeSlectedPassCurentDate}}>View</button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                            {{/if}} {{#if btnBidSubmitClickedRealTime}}
+                                                                            {{#if isMPStateSPSSelectedForScheduleSubmission}}
+                                                                              <table class="table table-responsive table-bordered">
+                                                                                  <thead>
+                                                                                      <tr>
+                                                                                          <th>Date</th>
+                                                                                          <th>Time Block</th>
+                                                                                          <th>AVAILABILITY MW</th>
+                                                                                          <th>FORCAST MW</th>
+                                                                                      </tr>
+                                                                                  </thead>
+                                                                                  {{#if forExcelUsesRealTimeDataData}}
+                                                                                  <tbody>
+                                                                                      {{#each isRealTimeBidSubmitedForExcel}}
+                                                                                      <tr>
+                                                                                          <td>{{date}}</td>
+                                                                                          <td>{{time_slot}}</td>
+                                                                                          <td>
+                                                                                              <input type="text" class="form-control input-sm availability" slot="{{time_slot}}" value="{{availability}}">
+                                                                                          </td>
+                                                                                          <td>
+                                                                                              <input type="text" class="form-control input-sm numberOfBidRealTime" slot="{{time_slot}}" value="{{bidMwh}}">
+                                                                                          </td>
+                                                                                      </tr>
+                                                                                      {{/each}}
+                                                                                  </tbody>
+                                                                                  {{else}}
+                                                                                  <tbody>
+                                                                                      {{#each isRealTimeBidSubmited}}
+                                                                                      <tr>
+                                                                                          <td>{{date}}</td>
+                                                                                          <td>{{time_slot}}</td>
+                                                                                          <td>
+                                                                                              <input type="text" class="form-control input-sm availability" slot="{{time_slot}}" value="{{availability}}">
+                                                                                          </td>
+                                                                                          <td>
+                                                                                              <input type="text" class="form-control input-sm numberOfBidRealTime" slot="{{time_slot}}" value="{{bidMwh}}">
+                                                                                          </td>
+                                                                                      </tr>
+                                                                                      {{/each}}
+                                                                                  </tbody>
+                                                                                  {{/if}}
+                                                                              </table>
+                                                                            {{else}}
+                                                                              <table class="table table-responsive table-bordered">
+                                                                                  <thead>
+                                                                                      <tr>
+                                                                                          <th>Date</th>
+                                                                                          <th>Time Block</th>
+                                                                                          <th>Scheduling Requested(MW)</th>
+                                                                                      </tr>
+                                                                                  </thead>
+                                                                                  {{#if forExcelUsesRealTimeDataData}}
+                                                                                  <tbody>
+                                                                                      {{#each isRealTimeBidSubmitedForExcel}}
+                                                                                      <tr>
+                                                                                          <td>{{date}}</td>
+                                                                                          <td>{{time_slot}}</td>
+                                                                                          <td>
+                                                                                              <input type="text" class="form-control input-sm numberOfBidRealTime" slot="{{time_slot}}" value="{{bidMwh}}">
+                                                                                          </td>
+                                                                                      </tr>
+                                                                                      {{/each}}
+                                                                                  </tbody>
+                                                                                  {{else}}
+                                                                                  <tbody>
+                                                                                      {{#each isRealTimeBidSubmited}}
+                                                                                      <tr>
+                                                                                          <td>{{date}}</td>
+                                                                                          <td>{{time_slot}}</td>
+                                                                                          <td>
+                                                                                              <input type="text" class="form-control input-sm numberOfBidRealTime" slot="{{time_slot}}" value="{{bidMwh}}">
+                                                                                          </td>
+                                                                                      </tr>
+                                                                                      {{/each}}
+                                                                                  </tbody>
+                                                                                  {{/if}}
+                                                                              </table>
+                                                                            {{/if}}
+                                                                            <div class="row">
+                                                                                <div class="col-md-12 col-sm-12">
+                                                                                    <div class="col-sm-10"></div>
+                                                                                    <div class="col-sm-1">
+                                                                                        <button id="RealTimeBtnSubmit" class="btn btn-sm btn-success">Update</button>
+                                                                                    </div>
+                                                                                    <div class="col-sm-1"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            {{/if}} {{#if isRealTimeViewScheduleClicked}}
+                                                                              {{#if isMPStateSPSSelectedForScheduleSubmission}}
+                                                                                <table class="table table-responsive table-bordered">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            {{#each getTableHeadingsForMP isRealTimeViewBtnClicked}}
+                                                                                            <td><b>{{this}}</b></td>
+                                                                                            {{/each}}
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        {{#each isRealTimeViewBtnClicked}}
+                                                                                        <tr>
+                                                                                            {{#each getValues this}}
+                                                                                            <td style="background-color:{{actuallyColor}}">{{this.data}}</td>
+                                                                                            {{/each}}
+                                                                                        </tr>
+                                                                                        {{/each}}
+                                                                                    </tbody>
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <th colspan="2">
+                                                                                                <center>Total(MU's) :</center>
+                                                                                            </th>
+                                                                                            {{#each isRealTimeTotalMwhView}}
+                                                                                            <td><b>{{totalMwh}}</b></td>
+                                                                                            {{/each}}
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                              {{else}}
+                                                                                <table class="table table-responsive table-bordered">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            {{#each getTableHeadings isRealTimeViewBtnClicked}}
+                                                                                            <td><b>{{this}}</b></td>
+                                                                                            {{/each}}
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        {{#each isRealTimeViewBtnClicked}}
+                                                                                        <tr>
+                                                                                            {{#each getValues this}}
+                                                                                            <td class="{{this.color}}">{{this.data}}</td>
+                                                                                            {{/each}}
+                                                                                        </tr>
+                                                                                        {{/each}}
+                                                                                    </tbody>
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <th colspan="2">
+                                                                                                <center>Total(MU's) :</center>
+                                                                                            </th>
+                                                                                            {{#each isRealTimeTotalMwhView}}
+                                                                                            <td><b>{{totalMwh}}</b></td>
+                                                                                            {{/each}}
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                              {{/if}}
+                                                                            {{/if}}
+                                                                        </fieldset>
+                                                                    </div>
+                                                                </section>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{/if}}
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

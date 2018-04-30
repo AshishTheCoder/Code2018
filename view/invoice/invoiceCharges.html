@@ -1,0 +1,126 @@
+<template name="invoiceChargesDetails">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Invoice Charges for DISCOM </h1>
+                    </div>
+                    <div class="panel-body">
+                        <form id="RateChargesForm" role="form">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-8">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Invoice Type:</label>
+                                            <div class="col-sm-6">
+                                                <select id="selectInvoice" class="form-control input-sm" name="select_invoice">
+                                                    <option value="">Select Invoice</option>
+                                                    <option value="Energy_Invoice">Energy Invoice</option>
+                                                    <option value="Transmission_Charges">Transmission Charges</option>
+                                                    <option value="SLDC_Charges">SLDC Charges</option>
+                                                    <!-- <option value="UI_Charges">UI Charges</option> -->
+                                                    <!-- <option value="RLDC_Charges">RLDC Charges</option> -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-8">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Financial Year :</label>
+                                            <div class="col-sm-6">
+                                              <select id='ddlFinancialYearInvoice' class="form-control form-control-sm input-sm invoiceOtherEnergy" name="energy_invoice_year">
+                                                <option value="">Select Financial Year</option>
+                                                {{#each financialYearHelper}}
+                                                  <option value="{{this}}">{{this}}</option>
+                                                {{/each}}
+                                              </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-8">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">State:</label>
+                                            <div class="col-sm-6">
+                                                <select id="selectState" class="form-control input-sm required" name="discom_state">
+                                                    {{#if transmissionHelper}}
+                                                    {{#if helperUsedForShowTransmissionDDL}}
+                                                    <option value="">Select State</option>
+                                                    <option value="Gujarat">Gujarat</option>
+                                                    <option value="MP">MP</option>
+                                                    <option value="Rajasthan">Rajasthan</option>
+                                                    {{else}}
+                                                    <option value="">Select State</option>
+                                                    <option value="Gujarat">Gujarat</option>
+                                                    <option value="Rajasthan">Rajasthan</option>{{/if}}
+                                                    {{else}}
+                                                    <option value="">Select DISCOM State</option>
+                                                    {{#each showDiscomStates}}
+                                                    <option value="{{discom_state}}">{{discom_state}}</option>
+                                                    {{/each}} {{/if}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-8">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Old Charges:</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control input-sm oldCharges" placeholder="Old Charges" value="{{showOldValue}}" name="old_STU_Charges" readonly>
+                                            </div>
+                                            <div class="col-sm-2 pull-left">Rs/kW/month</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-8">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">New Charges:</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control input-sm newCharges" placeholder="Enter new Charges" name="new_Rate_Charges">
+                                            </div>
+                                            <div class="col-sm-2 pull-left">Rs/kW/month</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-5">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <center>
+                                            <button type="submit" class="btn btn-sm btn-success">Update</button>
+                                        </center>
+                                    </div>
+                                    <div class="col-sm-4">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

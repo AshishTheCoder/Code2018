@@ -1,0 +1,1149 @@
+<template name="dailyReportSECIL">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 style="font-weight:bold;font-size:28px;text-align:center;">Daily Report</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Select Date:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="selectDate" class="form-control input-sm" placeholder="Select Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label class="radio-inline ">
+                                                    <input type="radio" name="inlineRadioOptions" id="inlineRadio" value="comparision"> RLDC Comparisions
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label class="radio-inline ">
+                                                    <input type="radio" name="inlineRadioOptions" id="inlineRadio" value="discom"> DISCOMS REPORT
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label class="radio-inline ">
+                                                    <input type="radio" name="inlineRadioOptions" id="inlineRadio" value="MPdiscom"> MP DISCOMS REPORT
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            {{#if viewStates}}
+                                            <div class="col-sm-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 form-control-label">Select DISCOM State:</label>
+                                                    <div class="col-sm-8">
+                                                        <select class="form-control input-sm" id="selectStateDiscom">
+                                                          <option value="">Select State</option>
+                                                           <option value="Assam" ldcAttr="NERLDC">Assam</option>
+                                                           {{#if hideDuetoMpDiscom}}
+                                                           <option value="Bihar" ldcAttr="ERLDC">Bihar</option>
+                                                           <option value="Chhattisgarh" ldcAttr="">Chhattisgarh</option>
+                                                           {{/if}}
+                                                           <option value="Delhi(BRPL)" ldcAttr="">Delhi(BRPL)</option>
+                                                           <option value="Delhi(BYPL)" ldcAttr="">Delhi(BYPL)</option>
+                                                           <option value="Delhi(TPDDL)" ldcAttr="">Delhi(TPDDL)</option>
+                                                           {{#if hideDuetoMpDiscom}}
+                                                           <option value="Goa" ldcAttr="">Goa</option>
+                                                           {{/if}}
+                                                           <option value="Haryana" ldcAttr="">Haryana</option>
+                                                           <option value="Himachal Pradesh" ldcAttr="">Himachal Pradesh</option>
+                                                           <option value="Jharkhand" ldcAttr="ERLDC">Jharkhand</option>
+                                                           <option value="Maharashtra" ldcAttr="WRLDC">Maharashtra</option>
+                                                           <option value="Odisha" ldcAttr="ERLDC">Odisha</option>
+                                                           <option value="Punjab" ldcAttr="">Punjab</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{/if}} {{#if viewMpDiscomReport}}
+                                            <div class="col-sm-4">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 form-control-label">Select MP State:</label>
+                                                    <div class="col-sm-8">
+                                                        <select class="form-control input-sm" id="selectMPDiscom">
+                                                            <option value="">Select State</option>
+                                                            <option value="Maharashtra">Maharashtra</option>
+                                                            <option value="Chhattisgarh">Chhattisgarh</option>
+                                                            <option value="Goa">Goa</option>
+                                                            <option value="Bihar">Bihar</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{#if tableForMp}}
+                                            <div class="col-sm-4">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 form-control-label">Select Revision:</label>
+                                                    <div class="col-sm-8">
+                                                        <select class="form-control input-sm" id="selectMPRevision">
+                                                            <option value="">Select Revision</option>
+                                                            {{#each returningMPDiscomJson.hrefArray}}
+                                                            <option value="{{this.revisionNumber}}">{{this.revisionNumber}}</option>
+                                                            {{/each}}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 form-control-label"></label>
+                                                    <div class="col-sm-6">
+                                                      <a href="{{viewHrefValue}}" target='_blank' class='pull-right' style="color:black">Show Uploaded File</a>
+                                                    </div>
+                                                    <label class="col-sm-3 form-control-label"></label>
+                                                </div>
+                                            </div>
+                                            {{/if}}
+                                            {{/if}} {{#if showComparisionList}}
+                                            <div class="col-sm-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 form-control-label">Select SPD :</label>
+                                                    <div class="col-sm-8">
+                                                        <select class="form-control input-sm" id="selectDiscomData">
+                                                            <option value="">Compare Data</option>
+                                                            <option value="all">
+                                                                {{#each discomNamesDynamic}} {{names}}+ {{/each}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{/if}} {{#if showReportList}}
+                                            <div class="col-sm-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 form-control-label">Select SPD :</label>
+                                                    <div class="col-sm-8">
+                                                        <select class="form-control input-sm" id="selectDiscomData">
+                                                            <option value="">Select SPD</option>
+                                                            <option value="all">All</option>
+                                                            {{#each discomNamesDynamic}}
+                                                            <option value="{{id}}" attrName="{{names}}" attrState="{{state}}">{{names}}</option>
+                                                            {{/each}}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{/if}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{#if showOrissaCaseState}}
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Select Orissa State:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control input-sm" id="selectOrissa">
+                                                    <option value="">Select State</option>
+                                                    <option value="Rajasthan">Rajasthan</option>
+                                                    <option value="Gujarat">Gujarat</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}} {{#if showMaharashtraCaseState}}
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Select Maharashtra State:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control input-sm" id="selectMaharashtra">
+                                                    <option value="">Select State</option>
+                                                    <option value="Rajasthan">Rajasthan</option>
+                                                    <!--Used for MP Discom Rport till RRF completion  -->
+                                                    {{#if hideDuetoMpDiscom}}
+                                                    <option value="MP">MP</option>
+                                                    {{/if}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}}
+                                <!--Table-->
+                                {{#if viewTable}}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <section class="panel panel-default">
+                                            <div class="panel-body">
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12">
+                                                            <table class="table table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Date</th>
+                                                                        <th>State Name</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>{{viewDateSelected}}</td>
+                                                                        <td>{{viewStateSelected}}</td>
+                                                                        <td>
+                                                                            {{#if viewIndividualButton}} &nbsp;
+                                                                            <button id="viewIndividual" class="btn btn-sm btn-info" data-title="" data-toggle="modal" data-target="#myScheduleIndividual">View</button>&nbsp; {{else}} {{#if isStateOrissa}}
+                                                                            <button id="view all" class="btn btn-sm btn-info" data-title="" data-toggle="modal" data-target="#dailyScheduleOrissa">View Odisha</button>&nbsp; {{else}} &nbsp;
+                                                                            <button id="view" class="btn btn-sm btn-info" data-title="" data-toggle="modal" data-target="#mySchedule">View All</button>
+                                                                            &nbsp; {{/if}} {{/if}} {{#if showReportList}}
+                                                                            <!-- <button id="shootDiscomReport" class="btn btn-sm btn-danger" attr="{{viewStateSelected}}">Send {{viewStateSelected}} Discom Report for R0</button> -->
+                                                                            {{/if}}
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                                {{/if}} {{#if tableForMp}}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <section class="panel panel-default">
+                                            <div class="panel-body">
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12">
+                                                            <table class="table table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Date</th>
+                                                                        <th>State Name</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>{{viewDateSelected}}</td>
+                                                                        <td>{{viewStateSelectedForMp}}</td>
+                                                                        <td>
+                                                                            <button class="btn btn-sm btn-info" data-title="" data-toggle="modal" data-target="#myMPdiscom">View</button>&nbsp;
+                                                                            <button id="shootMPReport" class="btn btn-sm btn-danger" attrDate='{{viewDateSelected}}' attrState="{{viewStateSelectedForMp}}">Send {{viewStateSelectedForMp}} - MP Discom Report</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{#if discomComparisionShow}}
+    <div id="mySchedule" class="modal fade modal-widthinc" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <h4 class="modal-title">Daily Schedule of DISCOM for Comparision</h4>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <button id="discomInterAll" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" style="overflow-x:scroll">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!-- <table>
+                              <thead>
+                                  <tr>
+                                      <th rowspan="2"><img class="sign-login" src="/img/seci-logo.png" /></th>
+                                      <th colspan="8"></th>
+                                      <th colspan="2">Solar Energy Corporation of India
+                                          <br>(A Government of India Enterprise)</th>
+                                  </tr>
+                                  <tr>
+                                  </tr>
+                                  <tr>
+                                      <th colspan="4">Regd. Office:</th>
+                                      <th colspan="6">SOLAR ENERGY CORPORATION OF INDIA,1st Floor, A Wing, D-3,District Centre, Saket, New Delhi - 110017</th>
+                                  </tr>
+                                  <tr>
+                                      <th colspan="4"></th>
+                                      <th colspan="6">Phones: 011-71989285/86</th>
+                                  </tr>
+                                  <tr>
+                                      <th colspan="4"></th>
+                                      <th colspan="6">Fax: 011-71989287, Website: www.seci.co.in</th>
+                                  </tr>
+                                  <tr>
+                                      <th colspan="4"></th>
+                                      <th colspan="6">CIN: U40106DL2011NPL225263</th>
+                                  </tr>
+                                  <tr>
+                                      <th colspan="5">TRANSACTION</th>
+                                      <th colspan="2"><b>{{showSpdState}} - {{viewDiscomStateName}}</b></th>
+                                      <th colspan="2">ISSUE DATE:</th>
+                                      <th colspan="3"><b>{{viewMinusOneDay}}</b></th>
+                                  </tr>
+                                  <tr>
+                                      <th colspan="5">STU CHARGES</th>
+                                      <th colspan="2"><b></b></th>
+                                      <th colspan="2">SCHEDULE FOR :</th>
+                                      <th colspan="3"><b>{{viewDateSelected}}</b></th>
+                                  </tr>
+                                  <tr>
+                                      <th colspan="5"></th>
+                                      <th colspan="2"><b></b></th>
+                                      <th colspan="2">REV</th>
+                                      <th colspan="3"><b>0</b></th>
+                                  </tr>
+                                  <tr>
+                                      <th colspan="5"><b>LTOA Intimation No.</b></th>
+                                      <th colspan="6"><b>C/CTU-Plg/LTA/W/2015/SECI/2 dated {{retutnDateToday}}</b></th>
+                                  </tr>
+                                  <tr>
+                                  </tr><tr>
+                                  </tr>
+                              </thead>
+                          </table> -->
+                            <table class="table table-bordered" id="discomInterAllTable">
+                                <tbody>
+                                    <tr>
+                                        <th>
+                                            <center>Regd. Office:</center>
+                                        </th>
+                                        <td colspan="100%">
+                                            <tr>SOLAR ENERGY CORPORATION OF INDIA,1st Floor,A Wing,D-3, District Centre,Saket,New Delhi-110017</tr>
+                                            <tr>Phones:011-71989200</tr>
+                                            <tr>Fax: 011-71989244,Website: www.seci.co.in</tr>
+                                            <tr>CIN: U40106DL2011NPL225263 </tr>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <center>TRANSACTION:</center>
+                                        </th>
+                                        <td>
+                                            <center>{{returningFullJsonAll.spdState}} - {{returningFullJsonAll.discomSate}}</center>
+                                        </td>
+                                        <th>
+                                            <center>ISSUE DATE:</center>
+                                        </th>
+                                        <td colspan="100%">
+                                            {{returningFullJsonAll.minusOneDay}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <center>STU LOSS</center>
+                                        </th>
+                                        <td>
+                                            <center>{{returningFullJsonAll.rate}}</center>
+                                        </td>
+                                        <th>
+                                            <center>SCHEDULE FOR:</center>
+                                        </th>
+                                        <td colspan="100%">
+                                            {{returningFullJsonAll.scheduleDate}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            <center></center>
+                                        </th>
+                                        <th>
+                                            <center>REV:</center>
+                                        </th>
+                                        <td colspan="100%">
+                                            {{returningFullJsonAll.valueHighestRevision}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <center>LTOA Intimation No.</center>
+                                        </th>
+                                        <td colspan="3">{{returningFullJsonAll.LTOA_number}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th colspan="2">
+                                        </th>
+                                        <th>
+                                            <center>GENERATION SCHEDULE</center>
+                                        </th>
+                                        <th>
+                                            <center> AT {{returningFullJsonAll.spdState}} PERIPHERY AFTER STU LOSSES</center>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            <center>TIME BLOCK</center>
+                                        </th>
+                                        <th>
+                                            <center>TOTAL MW</center>
+                                        </th>
+                                        <th>
+                                            <center>MW AFTER LOSSES</center>
+                                        </th>
+                                        {{#each dynamicComparisionTable}}
+                                        <th>
+                                            <center>{{this}}</center>
+                                        </th>
+                                        {{/each}}
+                                    </tr>
+                                    {{#each blockCount}} {{#let bigValue=@index}}
+                                    <tr>
+                                        <td>
+                                            <center><strong>{{returnSlots "from" bigValue}}-{{returnSlots "to" bigValue}}</strong></center>
+                                        </td>
+                                        <th>
+                                            <center>{{serialNumber bigValue}}</center>
+                                        </th>
+                                        <td>
+                                            <center>{{totalShow returningFullJsonAll.result bigValue}}</center>
+                                        </td>
+                                        <td>
+                                            <center>{{totalShowError returningFullJsonAll.lossResult bigValue}}</center>
+                                        </td>
+                                        {{#each dynamicComparisionTable}}
+                                        <th>
+                                            <center>{{serverDataShow this bigValue}}</center>
+                                        </th>
+                                        {{/each}}
+                                    </tr>
+                                    {{/let}} {{/each}}
+                                    <tr>
+                                        <td>
+                                            <center> <strong>Total(MU's)</strong></center>
+                                        </td>
+                                        <th>
+                                            <center></center>
+                                        </th>
+                                        <td>
+                                            <center><strong>{{totalShow returningFullJsonAll.result 96}}</strong></center>
+                                        </td>
+                                        <td>
+                                            <center><strong>{{totalShowError returningFullJsonAll.lossResult 96}}</strong></center>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-8"></div>
+                                        <div class="col-sm-4"><strong>Authorised Signatory</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-8"></div>
+                                        <div class="col-sm-4"><strong>Solar Energy Corporation of India</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4">
+                                <div class="form-group center-block">
+                                    <button type="button" class="btn btn-danger center-block" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}} {{#if discomReportShow}}
+    <div id="mySchedule" class="modal fade modal-widthinc" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <h4 class="modal-title">Daily Schedule of DISCOM Report</h4>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <button id="discomInterAll" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" style="overflow-x:scroll">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2"><img class="sign-login" src="/img/seci-logo.png" /></th>
+                                        <th colspan="8"></th>
+                                        <th colspan="2">Solar Energy Corporation of India
+                                            <br>(A Government of India Enterprise)</th>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4">Regd. Office:</th>
+                                        <th colspan="6">SOLAR ENERGY CORPORATION OF INDIA,1st Floor, A Wing, D-3,District Centre, Saket, New Delhi - 110017</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4"></th>
+                                        <th colspan="6">Phones: 011-71989285/86</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4"></th>
+                                        <th colspan="6">Fax: 011-71989287, Website: www.seci.co.in</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4"></th>
+                                        <th colspan="6">CIN: U40106DL2011NPL225263</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="5">TRANSACTION</th>
+                                        <th colspan="2"><b>{{returningFullJsonAll.spdState}} - {{returningFullJsonAll.discomSate}}</b></th>
+                                        <th colspan="2">ISSUE DATE:</th>
+                                        <th colspan="3"><b>{{returningFullJsonAll.minusOneDay}}</b></th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="5">STU CHARGES</th>
+                                        <th colspan="2"><b>{{returningFullJsonAll.rate}}</b></th>
+                                        <th colspan="2">SCHEDULE FOR :</th>
+                                        <th colspan="3"><b>{{returningFullJsonAll.scheduleDate}}</b></th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="5"></th>
+                                        <th colspan="2"><b></b></th>
+                                        <th colspan="2">REV</th>
+                                        <th colspan="3"><b>{{returningFullJsonAll.valueHighestRevision}}</b></th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="5"><b>LTOA Intimation No.</b></th>
+                                        <th colspan="6"><b>{{returningFullJsonAll.LTOA_number}}</b></th>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <table class="table table-bordered" id="discomInterAllTable">
+                                <tbody>
+                                    <tr>
+                                        <th colspan="2">
+                                            <br>
+                                            <center></center>
+                                        </th>
+                                        <th colspan="{{collspanLength}}">
+                                            <br>
+                                            <center>GENERATION SCHEDULE</center>
+                                        </th>
+                                        <th colspan="{{collspanLength}}">
+                                            <br>
+                                            <center> AT {{returningFullJsonAll.spdState}} PERIPHERY AFTER STU LOSSES</center>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            <br>
+                                            <center>TIME BLOCK</center>
+                                        </th>
+
+                                        {{#each returningFullJsonAll.spdNamesListTotal}}
+                                        <th>
+                                            <center>{{this}}</center>
+                                        </th>
+                                        {{/each}} {{#each returningFullJsonAll.spdNamesListLossTotal}}
+                                        <th>
+                                            <center>{{this}}</center>
+                                        </th>
+                                        {{/each}}
+                                    </tr>
+                                    {{#each blockCount}} {{#let largeCount=@index}}
+                                    <tr>
+                                        <td>
+                                            <center><strong>{{returnSlots "from" largeCount}}-{{returnSlots "to" largeCount}}</strong></center>
+                                        </td>
+                                        <th>
+                                            <center>{{serialNumber largeCount}}</center>
+                                        </th>
+
+                                        {{#each returningFullJsonAll.spdNamesListTotal}}
+                                        <td>
+                                            <center>{{returnHelper returningFullJsonAll.result @index largeCount}}</center>
+                                        </td>
+                                        {{/each}} {{#each returningFullJsonAll.spdNamesListLossTotal}}
+                                        <td>
+                                            <center>{{returnHelper returningFullJsonAll.lossResult @index largeCount}}</center>
+                                        </td>
+                                        {{/each}}
+                                    </tr>
+                                    {{/let}} {{/each}}
+                                    <tr>
+                                        <td>
+                                            <center> <strong>Total(MU's)</strong></center>
+                                        </td>
+                                        <th>
+                                            <center></center>
+                                        </th>
+                                        {{#each returningFullJsonAll.spdNamesListTotal}}
+                                        <td>
+                                            <center><strong>{{returnHelper returningFullJsonAll.result @index 96}}</strong></center>
+                                        </td>
+                                        {{/each}} {{#each returningFullJsonAll.spdNamesListLossTotal}}
+                                        <td>
+                                            <center><strong>{{returnHelper returningFullJsonAll.lossResult @index 96}}</strong></center>
+                                        </td>
+                                        {{/each}}
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-8"></div>
+                                        <div class="col-sm-4"><strong>Authorised Signatory</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-8"></div>
+                                        <div class="col-sm-4"><strong>Solar Energy Corporation of India</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4">
+                                <div class="form-group center-block">
+                                    <button type="button" class="btn btn-danger center-block" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myScheduleIndividual" class="modal fade modal-widthinc" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <h4 class="modal-title">Daily Schedule of DISCOM</h4>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <button id="discomInterIndi" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2"><img class="sign-login" src="/img/seci-logo.png" /></th>
+                                            <th colspan="8"></th>
+                                            <th colspan="2">Solar Energy Corporation of India
+                                                <br>(A Government of India Enterprise)</th>
+                                        </tr>
+                                        <tr>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="4">Regd. Office:</th>
+                                            <th colspan="6">SOLAR ENERGY CORPORATION OF INDIA,1st Floor, A Wing, D-3,District Centre, Saket, New Delhi - 110017</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="4"></th>
+                                            <th colspan="6">Phones: 011-71989285/86</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="4"></th>
+                                            <th colspan="6">Fax: 011-71989287, Website: www.seci.co.in</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="4"></th>
+                                            <th colspan="6">CIN: U40106DL2011NPL225263</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="5">TRANSACTION</th>
+                                            <th colspan="2"><b>{{returningFullJsonIndi.spdState}} - {{returningFullJsonIndi.discomSate}}</b></th>
+                                            <th colspan="2">ISSUE DATE:</th>
+                                            <th colspan="3"><b>{{returningFullJsonIndi.minusOneDay}}</b></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="5">STU CHARGES</th>
+                                            <th colspan="2"><b>{{returningFullJsonIndi.rate}}</b></th>
+                                            <th colspan="2">SCHEDULE FOR :</th>
+                                            <th colspan="3"><b>{{returningFullJsonIndi.scheduleDate}}</b></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="5"></th>
+                                            <th colspan="2"><b></b></th>
+                                            <th colspan="2">REV</th>
+                                            <th colspan="3"><b>{{returningFullJsonIndi.valueHighestRevision}}</b></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="5"><b>LTOA Intimation No.</b></th>
+                                            <th colspan="6"><b>{{returningFullJsonIndi.LTOA_number}}</b></th>
+                                        </tr>
+                                        <tr>
+                                        </tr>
+                                        <tr>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <table class="table table-bordered" id="discomInterIndiTable">
+                                    <tbody>
+                                        <tr>
+                                            <th colspan="2"></th>
+                                            <th>
+                                                <center>GENERATION SCHEDULE</center>
+                                            </th>
+                                            <th>
+                                                <center>AT {{returningFullJsonIndi.spdState}} PERIPHERY AFTER STU LOSSES</center>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2">
+                                                <center>TIME BLOCK</center>
+                                            </th>
+                                            <th>
+                                                <center>{{returningFullJsonIndi.nameOfSpd}} (MW)</center>
+                                            </th>
+                                            <th>
+                                                <center>{{returningFullJsonIndi.nameOfSpd}} (MW after Losses)</center>
+                                            </th>
+                                        </tr>
+                                        {{#each blockCount}}
+                                        <tr>
+                                            <td>
+                                                <center>{{returnSlots "from" @index}}-{{returnSlots "to" @index}}</center>
+                                            </td>
+                                            <td>
+                                                <center>{{serialNumber @index}}</center>
+                                            </td>
+                                            <td>
+                                                <center>{{individualHelper returningFullJsonIndi.result @index}}</center>
+                                            </td>
+                                            <td>
+                                                <center>{{individualHelper returningFullJsonIndi.lossResult @index}}</center>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                        <tr>
+                                            <th>
+                                                <center><strong>TOTAL(MU's)</strong></center>
+                                            </th>
+                                            <td></td>
+                                            <th>
+                                                <center>{{returningFullJsonIndi.totalArray}}</center>
+                                            </th>
+                                            <th>
+                                                <center>{{returningFullJsonIndi.errorTotalValue}}</center>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4">
+                                <div class="form-group center-block">
+                                    <button type="button" class="btn btn-danger center-block" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}} {{#if isStateOrissa}}
+    <div id="dailyScheduleOrissa" class="modal fade modal-widthinc" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <h4 class="modal-title">Daily Schedule of DISCOM Report</h4>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <button id="discomOrissa" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" style="overflow-x:scroll">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2"><img class="sign-login" src="/img/seci-logo.png" /></th>
+                                        <th colspan="8"></th>
+                                        <th colspan="2">Solar Energy Corporation of India
+                                            <br>(A Government of India Enterprise)</th>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4">Regd. Office:</th>
+                                        <th colspan="6">SOLAR ENERGY CORPORATION OF INDIA,1st Floor, A Wing, D-3,District Centre, Saket, New Delhi - 110017</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4"></th>
+                                        <th colspan="6">Phones: 011-71989285/86</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4"></th>
+                                        <th colspan="6">Fax: 011-71989287, Website: www.seci.co.in</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4"></th>
+                                        <th colspan="6">CIN: U40106DL2011NPL225263</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="5">TRANSACTION</th>
+                                        <th colspan="2"><b>{{returningFullJsonAll.spdState}} - {{returningFullJsonAll.discomSate}}</b></th>
+                                        <th colspan="2">ISSUE DATE:</th>
+                                        <th colspan="3"><b>{{returningFullJsonAll.minusOneDay}}</b></th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="5">STU CHARGES</th>
+                                        <th colspan="2"><b>{{returningFullJsonAll.rate}}</b></th>
+                                        <th colspan="2">SCHEDULE FOR :</th>
+                                        <th colspan="3"><b>{{returningFullJsonAll.scheduleDate}}</b></th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="5"></th>
+                                        <th colspan="2"><b></b></th>
+                                        <th colspan="2">REV</th>
+                                        <th colspan="3"><b>{{returningFullJsonAll.valueHighestRevision}}</b></th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="5"><b>LTOA Intimation No.</b></th>
+                                        <th colspan="6"><b>{{returningFullJsonAll.LTOA_number}}</b></th>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <table class="table table-bordered" id="discomOrissaTable">
+                                <tbody>
+                                    <tr>
+                                        <th colspan="2">
+                                            <br>
+                                            <center></center>
+                                        </th>
+                                        <th colspan="{{collspanLength}}">
+                                            <center>GENERATION SCHEDULE</center>
+                                        </th>
+                                        <th colspan="{{collspanLength}}">
+                                            <center> AT {{returningFullJsonAll.spdState}} PERIPHERY AFTER STU LOSSES</center>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            <br>
+                                            <center>TIME BLOCK</center>
+                                        </th>
+
+                                        {{#each returningFullJsonAll.spdNamesListTotal}}
+                                        <th>
+                                            <br>
+                                            <center>{{this}}</center>
+                                        </th>
+                                        {{/each}} {{#each returningFullJsonAll.spdNamesListLossTotal}}
+                                        <th>
+                                            <br>
+                                            <center>{{this}}</center>
+                                        </th>
+                                        {{/each}}
+                                    </tr>
+                                    {{#each blockCount}} {{#let largeCount=@index}}
+                                    <tr>
+                                        <td>
+                                            <center><strong>{{returnSlots "from" largeCount}}-{{returnSlots "to" largeCount}}</strong></center>
+                                        </td>
+                                        <th>
+                                            <center>{{serialNumber largeCount}}</center>
+                                        </th>
+
+                                        {{#each returningFullJsonAll.spdNamesListTotal}}
+                                        <td>
+                                            <center>{{returnHelper returningFullJsonAll.result @index largeCount}}</center>
+                                        </td>
+                                        {{/each}} {{#each returningFullJsonAll.spdNamesListLossTotal}}
+                                        <td>
+                                            <center>{{returnHelper returningFullJsonAll.lossResult @index largeCount}}</center>
+                                        </td>
+                                        {{/each}}
+                                    </tr>
+                                    {{/let}} {{/each}}
+                                    <tr>
+                                        <td>
+                                            <center> <strong>Total(MU's)</strong></center>
+                                        </td>
+                                        <th>
+                                            <center></center>
+                                        </th>
+                                        {{#each returningFullJsonAll.spdNamesListTotal}}
+                                        <td>
+                                            <center><strong>{{returnHelper returningFullJsonAll.result @index 96}}</strong></center>
+                                        </td>
+                                        {{/each}} {{#each returningFullJsonAll.spdNamesListLossTotal}}
+                                        <td>
+                                            <center><strong>{{returnHelper returningFullJsonAll.lossResult @index 96}}</strong></center>
+                                        </td>
+                                        {{/each}}
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-8"></div>
+                                        <div class="col-sm-4"><strong>Authorised Signatory</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-8"></div>
+                                        <div class="col-sm-4"><strong>Solar Energy Corporation of India</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4">
+                                <div class="form-group center-block">
+                                    <button type="button" class="btn btn-danger center-block" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}} {{#if tableForMp}}
+    <div id="myMPdiscom" class="modal fade modal-widthinc" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <h4 class="modal-title">MP DISCOM View</h4>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <button id="discomMP" class="btn btn-sm btn-info glyphicon glyphicon-print pull-right">Export to Excel</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2"><img class="sign-login" src="/img/seci-logo.png" /></th>
+                                            <th colspan="8"></th>
+                                            <th colspan="2">Solar Energy Corporation of India
+                                                <br>(A Government of India Enterprise)</th>
+                                        </tr>
+                                        <tr>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="4">Regd. Office:</th>
+                                            <th colspan="6">SOLAR ENERGY CORPORATION OF INDIA,1st Floor, A Wing, D-3,District Centre, Saket, New Delhi - 110017</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="4"></th>
+                                            <th colspan="6">Phones: 011-71989285/86</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="4"></th>
+                                            <th colspan="6">Fax: 011-71989287, Website: www.seci.co.in</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="4"></th>
+                                            <th colspan="6">CIN: U40106DL2011NPL225263</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="5">TRANSACTION</th>
+                                            <th colspan="2"><b>{{returningMPDiscomJson.spdState}} - {{returningMPDiscomJson.discomState}}</b></th>
+                                            <th colspan="2">ISSUE DATE:</th>
+                                            <th colspan="3"><b>{{returningMPDiscomJson.minusOneDay}}</b></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="5"></th>
+                                            <th colspan="2"><b></b></th>
+                                            <th colspan="2">SCHEDULE FOR :</th>
+                                            <th colspan="3"><b>{{returningMPDiscomJson.scheduleDate}}</b></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="5"></th>
+                                            <th colspan="2"><b></b></th>
+                                            <th colspan="2">REV</th>
+                                            <th colspan="3"><b>{{returningMPDiscomJson.valueHighestRevision}}</b></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="5"><b>LTOA Intimation No.</b></th>
+                                            <th colspan="6"><b>{{returningMPDiscomJson.LTOA_number}}</b></th>
+                                        </tr>
+                                        <tr>
+                                        </tr>
+                                        <tr>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <table class="table table-bordered" id="discomMPTable">
+                                    <tbody>
+                                        <tr>
+                                            <th colspan="2"></th>
+                                            <th>
+                                                <center>AT {{returningMPDiscomJson.spdState}} PERIPHERY</center>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2">
+                                                <center>TIME BLOCK</center>
+                                            </th>
+                                            <th>
+                                                <center>{{individualHelper returningMPDiscomJson.detailsArray 1}}</center>
+                                            </th>
+                                        </tr>
+                                        {{#each blockCount}}
+                                        <tr>
+                                            <td>
+                                                <center>{{returnSlots "from" @index}}-{{returnSlots "to" @index}}</center>
+                                            </td>
+                                            <td>
+                                                <center>{{serialNumber @index}}</center>
+                                            </td>
+                                            <td>
+                                                <center>{{individualHelper returningMPDiscomJson.result @index}}</center>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                        <tr>
+                                            <th>
+                                                <center><strong>TOTAL(MU's)</strong></center>
+                                            </th>
+                                            <td></td>
+                                            <th>
+                                                <center>{{individualHelper returningMPDiscomJson.result 96}}</center>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4">
+                                <div class="form-group center-block">
+                                    <button type="button" class="btn btn-danger center-block" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+</template>

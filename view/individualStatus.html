@@ -1,0 +1,128 @@
+<template name="individulaStatus">
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 main">
+                <h1 class="page-header">Status For Individual User</h1>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                              <form id="individula" action="#">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">From Date :</label>
+                                            <div class="col-sm-7">
+                                                <input type="date" name="fromdate" id="my-datepicker" class=" date form-control input-sm" placeholder="From">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">To Date :</label>
+                                            <div class="col-sm-7">
+                                                <input type="date" name="todate" id="toDate" class="date form-control input-sm" placeholder="To">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="radio-inline ">
+                                                    <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="SPDs"> SPDs
+                                                </label>
+                                                <label class="radio-inline ">
+                                                    <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="DISCOMS"> DISCOMS
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='row'>
+                                    <div class="col-sm-12">
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 form-control-label ">Field Required :</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control form-control-sm input-sm" name="FieldRequired">
+                                                    <option value="">Select</option>
+                                                    <option value="asdf">asdf</option>
+                                                    <option value="asdf">asdf</option>
+                                                    <option value="fads">fads</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-1">
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <button id="submitDayForm" class="btn btn-sm btn-success" >Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </form>
+                                <!--Table-->
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <section class="panel panel-default">
+                                            <div class="panel-body">
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12">
+                                                            <table class="table table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>S No.</th>
+                                                                        <th>Field Name</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>1</td>
+                                                                        <td>Filed name</td>
+                                                                        <td><button id="editSchedule" class="btn btn-sm btn-danger">Remove</button></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>2</td>
+                                                                        <td>Filed name</td>
+                                                                        <td><button id="editSchedule" class="btn btn-sm btn-danger">Remove</button></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>3</td>
+                                                                        <td>Filed name</td>
+                                                                        <td><button id="editSchedule" class="btn btn-sm btn-danger">Remove</button></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+
+                            </div>
+                            <div class="col-sm-4 ">
+                                <button class="btn btn-sm btn-primary" id="preview">Preview</button>
+                            </div>
+                            <div class="col-sm-4 ">
+                                <button id="submitDayForm" class="btn btn-sm btn-success" >Download</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
