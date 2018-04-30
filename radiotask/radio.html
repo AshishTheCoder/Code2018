@@ -1,0 +1,40 @@
+<template name="radio1">
+  <table>
+<!--  -->
+    <thead>
+
+      <tr>
+      <th ><input type="radio" name="check1" id="check1" value="abc">abc</th>
+       <th >  <input type="radio" name="check2" id="check2" value="xyz">xyz</th>
+    </tr>
+    </thead>
+    <tbody>
+      <!-- {{#if index}} -->
+
+     {{#if details}}
+{{#each index}}
+      <tr> <td><label for="3">{{this}}</label></td>  </tr>
+      <tr> <td>  <input type="text" name="" value=""></td></tr>
+      <!-- <tr><td><label for="1">{{this}}</label></td></tr>
+      <tr><td><input type="text" name="" value=""></td></tr>
+      <tr><td><label for="2">{{this}}</label></td></tr>
+      <tr><td>  <input type="text" name="" value=""></td></tr> -->
+
+      <!-- <tr><td><label for="4">{{serial}}</label></td></tr>
+     <tr><td><input type="text" name="" value=""></td></tr> -->
+    {{/each}}
+    <!-- {{/if}} -->
+
+{{else}}
+{{#each index}}
+    <tr><td><label for="1">{{this}}</label></td></tr>
+    <tr><td><input type="text" name="" value=""></td></tr>
+  <!-- <tr><td><label for="2">{{this}}</label></td></tr>
+  <tr><td>  <input type="text" name="" value=""></td></tr> -->
+
+{{/each}}
+{{/if}}
+    </tbody>
+    <!-- {{#if index}} -->
+  </table>
+</template>

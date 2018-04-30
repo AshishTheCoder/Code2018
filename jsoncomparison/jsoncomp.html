@@ -1,0 +1,56 @@
+<template name="jsoncomp">
+  <table id="tt" border="2">
+    <thead>
+      <tr>
+
+        <th >Existing JSON</th>
+        <th >Updated JSON</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- {{#if jsoncomparison}} -->
+      <!-- {{#each jsoncomparison}} -->
+      <tr>
+        <td>
+           {{jsoncomparison1.name}}
+       </td>
+        {{#if jsoncomparison.name}}
+        <td style="color:blue">
+          <b>  {{jsoncomparison.name}} </b>
+      </td>
+{{else}}
+<td>
+  {{jsoncomparison1.name}}
+</td>
+  {{/if}}
+      </tr>
+    <tr>  <td>{{jsoncomparison1.age}}</td>
+       {{#if jsoncomparison.age}}
+      <td style="color:blue">
+        <b>  {{jsoncomparison.age}} </b>
+    </td>
+{{else}}
+<td>
+  {{jsoncomparison1.age}}
+</td>
+{{/if}}
+     </tr>
+     <tr> <td>{{jsoncomparison1.city}}</td>
+        {{#if jsoncomparison.city}}
+       <td style="color:blue">
+         <b>  {{jsoncomparison.city}} </b>
+     </td>
+{{else}}
+<td>
+ {{jsoncomparison1.city}}
+</td>
+ {{/if}}   </tr>
+
+      <!-- {{/each}} -->
+      <!-- {{/if}} -->
+        <!-- {{#if jsoncomparison1}} -->
+          <!-- {{/if}} -->
+    </tbody>
+  </table>
+<!-- <p>{{jsoncomparison}}</p> -->
+</template>

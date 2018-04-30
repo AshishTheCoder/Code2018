@@ -1,0 +1,53 @@
+<template name="table1">
+  <table class="table table-bordered" id="t1">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>
+  <input type="checkbox" class="allFirst">
+</th>
+        <!-- <th>Age</th> -->
+        <th>Math</th>
+        <th>English</th>
+        </tr>
+    </thead>
+
+    <tbody>
+{{#each reports}}
+      <tr>
+        <td>{{username}}</td>
+        <td>  <input type="checkbox"  class="first" name="mygroup"></td>
+        <td>{{math}}</td>
+        <td>{{English}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+      </table>
+
+      <table class="table table-bordered" id="t11">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <!-- <th>
+      <input type="checkbox"  class="allFirst">
+    </th> -->
+            <!-- <th>Age</th> -->
+            <th>Math</th>
+            <th>English</th>
+            </tr>
+        </thead>
+
+        <tbody>
+          <!-- {{#each getdata}} -->
+            {{#if getdata}}
+        <tr>
+          <td>{{getdata.username}}</td>
+          <!-- <td>  <input type="checkbox"  class="first"></td> -->
+          <td>{{getdata.math}}</td>
+          <td>{{getdata.English}}</td>
+          </tr>{{/if}}
+            <!-- {{/each}} -->
+    </tbody>
+    </table>
+
+</template>
