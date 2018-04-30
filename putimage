@@ -1,0 +1,35 @@
+#!/usr/bin/python
+import sys
+import openpyxl
+from openpyxl.drawing.image import Image
+
+try:
+     fileName=sys.argv[1]
+     imageFile=sys.argv[2]
+     cell=sys.argv[3]
+     fitToPage=sys.argv[4]
+except:
+     print 'require 4 arguements'
+     sys.exit(2)
+
+wb2 = openpyxl.load_workbook(fileName)
+ws=wb2.worksheets[0]
+img = Image(imageFile)
+
+# ws.add_image(img, cell)
+
+print fitToPage
+if fitToPage == '1':
+    ws.sheet_properties.pageSetUpPr.fitToPage = True
+    ws.print_area = 'A1:K106'
+else:
+   print 'page setup not called'
+
+if cell:
+    print 'image added'
+    ws.add_image(img, cell)
+else:
+   print 'image setup not called'
+
+wb2.save(fileName)
+print "done"
