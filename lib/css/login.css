@@ -1,0 +1,69 @@
+@CHARSET "UTF-8";
+/*
+over-ride "Weak" message, show font in dark grey
+*/
+
+.progress-bar {
+    color: #333;
+}
+ *{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: none;
+}
+/*.form-control {
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+}*/
+.login-form {
+    margin-top: 20px;
+}
+
+form[role=login] {
+    color: #5d5d5d;
+    background: #f2f2f2;
+    padding: 26px;
+    border-radius: 0px;
+    height: 340px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+form[role=login] img {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 35px;
+}
+form[role=login] input,
+form[role=login] button {
+    font-size: 18px;
+    margin: 16px 0;
+}
+form[role=login] > div {
+    text-align: center;
+}
+
+form[role=signup] {
+    color: #5d5d5d;
+    background: #f2f2f2;
+    padding: 26px;
+    border-radius: 0px;
+    height: 500px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+form[role=signup] img {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 35px;
+}
+form[role=signup] input,
+form[role=signup] button {
+    font-size: 18px;
+    margin: 16px 0;
+}
+form[role=signup] > div {
+    text-align: center;
+}
